@@ -1,0 +1,89 @@
+﻿@model Anchi.ERP.Domain.Products.Product
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "EditProduct",
+        Id: "@Model.Id",
+        Code: "@Model.Code",
+        Name: "@Model.Name",
+        Stock: @Model.Stock,
+        SafeStock: @Model.SafeStock,
+        Price: @Model.Price,
+        CostPrice: @Model.CostPrice,
+        Remark: "@Model.Remark"
+    });
+</script>
+
+<div class="page-container" ms-controller="EditProduct">
+    <form class="form form-horizontal" id="formProduct">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>编码：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Code" placeholder="编码" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>名称：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Name" placeholder="名称" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>当前库存：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Stock" placeholder="当前库存" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>安全库存：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##SafeStock" placeholder="安全库存" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>售价：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Price" placeholder="售价" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>成本价：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##CostPrice" placeholder="成本价" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-xs-9 col-xs-offset-3">
+                <input type="submit" onclick="return saveProductFn();" class="btn" value="保存">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Products/Edit.js"></script>
+}

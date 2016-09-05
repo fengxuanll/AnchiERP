@@ -1,0 +1,97 @@
+﻿@model Anchi.ERP.Domain.Users.User
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "EditUser",
+        Id: "@Model.Id",
+        TrueName: "@Model.TrueName",
+        LoginName: "@Model.LoginName",
+        Password: "",
+        IDCard: "@Model.IDCard",
+        Tel: "@Model.Tel",
+        Address: "@Model.Address",
+        Remark: "@Model.Remark"
+    });
+</script>
+
+<div class="page-container" ms-controller="EditUser">
+    <form class="form form-horizontal" id="formUser">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>姓名：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##TrueName" placeholder="姓名" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>登录名：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##LoginName" placeholder="登录名" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                @if (Model.Id == Guid.Empty)
+                {
+                    <span class="c-red">*</span>
+                }
+                密码：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Password" placeholder="密码" />
+                @if (Model.Id != Guid.Empty)
+                {
+                    <span class="c-red">不修改可不填</span>
+                }
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                身份证号：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##IDCard" placeholder="身份证号" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                联系电话：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Tel" placeholder="联系电话" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                地址：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Address" placeholder="地址" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-xs-9 col-xs-offset-3">
+                <input type="submit" onclick="return saveUserFn();" class="btn" value="保存">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Users/Edit.js"></script>
+}

@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ms-controller="ProductList">
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>配件管理
+        <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <div class="cl pd-5 mt-10">
+        <span class="l">
+            <a href="javascript:;" class="btn" onclick="addProductFn();">
+                <i class="Hui-iconfont">&#xe6e2;</i>新增
+            </a>
+            <a href="javascript:;" class="btn" onclick="deleteSelectedRowFn();">
+                <i class="Hui-iconfont">&#xe600;</i>删除
+            </a>
+        </span>
+    </div>
+
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+            <tr class="text-c">
+                <th width="25">
+                    <input type="checkbox" name="checkAll">
+                </th>
+                <th width="20">序号</th>
+                <th width="90">编码</th>
+                <th width="90">名称</th>
+                <th width="150">当前库存</th>
+                <th width="150">安全库存</th>
+                <th width="90">售价</th>
+                <th width="90">成本价</th>
+                <th width="150">备注</th>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-c" ms-for="($index, item) in ##List">
+                <td>
+                    <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
+                </td>
+                <td>{{ $index + 1}}</td>
+                <td>{{ item.Code }}</td>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.Stock }}</td>
+                <td>{{ item.SafeStock }}</td>
+                <td>{{ item.Price }}</td>
+                <td>{{ item.CostPrice }}</td>
+                <td>{{ item.Remark }}</td>
+                <td class="td-manage">
+                    <a href="javascript:;" title="修改" ms-click="##editProductFn(item);">
+                        <i class="Hui-iconfont">&#xe6df;</i>修改
+                    </a>
+                    <a href="javascript:;" title="删除" ms-click="##deleteProductFn(item);">
+                        <i class="Hui-iconfont">&#xe6e2;</i>删除
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="10">
+                    <div id="divPager"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Products/List.js"></script>
+    <script type="text/javascript" src="~/Static/Js/laypage1.2/laypage.js"></script>
+}

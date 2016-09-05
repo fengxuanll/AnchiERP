@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{F5DD4E70-DC66-4688-9FE8-31115C48817E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{01C1B850-CB35-4D5B-A46A-97B37D7DB743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Data", "Core\Anchi.ERP.Data\Anchi.ERP.Data.csproj", "{68FD233E-C43C-405B-9569-E2B23726951B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Lib", "1-Lib", "{41624BDC-022E-4D70-8D5A-B3EEE1DF6B6E}"
+	ProjectSection(SolutionItems) = preProject
+		1-Lib\CSkin.dll = 1-Lib\CSkin.dll
+		1-Lib\CSkin.XML = 1-Lib\CSkin.XML
+		1-Lib\DMSkin.dll = 1-Lib\DMSkin.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Service", "Core\Anchi.ERP.Service\Anchi.ERP.Service.csproj", "{81E13CEE-E674-43AE-9F38-A65DEC4EAA75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Domain", "Core\Anchi.ERP.Domain\Anchi.ERP.Domain.csproj", "{883B8B78-9C4E-434C-96C4-7DB09A0B279F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Doc", "2-Doc", "{93F63CB6-56EC-4E3B-A306-8C873DDDACDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Common", "Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj", "{08BF546B-FAB8-4086-A0AC-76BD114F46F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.UI.Web", "UI\Anchi.ERP.UI.Web\Anchi.ERP.UI.Web.csproj", "{2EDA8F19-6561-4834-84DE-2C77BE5AB250}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68FD233E-C43C-405B-9569-E2B23726951B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68FD233E-C43C-405B-9569-E2B23726951B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68FD233E-C43C-405B-9569-E2B23726951B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68FD233E-C43C-405B-9569-E2B23726951B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81E13CEE-E674-43AE-9F38-A65DEC4EAA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81E13CEE-E674-43AE-9F38-A65DEC4EAA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81E13CEE-E674-43AE-9F38-A65DEC4EAA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81E13CEE-E674-43AE-9F38-A65DEC4EAA75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{883B8B78-9C4E-434C-96C4-7DB09A0B279F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{883B8B78-9C4E-434C-96C4-7DB09A0B279F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{883B8B78-9C4E-434C-96C4-7DB09A0B279F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{883B8B78-9C4E-434C-96C4-7DB09A0B279F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08BF546B-FAB8-4086-A0AC-76BD114F46F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BF546B-FAB8-4086-A0AC-76BD114F46F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BF546B-FAB8-4086-A0AC-76BD114F46F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BF546B-FAB8-4086-A0AC-76BD114F46F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EDA8F19-6561-4834-84DE-2C77BE5AB250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EDA8F19-6561-4834-84DE-2C77BE5AB250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EDA8F19-6561-4834-84DE-2C77BE5AB250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EDA8F19-6561-4834-84DE-2C77BE5AB250}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{68FD233E-C43C-405B-9569-E2B23726951B} = {01C1B850-CB35-4D5B-A46A-97B37D7DB743}
+		{81E13CEE-E674-43AE-9F38-A65DEC4EAA75} = {01C1B850-CB35-4D5B-A46A-97B37D7DB743}
+		{883B8B78-9C4E-434C-96C4-7DB09A0B279F} = {01C1B850-CB35-4D5B-A46A-97B37D7DB743}
+		{08BF546B-FAB8-4086-A0AC-76BD114F46F3} = {01C1B850-CB35-4D5B-A46A-97B37D7DB743}
+		{2EDA8F19-6561-4834-84DE-2C77BE5AB250} = {F5DD4E70-DC66-4688-9FE8-31115C48817E}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,73 @@
+﻿@model Anchi.ERP.Domain.Projects.Project
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string Id = string.Empty, Code = string.Empty, Name = string.Empty, UnitPrice = string.Empty, Remark = string.Empty;
+    if (Model != null)
+    {
+        Id = Model.Id.ToString();
+        Code = Model.Code;
+        Name = Model.Name;
+        UnitPrice = Model.UnitPrice.ToString();
+        Remark = Model.Remark;
+    }
+}
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "EditProject",
+        Id: "@Id",
+        Code: "@Code",
+        Name: "@Name",
+        UnitPrice: "@UnitPrice",
+        Remark: "@Remark"
+    });
+</script>
+
+<div class="page-container" ms-controller="EditProject">
+    <form class="form form-horizontal" id="formProject">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>编码：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Code" placeholder="编码" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>名称：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Name" placeholder="名称" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>单价：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##UnitPrice" placeholder="单价" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-xs-9 col-xs-offset-3">
+                <input type="submit" onclick="return saveProjectFn();" class="btn" value="保存">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Projects/Edit.js"></script>
+}

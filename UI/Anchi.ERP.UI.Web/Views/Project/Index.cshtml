@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ms-controller="ProjectList">
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>维修项目管理
+        <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="Hui-iconfont">&#xe68f;</i>
+        </a>
+    </nav>
+    <div class="cl pd-5 mt-10">
+        <span class="l">
+            <a href="javascript:;" class="btn" onclick="addProjectFn();">
+                <i class="Hui-iconfont">&#xe6e2;</i>新增
+            </a>
+            <a href="javascript:;" class="btn" onclick="deleteSelectedRowFn();">
+                <i class="Hui-iconfont">&#xe600;</i>删除
+            </a>
+        </span>
+    </div>
+
+    <table class="table table-border table-bordered table-bg">
+        <thead>
+            <tr class="text-c">
+                <th width="25">
+                    <input type="checkbox" name="checkAll">
+                </th>
+                <th width="20">序号</th>
+                <th width="90">编码</th>
+                <th width="90">名称</th>
+                <th width="150">单价</th>
+                <th width="150">备注</th>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-c" ms-for="($index, item) in ##List">
+                <td>
+                    <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
+                </td>
+                <td>{{ $index + 1}}</td>
+                <td>{{ item.Code }}</td>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.UnitPrice }}</td>
+                <td>{{ item.Remark }}</td>
+                <td class="td-manage">
+                    <a href="javascript:;" title="修改" ms-click="##editProjectFn(item);">
+                        <i class="Hui-iconfont">&#xe6df;</i>修改
+                    </a>
+                    <a href="javascript:;" title="删除" ms-click="##deleteProjectFn(item);">
+                        <i class="Hui-iconfont">&#xe6e2;</i>删除
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    <div id="divPager"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Projects/List.js"></script>
+    <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>
+}

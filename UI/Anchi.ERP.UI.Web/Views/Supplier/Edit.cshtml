@@ -1,0 +1,71 @@
+﻿@model Anchi.ERP.Domain.Suppliers.Supplier
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "EditSupplier",
+        Id: "@Model.Id",
+        Name: "@Model.Name",
+        Contact: "@Model.Contact",
+        Tel: "@Model.Tel",
+        Address: "@Model.Address",
+        Remark: "@Model.Remark"
+    });
+</script>
+
+<div class="page-container" ms-controller="EditSupplier">
+    <form class="form form-horizontal" id="formSupplier">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>名称：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Name" placeholder="名称" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>联系人：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Contact" placeholder="联系人" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>联系电话：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Tel" placeholder="联系电话" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                地址：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Address" placeholder="地址" value="" onkeypress="return decimal(event, this.value);" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-xs-9 col-xs-offset-3">
+                <input type="submit" onclick="return saveSupplierFn();" class="btn" value="保存">
+            </div>
+        </div>
+    </form>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Suppliers/Edit.js"></script>
+}
