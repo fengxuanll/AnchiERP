@@ -1,6 +1,5 @@
-﻿using Anchi.ERP.Domain.Cars;
+﻿using Anchi.ERP.Domain.Customers;
 using Anchi.ERP.Domain.Repairs.Enum;
-using System;
 using System.Collections.Generic;
 
 namespace Anchi.ERP.Domain.Repairs
@@ -27,9 +26,9 @@ namespace Anchi.ERP.Domain.Repairs
         }
 
         /// <summary>
-        /// 维修车信息
+        /// 客户信息
         /// </summary>
-        public Car Car
+        public Customer Customer
         {
             get; set;
         }
@@ -38,14 +37,6 @@ namespace Anchi.ERP.Domain.Repairs
         /// 备注
         /// </summary>
         public string Remark
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreatedOn
         {
             get; set;
         }

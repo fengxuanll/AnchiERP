@@ -71,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDomain.cs" />
-    <Compile Include="Cars\Car.cs" />
     <Compile Include="Common\Enum\EnumOrderbySort.cs" />
     <Compile Include="Common\PagedResult.cs" />
     <Compile Include="Common\PagedFilter.cs" />

@@ -1,5 +1,4 @@
-﻿using Anchi.ERP.Domain.Cars;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Anchi.ERP.Domain.Customers
 {
@@ -12,6 +11,22 @@ namespace Anchi.ERP.Domain.Customers
         /// 姓名
         /// </summary>
         public string Name
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 车牌号
+        /// </summary>
+        public string CarNumber
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 发动机号
+        /// </summary>
+        public string EngineNo
         {
             get; set;
         }
@@ -38,25 +53,6 @@ namespace Anchi.ERP.Domain.Customers
         public string Remark
         {
             get; set;
-        }
-
-        private IList<Car> carList;
-        /// <summary>
-        /// 车辆信息
-        /// </summary>
-        public virtual IList<Car> CarList
-        {
-            get
-            {
-                if (carList == null)
-                    carList = new List<Car>();
-
-                return carList;
-            }
-            set
-            {
-                carList = value;
-            }
         }
     }
 }
