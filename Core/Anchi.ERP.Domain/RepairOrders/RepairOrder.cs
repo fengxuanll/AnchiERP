@@ -81,6 +81,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 客户信息
         /// </summary>
+        [Reference]
         public virtual Customer Customer
         {
             get; set;
@@ -90,6 +91,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 客户ID
         /// </summary>
         [Required]
+        [References(typeof(Customer))]
         public Guid CustomerId
         {
             get; set;
@@ -99,6 +101,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 接待人ID
         /// </summary>
         [Required]
+        [References(typeof(Employee))]
         public Guid ReceptionById
         {
             get; set;
@@ -107,6 +110,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 接待人信息
         /// </summary>
+        [Reference]
         public virtual Employee ReceptionBy
         {
             get; set;

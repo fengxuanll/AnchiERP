@@ -11,7 +11,6 @@ namespace Anchi.ERP.Domain.Customers
         /// 姓名
         /// </summary>
         [Required]
-        [Index(unique: true)]
         [StringLength(50)]
         public string Name
         {

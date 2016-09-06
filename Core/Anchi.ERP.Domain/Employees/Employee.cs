@@ -14,6 +14,7 @@ namespace Anchi.ERP.Domain.Employees
         /// 编码
         /// </summary>
         [Required]
+        [Index(unique: true)]
         [StringLength(50)]
         public string Code
         {
@@ -33,6 +34,7 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 身份证号
         /// </summary>
+        [Index(unique: true)]
         [StringLength(18)]
         public string IDCard
         {

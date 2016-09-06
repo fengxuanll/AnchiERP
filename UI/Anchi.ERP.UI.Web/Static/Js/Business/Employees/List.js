@@ -1,7 +1,7 @@
 ﻿var $vm = avalon.define({
     $id: "EmployeeList",
     List: [],
-    editUserFn: function (item) {
+    editEmployeeFn: function (item) {
         layer.open({
             type: 2,
             maxmin: true,
@@ -11,7 +11,7 @@
             content: '/Employee/Edit/' + item.Id
         });
     },
-    deleteCustomerFn: function (item) {
+    deleteEmployeeFn: function (item) {
         deleteSelectedRowFn(item.Id);
     }
 });

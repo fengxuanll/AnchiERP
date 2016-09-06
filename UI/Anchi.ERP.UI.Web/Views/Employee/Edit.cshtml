@@ -3,10 +3,9 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <script type="text/javascript">
     var $vm = avalon.define({
-        $id: "EditCustomer",
+        $id: "EditEmployee",
         Id: "@Model.Id",
         Code: "@Model.Code",
         Name: "@Model.Name",
@@ -16,9 +15,19 @@
         Address: "@Model.Address",
         Remark: "@Model.Remark"
     });
+
+    $(function () {
+        laydate({
+            elem: '#txtEntryOn',
+            istoday: true,
+            choose: function (datas) { //选择日期完毕的回调
+                $vm.EntryOn = datas;
+            }
+        });
+    });
 </script>
-<div class="page-container" ms-controller="EditCustomer">
-    <form class="form form-horizontal" id="formCustomer">
+<div class="page-container" ms-controller="EditEmployee">
+    <form class="form form-horizontal" id="formEmployee">
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
                 <span class="c-red">*</span>编码：
@@ -40,7 +49,7 @@
                 <span class="c-red">*</span>入职日期：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" ms-duplex="##EntryOn" placeholder="入职日期" />
+                <input type="text" id="txtEntryOn" class="input-text" ms-duplex="##EntryOn" placeholder="入职日期" />
             </div>
         </div>
         <div class="row cl">
@@ -77,11 +86,12 @@
         </div>
         <div class="row cl">
             <div class="formControls col-xs-9 col-xs-offset-3">
-                <input type="submit" onclick="return saveCustomerFn();" class="btn" value="保存">
+                <input type="submit" onclick="return saveEmployeeFn();" class="btn" value="保存">
             </div>
         </div>
     </form>
 </div>
 @section foot{
-    <script type="text/javascript" src="/Static/Js/Business/Customers/Edit.js"></script>
+    <script type="text/javascript" src="/Static/Js/Business/Employees/Edit.js"></script>
+    <script type="text/javascript" src="/Static/Js/laydate1.1/laydate.js"></script>
 }

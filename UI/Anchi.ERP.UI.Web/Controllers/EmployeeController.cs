@@ -73,6 +73,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult Add()
         {
             var model = new Employee();
+            model.EntryOn = DateTime.Now.Date;
             return View("Edit", model);
         }
 

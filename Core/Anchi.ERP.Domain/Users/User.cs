@@ -44,6 +44,7 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 身份证号
         /// </summary>
+        [Index(unique: true)]
         [StringLength(18)]
         public string IDCard
         {

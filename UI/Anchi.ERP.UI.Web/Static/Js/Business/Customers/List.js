@@ -1,7 +1,7 @@
 ﻿var $vm = avalon.define({
     $id: "CustomerList",
     List: [],
-    editUserFn: function (item) {
+    editCustomerFn: function (item) {
         layer.open({
             type: 2,
             maxmin: true,

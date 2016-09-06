@@ -319,6 +319,8 @@
     <Content Include="Static\Js\Business\Products\List.js" />
     <Content Include="Static\Js\Business\Projects\List.js" />
     <Content Include="Static\Js\Business\Projects\Edit.js" />
+    <Content Include="Static\Js\Business\RepairOrders\Edit.js" />
+    <Content Include="Static\Js\Business\RepairOrders\List.js" />
     <Content Include="Static\Js\Business\Suppliers\Edit.js" />
     <Content Include="Static\Js\Business\Suppliers\List.js" />
     <Content Include="Static\Js\Business\Users\Edit.js" />
@@ -348,6 +350,14 @@
     <Content Include="Static\Js\icheck\yellow.png" />
     <Content Include="Static\Js\jquery1.9.1\jquery.js" />
     <Content Include="Static\Js\jquery1.9.1\jquery.min.js" />
+    <Content Include="Static\Js\laydate1.1\laydate.js" />
+    <Content Include="Static\Js\laydate1.1\need\laydate.css" />
+    <Content Include="Static\Js\laydate1.1\skins\dahong\icon.png" />
+    <Content Include="Static\Js\laydate1.1\skins\dahong\laydate.css" />
+    <Content Include="Static\Js\laydate1.1\skins\default\icon.png" />
+    <Content Include="Static\Js\laydate1.1\skins\default\laydate.css" />
+    <Content Include="Static\Js\laydate1.1\skins\molv\icon.png" />
+    <Content Include="Static\Js\laydate1.1\skins\molv\laydate.css" />
     <Content Include="Static\Js\layer2.4\layer.js" />
     <Content Include="Static\Js\layer2.4\skin\default\icon-ext.png" />
     <Content Include="Static\Js\layer2.4\skin\default\icon.png" />

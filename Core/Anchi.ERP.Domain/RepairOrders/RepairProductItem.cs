@@ -40,6 +40,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 配件ID
         /// </summary>
         [Required]
+        [References(typeof(Product))]
         public Guid ProductId
         {
             get; set;
@@ -48,6 +49,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 使用配件
         /// </summary>
+        [Reference]
         public virtual Product Product
         {
             get; set;
