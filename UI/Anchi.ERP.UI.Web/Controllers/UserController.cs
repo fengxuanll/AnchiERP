@@ -31,7 +31,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
 
         /// <summary>
-        /// 查询供应商列表
+        /// 查询用户列表
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>

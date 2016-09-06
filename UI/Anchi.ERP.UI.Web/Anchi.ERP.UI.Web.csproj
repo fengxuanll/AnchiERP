@@ -311,6 +311,8 @@
     <Content Include="Static\Hui-iconfont\1.0.7\iconfont.css" />
     <Content Include="Static\Hui-iconfont\1.0.7\iconfont.svg" />
     <Content Include="Static\Js\avalon2.1.5\avalon.min.js" />
+    <Content Include="Static\Js\Business\Customers\Edit.js" />
+    <Content Include="Static\Js\Business\Customers\List.js" />
     <Content Include="Static\Js\Business\Products\Edit.js" />
     <Content Include="Static\Js\Business\Products\List.js" />
     <Content Include="Static\Js\Business\Projects\List.js" />
