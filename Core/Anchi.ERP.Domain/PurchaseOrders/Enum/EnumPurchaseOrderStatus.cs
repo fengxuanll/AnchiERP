@@ -1,4 +1,4 @@
-﻿namespace Anchi.ERP.Domain.Purchases.Enum
+﻿namespace Anchi.ERP.Domain.PurchaseOrders.Enum
 {
     /// <summary>
     /// 采购单状态

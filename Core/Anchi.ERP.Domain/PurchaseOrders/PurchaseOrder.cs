@@ -1,11 +1,10 @@
-﻿using Anchi.ERP.Domain.Purchases.Enum;
-using Anchi.ERP.Domain.Repairs.Enum;
+﻿using Anchi.ERP.Domain.PurchaseOrders.Enum;
+using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.Suppliers;
 using Anchi.ERP.Domain.Users;
-using System;
 using System.Collections.Generic;
 
-namespace Anchi.ERP.Domain.Purchases
+namespace Anchi.ERP.Domain.PurchaseOrders
 {
     /// <summary>
     /// 采购单

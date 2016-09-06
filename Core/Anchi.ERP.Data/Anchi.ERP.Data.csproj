@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Customers\CustomerRepository.cs" />
+    <Compile Include="Employees\EmployeeRepository.cs" />
     <Compile Include="Products\ProductRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

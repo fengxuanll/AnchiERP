@@ -1,16 +1,28 @@
 ﻿using Anchi.ERP.Domain.Products;
+using ServiceStack.DataAnnotations;
+using System;
 
-namespace Anchi.ERP.Domain.Repairs
+namespace Anchi.ERP.Domain.RepairOrder
 {
     /// <summary>
-    /// 配件明细
+    /// 维修单配件明细
     /// </summary>
     public class RepairProductItem : BaseDomain
     {
         /// <summary>
+        /// 维修单ID
+        /// </summary>
+        [Required]
+        public Guid RepairOrderId
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 单价
         /// </summary>
-        public decimal Price
+        [Required]
+        public decimal UnitPrice
         {
             get; set;
         }
@@ -18,7 +30,17 @@ namespace Anchi.ERP.Domain.Repairs
         /// <summary>
         /// 数量
         /// </summary>
+        [Required]
         public int Quantity
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 配件ID
+        /// </summary>
+        [Required]
+        public Guid ProductId
         {
             get; set;
         }

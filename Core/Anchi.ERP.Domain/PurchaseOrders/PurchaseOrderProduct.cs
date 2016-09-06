@@ -1,7 +1,7 @@
 ﻿using Anchi.ERP.Domain.Products;
-using Anchi.ERP.Domain.Purchases.Enum;
+using Anchi.ERP.Domain.PurchaseOrders.Enum;
 
-namespace Anchi.ERP.Domain.Purchases
+namespace Anchi.ERP.Domain.PurchaseOrders
 {
     /// <summary>
     /// 采购产品

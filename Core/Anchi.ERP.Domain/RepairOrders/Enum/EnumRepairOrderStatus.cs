@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Anchi.ERP.Domain.Repairs.Enum
+namespace Anchi.ERP.Domain.RepairOrder.Enum
 {
     /// <summary>
     /// 维修单状态
