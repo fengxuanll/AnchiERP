@@ -1,5 +1,7 @@
 ﻿using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
+using ServiceStack.DataAnnotations;
+using System;
 
 namespace Anchi.ERP.Domain.PurchaseOrders
 {
@@ -9,9 +11,28 @@ namespace Anchi.ERP.Domain.PurchaseOrders
     public class PurchaseOrderProduct : BaseDomain
     {
         /// <summary>
-        /// 产品信息
+        /// 采购单ID
         /// </summary>
+        [Required]
+        public Guid PurchaseOrderId
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 采购配件信息
+        /// </summary>
+        [Reference]
         public virtual Product Product
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 配件ID
+        /// </summary>
+        [References(typeof(Product))]
+        public Guid ProductId
         {
             get; set;
         }
@@ -19,7 +40,8 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 采购单价
         /// </summary>
-        public decimal Price
+        [Required]
+        public decimal UnitPrice
         {
             get; set;
         }
@@ -27,6 +49,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 数量
         /// </summary>
+        [Required]
         public int Quantity
         {
             get; set;
@@ -35,6 +58,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 到货数量
         /// </summary>
+        [Required]
         public int ArrivalQuantity
         {
             get; set;
@@ -43,6 +67,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 到货状态
         /// </summary>
+        [Required]
         public EnumPurchaseProductStatus Status
         {
             get; set;

@@ -26,6 +26,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 完工时间
         /// </summary>
+        [StringLength(30)]
         public DateTime CompleteOn
         {
             get
@@ -45,6 +46,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 结算时间
         /// </summary>
+        [StringLength(30)]
         public DateTime SettlementOn
         {
             get
@@ -64,6 +66,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 维修单状态
         /// </summary>
         [Required]
+        [StringLength(50)]
         public EnumRepairOrderStatus Status
         {
             get; set;
@@ -73,6 +76,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 结算状态
         /// </summary>
         [Required]
+        [StringLength(50)]
         public EnumSettlementStatus SettlementStatus
         {
             get; set;
@@ -82,6 +86,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 客户信息
         /// </summary>
         [Reference]
+        [Ignore]
         public virtual Customer Customer
         {
             get; set;
@@ -129,6 +134,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 维修项目列表
         /// </summary>
+        [Ignore]
         public virtual IList<RepairOrderItem> ItemList
         {
             get
@@ -148,6 +154,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 配件明细列表
         /// </summary>
+        [Ignore]
         public virtual IList<RepairProductItem> ProductList
         {
             get

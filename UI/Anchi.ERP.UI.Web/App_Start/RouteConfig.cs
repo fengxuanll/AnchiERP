@@ -14,6 +14,17 @@ namespace Anchi.ERP.UI.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Init",
+                url: "Init",
+                defaults: new
+                {
+                    controller = "Login",
+                    action = "Init",
+                    id = UrlParameter.Optional
+                }
+            );
+
+            routes.MapRoute(
                 name: "Logout",
                 url: "Logout",
                 defaults: new { controller = "Login", action = "Logout", id = UrlParameter.Optional }

@@ -12,7 +12,7 @@
         Name: "@Model.Name",
         Stock: @Model.Stock,
         SafeStock: @Model.SafeStock,
-        Price: @Model.Price,
+        SalePrice: @Model.SalePrice,
         CostPrice: @Model.CostPrice,
         Remark: "@Model.Remark"
     });
@@ -54,10 +54,10 @@
         </div>
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
-                <span class="c-red">*</span>售价：
+                <span class="c-red">*</span>销售单价：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" ms-duplex="##Price" placeholder="售价" value="" onkeypress="return decimal(event, this.value);" />
+                <input type="text" class="input-text" ms-duplex="##SalePrice" placeholder="售价" value="" onkeypress="return decimal(event, this.value);" />
             </div>
         </div>
         <div class="row cl">

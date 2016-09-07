@@ -46,9 +46,9 @@ namespace Anchi.ERP.Domain.Products
         }
 
         /// <summary>
-        /// 售价
+        /// 销售单价
         /// </summary>
-        public decimal Price
+        public decimal SalePrice
         {
             get; set;
         }

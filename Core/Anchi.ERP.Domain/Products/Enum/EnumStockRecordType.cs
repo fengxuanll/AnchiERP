@@ -10,8 +10,12 @@
         /// </summary>
         Repair = 1,
         /// <summary>
+        /// 销售出库
+        /// </summary>
+        Sale = 2,
+        /// <summary>
         /// 采购入库
         /// </summary>
-        Purchase = 2,
+        Purchase = 3,
     }
 }

@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Domain.Products.Enum;
-using Anchi.ERP.Domain.Users;
+﻿using Anchi.ERP.Domain.Employees;
+using Anchi.ERP.Domain.Products.Enum;
+using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.Products
@@ -10,9 +11,10 @@ namespace Anchi.ERP.Domain.Products
     public class ProductStockRecord : BaseDomain
     {
         /// <summary>
-        /// 配件
+        /// 产品ID
         /// </summary>
-        public Product Product
+        [PrimaryKey]
+        public Guid ProductId
         {
             get; set;
         }
@@ -20,14 +22,16 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 操作之前的数量
         /// </summary>
+        [Required]
         public int QuantityBefore
         {
             get; set;
         }
 
         /// <summary>
-        /// 出入库数量
+        /// 本次操作的出入库数量
         /// </summary>
+        [Required]
         public int Quantity
         {
             get; set;
@@ -36,23 +40,28 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 库存记录类型
         /// </summary>
+        [Required]
+        [StringLength(50)]
         public EnumStockRecordType Type
         {
             get; set;
         }
 
         /// <summary>
-        /// 记录时间
+        /// 使用人ID
         /// </summary>
-        public DateTime CreatedOn
+        [Required]
+        [References(typeof(Employee))]
+        public Guid UseUserId
         {
             get; set;
         }
 
         /// <summary>
-        /// 操作人
+        /// 使用人信息
         /// </summary>
-        public virtual User User
+        [Ignore]
+        public Employee UseUser
         {
             get; set;
         }

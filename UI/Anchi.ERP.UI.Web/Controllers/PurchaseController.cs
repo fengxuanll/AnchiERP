@@ -10,8 +10,24 @@ namespace Anchi.ERP.UI.Web.Controllers
     [UserAuthorize]
     public class PurchaseController : BaseController
     {
-        // GET: Purchase
-        public ActionResult Index()
+        public PurchaseController()
+        {
+        }
+
+        /// <summary>
+        /// 添加采购单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Add()
+        {
+            return View("Edit");
+        }
+
+        /// <summary>
+        /// 采购单管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult List()
         {
             return View();
         }

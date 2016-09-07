@@ -30,7 +30,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// 初始化默认用户
         /// </summary>
         /// <returns></returns>
-        public ActionResult Default()
+        public ActionResult Init()
         {
             var Id = Guid.Parse("00000000-0000-0000-0000-000000000001");
             var model = UserService.GetById(Id);

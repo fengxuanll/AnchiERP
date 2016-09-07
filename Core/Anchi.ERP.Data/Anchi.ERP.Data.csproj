@@ -73,9 +73,17 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Customers\CustomerRepository.cs" />
     <Compile Include="Employees\EmployeeRepository.cs" />
+    <Compile Include="ProductStocks\ProductStockRecordRepository.cs" />
     <Compile Include="Products\ProductRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchases\PurchaseOrderProductRepository.cs" />
+    <Compile Include="Purchases\PurchaseOrderRepository.cs" />
+    <Compile Include="Repairs\RepairOrderItemRepository.cs" />
+    <Compile Include="Repairs\RepairProductItemRepository.cs" />
+    <Compile Include="Repairs\RepairOrderRepository.cs" />
+    <Compile Include="SaleOrders\SaleOrderItemRepository.cs" />
+    <Compile Include="SaleOrders\SaleOrderRepository.cs" />
     <Compile Include="Suppliers\SupplierRepository.cs" />
     <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>

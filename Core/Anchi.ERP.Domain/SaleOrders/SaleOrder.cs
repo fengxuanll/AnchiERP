@@ -1,4 +1,5 @@
-﻿using ServiceStack.DataAnnotations;
+﻿using Anchi.ERP.Domain.Employees;
+using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +14,16 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 销售人ID
         /// </summary>
         [Required]
-        public Guid SaleBy
+        public Guid SaleById
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 销售人信息
+        /// </summary>
+        [Ignore]
+        public Employee SaleBy
         {
             get; set;
         }
@@ -22,16 +32,17 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 销售时间
         /// </summary>
         [Required]
+        [StringLength(30)]
         public DateTime SaleOn
         {
             get; set;
         }
 
         /// <summary>
-        /// 创建人
+        /// 创建人Id
         /// </summary>
         [Required]
-        public Guid CreatedBy
+        public Guid CreatedById
         {
             get; set;
         }
@@ -49,6 +60,7 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 销售配件列表
         /// </summary>
+        [Ignore]
         public virtual IList<SaleOrderItem> ItemList
         {
             get

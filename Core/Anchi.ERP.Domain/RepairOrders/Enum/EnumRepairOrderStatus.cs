@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Anchi.ERP.Domain.RepairOrder.Enum
+﻿namespace Anchi.ERP.Domain.RepairOrder.Enum
 {
     /// <summary>
     /// 维修单状态
@@ -18,5 +13,9 @@ namespace Anchi.ERP.Domain.RepairOrder.Enum
         /// 维修完成
         /// </summary>
         Completed = 2,
+        /// <summary>
+        /// 已取消
+        /// </summary>
+        Cancel = 3,
     }
 }

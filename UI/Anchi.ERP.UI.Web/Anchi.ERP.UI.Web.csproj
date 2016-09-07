@@ -380,6 +380,7 @@
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\RepairController.cs" />
+    <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filter\BetterJsonResult.cs" />
@@ -439,6 +440,7 @@
     <Folder Include="Static\Css\" />
     <Folder Include="Static\h-ui\images\unslider\" />
     <Folder Include="Static\Images\" />
+    <Folder Include="Views\Sale\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">

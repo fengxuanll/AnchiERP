@@ -1,4 +1,5 @@
-﻿using ServiceStack.DataAnnotations;
+﻿using Anchi.ERP.Domain.Products;
+using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.SaleOrders
@@ -22,6 +23,15 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// </summary>
         [Required]
         public Guid ProductId
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 配件信息
+        /// </summary>
+        [Ignore]
+        public Product Product
         {
             get; set;
         }

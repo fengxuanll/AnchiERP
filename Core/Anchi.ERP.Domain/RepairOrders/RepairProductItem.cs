@@ -50,6 +50,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 使用配件
         /// </summary>
         [Reference]
+        [Ignore]
         public virtual Product Product
         {
             get; set;

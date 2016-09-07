@@ -1,7 +1,6 @@
 ﻿using Anchi.ERP.Common;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.Projects;
-using Anchi.ERP.Domain.Users;
 using ServiceStack.DataAnnotations;
 using System;
 
@@ -35,6 +34,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 维修项目
         /// </summary>
         [Reference]
+        [Ignore]
         public virtual Project Project
         {
             get; set;
@@ -44,7 +44,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 单价
         /// </summary>
         [Required]
-        public decimal Price
+        public decimal UnitPrice
         {
             get; set;
         }
@@ -62,6 +62,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 维修工
         /// </summary>
         [Reference]
+        [Ignore]
         public virtual Employee Employee
         {
             get; set;
@@ -97,7 +98,6 @@ namespace Anchi.ERP.Domain.RepairOrder
                 beginOn = value;
             }
         }
-
 
         private DateTime endOn;
         /// <summary>
