@@ -38,12 +38,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSkin">
-      <HintPath>..\..\1-Lib\CSkin.dll</HintPath>
-    </Reference>
-    <Reference Include="DMSkin">
-      <HintPath>..\..\1-Lib\DMSkin.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
