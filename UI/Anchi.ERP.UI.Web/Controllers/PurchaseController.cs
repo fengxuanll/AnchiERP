@@ -29,7 +29,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <returns></returns>
         public ActionResult List()
         {
-            return View();
+            return View("Index");
         }
     }
 }

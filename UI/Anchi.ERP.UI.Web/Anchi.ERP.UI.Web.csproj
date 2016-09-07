@@ -321,6 +321,8 @@
     <Content Include="Static\Js\Business\Projects\Edit.js" />
     <Content Include="Static\Js\Business\RepairOrders\Edit.js" />
     <Content Include="Static\Js\Business\RepairOrders\List.js" />
+    <Content Include="Static\Js\Business\SaleOrders\Edit.js" />
+    <Content Include="Static\Js\Business\SaleOrders\List.js" />
     <Content Include="Static\Js\Business\Suppliers\Edit.js" />
     <Content Include="Static\Js\Business\Suppliers\List.js" />
     <Content Include="Static\Js\Business\Users\Edit.js" />
@@ -428,6 +430,8 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Repair\SelectRepairProject.cshtml" />
     <Content Include="Views\Product\SelectRepairProduct.cshtml" />
+    <Content Include="Views\Sale\Edit.cshtml" />
+    <Content Include="Views\Sale\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -440,7 +444,6 @@
     <Folder Include="Static\Css\" />
     <Folder Include="Static\h-ui\images\unslider\" />
     <Folder Include="Static\Images\" />
-    <Folder Include="Views\Sale\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">

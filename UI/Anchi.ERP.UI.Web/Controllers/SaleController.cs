@@ -2,10 +2,6 @@
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Service.SaleOrders;
 using Anchi.ERP.UI.Web.Filter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
@@ -38,7 +34,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            return View();
+            return View("Index");
         }
 
         /// <summary>

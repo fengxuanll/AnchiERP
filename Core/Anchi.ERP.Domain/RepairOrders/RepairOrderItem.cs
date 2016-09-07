@@ -77,47 +77,5 @@ namespace Anchi.ERP.Domain.RepairOrder
         {
             get; set;
         }
-
-        private DateTime beginOn;
-        /// <summary>
-        /// 开始时间
-        /// </summary>
-        [Required]
-        [StringLength(30)]
-        public DateTime BeginOn
-        {
-            get
-            {
-                if (beginOn < SqlDateTime.Min)
-                    beginOn = SqlDateTime.Min;
-
-                return beginOn;
-            }
-            set
-            {
-                beginOn = value;
-            }
-        }
-
-        private DateTime endOn;
-        /// <summary>
-        /// 完工时间
-        /// </summary>
-        [Required]
-        [StringLength(30)]
-        public DateTime EndOn
-        {
-            get
-            {
-                if (endOn < SqlDateTime.Min)
-                    endOn = SqlDateTime.Min;
-
-                return endOn;
-            }
-            set
-            {
-                endOn = value;
-            }
-        }
     }
 }

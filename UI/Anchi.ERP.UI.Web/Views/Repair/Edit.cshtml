@@ -1,4 +1,4 @@
-﻿
+﻿@model Anchi.ERP.Domain.RepairOrder.RepairOrder
 @{
     ViewBag.Title = "编辑维修单";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,8 +13,103 @@
 
 <div class="cl pd-5 mt-10">
     <span class="l">
-        <a href="javascript:;" class="btn">
+        <a href="javascript:;" class="btn" onclick="saveRepairOrderFn();">
             <i class="Hui-iconfont">&#xe6e2;</i>保存
         </a>
     </span>
 </div>
+
+<div class="page-container" ms-controller="EditRepairOrder">
+    <form class="form form-horizontal">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>客户：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##Customer" placeholder="客户" />
+                <a href="javascript:void(0);">选择</a>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>开单日期：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" onclick="laydate();" ms-duplex="##Customer" placeholder="开单日期" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>接待人：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##ReceptionBy" placeholder="接待人" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <table>
+                <thead>
+                    <tr>
+                        <td>维修项目</td>
+                        <td>
+                            <a href="javascript:void(0);">选择</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>序号</td>
+                        <td>编码</td>
+                        <td>项目名称</td>
+                        <td>单价</td>
+                        <td>数量</td>
+                        <td>维修人</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>总金额：</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="row cl">
+            <table>
+                <thead>
+                    <tr>
+                        <td>配件明细</td>
+                        <td>
+                            <a href="javascript:void(0);">选择</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>序号</td>
+                        <td>编码</td>
+                        <td>配件名称</td>
+                        <td>单价</td>
+                        <td>数量</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td>总金额：</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/RepairOrders/List.js"></script>
+    <script type="text/javascript" src="/Static/Js/laydate1.1/laydate.js"></script>
+}

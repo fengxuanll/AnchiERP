@@ -35,7 +35,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult List()
         {
-            return View();
+            return View("Index");
         }
 
         /// <summary>

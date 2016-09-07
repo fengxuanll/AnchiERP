@@ -22,6 +22,27 @@ namespace Anchi.ERP.Domain.RepairOrder
             get; set;
         }
 
+        private DateTime repairOn;
+        /// <summary>
+        /// 维修日期
+        /// </summary>
+        [Required]
+        [StringLength(30)]
+        public DateTime RepairOn
+        {
+            get
+            {
+                if (repairOn < SqlDateTime.Min)
+                    repairOn = SqlDateTime.Min;
+
+                return repairOn;
+            }
+            set
+            {
+                repairOn = value;
+            }
+        }
+
         private DateTime completeOn;
         /// <summary>
         /// 完工时间
