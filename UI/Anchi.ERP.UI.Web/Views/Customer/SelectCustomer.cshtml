@@ -1,26 +1,26 @@
 ﻿@{
-    ViewBag.Title = "选择配件";
+    ViewBag.Title = "选择客户";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-border table-bordered table-bg" ms-controller="ProductList">
+<table class="table table-border table-bordered table-bg" ms-controller="CustomerList">
     <thead>
         <tr class="text-c">
             <th width="30">序号</th>
-            <th>编码</th>
-            <th>名称</th>
-            <th>单价</th>
+            <th width="150">姓名</th>
+            <th width="150">车牌号</th>
+            <th width="150">联系电话</th>
             <th width="40">操作</th>
         </tr>
     </thead>
     <tbody>
         <tr class="text-c" ms-for="($index, item) in ##List">
             <td>{{ $index + 1 }}</td>
-            <td>{{ item.Code }}</td>
             <td>{{ item.Name }}</td>
-            <td>{{ item.UnitPrice }}</td>
+            <td>{{ item.CarNumber }}</td>
+            <td>{{ item.Tel }}</td>
             <td>
-                <a href="javascript:void(0);" ms-click="##selectRepairProductFn(item);">选择</a>
+                <a href="javascript:void(0);" ms-click="##selectCustomerFn(item);">选择</a>
             </td>
         </tr>
     </tbody>
@@ -39,17 +39,17 @@
 
 <script type="text/javascript">
     var $vm = avalon.define({
-        $id: "ProductList",
+        $id: "CustomerList",
         List: [],
-        selectRepairProductFn: function (item) {
-            parent.addRepairProductFn(item);
+        selectCustomerFn: function (item) {
+            parent.selectCustomerFn(item);
             parent.layer.close(parent.layer.getFrameIndex(window.name));
         }
     });
 
     function refreshListFn(pageIndex) {
         $.ajax({
-            url: "/Product/List",
+            url: "/Customer/List",
             type: "POST",
             data: {
                 PageIndex: pageIndex || 0,

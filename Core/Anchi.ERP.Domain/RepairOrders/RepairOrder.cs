@@ -24,7 +24,7 @@ namespace Anchi.ERP.Domain.RepairOrder
 
         private DateTime repairOn;
         /// <summary>
-        /// 维修日期
+        /// 开单日期
         /// </summary>
         [Required]
         [StringLength(30)]

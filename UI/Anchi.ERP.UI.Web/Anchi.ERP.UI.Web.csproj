@@ -428,10 +428,11 @@
     <Content Include="Static\h-ui\images\ucnter\Thumbs.db" />
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
-    <Content Include="Views\Repair\SelectRepairProject.cshtml" />
+    <Content Include="Views\Project\SelectRepairProject.cshtml" />
     <Content Include="Views\Product\SelectRepairProduct.cshtml" />
     <Content Include="Views\Sale\Edit.cshtml" />
     <Content Include="Views\Sale\Index.cshtml" />
+    <Content Include="Views\Customer\SelectCustomer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

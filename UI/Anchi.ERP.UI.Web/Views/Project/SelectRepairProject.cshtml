@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "选择配件";
+    ViewBag.Title = "选择维修项目";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-border table-bordered table-bg" ms-controller="ProductList">
+<table class="table table-border table-bordered table-bg" ms-controller="ProjectList">
     <thead>
         <tr class="text-c">
             <th width="30">序号</th>
@@ -20,7 +20,7 @@
             <td>{{ item.Name }}</td>
             <td>{{ item.UnitPrice }}</td>
             <td>
-                <a href="javascript:void(0);" ms-click="##selectRepairProductFn(item);">选择</a>
+                <a href="javascript:void(0);" ms-click="##selectRepairProjectFn(item);">选择</a>
             </td>
         </tr>
     </tbody>
@@ -39,17 +39,17 @@
 
 <script type="text/javascript">
     var $vm = avalon.define({
-        $id: "ProductList",
+        $id: "ProjectList",
         List: [],
-        selectRepairProductFn: function (item) {
-            parent.addRepairProductFn(item);
+        selectRepairProjectFn: function (item) {
+            parent.addRepairProjectFn(item);
             parent.layer.close(parent.layer.getFrameIndex(window.name));
         }
     });
 
     function refreshListFn(pageIndex) {
         $.ajax({
-            url: "/Product/List",
+            url: "/Project/List",
             type: "POST",
             data: {
                 PageIndex: pageIndex || 0,

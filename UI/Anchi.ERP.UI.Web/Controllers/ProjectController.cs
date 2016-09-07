@@ -99,5 +99,11 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+
+        [HttpGet]
+        public ActionResult SelectRepairProject()
+        {
+            return View();
+        }
     }
 }

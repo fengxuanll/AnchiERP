@@ -3,14 +3,12 @@
     ViewBag.Title = "编辑维修单";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <nav class="breadcrumb">
     <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>编辑维修单
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
-
 <div class="cl pd-5 mt-10">
     <span class="l">
         <a href="javascript:;" class="btn" onclick="saveRepairOrderFn();">
@@ -18,16 +16,17 @@
         </a>
     </span>
 </div>
-
 <div class="page-container" ms-controller="EditRepairOrder">
     <form class="form form-horizontal">
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
                 <span class="c-red">*</span>客户：
             </label>
-            <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" ms-duplex="##Customer" placeholder="客户" />
-                <a href="javascript:void(0);">选择</a>
+            <div class="formControls col-xs-9 col-sm-8">
+                <input type="text" class="input-text" ms-duplex="##CustomerName" placeholder="客户" />
+            </div>
+            <div class="formControls col-xs-1">
+                <a href="javascript:void(0);" onclick="showSelectCustomerFn();">选择</a>
             </div>
         </div>
         <div class="row cl">
@@ -35,7 +34,7 @@
                 <span class="c-red">*</span>开单日期：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" onclick="laydate();" ms-duplex="##Customer" placeholder="开单日期" />
+                <input type="text" id="txtRepairOn" class="input-text" ms-duplex="##RepairOn" placeholder="开单日期" />
             </div>
         </div>
         <div class="row cl">
@@ -43,7 +42,9 @@
                 <span class="c-red">*</span>接待人：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" ms-duplex="##ReceptionBy" placeholder="接待人" />
+                <select class="select-default" ms-duplex="##ReceptionById">
+                    <option value="">请选择...</option>
+                </select>
             </div>
         </div>
         <div class="row cl">
@@ -55,61 +56,102 @@
             </div>
         </div>
         <div class="row cl">
-            <table>
-                <thead>
-                    <tr>
-                        <td>维修项目</td>
-                        <td>
-                            <a href="javascript:void(0);">选择</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>序号</td>
-                        <td>编码</td>
-                        <td>项目名称</td>
-                        <td>单价</td>
-                        <td>数量</td>
-                        <td>维修人</td>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>总金额：</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="col-xs-2"></div>
+            <div class="col-xs-10">
+                <table class="table table-border table-bordered table-bg">
+                    <thead>
+                        <tr>
+                            <td colspan="6">维修项目</td>
+                            <td class="text-c">
+                                <a href="javascript:void(0);" onclick="showSelectProjectFn();">选择</a>
+                            </td>
+                        </tr>
+                        <tr class="text-c">
+                            <th width="25">序号</th>
+                            <th>编码</th>
+                            <th>项目名称</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th>维修人</th>
+                            <th width="50">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ms-for="($index, item) in ##item.ItemList">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ item.Code }}</td>
+                            <td>{{ item.Name }}</td>
+                            <td>{{ item.UnitPrice }}</td>
+                            <td>
+                                <input type="text" class="input-text" ms-duplex="item.Quantity" style="width: 80px;" />
+                            </td>
+                            <td>
+                                <select class="select-default" ms-duplex="item.EmployeeId">
+                                    <option value="">请选择...</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" ms-click="removeRepairProjectFn(item);">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">合计：</td>
+                            <td>{{ TotalProjectAmount }}</td>
+                            <td colspan="3"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <div class="row cl">
-            <table>
-                <thead>
-                    <tr>
-                        <td>配件明细</td>
-                        <td>
-                            <a href="javascript:void(0);">选择</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>序号</td>
-                        <td>编码</td>
-                        <td>配件名称</td>
-                        <td>单价</td>
-                        <td>数量</td>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot>
-                    <tr>
-                        <td>总金额：</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="col-xs-2"></div>
+            <div class="col-xs-10">
+                <table class="table table-border table-bordered table-bg">
+                    <thead>
+                        <tr>
+                            <td colspan="5">配件明细</td>
+                            <td class="text-c">
+                                <a href="javascript:void(0);" onclick="showSelectProductFn();">选择</a>
+                            </td>
+                        </tr>
+                        <tr class="text-c">
+                            <th width="30">序号</th>
+                            <th>编码</th>
+                            <th>配件名称</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th width="50">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ms-for="($index, item) in ##item.ProductList">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ item.Code }}</td>
+                            <td>{{ item.Name }}</td>
+                            <td>{{ item.UnitPrice }}</td>
+                            <td>
+                                <input type="text" class="input-text" ms-duplex="item.Quantity" style="width: 80px;" />
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" ms-click="removeRepairProductFn(item);">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">合计：</td>
+                            <td>{{ TotalProductAmount }}</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </form>
 </div>
-
 @section foot{
-    <script type="text/javascript" src="/Static/Js/Business/RepairOrders/List.js"></script>
+    <script type="text/javascript" src="/Static/Js/Business/RepairOrders/Edit.js"></script>
     <script type="text/javascript" src="/Static/Js/laydate1.1/laydate.js"></script>
 }

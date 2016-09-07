@@ -5,14 +5,17 @@ using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
 {
+    /// <summary>
+    /// 客户信息控制器
+    /// </summary>
     [UserAuthorize]
     public class CustomerController : BaseController
     {
+        #region 构造函数和属性
         public CustomerController() : this(new CustomerService())
         {
         }
@@ -26,6 +29,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             get;
         }
+        #endregion
 
         // GET: Customer
         public ActionResult Index()
@@ -103,6 +107,16 @@ namespace Anchi.ERP.UI.Web.Controllers
             {
                 return new BetterJsonResult(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 选择客户页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult SelectCustomer()
+        {
+            return View();
         }
     }
 }
