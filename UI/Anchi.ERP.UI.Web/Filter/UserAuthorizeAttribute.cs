@@ -4,6 +4,9 @@ using System.Web;
 
 namespace Anchi.ERP.UI.Web.Filter
 {
+    /// <summary>
+    /// 验证用户登录请求
+    /// </summary>
     public class UserAuthorizeAttribute : AuthorizeAttribute
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)

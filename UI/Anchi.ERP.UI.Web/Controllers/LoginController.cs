@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain.Users;
+﻿using Anchi.ERP.Common.Logging;
+using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
 using Anchi.ERP.Service.Users;
 using Anchi.ERP.UI.Web.Filter;
@@ -13,8 +14,10 @@ namespace Anchi.ERP.UI.Web.Controllers
     /// </summary>
     public class LoginController : BaseController
     {
+        #region 构造函数和属性
         public LoginController() : this(new UserService())
-        { }
+        {
+        }
 
         public LoginController(UserService userService)
         {
@@ -25,11 +28,14 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             get;
         }
+        #endregion
 
+        #region 初始化默认用户
         /// <summary>
         /// 初始化默认用户
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Init()
         {
             var Id = Guid.Parse("00000000-0000-0000-0000-000000000001");
@@ -51,6 +57,7 @@ namespace Anchi.ERP.UI.Web.Controllers
 
             return new BetterJsonResult("初始化成功。", true);
         }
+        #endregion
 
         /// <summary>
         /// 
@@ -87,6 +94,9 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult("该账号已被禁用，请联系管理员。");
 
             base.CurrentUser = user;
+
+            LogWriter.InfoFormat("{0} {1} 登录", user.TrueName, user.LoginName);
+
             return new BetterJsonResult(null, true);
         }
 

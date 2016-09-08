@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseService.cs" />
-    <Compile Include="Common\LogManager.cs" />
     <Compile Include="Customers\CustomerService.cs" />
     <Compile Include="Employees\EmployeeService.cs" />
     <Compile Include="ProductStocks\ProductStockRecordService.cs" />

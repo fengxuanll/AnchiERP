@@ -14,6 +14,9 @@ namespace Anchi.ERP.Common
         /// <returns></returns>
         public static string SerializeObject(object value)
         {
+            if (value == null)
+                return null;
+
             return JsonConvert.SerializeObject(value);
         }
 
