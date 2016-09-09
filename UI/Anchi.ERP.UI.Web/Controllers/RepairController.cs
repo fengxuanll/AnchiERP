@@ -1,7 +1,9 @@
 ﻿using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.RepairOrder;
+using Anchi.ERP.Service.Customers;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.Repairs;
+using Anchi.ERP.ServiceModel.Repairs;
 using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;
@@ -13,25 +15,21 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class RepairController : BaseController
     {
         #region 构造函数和属性
-        public RepairController() : this(new RepairOrderService(), new EmployeeService())
-        {
-        }
+        public RepairController() : this(new RepairOrderService(), new EmployeeService(), new CustomerService())
+        { }
 
-        public RepairController(RepairOrderService repairOrderService, EmployeeService employeeService)
+        public RepairController(RepairOrderService repairOrderService, EmployeeService employeeService, CustomerService customerService)
         {
             this.RepairOrderService = repairOrderService;
             this.EmployeeService = employeeService;
+            this.CustomerService = customerService;
         }
 
-        RepairOrderService RepairOrderService
-        {
-            get;
-        }
+        RepairOrderService RepairOrderService { get; }
 
-        EmployeeService EmployeeService
-        {
-            get;
-        }
+        EmployeeService EmployeeService { get; }
+
+        CustomerService CustomerService { get; }
         #endregion
 
         #region 维修单管理
@@ -53,8 +51,34 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult List(PagedFilter filter)
         {
+            var modelList = new List<RepairOrderModel>();
             var result = RepairOrderService.Find(filter);
-            return new BetterJsonResult(result, true);
+            foreach (var item in result.Data)
+            {
+                var customer = CustomerService.GetById(item.CustomerId);
+                modelList.Add(new RepairOrderModel
+                {
+                    Id = item.Id,
+                    Amount = item.Amount,
+                    CompleteOn = item.CompleteOn,
+                    Remark = item.Remark,
+                    RepairOn = item.RepairOn,
+                    SettlementOn = item.SettlementOn,
+                    SettlementStatus = item.SettlementStatus,
+                    Status = item.Status,
+                    CarNumber = customer == null ? string.Empty : customer.CarNumber,
+                    CustomerName = customer == null ? string.Empty : customer.Name,
+                });
+            }
+
+            var response = new PagedResult<RepairOrderModel>();
+            response.Data = modelList;
+            response.PageIndex = result.PageIndex;
+            response.PageSize = result.PageSize;
+            response.TotalCount = result.TotalCount;
+            response.TotalPage = result.TotalPage;
+
+            return new BetterJsonResult(response, true);
         }
         #endregion
 
@@ -67,21 +91,54 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult Add()
         {
             ViewBag.EmployeeList = EmployeeService.GetNormalList();
-            return View("Edit");
+
+            var model = new RepairOrder();
+            model.RepairOn = DateTime.Now;
+            return View("Edit", model);
+        }
+        #endregion
+
+        #region 修改维修单
+        /// <summary>
+        /// 修改维修单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            ViewBag.EmployeeList = EmployeeService.GetNormalList();
+
+            var model = new RepairOrder();
+            model.Id = id;
+            return View(model);
         }
 
         /// <summary>
-        /// 新增维修单
+        /// 获取维修单信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public ActionResult GetEditModel(Guid Id)
+        {
+            var model = RepairOrderService.GetById(Id);
+            return new BetterJsonResult(model, true);
+        }
+        #endregion
+
+        #region 保存维修单
+        /// <summary>
+        /// 保存维修单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Add(RepairOrder model)
+        public ActionResult Edit(RepairOrder model)
         {
             try
             {
-                RepairOrderService.Create(model);
-                return new BetterJsonResult(null, true);
+                RepairOrderService.SaveOrUpdate(model);
+                return new BetterJsonResult();
             }
             catch (Exception ex)
             {
@@ -112,7 +169,15 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult Complete(IList<Guid> idList)
         {
-            return new BetterJsonResult();
+            try
+            {
+                RepairOrderService.SetComplete(idList);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
         }
         #endregion
 

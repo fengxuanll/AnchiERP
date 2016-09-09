@@ -16,15 +16,9 @@
         Remark: "@Model.Remark"
     });
 
-    $(function () {
-        laydate({
-            elem: '#txtEntryOn',
-            istoday: true,
-            choose: function (datas) { //选择日期完毕的回调
-                $vm.EntryOn = datas;
-            }
-        });
-    });
+    function selectEntryOnFn() {
+        $vm.EntryOn = $("#txtEntryOn").val();
+    }
 </script>
 <div class="page-container" ms-controller="EditEmployee">
     <form class="form form-horizontal" id="formEmployee">
@@ -49,7 +43,7 @@
                 <span class="c-red">*</span>入职日期：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" id="txtEntryOn" class="input-text" ms-duplex="##EntryOn" placeholder="入职日期" />
+                <input type="text" id="txtEntryOn" class="input-text" ms-duplex="##EntryOn" placeholder="入职日期" onclick="WdatePicker({ onpicked: selectRepairOnFn });" />
             </div>
         </div>
         <div class="row cl">
@@ -93,5 +87,5 @@
 </div>
 @section foot{
     <script type="text/javascript" src="/Static/Js/Business/Employees/Edit.js"></script>
-    <script type="text/javascript" src="/Static/Js/laydate1.1/laydate.js"></script>
+    <script type="text/javascript" src="~/Static/Js/My97DatePicker/WdatePicker.js"></script>
 }

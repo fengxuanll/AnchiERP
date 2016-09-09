@@ -8,14 +8,14 @@
         /// <summary>
         /// 维修出库
         /// </summary>
-        Repair = 1,
+        Repair = 10,
         /// <summary>
         /// 销售出库
         /// </summary>
-        Sale = 2,
+        Sale = 11,
         /// <summary>
         /// 采购入库
         /// </summary>
-        Purchase = 3,
+        Purchase = 20,
     }
 }

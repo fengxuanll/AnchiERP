@@ -2,8 +2,8 @@
 using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
 using Anchi.ERP.Service.Users;
+using Anchi.ERP.ServiceModel;
 using Anchi.ERP.UI.Web.Filter;
-using Anchi.ERP.UI.Web.Models;
 using System;
 using System.Web.Mvc;
 
@@ -59,8 +59,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
         #endregion
 
+        #region 用户登录
         /// <summary>
-        /// 
+        /// 用户登录
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -73,20 +74,20 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 用户登录
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
         public ActionResult Index(LoginModel model)
         {
-            if (string.IsNullOrWhiteSpace(model.UserName))
-                return new BetterJsonResult("请属于用户名。");
+            if (string.IsNullOrWhiteSpace(model.LoginName))
+                return new BetterJsonResult("请输入登录名。");
 
             if (string.IsNullOrWhiteSpace(model.PassWord))
                 return new BetterJsonResult("请输入密码。");
 
-            var user = UserService.GetModel(model.UserName.Trim(), model.PassWord.Trim());
+            var user = UserService.GetModel(model.LoginName.Trim(), model.PassWord.Trim());
             if (user == null)
                 return new BetterJsonResult("用户名或密码无效。");
 
@@ -99,12 +100,19 @@ namespace Anchi.ERP.UI.Web.Controllers
 
             return new BetterJsonResult(null, true);
         }
+        #endregion
 
+        #region 退出系统
+        /// <summary>
+        /// 退出系统
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Logout()
         {
             base.CurrentUser = null;
             return Redirect("/Login");
         }
+        #endregion
     }
 }

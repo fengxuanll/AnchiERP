@@ -57,8 +57,8 @@
             <td>￥{{ item.Amount }}</td>
             <td>{{ item.CompleteOn | showTimeDateFilter }}</td>
             <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
-            <td>{{ item.Status }}</td>
-            <td>{{ item.SettlementStatus }}</td>
+            <td>{{ item.StatusName }}</td>
+            <td>{{ item.SettlementStatusName }}</td>
             <td>{{ item.Remark }}</td>
             <td class="td-manage">
                 <a ms-attr="{href:'/Repair/Edit/' + item.Id}" title="修改">

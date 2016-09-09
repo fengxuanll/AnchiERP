@@ -46,24 +46,5 @@ namespace Anchi.ERP.Domain.Products
         {
             get; set;
         }
-
-        /// <summary>
-        /// 使用人ID
-        /// </summary>
-        [Required]
-        [References(typeof(Employee))]
-        public Guid UseUserId
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 使用人信息
-        /// </summary>
-        [Ignore]
-        public Employee UseUser
-        {
-            get; set;
-        }
     }
 }

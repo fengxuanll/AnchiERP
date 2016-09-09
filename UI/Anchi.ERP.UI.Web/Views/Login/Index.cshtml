@@ -59,7 +59,7 @@
     <script type="text/javascript">
         var $vm = avalon.define({
             $id: "login",
-            UserName: "",
+            LoginName: "",
             PassWord: ""
         });
 
@@ -68,7 +68,7 @@
         });
 
         function LoginFn() {
-            if ($vm.UserName.trim() == "") {
+            if ($vm.LoginName.trim() == "") {
                 $.alert("请输入用户名", "error");
                 return false;
             }

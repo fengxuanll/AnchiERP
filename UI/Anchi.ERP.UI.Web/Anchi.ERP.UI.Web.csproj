@@ -352,14 +352,6 @@
     <Content Include="Static\Js\icheck\yellow.png" />
     <Content Include="Static\Js\jquery1.9.1\jquery.js" />
     <Content Include="Static\Js\jquery1.9.1\jquery.min.js" />
-    <Content Include="Static\Js\laydate1.1\laydate.js" />
-    <Content Include="Static\Js\laydate1.1\need\laydate.css" />
-    <Content Include="Static\Js\laydate1.1\skins\dahong\icon.png" />
-    <Content Include="Static\Js\laydate1.1\skins\dahong\laydate.css" />
-    <Content Include="Static\Js\laydate1.1\skins\default\icon.png" />
-    <Content Include="Static\Js\laydate1.1\skins\default\laydate.css" />
-    <Content Include="Static\Js\laydate1.1\skins\molv\icon.png" />
-    <Content Include="Static\Js\laydate1.1\skins\molv\laydate.css" />
     <Content Include="Static\Js\layer2.4\layer.js" />
     <Content Include="Static\Js\layer2.4\skin\default\icon-ext.png" />
     <Content Include="Static\Js\layer2.4\skin\default\icon.png" />
@@ -369,6 +361,16 @@
     <Content Include="Static\Js\layer2.4\skin\layer.css" />
     <Content Include="Static\Js\laypage1.2\laypage.js" />
     <Content Include="Static\Js\laypage1.2\skin\laypage.css" />
+    <Content Include="Static\Js\My97DatePicker\calendar.js" />
+    <Content Include="Static\Js\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Static\Js\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Static\Js\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Static\Js\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Static\Js\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Static\Js\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Static\Js\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Static\Js\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Static\Js\My97DatePicker\WdatePicker.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -390,7 +392,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +448,10 @@
     <Folder Include="Static\Images\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj">
+      <Project>{6b84b34c-889e-4281-8246-bd26273fef55}</Project>
+      <Name>Anchi.ERP.ServiceModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
       <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
       <Name>Anchi.ERP.Common</Name>
