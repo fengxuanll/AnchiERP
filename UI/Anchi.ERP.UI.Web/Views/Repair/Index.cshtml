@@ -15,13 +15,13 @@
         <a href="/Repair/Add" class="btn">
             <i class="Hui-iconfont">&#xe6e2;</i>新建
         </a>
-        <a href="javascript:;" class="btn">
+        <a href="javascript:;" class="btn" onclick="setCompletedFn();">
             <i class="Hui-iconfont">&#xe6e2;</i>完工
         </a>
-        <a href="javascript:;" class="btn">
+        <a href="javascript:;" class="btn" onclick="setSettlementFn();">
             <i class="Hui-iconfont">&#xe6e2;</i>已结算
         </a>
-        <a href="javascript:;" class="btn">
+        <a href="javascript:;" class="btn" onclick="setCancelFn();">
             <i class="Hui-iconfont">&#xe6e2;</i>取消
         </a>
     </span>
@@ -51,12 +51,12 @@
                 <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
             </td>
             <td>{{ $index + 1}}</td>
-            <td>{{ item.CreatedTime }}</td>
+            <td>{{ item.RepairOn | showTimeDateFilter }}</td>
             <td>{{ item.CustomerName }}</td>
             <td>{{ item.CarNumber }}</td>
-            <td>{{ item.Amount }}</td>
-            <td>{{ item.CompleteOn }}</td>
-            <td>{{ item.SettlementOn }}</td>
+            <td>￥{{ item.Amount }}</td>
+            <td>{{ item.CompleteOn | showTimeDateFilter }}</td>
+            <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
             <td>{{ item.Status }}</td>
             <td>{{ item.SettlementStatus }}</td>
             <td>{{ item.Remark }}</td>

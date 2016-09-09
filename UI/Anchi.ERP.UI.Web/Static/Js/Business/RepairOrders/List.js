@@ -31,3 +31,78 @@ function refreshListFn(pageIndex) {
         }
     });
 }
+
+// 设置已完工
+function setCompletedFn() {
+    var idList = getSelectedIdListFn();
+    if (idList.length == 0) {
+        $.msg("请选择需要设置已完工的维修单。", "error");
+        return false;
+    }
+
+    $.ajax({
+        url: "/Repair/Complete",
+        type: "POST",
+        data: {
+            idList: idList
+        },
+        success: function () {
+            $.msg("设置已完工成功。", "success");
+            refreshListFn();
+        }
+    });
+}
+
+// 设置已结算
+function setSettlementFn() {
+    var idList = getSelectedIdListFn();
+    if (idList.length == 0) {
+        $.msg("请选择需要设置已结算的维修单。", "error");
+        return false;
+    }
+
+    $.ajax({
+        url: "/Repair/Settlement",
+        type: "POST",
+        data: {
+            idList: idList
+        },
+        success: function () {
+            $.msg("设置已结算成功。", "success");
+            refreshListFn();
+        }
+    });
+}
+
+// 取消维修单
+function setCancelFn() {
+    var idList = getSelectedIdListFn();
+    if (idList.length == 0) {
+        $.msg("请选择需要取消的维修单。", "error");
+        return false;
+    }
+
+    $.ajax({
+        url: "/Repair/Cancel",
+        type: "POST",
+        data: {
+            idList: idList
+        },
+        success: function () {
+            $.msg("取消维修单成功。", "success");
+            refreshListFn();
+        }
+    });
+}
+
+// 获取全选数据
+function getSelectedIdListFn() {
+    var idArray = [];
+    var $checkList = $(".table tbody tr td input[type=checkbox]:checked");
+    $.each($checkList, function ($index, item) {
+        var $checkItem = $(item);
+        idArray.push($checkItem.val());
+    });
+
+    return idArray;
+}

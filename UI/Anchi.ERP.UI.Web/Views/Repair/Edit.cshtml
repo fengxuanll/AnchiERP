@@ -17,7 +17,7 @@
     </span>
 </div>
 <div class="page-container" ms-controller="EditRepairOrder">
-    <form class="form form-horizontal">
+    <form class="form form-horizontal" id="EditRepairOrder">
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
                 <span class="c-red">*</span>客户：
@@ -44,6 +44,10 @@
             <div class="formControls col-xs-9 col-sm-9">
                 <select class="select-default" ms-duplex="##ReceptionById">
                     <option value="">请选择...</option>
+                    @foreach (var item in ViewBag.EmployeeList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
                 </select>
             </div>
         </div>
@@ -77,7 +81,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ms-for="($index, item) in ##item.ItemList">
+                        <tr ms-for="($index, item) in ##ItemList">
                             <td>{{ $index + 1 }}</td>
                             <td>{{ item.Code }}</td>
                             <td>{{ item.Name }}</td>
@@ -88,17 +92,21 @@
                             <td>
                                 <select class="select-default" ms-duplex="item.EmployeeId">
                                     <option value="">请选择...</option>
+                                    @foreach (var item in ViewBag.EmployeeList)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
                                 </select>
                             </td>
                             <td>
-                                <a href="javascript:void(0);" ms-click="removeRepairProjectFn(item);">删除</a>
+                                <a href="javascript:void(0);" ms-click="##ItemList.remove(item);">删除</a>
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3">合计：</td>
-                            <td>{{ TotalProjectAmount }}</td>
+                            <td class="text-r">￥{{ ##TotalProjectAmount() }}</td>
                             <td colspan="3"></td>
                         </tr>
                     </tfoot>
@@ -126,7 +134,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ms-for="($index, item) in ##item.ProductList">
+                        <tr ms-for="($index, item) in ##ProductList">
                             <td>{{ $index + 1 }}</td>
                             <td>{{ item.Code }}</td>
                             <td>{{ item.Name }}</td>
@@ -135,14 +143,14 @@
                                 <input type="text" class="input-text" ms-duplex="item.Quantity" style="width: 80px;" />
                             </td>
                             <td>
-                                <a href="javascript:void(0);" ms-click="removeRepairProductFn(item);">删除</a>
+                                <a href="javascript:void(0);" ms-click="##ProductList.remove(item);">删除</a>
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3">合计：</td>
-                            <td>{{ TotalProductAmount }}</td>
+                            <td class="text-r">￥{{ ##TotalProductAmount() }}</td>
                             <td colspan="2"></td>
                         </tr>
                     </tfoot>

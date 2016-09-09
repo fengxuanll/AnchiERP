@@ -57,6 +57,10 @@
     <Compile Include="Users\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
+      <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
+      <Name>Anchi.ERP.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.Data\Anchi.ERP.Data.csproj">
       <Project>{68fd233e-c43c-405b-9569-e2b23726951b}</Project>
       <Name>Anchi.ERP.Data</Name>

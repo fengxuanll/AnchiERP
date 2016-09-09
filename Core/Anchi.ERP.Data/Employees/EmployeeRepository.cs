@@ -21,10 +21,7 @@ namespace Anchi.ERP.Data.Employees
         {
             using (var db = DbFactory.Open())
             {
-                var ev = OrmLiteConfig.DialectProvider.SqlExpression<Employee>();
-                ev.Select(item => item.Status == status);
-
-                return db.Select(ev);
+                return db.Select<Employee>(item => item.Status == status);
             }
         }
         #endregion

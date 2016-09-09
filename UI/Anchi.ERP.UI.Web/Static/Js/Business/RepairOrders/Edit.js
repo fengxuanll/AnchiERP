@@ -4,11 +4,23 @@
     CustomerId: "",
     RepairOn: "",
     ReceptionById: "",
-    TotalProjectAmount: 0,
-    TotalProductAmount: 0,
     Remark: "",
     ItemList: [],
-    ProductList: []
+    ProductList: [],
+    TotalProjectAmount: function () {
+        var total = 0;
+        $.each($vm.ItemList, function (i, item) {
+            total += (item.UnitPrice * item.Quantity);
+        });
+        return total;
+    },
+    TotalProductAmount: function () {
+        var total = 0;
+        $.each($vm.ProductList, function (i, item) {
+            total += (item.UnitPrice * item.Quantity);
+        });
+        return total;
+    }
 });
 
 $(function () {
@@ -33,11 +45,14 @@ function showSelectProjectFn() {
 }
 
 function addRepairProjectFn(item) {
-    $vm.ItemList.push(item);
-}
-
-function removeRepairProjectFn(item) {
-    $vm.ItemList.remove(item);
+    $vm.ItemList.push({
+        ProjectId: item.Id,
+        EmployeeId: "",
+        Code: item.Code,
+        Name: item.Name,
+        UnitPrice: item.UnitPrice,
+        Quantity: 1
+    });
 }
 
 function showSelectProductFn() {
@@ -47,16 +62,18 @@ function showSelectProductFn() {
         title: "选择配件",
         skin: 'layui-layer-rim',
         area: ['600px', '500px'],
-        content: '/Project/SelectRepairProject'
+        content: '/Product/SelectRepairProduct'
     });
 }
 
-function addRepairProductFn() {
-    $vm.ProductList.push(item);
-}
-
-function removeRepairProductFn(item) {
-    $vm.ProductList.remove(item);
+function addRepairProductFn(item) {
+    $vm.ProductList.push({
+        ProductId: item.Id,
+        Code: item.Code,
+        Name: item.Name,
+        UnitPrice: item.SalePrice,
+        Quantity: 1
+    });
 }
 
 function showSelectCustomerFn() {
@@ -73,4 +90,17 @@ function showSelectCustomerFn() {
 function selectCustomerFn(item) {
     $vm.CustomerId = item.Id;
     $vm.CustomerName = item.Name;
+}
+
+function saveRepairOrderFn() {
+    var postData = $vm.$model;
+    $.ajax({
+        url: "/Repair/Add",
+        type: "POST",
+        data: postData,
+        success: function (data) {
+            $("#EditRepairOrder")[0].reset();
+            $.msg('添加成功。', "success");
+        }
+    });
 }

@@ -5,16 +5,20 @@ using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
 {
+    /// <summary>
+    /// 配件控制器
+    /// </summary>
     [UserAuthorize]
     public class ProductController : BaseController
     {
+        #region 构造函数和属性
         public ProductController() : this(new ProductService())
-        { }
+        {
+        }
 
         public ProductController(ProductService productService)
         {
@@ -22,7 +26,10 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
 
         ProductService ProductService
-        { get; }
+        {
+            get;
+        }
+        #endregion
 
         // GET: Product
         public ActionResult Index()
@@ -103,7 +110,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 选择配件
         /// </summary>
         /// <returns></returns>
         public ActionResult SelectRepairProduct()

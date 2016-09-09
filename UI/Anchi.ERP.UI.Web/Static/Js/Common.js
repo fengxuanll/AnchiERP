@@ -80,3 +80,15 @@ function decimal(e, value) {
         return false;
     }
 }
+
+// avalon 过滤器：显示时间的日期部分，最小时间不显示。
+avalon.filters.showTimeDateFilter = function (time) {
+    if (!time)
+        return "";
+
+    var newTime = avalon.filters.date(time, "yyyy-MM-dd");
+    if (newTime <= "1900-01-01")
+        return "";
+
+    return newTime;
+}

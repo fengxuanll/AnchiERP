@@ -1,11 +1,6 @@
 ﻿using Anchi.ERP.Domain.RepairOrder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ServiceStack.Data;
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.Sqlite;
+using System;
 
 namespace Anchi.ERP.Data.Repairs
 {
@@ -45,6 +40,25 @@ namespace Anchi.ERP.Data.Repairs
             {
                 using (var tran = db.BeginTransaction())
                 {
+                    model.CreatedOn = DateTime.Now;
+                    db.Insert(model);
+                    // 插入维修项目
+                    foreach (var item in model.ItemList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.RepairOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        db.Insert(item);
+                    }
+                    // 插入使用配件
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.RepairOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        db.Insert(item);
+                    }
+
                     tran.Commit();
                 }
             }

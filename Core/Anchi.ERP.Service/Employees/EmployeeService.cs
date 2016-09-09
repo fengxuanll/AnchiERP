@@ -55,6 +55,7 @@ namespace Anchi.ERP.Service.Employees
             }
             else
             {
+                model.Status = model.Status == 0 ? temp.Status : model.Status;
                 EmployeeRepository.Update(model);
             }
             return model;
