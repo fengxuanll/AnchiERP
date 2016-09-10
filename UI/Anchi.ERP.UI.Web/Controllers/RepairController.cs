@@ -90,7 +90,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            ViewBag.EmployeeList = EmployeeService.GetNormalList();
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
             var model = new RepairOrder();
             model.RepairOn = DateTime.Now;
@@ -107,7 +107,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            ViewBag.EmployeeList = EmployeeService.GetNormalList();
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
             var model = RepairOrderService.GetModel(id);
             return View(model);

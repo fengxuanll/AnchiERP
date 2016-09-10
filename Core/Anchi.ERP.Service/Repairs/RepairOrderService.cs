@@ -61,8 +61,14 @@ namespace Anchi.ERP.Service.Repairs
             if (!model.ItemList.Any() && !model.ProductList.Any())
                 throw new Exception("请选择维修项目和配件明细。");
 
+            if (model.ItemList.Any(item => item.Quantity == 0))
+                throw new Exception("请填写维修项目的数量");
+
             if (model.ItemList.Any(item => item.EmployeeId == Guid.Empty))
                 throw new Exception("请选择维修项目的维修人。");
+
+            if (model.ProductList.Any(item => item.Quantity == 0))
+                throw new Exception("请填写配件明细的数量");
 
             model.Amount = model.ItemList.Sum(item => item.UnitPrice * item.Quantity) + model.ProductList.Sum(item => item.UnitPrice * item.Quantity);
 

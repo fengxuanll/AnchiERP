@@ -3,6 +3,7 @@ using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.Employees.Enum;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Anchi.ERP.Service.Employees
 {
@@ -67,9 +68,53 @@ namespace Anchi.ERP.Service.Employees
         /// 获取所有在职的员工
         /// </summary>
         /// <returns></returns>
-        public IList<Employee> GetNormalList()
+        public IList<Employee> FindNormalList()
         {
             return EmployeeRepository.GetListByStatus(EnumEmployeeStatus.Normal);
+        }
+        #endregion
+
+        #region 批量启用员工
+        /// <summary>
+        /// 批量启用员工
+        /// </summary>
+        /// <param name="idList"></param>
+        public void EnableEmployee(IList<Guid> idList)
+        {
+            if (idList == null || !idList.Any())
+                return;
+
+            foreach (var id in idList)
+            {
+                var model = EmployeeRepository.GetById(id);
+                if (model == null)
+                    continue;
+
+                model.Status = EnumEmployeeStatus.Normal;
+                EmployeeRepository.Update(model);
+            }
+        }
+        #endregion
+
+        #region 批量停用员工
+        /// <summary>
+        /// 批量停用员工
+        /// </summary>
+        /// <param name="idList"></param>
+        public void DisableEmployee(IList<Guid> idList)
+        {
+            if (idList == null || !idList.Any())
+                return;
+
+            foreach (var id in idList)
+            {
+                var model = EmployeeRepository.GetById(id);
+                if (model == null)
+                    continue;
+
+                model.Status = EnumEmployeeStatus.Disable;
+                EmployeeRepository.Update(model);
+            }
         }
         #endregion
     }

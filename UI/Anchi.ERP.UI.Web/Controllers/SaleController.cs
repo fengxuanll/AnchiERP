@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace Anchi.ERP.UI.Web.Controllers
 {
     /// <summary>
-    /// 
+    /// 销售管理
     /// </summary>
     [UserAuthorize]
     public class SaleController : BaseController

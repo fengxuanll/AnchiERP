@@ -291,6 +291,8 @@
     <Content Include="Static\Js\Business\Products\List.js" />
     <Content Include="Static\Js\Business\Projects\List.js" />
     <Content Include="Static\Js\Business\Projects\Edit.js" />
+    <Content Include="Static\Js\Business\PurchaseOrders\Edit.js" />
+    <Content Include="Static\Js\Business\PurchaseOrders\List.js" />
     <Content Include="Static\Js\Business\RepairOrders\Edit.js" />
     <Content Include="Static\Js\Business\RepairOrders\List.js" />
     <Content Include="Static\Js\Business\SaleOrders\Edit.js" />
@@ -409,6 +411,7 @@
     <Content Include="Views\Sale\Index.cshtml" />
     <Content Include="Views\Customer\SelectCustomer.cshtml" />
     <Content Include="Views\Repair\Settlement.cshtml" />
+    <Content Include="Views\Supplier\SelectSupplier.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

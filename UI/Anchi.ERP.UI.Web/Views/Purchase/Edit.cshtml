@@ -1,8 +1,128 @@
-﻿
+﻿@model Anchi.ERP.Domain.PurchaseOrders.PurchaseOrder
 @{
-    ViewBag.Title = "View";
+    ViewBag.Title = "编辑采购单";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View</h2>
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "EditPurchaseOrder",
+        Id: "@Model.Id",
+        SupplierId: "",
+        SupplierName: "",
+        PurchaseById: "",
+        Remark: "",
+        ProductList: [],
+        TotalProductAmount: function () {
+            var total = 0;
+            $.each($vm.ProductList, function (i, item) {
+                total += (item.UnitPrice * item.Quantity);
+            });
+            return total;
+        }
+    });
+</script>
 
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>采购管理<span class="c-gray en">&gt;</span>编辑采购单
+    <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="cl pd-5 mt-10">
+    <span class="l">
+        <a href="javascript:;" class="btn" onclick="savePurchaseOrderFn();">
+            <i class="Hui-iconfont">&#xe6e2;</i>保存
+        </a>
+    </span>
+</div>
+
+<div class="page-container" ms-controller="EditPurchaseOrder">
+    <form class="form form-horizontal" id="fromPurchaseOrder">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>供应商：
+            </label>
+            <div class="formControls col-xs-9 col-sm-8">
+                <input type="text" class="input-text" ms-duplex="##SupplierName" placeholder="供应商" />
+            </div>
+            <div class="formControls col-xs-1">
+                <a href="javascript:void(0);" onclick="showSelectSupplierFn();">选择</a>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>采购人：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <select class="select-default" ms-duplex="##PurchaseById">
+                    <option value="">请选择...</option>
+                    @foreach (var item in ViewBag.EmployeeList)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-10">
+                <table class="table table-border table-bordered table-bg">
+                    <thead>
+                        <tr>
+                            <td colspan="5">配件明细</td>
+                            <td class="text-c">
+                                <a href="javascript:void(0);" onclick="showSelectProductFn();">选择</a>
+                            </td>
+                        </tr>
+                        <tr class="text-c">
+                            <th width="30">序号</th>
+                            <th>编码</th>
+                            <th>配件名称</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th width="50">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ms-for="($index, item) in ##ProductList">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ item.Code }}</td>
+                            <td>{{ item.Name }}</td>
+                            <td>
+                                <input type="text" class="input-text" ms-duplex="item.UnitPrice" style="width: 80px;" />
+                            </td>
+                            <td>
+                                <input type="text" class="input-text" ms-duplex="item.Quantity" style="width: 80px;" />
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" ms-click="##ProductList.remove(item);">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">合计：</td>
+                            <td class="text-r">￥{{ ##TotalProductAmount() }}</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/PurchaseOrders/Edit.js"></script>
+    <script type="text/javascript" src="~/Static/Js/My97DatePicker/WdatePicker.js"></script>
+}

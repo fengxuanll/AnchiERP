@@ -87,3 +87,47 @@ function deleteSelectedRowFn(Id) {
         });
     });
 }
+
+// 启用员工
+function enableEmployeeFn() {
+    var idArray = [];
+    var $checkList = $(".table tbody tr td input[type=checkbox]:checked");
+    $.each($checkList, function ($index, item) {
+        var $checkItem = $(item);
+        idArray.push($checkItem.val());
+    });
+
+    $.ajax({
+        url: "/Employee/Enable",
+        type: "POST",
+        data: {
+            idList: idArray
+        },
+        success: function (data) {
+            refreshListFn();
+            $.msg("启用成功。", "success");
+        }
+    });
+}
+
+// 停用员工
+function disableEmployeeFn() {
+    var idArray = [];
+    var $checkList = $(".table tbody tr td input[type=checkbox]:checked");
+    $.each($checkList, function ($index, item) {
+        var $checkItem = $(item);
+        idArray.push($checkItem.val());
+    });
+
+    $.ajax({
+        url: "/Employee/Disable",
+        type: "POST",
+        data: {
+            idList: idArray
+        },
+        success: function (data) {
+            refreshListFn();
+            $.msg("停用成功。", "success");
+        }
+    });
+}

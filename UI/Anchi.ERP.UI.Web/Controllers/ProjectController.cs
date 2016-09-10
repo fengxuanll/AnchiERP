@@ -9,21 +9,28 @@ using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
 {
+    /// <summary>
+    /// 维修项目管理
+    /// </summary>
     [UserAuthorize]
     public class ProjectController : BaseController
     {
-        public ProjectController() : this(new ProjectService())
-        { }
+        #region 构造函数和属性
+        public ProjectController() : this(new ProjectService()) { }
 
         public ProjectController(ProjectService projectService)
         {
             this.ProjectService = projectService;
         }
 
-        ProjectService ProjectService
-        { get; }
+        ProjectService ProjectService { get; }
+        #endregion
 
-        // GET: Project
+        #region 修改项目管理
+        /// <summary>
+        /// 修改项目管理
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -39,9 +46,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var result = ProjectService.Find(filter);
             return new BetterJsonResult(result, true);
         }
+        #endregion
 
+        #region 新增维修项目
         /// <summary>
-        /// 
+        /// 新增维修项目
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -49,9 +58,11 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             return View("Edit");
         }
+        #endregion
 
+        #region 修改维修项目
         /// <summary>
-        /// 
+        /// 修改维修项目
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -61,9 +72,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = ProjectService.GetById(id);
             return View(model);
         }
+        #endregion
 
+        #region 保存维修项目
         /// <summary>
-        /// 
+        /// 保存维修项目
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -80,7 +93,9 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 删除维修项目
         /// <summary>
         /// 删除维修项目
         /// </summary>
@@ -99,11 +114,18 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 选择维修项目
+        /// <summary>
+        /// 选择维修项目
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult SelectRepairProject()
         {
             return View();
         }
+        #endregion
     }
 }

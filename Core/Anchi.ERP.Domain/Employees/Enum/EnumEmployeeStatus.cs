@@ -6,12 +6,12 @@
     public enum EnumEmployeeStatus : byte
     {
         /// <summary>
-        /// 在职
+        ///  正常
         /// </summary>
         Normal = 1,
         /// <summary>
-        /// 离职
+        /// 停用
         /// </summary>
-        Dimission = 2,
+        Disable = 2,
     }
 }

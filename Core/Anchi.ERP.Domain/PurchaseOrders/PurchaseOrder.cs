@@ -2,7 +2,6 @@
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.Suppliers;
-using Anchi.ERP.Domain.Users;
 using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
@@ -35,6 +34,20 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         }
 
         /// <summary>
+        /// 开单时间
+        /// </summary>
+        [Required]
+        public DateTime PurchaseOn
+        { get; set; }
+
+        /// <summary>
+        /// 总金额
+        /// </summary>
+        [Required]
+        public decimal Amount
+        { get; set; }
+
+        /// <summary>
         /// 采购人
         /// </summary>
         [Reference]
@@ -50,16 +63,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         [Required]
         [References(typeof(Employee))]
         public Guid PurchaseById
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 编码
-        /// </summary>
-        [Required]
-        [StringLength(50)]
-        public string Code
         {
             get; set;
         }
@@ -83,6 +86,25 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         {
             get; set;
         }
+
+        /// <summary>
+        /// 结算时间
+        /// </summary>
+        public DateTime SettlementOn
+        { get; set; }
+
+        /// <summary>
+        /// 结算金额
+        /// </summary>
+        public decimal SettlementAmount
+        { get; set; }
+
+        /// <summary>
+        /// 结算备注
+        /// </summary>
+        [StringLength(1000)]
+        public string SettlementRemark
+        { get; set; }
 
         /// <summary>
         /// 备注

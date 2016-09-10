@@ -61,7 +61,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <returns></returns>
         public ActionResult ListNormal()
         {
-            var result = EmployeeService.GetNormalList();
+            var result = EmployeeService.FindNormalList();
             return new BetterJsonResult(result);
         }
 
@@ -108,6 +108,7 @@ namespace Anchi.ERP.UI.Web.Controllers
             }
         }
 
+        #region 删除员工
         /// <summary>
         /// 删除员工
         /// </summary>
@@ -126,5 +127,48 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
+
+        #region 启用员工账号
+        /// <summary>
+        /// 启用员工账号
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Enable(IList<Guid> idList)
+        {
+            try
+            {
+                EmployeeService.EnableEmployee(idList);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 停用员工账号
+        /// <summary>
+        /// 停用员工账号
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Disable(IList<Guid> idList)
+        {
+            try
+            {
+                EmployeeService.DisableEmployee(idList);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
     }
 }

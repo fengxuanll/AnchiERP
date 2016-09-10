@@ -5,26 +5,32 @@ using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
 {
+    /// <summary>
+    /// 供应商管理
+    /// </summary>
     [UserAuthorize]
     public class SupplierController : BaseController
     {
-        public SupplierController() : this(new SupplierService())
-        { }
+        #region 构造函数和属性
+        public SupplierController() : this(new SupplierService()) { }
 
         public SupplierController(SupplierService supplierService)
         {
             this.SupplierService = supplierService;
         }
 
-        SupplierService SupplierService
-        { get; }
+        SupplierService SupplierService { get; }
+        #endregion
 
-        // GET: Supplier
+        #region 供应商管理
+        /// <summary>
+        /// 供应商管理
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -40,9 +46,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var result = SupplierService.Find(filter);
             return new BetterJsonResult(result, true);
         }
+        #endregion
 
+        #region 新增供应商
         /// <summary>
-        /// 
+        /// 新增供应商
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -51,9 +59,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = new Supplier();
             return View("Edit", model);
         }
+        #endregion
 
+        #region 修改供应商
         /// <summary>
-        /// 
+        /// 修改供应商
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -63,7 +73,9 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = SupplierService.GetById(id);
             return View(model);
         }
+        #endregion
 
+        #region 保存供应商
         /// <summary>
         /// 保存供应商
         /// </summary>
@@ -82,7 +94,9 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 删除供应商
         /// <summary>
         /// 删除供应商
         /// </summary>
@@ -101,5 +115,18 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
+
+        #region 选择供应商
+        /// <summary>
+        /// 选择供应商
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult SelectSupplier()
+        {
+            return View();
+        }
+        #endregion
     }
 }

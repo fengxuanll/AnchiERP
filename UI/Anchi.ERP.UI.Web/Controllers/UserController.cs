@@ -10,21 +10,28 @@ using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
 {
+    /// <summary>
+    /// 用户管理
+    /// </summary>
     [UserAuthorize]
     public class UserController : BaseController
     {
-        public UserController() : this(new UserService())
-        { }
+        #region 构造函数和属性
+        public UserController() : this(new UserService()) { }
 
         public UserController(UserService userService)
         {
             this.UserService = userService;
         }
 
-        UserService UserService
-        { get; }
+        UserService UserService { get; }
+        #endregion
 
-        // GET: User
+        #region 用户管理
+        /// <summary>
+        /// 用户管理
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -40,9 +47,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var result = UserService.Find(filter);
             return new BetterJsonResult(result, true);
         }
+        #endregion
 
+        #region 新增用户
         /// <summary>
-        /// 
+        /// 新增用户
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -51,9 +60,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = new User();
             return View("Edit", model);
         }
+        #endregion
 
+        #region 修改用户
         /// <summary>
-        /// 
+        /// 修改用户
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -63,7 +74,9 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = UserService.GetById(id);
             return View(model);
         }
+        #endregion
 
+        #region 保存用户
         /// <summary>
         /// 保存用户
         /// </summary>
@@ -82,7 +95,9 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 删除用户
         /// <summary>
         /// 删除用户
         /// </summary>
@@ -101,7 +116,9 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 修改用户状态
         /// <summary>
         /// 修改用户状态
         /// </summary>
@@ -121,5 +138,6 @@ namespace Anchi.ERP.UI.Web.Controllers
             }
             return new BetterJsonResult(null, true);
         }
+        #endregion
     }
 }

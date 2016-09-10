@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace Anchi.ERP.UI.Web.Controllers
 {
     /// <summary>
-    /// 客户信息控制器
+    /// 客户管理
     /// </summary>
     [UserAuthorize]
     public class CustomerController : BaseController
@@ -31,7 +31,11 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
         #endregion
 
-        // GET: Customer
+        #region 客户管理
+        /// <summary>
+        /// 客户管理
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
@@ -47,9 +51,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var result = CustomerService.Find(filter);
             return new BetterJsonResult(result, true);
         }
+        #endregion
 
+        #region 新增客户
         /// <summary>
-        /// 
+        /// 新增客户
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -58,9 +64,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = new Customer();
             return View("Edit", model);
         }
+        #endregion
 
+        #region 修改客户
         /// <summary>
-        /// 
+        /// 修改客户
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -70,7 +78,9 @@ namespace Anchi.ERP.UI.Web.Controllers
             var model = CustomerService.GetById(id);
             return View(model);
         }
+        #endregion
 
+        #region 保存客户
         /// <summary>
         /// 保存客户
         /// </summary>
@@ -89,7 +99,9 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 删除客户
         /// <summary>
         /// 删除客户
         /// </summary>
@@ -108,9 +120,11 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
+        #endregion
 
+        #region 选择客户
         /// <summary>
-        /// 选择客户页面
+        /// 选择客户
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -118,5 +132,6 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             return View();
         }
+        #endregion
     }
 }

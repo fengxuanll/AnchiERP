@@ -17,5 +17,10 @@ namespace Anchi.ERP.Domain.RepairOrder.Enum
         /// </summary>
         [Display(Name = "已结算")]
         Completed = 2,
+        /// <summary>
+        /// 部分结算
+        /// </summary>
+        [Display(Name = "部分结算")]
+        PartCompleted = 3,
     }
 }

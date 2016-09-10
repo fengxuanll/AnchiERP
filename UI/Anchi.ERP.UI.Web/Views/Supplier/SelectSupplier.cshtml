@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "选择供应商";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-border table-bordered table-bg" ms-controller="SupplierList">
+    <thead>
+        <tr class="text-c">
+            <th width="30">序号</th>
+            <th width="150">姓名</th>
+            <th width="150">联系人</th>
+            <th width="150">联系电话</th>
+            <th width="40">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="text-c" ms-for="($index, item) in ##List">
+            <td>{{ $index + 1 }}</td>
+            <td>{{ item.Name }}</td>
+            <td>{{ item.Contact }}</td>
+            <td>{{ item.Tel }}</td>
+            <td>
+                <a href="javascript:void(0);" ms-click="##selectSupplierFn(item);">选择</a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div id="divPager"></div>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>
+}
+
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "SupplierList",
+        List: [],
+        selectSupplierFn: function (item) {
+            parent.selectSupplierFn(item);
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+        }
+    });
+
+    function refreshListFn(pageIndex) {
+        $.ajax({
+            url: "/Supplier/List",
+            type: "POST",
+            data: {
+                PageIndex: pageIndex || 0,
+                PageSize: 10
+            },
+            success: function (data) {
+                $vm.List = data.Data;
+                laypage({
+                    cont: 'divPager', //容器。值支持id名、原生dom对象，jquery对象,
+                    curr: data.PageIndex + 1,
+                    pages: data.TotalPage, //总页数
+                    groups: 3, //连续分数数0
+                    skip: true, //不显示上一页
+                    jump: function (obj, first) {
+                        if (!first) {
+                            refreshListFn(obj.curr - 1);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    $(function () {
+        refreshListFn();
+    });
+</script>

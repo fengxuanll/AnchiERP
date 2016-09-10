@@ -1,9 +1,8 @@
-﻿using Anchi.ERP.Domain.PurchaseOrders;
-using System;
+﻿using Anchi.ERP.Data.Employees;
+using Anchi.ERP.Data.Suppliers;
+using Anchi.ERP.Domain.PurchaseOrders;
 using ServiceStack.OrmLite;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
 namespace Anchi.ERP.Data.Purchases
 {
@@ -13,17 +12,18 @@ namespace Anchi.ERP.Data.Purchases
     public class PurchaseOrderRepository : BaseRepository<PurchaseOrder>
     {
         #region 构造函数和属性
-        public PurchaseOrderRepository() : this(new PurchaseOrderProductRepository()) { }
+        public PurchaseOrderRepository() : this(new PurchaseOrderProductRepository(), new EmployeeRepository(), new SupplierRepository()) { }
 
-        public PurchaseOrderRepository(PurchaseOrderProductRepository purchaseOrderProductRepository)
+        public PurchaseOrderRepository(PurchaseOrderProductRepository purchaseOrderProductRepository, EmployeeRepository employeeRepository, SupplierRepository supplierRepository)
         {
             this.PurchaseOrderProductRepository = purchaseOrderProductRepository;
+            this.EmployeeRepository = employeeRepository;
+            this.SupplierRepository = supplierRepository;
         }
 
-        PurchaseOrderProductRepository PurchaseOrderProductRepository
-        {
-            get;
-        }
+        PurchaseOrderProductRepository PurchaseOrderProductRepository { get; }
+        EmployeeRepository EmployeeRepository { get; }
+        SupplierRepository SupplierRepository { get; }
         #endregion
 
         #region 创建采购单
@@ -37,6 +37,18 @@ namespace Anchi.ERP.Data.Purchases
             {
                 using (var tran = db.BeginTransaction())
                 {
+                    model.CreatedOn = DateTime.Now;
+                    db.Insert(model);
+
+                    // 插入采购配件
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.PurchaseOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        db.Insert(item);
+                    }
+
                     tran.Commit();
                 }
             }
@@ -55,6 +67,20 @@ namespace Anchi.ERP.Data.Purchases
             {
                 using (var tran = db.BeginTransaction())
                 {
+                    db.Update(model);
+
+                    // 删除历史采购配件
+                    db.Delete<PurchaseOrderProduct>(item => item.PurchaseOrderId == model.Id);
+
+                    // 插入采购配件
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.PurchaseOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        db.Insert(item);
+                    }
+
                     tran.Commit();
                 }
             }
@@ -64,7 +90,7 @@ namespace Anchi.ERP.Data.Purchases
 
         #region 获取采购单
         /// <summary>
-        /// 获取采购单
+        /// 获取采购单，填充关联对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -72,7 +98,14 @@ namespace Anchi.ERP.Data.Purchases
         {
             using (var db = DbFactory.Open())
             {
-                return null;
+                var model = db.SingleById<PurchaseOrder>(Id);
+                if (model == null)
+                    return null;
+
+                model.ProductList = PurchaseOrderProductRepository.Find(model.Id);
+                model.PurchaseBy = EmployeeRepository.GetById(model.PurchaseById);
+                model.Supplier = SupplierRepository.GetById(model.SupplierId);
+                return model;
             }
         }
         #endregion
