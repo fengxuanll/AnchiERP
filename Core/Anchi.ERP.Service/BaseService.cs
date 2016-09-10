@@ -49,6 +49,12 @@ namespace Anchi.ERP.Service
         /// <returns></returns>
         public PagedResult<T> Find(PagedFilter filter)
         {
+            if (filter == null)
+                return new PagedResult<T>();
+
+            if (filter.PageSize == 0)
+                return new PagedResult<T>();
+
             return Repository.Find(filter);
         }
         #endregion

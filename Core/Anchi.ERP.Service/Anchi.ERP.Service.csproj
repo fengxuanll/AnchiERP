@@ -57,6 +57,10 @@
     <Compile Include="Users\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj">
+      <Project>{6b84b34c-889e-4281-8246-bd26273fef55}</Project>
+      <Name>Anchi.ERP.ServiceModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
       <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
       <Name>Anchi.ERP.Common</Name>

@@ -5,12 +5,12 @@ using System;
 namespace Anchi.ERP.Service.Suppliers
 {
     /// <summary>
-    /// 
+    /// 供应商服务类
     /// </summary>
     public class SupplierService : BaseService<Supplier>
     {
-        public SupplierService() : this(new SupplierRepository())
-        { }
+        #region 构造函数和属性
+        public SupplierService() : this(new SupplierRepository()) { }
 
         public SupplierService(SupplierRepository supplierRepository)
         {
@@ -18,8 +18,8 @@ namespace Anchi.ERP.Service.Suppliers
             base.Repository = supplierRepository;
         }
 
-        SupplierRepository SupplierRepository
-        { get; }
+        SupplierRepository SupplierRepository { get; }
+        #endregion
 
         #region 保存供应商
         /// <summary>

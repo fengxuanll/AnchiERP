@@ -68,8 +68,12 @@ function saveRepairOrderFn() {
         type: "POST",
         data: postData,
         success: function (data) {
-            $("#EditRepairOrder")[0].reset();
-            $.msg('添加成功。', "success");
+            if ($vm.Id == GuidEmpty) {
+                $("#EditRepairOrder")[0].reset();
+                $vm.ItemList.removeAll();
+                $vm.ProductList.removeAll();
+            }
+            $.msg('保存成功。', "success");
         }
     });
 }
@@ -86,6 +90,7 @@ function initRepairOrderFn(Id) {
                 return;
 
             $vm.Id = data.Id;
+            $vm.Amount = data.Amount;
             $vm.CustomerId = data.Customer.Id;
             $vm.CustomerName = data.Customer.Name;
             $vm.RepairOn = data.RepairOn;
@@ -93,23 +98,53 @@ function initRepairOrderFn(Id) {
             $vm.Remark = data.Remark;
             $.each(data.ItemList, function (i, item) {
                 $vm.ItemList.push({
-                    ProjectId: item.Id,
+                    Id: item.Id,
+                    ProjectId: item.ProjectId,
                     EmployeeId: item.EmployeeId,
-                    Code: item.Code,
-                    Name: item.Name,
+                    Code: item.Project ? item.Project.Code : "未知",
+                    Name: item.Project ? item.Project.Name : "未知",
                     UnitPrice: item.UnitPrice,
                     Quantity: item.Quantity
                 });
             });
             $.each(data.ProductList, function (i, item) {
                 $vm.ProductList.push({
-                    ProductId: item.Id,
-                    Code: item.Code,
-                    Name: item.Name,
+                    Id: item.Id,
+                    ProductId: item.ProductId,
+                    Code: item.Product ? item.Product.Code : "未知",
+                    Name: item.Product ? item.Product.Name : "未知",
                     UnitPrice: item.UnitPrice,
                     Quantity: item.Quantity
                 });
             });
         }
+    });
+}
+
+
+
+// 设置已完工
+function setCompletedFn() {
+    $.ajax({
+        url: "/Repair/Complete",
+        type: "POST",
+        data: {
+            idList: [$vm.Id]
+        },
+        success: function () {
+            $.msg("设置已完工成功。", "success");
+        }
+    });
+}
+
+// 显示结算窗口
+function showSettlementFn() {
+    layer.open({
+        type: 2,
+        maxmin: true,
+        title: "维修单结算",
+        skin: 'layui-layer-rim',
+        area: ['500px', '400px'],
+        content: '/Repair/Settlement/' + $vm.Id
     });
 }

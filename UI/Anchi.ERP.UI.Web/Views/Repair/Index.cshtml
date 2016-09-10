@@ -9,7 +9,6 @@
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
-
 <div class="cl pd-5 mt-10">
     <span class="l">
         <a href="/Repair/Add" class="btn">
@@ -17,12 +16,6 @@
         </a>
         <a href="javascript:;" class="btn" onclick="setCompletedFn();">
             <i class="Hui-iconfont">&#xe6e2;</i>完工
-        </a>
-        <a href="javascript:;" class="btn" onclick="setSettlementFn();">
-            <i class="Hui-iconfont">&#xe6e2;</i>已结算
-        </a>
-        <a href="javascript:;" class="btn" onclick="setCancelFn();">
-            <i class="Hui-iconfont">&#xe6e2;</i>取消
         </a>
     </span>
 </div>
@@ -57,8 +50,16 @@
             <td>￥{{ item.Amount }}</td>
             <td>{{ item.CompleteOn | showTimeDateFilter }}</td>
             <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
-            <td>{{ item.StatusName }}</td>
-            <td>{{ item.SettlementStatusName }}</td>
+            <td>
+                <span class="label label-success radius">
+                    {{ item.StatusName }}
+                </span>
+            </td>
+            <td>
+                <span class="label label-success radius">
+                    {{ item.SettlementStatusName }}
+                </span>
+            </td>
             <td>{{ item.Remark }}</td>
             <td class="td-manage">
                 <a ms-attr="{href:'/Repair/Edit/' + item.Id}" title="修改">
@@ -75,7 +76,6 @@
         </tr>
     </tfoot>
 </table>
-
 @section foot{
     <script type="text/javascript" src="/Static/Js/Business/RepairOrders/List.js"></script>
     <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>

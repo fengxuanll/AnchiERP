@@ -53,48 +53,6 @@ function setCompletedFn() {
     });
 }
 
-// 设置已结算
-function setSettlementFn() {
-    var idList = getSelectedIdListFn();
-    if (idList.length == 0) {
-        $.msg("请选择需要设置已结算的维修单。", "error");
-        return false;
-    }
-
-    $.ajax({
-        url: "/Repair/Settlement",
-        type: "POST",
-        data: {
-            idList: idList
-        },
-        success: function () {
-            $.msg("设置已结算成功。", "success");
-            refreshListFn();
-        }
-    });
-}
-
-// 取消维修单
-function setCancelFn() {
-    var idList = getSelectedIdListFn();
-    if (idList.length == 0) {
-        $.msg("请选择需要取消的维修单。", "error");
-        return false;
-    }
-
-    $.ajax({
-        url: "/Repair/Cancel",
-        type: "POST",
-        data: {
-            idList: idList
-        },
-        success: function () {
-            $.msg("取消维修单成功。", "success");
-            refreshListFn();
-        }
-    });
-}
-
 // 获取全选数据
 function getSelectedIdListFn() {
     var idArray = [];

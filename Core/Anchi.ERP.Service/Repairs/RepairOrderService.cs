@@ -2,6 +2,7 @@
 using Anchi.ERP.Data.Repairs;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.ServiceModel.Repairs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,7 @@ namespace Anchi.ERP.Service.Repairs
     public class RepairOrderService : BaseService<RepairOrder>
     {
         #region 构造函数和属性
-        public RepairOrderService() : this(new RepairOrderRepository())
-        {
-        }
+        public RepairOrderService() : this(new RepairOrderRepository()) { }
 
         public RepairOrderService(RepairOrderRepository repairOrderRepository)
         {
@@ -24,9 +23,21 @@ namespace Anchi.ERP.Service.Repairs
             base.Repository = repairOrderRepository;
         }
 
-        RepairOrderRepository RepairOrderRepository
+        RepairOrderRepository RepairOrderRepository { get; }
+        #endregion
+
+        #region 获取维修单
+        /// <summary>
+        /// 获取维修单，不填充关联数据
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public RepairOrder GetModel(Guid Id)
         {
-            get;
+            if (Id == Guid.Empty)
+                return null;
+
+            return RepairOrderRepository.GetModel(Id);
         }
         #endregion
 
@@ -69,15 +80,18 @@ namespace Anchi.ERP.Service.Repairs
             {
                 model.Status = model.Status == 0 ? temp.Status : model.Status;
                 model.SettlementStatus = model.SettlementStatus == 0 ? temp.SettlementStatus : model.SettlementStatus;
+                model.CreatedOn = model.CreatedOn < SqlDateTime.Min ? temp.CreatedOn : model.CreatedOn;
+                model.SettlementOn = model.SettlementOn < SqlDateTime.Min ? temp.SettlementOn : model.SettlementOn;
+                model.CompleteOn = model.CompleteOn < SqlDateTime.Min ? temp.CompleteOn : model.CompleteOn;
                 RepairOrderRepository.Update(model);
             }
             return model;
         }
         #endregion
 
-        #region 设置维修单为已完工
+        #region 设为已完工
         /// <summary>
-        /// 设置维修单为已完工
+        /// 设为已完工
         /// </summary>
         /// <param name="IdList"></param>
         public void SetComplete(IList<Guid> IdList)
@@ -96,6 +110,38 @@ namespace Anchi.ERP.Service.Repairs
 
                 RepairOrderRepository.Complete(model);
             }
+        }
+        #endregion
+
+        #region 结算维修单
+        /// <summary>
+        /// 结算维修单
+        /// </summary>
+        /// <param name="model"></param>
+        public void Settlement(RepairSettlementModel model)
+        {
+            if (model == null)
+                return;
+
+            if (model.SettlementAmount <= 0)
+                throw new Exception("请输入结算金额。");
+
+            var order = GetById(model.RepairOrderId);
+            if (order == null)
+                throw new Exception("维修单不存在。");
+
+            if (order.Status != EnumRepairOrderStatus.Completed)
+                throw new Exception("只能结算已完工的维修单。");
+
+            if (order.SettlementStatus != EnumSettlementStatus.Waiting)
+                throw new Exception("只能结算未结算的维修单。");
+
+            order.SettlementAmount = model.SettlementAmount;
+            order.SettlementRemark = model.SettlementRemark;
+            order.SettlementStatus = EnumSettlementStatus.Completed;
+            order.SettlementOn = DateTime.Now;
+
+            RepairOrderRepository.Update(order);
         }
         #endregion
     }

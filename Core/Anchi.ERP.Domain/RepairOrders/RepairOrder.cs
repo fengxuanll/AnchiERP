@@ -84,6 +84,19 @@ namespace Anchi.ERP.Domain.RepairOrder
         }
 
         /// <summary>
+        /// 结算金额
+        /// </summary>
+        public decimal SettlementAmount
+        { get; set; }
+
+        /// <summary>
+        /// 结算备注
+        /// </summary>
+        [StringLength(1000)]
+        public string SettlementRemark
+        { get; set; }
+
+        /// <summary>
         /// 维修单状态
         /// </summary>
         [Required]

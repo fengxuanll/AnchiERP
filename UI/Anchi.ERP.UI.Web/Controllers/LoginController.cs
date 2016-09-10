@@ -55,7 +55,63 @@ namespace Anchi.ERP.UI.Web.Controllers
             };
             UserService.SaveOrUpdate(model);
 
+#if DEBUG
+            InitTestData();
+#endif
             return new BetterJsonResult("初始化成功。", true);
+        }
+        #endregion
+
+        #region 造点测试数据
+        /// <summary>
+        /// 造点测试数据
+        /// </summary>
+        public void InitTestData()
+        {
+            var employeeService = new Service.Employees.EmployeeService();
+            var productService = new Service.Products.ProductService();
+            var projectService = new Service.Projects.ProjectService();
+            var customerService = new Service.Customers.CustomerService();
+            var supplierService = new Service.Suppliers.SupplierService();
+            for (int i = 0; i < 100; i++)
+            {
+                employeeService.SaveOrUpdate(new Domain.Employees.Employee
+                {
+                    Name = "员工" + (i + 1),
+                    Code = "员工" + (i + 1),
+                    EntryOn = DateTime.Now,
+                    Status = Domain.Employees.Enum.EnumEmployeeStatus.Normal,
+                });
+
+                productService.SaveOrUpdate(new Domain.Products.Product
+                {
+                    Code = "配件" + (i + 1),
+                    Name = "配件" + (i + 1),
+                    Stock = 1000,
+                    SafeStock = 100,
+                    CostPrice = 80 + i,
+                    SalePrice = 100 + i,
+                });
+
+                projectService.SaveOrUpdate(new Domain.Projects.Project
+                {
+                    Code = "维修项目" + (i + 1),
+                    Name = "维修项目" + (i + 1),
+                    UnitPrice = 100 + i,
+                });
+
+                customerService.SaveOrUpdate(new Domain.Customers.Customer
+                {
+                    Name = "客户" + (i + 1),
+                    CarNumber = "车牌号" + (i + 1),
+                });
+
+                supplierService.SaveOrUpdate(new Domain.Suppliers.Supplier
+                {
+                    Name = "供应商" + (i + 1),
+                    Contact = "供应商" + (i + 1),
+                });
+            }
         }
         #endregion
 

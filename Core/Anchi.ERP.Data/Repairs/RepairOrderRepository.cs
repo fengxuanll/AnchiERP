@@ -1,5 +1,6 @@
 ﻿using Anchi.ERP.Data.Customers;
 using Anchi.ERP.Data.Employees;
+using Anchi.ERP.Data.ProductStocks;
 using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.RepairOrder;
@@ -15,35 +16,36 @@ namespace Anchi.ERP.Data.Repairs
     public class RepairOrderRepository : BaseRepository<RepairOrder>
     {
         #region 构造函数和属性
-        public RepairOrderRepository() : this(new RepairOrderItemRepository(), new RepairProductItemRepository(), new CustomerRepository(), new EmployeeRepository()) { }
+        public RepairOrderRepository()
+            : this(new RepairOrderItemRepository(),
+                  new RepairProductItemRepository(),
+                  new CustomerRepository(),
+                  new EmployeeRepository(),
+                  new ProductStockRecordRepository())
+        { }
 
-        public RepairOrderRepository(RepairOrderItemRepository repairOrderItemRepository, RepairProductItemRepository repairProductItemRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository)
+        public RepairOrderRepository(RepairOrderItemRepository repairOrderItemRepository,
+                                    RepairProductItemRepository repairProductItemRepository,
+                                    CustomerRepository customerRepository,
+                                    EmployeeRepository employeeRepository,
+                                    ProductStockRecordRepository productStockRecordRepository)
         {
             this.RepairOrderItemRepository = repairOrderItemRepository;
             this.RepairProductItemRepository = repairProductItemRepository;
             this.CustomerRepository = customerRepository;
             this.EmployeeRepository = employeeRepository;
+            this.ProductStockRecordRepository = productStockRecordRepository;
         }
 
-        RepairOrderItemRepository RepairOrderItemRepository
-        {
-            get;
-        }
+        RepairOrderItemRepository RepairOrderItemRepository { get; }
 
-        RepairProductItemRepository RepairProductItemRepository
-        {
-            get;
-        }
+        RepairProductItemRepository RepairProductItemRepository { get; }
 
-        CustomerRepository CustomerRepository
-        {
-            get;
-        }
+        CustomerRepository CustomerRepository { get; }
 
-        EmployeeRepository EmployeeRepository
-        {
-            get;
-        }
+        EmployeeRepository EmployeeRepository { get; }
+
+        ProductStockRecordRepository ProductStockRecordRepository { get; }
         #endregion
 
         #region 创建维修单
@@ -87,7 +89,7 @@ namespace Anchi.ERP.Data.Repairs
 
         #region 获取维修单
         /// <summary>
-        /// 获取维修单
+        /// 获取维修单，并填充关联数据
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -105,6 +107,21 @@ namespace Anchi.ERP.Data.Repairs
                 model.ReceptionBy = EmployeeRepository.GetById(model.ReceptionById);
 
                 return model;
+            }
+        }
+        #endregion
+
+        #region 获取维修单
+        /// <summary>
+        /// 获取维修单，不填充关联数据
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public RepairOrder GetModel(Guid Id)
+        {
+            using (var db = DbFactory.Open())
+            {
+                return db.SingleById<RepairOrder>(Id);
             }
         }
         #endregion
@@ -175,7 +192,7 @@ namespace Anchi.ERP.Data.Repairs
                     model.CompleteOn = DateTime.Now;
                     db.Update(model);
 
-                    // 扣配件库存
+                    // 扣配件库存，并增加出库记录
                     foreach (var item in model.ProductList)
                     {
                         var product = db.SingleById<Product>(item.ProductId);

@@ -1,4 +1,6 @@
-﻿(function ($) {
+﻿var GuidEmpty = "00000000-0000-0000-0000-000000000000";
+
+(function ($) {
     var overrideAjax = function () {
         var rawAjax = $.ajax;
         $.ajax = function (options) {

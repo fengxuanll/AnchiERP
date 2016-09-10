@@ -109,8 +109,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             ViewBag.EmployeeList = EmployeeService.GetNormalList();
 
-            var model = new RepairOrder();
-            model.Id = id;
+            var model = RepairOrderService.GetModel(id);
             return View(model);
         }
 
@@ -191,6 +190,38 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult Settlement(IList<Guid> idList)
         {
             return new BetterJsonResult();
+        }
+        #endregion
+
+        #region 结算维修单
+        /// <summary>
+        /// 结算维修单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Settlement(Guid id)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 结算维修单
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SettlementOrder(RepairSettlementModel model)
+        {
+            try
+            {
+                RepairOrderService.Settlement(model);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
         }
         #endregion
     }

@@ -13,7 +13,7 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 产品ID
         /// </summary>
-        [PrimaryKey]
+        [Required]
         public Guid ProductId
         {
             get; set;
