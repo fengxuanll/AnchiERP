@@ -5,21 +5,20 @@ using System;
 namespace Anchi.ERP.Service.Customers
 {
     /// <summary>
-    /// 
+    /// 客户管理服务层
     /// </summary>
     public class CustomerService : BaseService<Customer>
     {
-        public CustomerService() : this(new CustomerRepository())
-        { }
+        #region 构造函数和属性
+        public CustomerService() : this(new CustomerRepository())  { }
 
-        public CustomerService(CustomerRepository customerRepository)
+        public CustomerService(CustomerRepository customerRepository) : base(customerRepository)
         {
             this.CustomerRepository = customerRepository;
-            base.Repository = customerRepository;
         }
 
-        CustomerRepository CustomerRepository
-        { get; }
+        CustomerRepository CustomerRepository { get; }
+        #endregion
 
         #region 保存用户
         /// <summary>

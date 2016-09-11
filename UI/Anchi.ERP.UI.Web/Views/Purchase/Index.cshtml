@@ -15,6 +15,9 @@
         <a href="/Purchase/Add" class="btn">
             <i class="Hui-iconfont">&#xe6e2;</i>新建
         </a>
+        <a href="javascript:;" class="btn" onclick="setArrivalFn();">
+            <i class="Hui-iconfont">&#xe6e2;</i>全部到货
+        </a>
     </span>
 </div>
 
@@ -32,7 +35,7 @@
             <th width="90">总金额</th>
             <th width="90">结算状态</th>
             <th width="90">结算时间</th>
-            <th width="90">已付金额</th>
+            <th width="90">结算金额</th>
             <th>备注</th>
             <th width="100">操作</th>
         </tr>
@@ -54,7 +57,7 @@
                 <span class="label label-success radius">{{ item.SettlementStatusName }}</span>
             </td>
             <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
-            <td>{{ item.SettlementAmount }}</td>
+            <td>￥{{ item.SettlementAmount }}</td>
             <td>{{ item.Remark }}</td>
             <td class="td-manage">
                 <a ms-attr="{href:'/Purchase/Edit/' + item.Id}" title="修改">

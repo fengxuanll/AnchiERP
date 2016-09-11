@@ -118,6 +118,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult GetEditModel(Guid Id)
         {
             var model = RepairOrderService.GetById(Id);

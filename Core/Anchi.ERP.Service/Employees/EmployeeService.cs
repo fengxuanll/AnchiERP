@@ -8,19 +8,16 @@ using System.Linq;
 namespace Anchi.ERP.Service.Employees
 {
     /// <summary>
-    /// 员工服务类
+    /// 员工管理服务类
     /// </summary>
     public class EmployeeService : BaseService<Employee>
     {
         #region 构造函数和属性
-        public EmployeeService() : this(new EmployeeRepository())
-        {
-        }
+        public EmployeeService() : this(new EmployeeRepository()) { }
 
-        public EmployeeService(EmployeeRepository employeeRepository)
+        public EmployeeService(EmployeeRepository employeeRepository) : base(employeeRepository)
         {
             this.EmployeeRepository = employeeRepository;
-            base.Repository = employeeRepository;
         }
 
         EmployeeRepository EmployeeRepository

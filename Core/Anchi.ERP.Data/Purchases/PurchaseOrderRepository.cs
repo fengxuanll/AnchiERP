@@ -1,6 +1,10 @@
 ﻿using Anchi.ERP.Data.Employees;
+using Anchi.ERP.Data.ProductStocks;
 using Anchi.ERP.Data.Suppliers;
+using Anchi.ERP.Domain.Products;
+using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.PurchaseOrders;
+using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using ServiceStack.OrmLite;
 using System;
 
@@ -12,18 +16,29 @@ namespace Anchi.ERP.Data.Purchases
     public class PurchaseOrderRepository : BaseRepository<PurchaseOrder>
     {
         #region 构造函数和属性
-        public PurchaseOrderRepository() : this(new PurchaseOrderProductRepository(), new EmployeeRepository(), new SupplierRepository()) { }
+        public PurchaseOrderRepository()
+            : this(new PurchaseOrderProductRepository(),
+                  new EmployeeRepository(),
+                  new SupplierRepository(),
+                  new ProductStockRecordRepository())
+        { }
 
-        public PurchaseOrderRepository(PurchaseOrderProductRepository purchaseOrderProductRepository, EmployeeRepository employeeRepository, SupplierRepository supplierRepository)
+        public PurchaseOrderRepository(
+            PurchaseOrderProductRepository purchaseOrderProductRepository,
+            EmployeeRepository employeeRepository,
+            SupplierRepository supplierRepository,
+            ProductStockRecordRepository productStockRecordRepository)
         {
             this.PurchaseOrderProductRepository = purchaseOrderProductRepository;
             this.EmployeeRepository = employeeRepository;
             this.SupplierRepository = supplierRepository;
+            this.ProductStockRecordRepository = productStockRecordRepository;
         }
 
         PurchaseOrderProductRepository PurchaseOrderProductRepository { get; }
         EmployeeRepository EmployeeRepository { get; }
         SupplierRepository SupplierRepository { get; }
+        ProductStockRecordRepository ProductStockRecordRepository { get; }
         #endregion
 
         #region 创建采购单
@@ -88,7 +103,7 @@ namespace Anchi.ERP.Data.Purchases
         }
         #endregion
 
-        #region 获取采购单
+        #region 获取采购单，填充关联对象
         /// <summary>
         /// 获取采购单，填充关联对象
         /// </summary>
@@ -106,6 +121,51 @@ namespace Anchi.ERP.Data.Purchases
                 model.PurchaseBy = EmployeeRepository.GetById(model.PurchaseById);
                 model.Supplier = SupplierRepository.GetById(model.SupplierId);
                 return model;
+            }
+        }
+        #endregion
+
+        #region 设置已到货
+        /// <summary>
+        /// 设置已到货
+        /// </summary>
+        /// <param name="model"></param>
+        public void SetArrival(PurchaseOrder model)
+        {
+            using (var db = DbFactory.Open())
+            {
+                using (var tran = db.BeginTransaction())
+                {
+                    // 修改采购单状态
+                    model.Status = EnumPurchaseOrderStatus.Completed;
+                    db.Update(model);
+
+                    // 库存入库
+                    foreach (var item in model.ProductList)
+                    {
+                        var product = db.SingleById<Product>(item.ProductId);
+                        if (product == null)
+                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+
+                        // 插入配件出库记录
+                        var record = new ProductStockRecord
+                        {
+                            Id = Guid.NewGuid(),
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity,
+                            Type = EnumStockRecordType.Purchase,
+                            QuantityBefore = product.Stock,
+                            CreatedOn = model.CreatedOn,
+                        };
+                        db.Insert(record);
+
+                        // 修改产品的库存数量
+                        product.Stock = product.Stock + item.Quantity;
+                        db.Update(product);
+                    }
+
+                    tran.Commit();
+                }
             }
         }
         #endregion

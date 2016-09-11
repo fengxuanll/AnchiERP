@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "结算维修单";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-container" ms-controller="PurchaseSettlement">
+    <form class="form form-horizontal" id="formSettlement">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                应付金额：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">￥{{ ##Amount }}</div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>结算金额：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <input type="text" class="input-text" ms-duplex="##SettlementAmount" placeholder="结算金额" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                结算备注：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">
+                <textarea class="textarea" ms-duplex="##SettlementRemark" placeholder="结算备注"></textarea>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="formControls col-xs-9 col-xs-offset-3">
+                <input type="submit" onclick="return savePurchaseSettlementFn();" class="btn" value="保存">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    var $vm = avalon.define({
+        $id: "PurchaseSettlement",
+        PurchaseOrderId: parent.$vm.Id,
+        Amount: parent.$vm.Amount,
+        SettlementAmount: parent.$vm.Amount,
+        SettlementRemark: ""
+    });
+
+    function savePurchaseSettlementFn() {
+        var postData = $vm.$model;
+        $.ajax({
+            url: "/Purchase/SettlementOrder",
+            type: "POST",
+            data: postData,
+            success: function (data) {
+                parent.$.msg("结算成功。", "success");
+                parent.layer.close(parent.layer.getFrameIndex(window.name));
+            }
+        });
+        return false;
+    }
+</script>

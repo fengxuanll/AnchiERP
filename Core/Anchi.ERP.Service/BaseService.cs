@@ -5,16 +5,26 @@ using System;
 
 namespace Anchi.ERP.Service
 {
+    /// <summary>
+    /// 服务层基类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class BaseService<T> where T : BaseDomain, new()
     {
-        protected BaseRepository<T> Repository
+        #region 构造函数和属性
+        public BaseService(BaseRepository<T> repository)
         {
-            get; set;
+            this.Repository = repository;
         }
+        BaseRepository<T> Repository
+        {
+            get;
+        }
+        #endregion
 
         #region 根据ID获取
         /// <summary>
-        /// 根据ID获取
+        /// 根据ID获取，关联其它对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -24,6 +34,19 @@ namespace Anchi.ERP.Service
                 return null;
 
             return Repository.GetById(Id);
+        }
+
+        /// <summary>
+        /// 根据ID获取对象，不关联其它对象
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public T GetModel(Guid Id)
+        {
+            if (Id == Guid.Empty)
+                return null;
+
+            return Repository.GetModel(Id);
         }
         #endregion
 

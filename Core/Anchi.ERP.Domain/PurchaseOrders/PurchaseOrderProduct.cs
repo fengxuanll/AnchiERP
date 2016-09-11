@@ -1,5 +1,4 @@
 ﻿using Anchi.ERP.Domain.Products;
-using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using ServiceStack.DataAnnotations;
 using System;
 
@@ -51,24 +50,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// </summary>
         [Required]
         public int Quantity
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 到货数量
-        /// </summary>
-        [Required]
-        public int ArrivalQuantity
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 到货状态
-        /// </summary>
-        [Required]
-        public EnumPurchaseProductStatus Status
         {
             get; set;
         }

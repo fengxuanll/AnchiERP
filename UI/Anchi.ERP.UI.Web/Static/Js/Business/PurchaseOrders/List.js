@@ -31,3 +31,35 @@ function refreshListFn(pageIndex) {
         }
     });
 }
+
+function setArrivalFn() {
+    var idList = getSelectedIdListFn();
+    if (idList.length == 0) {
+        $.msg("请选择需要设置已到货的采购单。", "error");
+        return false;
+    }
+
+    $.ajax({
+        url: "/Purchase/SetArrival",
+        type: "POST",
+        data: {
+            idList: idList
+        },
+        success: function () {
+            $.msg("设置已到货成功。", "success");
+            refreshListFn();
+        }
+    });
+}
+
+// 获取全选数据
+function getSelectedIdListFn() {
+    var idArray = [];
+    var $checkList = $(".table tbody tr td input[type=checkbox]:checked");
+    $.each($checkList, function ($index, item) {
+        var $checkItem = $(item);
+        idArray.push($checkItem.val());
+    });
+
+    return idArray;
+}

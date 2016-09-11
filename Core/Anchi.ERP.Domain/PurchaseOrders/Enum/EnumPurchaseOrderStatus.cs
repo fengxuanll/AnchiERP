@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Anchi.ERP.Domain.PurchaseOrders.Enum
 {
     /// <summary>
     /// 采购单状态
     /// </summary>
+    [EnumAsInt]
     public enum EnumPurchaseOrderStatus : byte
     {
         /// <summary>
@@ -13,24 +15,9 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Enum
         [Display(Name = "采购中")]
         Purchasing = 1,
         /// <summary>
-        /// 完成采购
+        /// 全部到货
         /// </summary>
-        [Display(Name = "完成采购")]
+        [Display(Name = "全部到货")]
         Completed = 2,
-        /// <summary>
-        /// 部分到货
-        /// </summary>
-        [Display(Name = "部分到货")]
-        PartCompleted = 3,
-        /// <summary>
-        /// 部分取消
-        /// </summary>
-        [Display(Name = "部分取消")]
-        PartCancel = 4,
-        /// <summary>
-        /// 全部取消
-        /// </summary>
-        [Display(Name = "全部取消")]
-        Cancel = 5,
     }
 }

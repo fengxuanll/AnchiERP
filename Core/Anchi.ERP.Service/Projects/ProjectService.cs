@@ -4,20 +4,21 @@ using System;
 
 namespace Anchi.ERP.Service.Projects
 {
+    /// <summary>
+    /// 维修项目管理服务类
+    /// </summary>
     public class ProjectService : BaseService<Project>
     {
+        #region 构造函数和属性
         public ProjectService() : this(new ProjectRepository()) { }
 
-        public ProjectService(ProjectRepository projectRepository)
+        public ProjectService(ProjectRepository projectRepository) : base(projectRepository)
         {
             this.ProjectRepository = projectRepository;
-            base.Repository = projectRepository;
         }
 
-        ProjectRepository ProjectRepository
-        {
-            get;
-        }
+        ProjectRepository ProjectRepository { get; }
+        #endregion
 
         #region 保存维修项目
         /// <summary>
@@ -48,7 +49,11 @@ namespace Anchi.ERP.Service.Projects
             }
             else
             {
-                ProjectRepository.Update(model);
+                temp.Code = model.Code;
+                temp.Name = model.Name;
+                temp.Remark = model.Remark;
+                temp.UnitPrice = model.UnitPrice;
+                ProjectRepository.Update(temp);
             }
             return model;
         }

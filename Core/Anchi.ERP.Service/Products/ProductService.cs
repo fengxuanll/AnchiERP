@@ -1,31 +1,26 @@
 ﻿using Anchi.ERP.Data.Products;
 using Anchi.ERP.Domain.Products;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Anchi.ERP.Service.Products
 {
     /// <summary>
-    /// 
+    /// 配件管理服务类
     /// </summary>
     public class ProductService : BaseService<Product>
     {
-        public ProductService() : this(new ProductRepository())
-        { }
+        #region 构造函数和属性
+        public ProductService() : this(new ProductRepository()) { }
 
-        public ProductService(ProductRepository productRepository)
+        public ProductService(ProductRepository productRepository) : base(productRepository)
         {
             this.ProductRepository = productRepository;
-            base.Repository = productRepository;
         }
 
-        ProductRepository ProductRepository
-        {
-            get;
-        }
+        ProductRepository ProductRepository { get; }
+        #endregion
 
+        #region 保存配件
         /// <summary>
         /// 保存配件
         /// </summary>
@@ -50,9 +45,17 @@ namespace Anchi.ERP.Service.Products
             }
             else
             {
-                ProductRepository.Update(model);
+                temp.Code = model.Code;
+                temp.Name = model.Name;
+                temp.Remark = model.Remark;
+                temp.SafeStock = model.SafeStock;
+                temp.CostPrice = model.CostPrice;
+                temp.SalePrice = model.SalePrice;
+                temp.Stock = model.Stock;
+                ProductRepository.Update(temp);
             }
             return model;
         }
+        #endregion
     }
 }

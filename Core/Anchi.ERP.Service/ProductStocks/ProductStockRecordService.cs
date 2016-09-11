@@ -15,15 +15,29 @@ namespace Anchi.ERP.Service.ProductStocks
         #region 构造函数和属性
         public ProductStockRecordService() : this(new ProductStockRecordRepository()) { }
 
-        public ProductStockRecordService(ProductStockRecordRepository productStockRecordRepository)
+        public ProductStockRecordService(ProductStockRecordRepository productStockRecordRepository) : base(productStockRecordRepository)
         {
             this.ProductStockRecordRepository = productStockRecordRepository;
-            base.Repository = productStockRecordRepository;
         }
 
         ProductStockRecordRepository ProductStockRecordRepository
         {
             get;
+        }
+        #endregion
+
+        #region 根据产品ID获取库存记录
+        /// <summary>
+        /// 根据产品ID获取库存记录
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public IList<ProductStockRecord> Find(Guid productId)
+        {
+            if (productId == Guid.Empty)
+                return new List<ProductStockRecord>();
+
+            return ProductStockRecordRepository.Find(productId);
         }
         #endregion
     }

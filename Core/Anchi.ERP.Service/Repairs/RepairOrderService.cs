@@ -17,33 +17,17 @@ namespace Anchi.ERP.Service.Repairs
         #region 构造函数和属性
         public RepairOrderService() : this(new RepairOrderRepository()) { }
 
-        public RepairOrderService(RepairOrderRepository repairOrderRepository)
+        public RepairOrderService(RepairOrderRepository repairOrderRepository):base(repairOrderRepository)
         {
             this.RepairOrderRepository = repairOrderRepository;
-            base.Repository = repairOrderRepository;
         }
 
         RepairOrderRepository RepairOrderRepository { get; }
         #endregion
 
-        #region 获取维修单
+        #region 保存维修单
         /// <summary>
-        /// 获取维修单，不填充关联数据
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        public RepairOrder GetModel(Guid Id)
-        {
-            if (Id == Guid.Empty)
-                return null;
-
-            return RepairOrderRepository.GetModel(Id);
-        }
-        #endregion
-
-        #region 创建维修单
-        /// <summary>
-        /// 创建维修单
+        /// 保存维修单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -84,9 +68,9 @@ namespace Anchi.ERP.Service.Repairs
             }
             else
             {
+                model.CreatedOn = temp.CreatedOn;
                 model.Status = model.Status == 0 ? temp.Status : model.Status;
                 model.SettlementStatus = model.SettlementStatus == 0 ? temp.SettlementStatus : model.SettlementStatus;
-                model.CreatedOn = model.CreatedOn < SqlDateTime.Min ? temp.CreatedOn : model.CreatedOn;
                 model.SettlementOn = model.SettlementOn < SqlDateTime.Min ? temp.SettlementOn : model.SettlementOn;
                 model.CompleteOn = model.CompleteOn < SqlDateTime.Min ? temp.CompleteOn : model.CompleteOn;
                 RepairOrderRepository.Update(model);

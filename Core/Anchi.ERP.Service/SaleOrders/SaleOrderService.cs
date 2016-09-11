@@ -8,23 +8,19 @@ using System.Text;
 namespace Anchi.ERP.Service.SaleOrders
 {
     /// <summary>
-    /// 销售单服务类
+    /// 销售管理服务类
     /// </summary>
     public class SaleOrderService : BaseService<SaleOrder>
     {
         #region 构造函数和属性
         public SaleOrderService() : this(new SaleOrderRepository()) { }
 
-        public SaleOrderService(SaleOrderRepository saleOrderRepository)
+        public SaleOrderService(SaleOrderRepository saleOrderRepository) : base(saleOrderRepository)
         {
             this.SaleOrderRepository = saleOrderRepository;
-            base.Repository = saleOrderRepository;
         }
 
-        SaleOrderRepository SaleOrderRepository
-        {
-            get;
-        }
+        SaleOrderRepository SaleOrderRepository { get; }
         #endregion
     }
 }

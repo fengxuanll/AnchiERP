@@ -6,22 +6,20 @@ using System;
 namespace Anchi.ERP.Service.Users
 {
     /// <summary>
-    /// 用户服务层操作
+    /// 用户管理服务层
     /// </summary>
     public class UserService : BaseService<User>
     {
+        #region 构造函数和属性
         public UserService() : this(new UserRepository()) { }
 
-        public UserService(UserRepository userRepository)
+        public UserService(UserRepository userRepository) : base(userRepository)
         {
             this.UserRepository = userRepository;
-            base.Repository = userRepository;
         }
 
-        UserRepository UserRepository
-        {
-            get;
-        }
+        UserRepository UserRepository { get; }
+        #endregion
 
         #region 根据登录名和密码查询用户
         /// <summary>
@@ -71,6 +69,7 @@ namespace Anchi.ERP.Service.Users
             {
                 model.Password = string.IsNullOrWhiteSpace(model.Password) ? temp.Password : model.Password;
                 model.Status = model.Status == 0 ? temp.Status : model.Status;
+                model.CreatedOn = temp.CreatedOn;
                 UserRepository.Update(model);
             }
             return model;

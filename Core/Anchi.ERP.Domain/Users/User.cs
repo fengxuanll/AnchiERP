@@ -73,7 +73,7 @@ namespace Anchi.ERP.Domain.Users
         /// 状态
         /// </summary>
         [Required]
-        [StringLength(1)]
+        [StringLength(10)]
         public EnumUserStatus Status
         {
             get; set;

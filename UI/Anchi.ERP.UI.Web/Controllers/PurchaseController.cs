@@ -43,6 +43,7 @@ namespace Anchi.ERP.UI.Web.Controllers
             ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
             var model = new PurchaseOrder();
+            model.PurchaseOn = DateTime.Now;
             return View("Edit", model);
         }
         #endregion
@@ -104,13 +105,25 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Edit(Guid id)
         {
             ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
-            var model = new PurchaseOrder();
-            model.Id = id;
+            var model = PurchaseService.GetModel(id);
             return View("Edit", model);
+        }
+
+        /// <summary>
+        /// 获取采购单详细信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetEditModel(Guid Id)
+        {
+            var model = PurchaseService.GetById(Id);
+            return new BetterJsonResult(model, true);
         }
         #endregion
 
@@ -125,6 +138,57 @@ namespace Anchi.ERP.UI.Web.Controllers
             try
             {
                 PurchaseService.SaveOrUpdate(model);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 结算采购单
+        /// <summary>
+        /// 结算采购单
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Settlement()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 采购结算
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult SettlementOrder(PurchaseSettlementModel model)
+        {
+            try
+            {
+                PurchaseService.Settlement(model);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 设置已到货
+        /// <summary>
+        /// 设置已到货
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        public ActionResult SetArrival(IList<Guid> idList)
+        {
+            try
+            {
+                PurchaseService.SetArrival(idList);
                 return new BetterJsonResult();
             }
             catch (Exception ex)

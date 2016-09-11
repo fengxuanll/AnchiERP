@@ -74,7 +74,6 @@
     <Compile Include="Common\Enum\EnumOrderbySort.cs" />
     <Compile Include="Common\PagedResult.cs" />
     <Compile Include="Common\PagedFilter.cs" />
-    <Compile Include="Common\QueryFilter.cs" />
     <Compile Include="Customers\Customer.cs" />
     <Compile Include="Customers\Filter\FindCustomerFilter.cs" />
     <Compile Include="Employees\Employee.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="Products\ProductStockRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrders\Enum\EnumPurchaseOrderStatus.cs" />
-    <Compile Include="PurchaseOrders\Enum\EnumPurchaseProductStatus.cs" />
     <Compile Include="PurchaseOrders\PurchaseOrder.cs" />
     <Compile Include="PurchaseOrders\PurchaseOrderProduct.cs" />
     <Compile Include="Projects\Project.cs" />

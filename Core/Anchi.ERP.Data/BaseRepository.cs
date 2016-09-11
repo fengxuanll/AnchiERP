@@ -61,10 +61,25 @@ namespace Anchi.ERP.Data
         #region 修改数据
         /// <summary>
         /// 修改数据
+        ///     如果需要同时修改关联对象，请重新该方法
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public virtual int Update(T model)
+        {
+            using (var db = DbFactory.Open())
+            {
+                return db.Update(model);
+            }
+        }
+
+        /// <summary>
+        /// 修改数据
+        ///     仅修改当前对象，不修改关联对象
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int UpdateModel(T model)
         {
             using (var db = DbFactory.Open())
             {
@@ -105,6 +120,7 @@ namespace Anchi.ERP.Data
         #region 根据ID获取数据
         /// <summary>
         /// 根据ID获取数据
+        ///     如果有关联对象，请重写该方法并关联对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -115,11 +131,25 @@ namespace Anchi.ERP.Data
                 return db.SingleById<T>(Id);
             }
         }
+
+        /// <summary>
+        /// 根据ID获取对象
+        ///     该方法只获取当前对象，不关联对象
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        public T GetModel(Guid Id)
+        {
+            using (var db = DbFactory.Open())
+            {
+                return db.SingleById<T>(Id);
+            }
+        }
         #endregion
 
-        #region 查询维修项目列表
+        #region 查询列表
         /// <summary>
-        /// 查询维修项目列表
+        /// 查询列表
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
@@ -128,10 +158,10 @@ namespace Anchi.ERP.Data
             var result = new PagedResult<T>();
             using (var db = DbFactory.Open())
             {
-                var ev = OrmLiteConfig.DialectProvider.SqlExpression<T>();
-                ev.Skip(filter.PageIndex * filter.PageSize).Take(filter.PageSize);
+                var sqlExpression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
+                sqlExpression.Skip(filter.PageIndex * filter.PageSize).Take(filter.PageSize);
 
-                result.Data = db.Select(ev);
+                result.Data = db.Select(sqlExpression);
                 result.TotalCount = (int)db.Count<T>();
             }
 

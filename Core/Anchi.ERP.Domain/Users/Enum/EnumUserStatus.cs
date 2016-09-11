@@ -1,9 +1,12 @@
-﻿namespace Anchi.ERP.Domain.Users.Enum
+﻿using ServiceStack.DataAnnotations;
+
+namespace Anchi.ERP.Domain.Users.Enum
 {
     /// <summary>
     /// 用户状态
     /// </summary>
-    public enum EnumUserStatus
+    [EnumAsInt]
+    public enum EnumUserStatus : byte
     {
         /// <summary>
         /// 正常
