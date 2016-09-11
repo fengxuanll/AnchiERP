@@ -121,8 +121,6 @@ function initRepairOrderFn(Id) {
     });
 }
 
-
-
 // 设置已完工
 function setCompletedFn() {
     $.ajax({

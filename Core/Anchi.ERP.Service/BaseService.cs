@@ -70,7 +70,7 @@ namespace Anchi.ERP.Service
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public PagedResult<T> Find(PagedFilter filter)
+        public virtual PagedResult<T> Find(PagedFilter filter)
         {
             if (filter == null)
                 return new PagedResult<T>();

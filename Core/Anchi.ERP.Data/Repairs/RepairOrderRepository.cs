@@ -60,6 +60,7 @@ namespace Anchi.ERP.Data.Repairs
                 using (var tran = db.BeginTransaction())
                 {
                     // 插入维修单
+                    model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                     model.CreatedOn = DateTime.Now;
                     db.Insert(model);
 

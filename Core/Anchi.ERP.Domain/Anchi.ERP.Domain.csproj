@@ -91,8 +91,9 @@
     <Compile Include="RepairOrders\RepairOrder.cs" />
     <Compile Include="RepairOrders\RepairOrderItem.cs" />
     <Compile Include="RepairOrders\RepairProductItem.cs" />
+    <Compile Include="SaleOrders\Enum\EnumSaleOrderStatus.cs" />
     <Compile Include="SaleOrders\SaleOrder.cs" />
-    <Compile Include="SaleOrders\SaleOrderItem.cs" />
+    <Compile Include="SaleOrders\SaleProductItem.cs" />
     <Compile Include="Suppliers\Supplier.cs" />
     <Compile Include="Users\Enum\EnumUserStatus.cs" />
     <Compile Include="Users\Filter\FindUserFilter.cs" />

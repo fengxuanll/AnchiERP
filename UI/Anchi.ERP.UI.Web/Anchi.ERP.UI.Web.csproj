@@ -413,6 +413,7 @@
     <Content Include="Views\Repair\Settlement.cshtml" />
     <Content Include="Views\Supplier\SelectSupplier.cshtml" />
     <Content Include="Views\Purchase\Settlement.cshtml" />
+    <Content Include="Views\Sale\Settlement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

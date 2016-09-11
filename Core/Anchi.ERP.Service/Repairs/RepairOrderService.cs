@@ -123,7 +123,7 @@ namespace Anchi.ERP.Service.Repairs
             if (order.Status != EnumRepairOrderStatus.Completed)
                 throw new Exception("只能结算已完工的维修单。");
 
-            if (order.SettlementStatus != EnumSettlementStatus.Waiting)
+            if (order.SettlementStatus == EnumSettlementStatus.Completed)
                 throw new Exception("只能结算未结算的维修单。");
 
             order.SettlementAmount = model.SettlementAmount;

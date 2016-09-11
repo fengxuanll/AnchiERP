@@ -1,7 +1,11 @@
 ﻿using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.SaleOrders;
+using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.SaleOrders;
+using Anchi.ERP.ServiceModel.Sales;
 using Anchi.ERP.UI.Web.Filter;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
@@ -13,17 +17,16 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class SaleController : BaseController
     {
         #region 构造函数和属性
-        public SaleController() : this(new SaleOrderService()) { }
+        public SaleController() : this(new SaleOrderService(), new EmployeeService()) { }
 
-        public SaleController(SaleOrderService saleOrderService)
+        public SaleController(SaleOrderService saleOrderService, EmployeeService employeeService)
         {
             this.SaleOrderService = saleOrderService;
+            this.EmployeeService = employeeService;
         }
 
-        SaleOrderService SaleOrderService
-        {
-            get;
-        }
+        SaleOrderService SaleOrderService { get; }
+        EmployeeService EmployeeService { get; }
         #endregion
 
         #region 销售单管理
@@ -58,18 +61,87 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            return View("Edit");
-        }
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
+            var model = new SaleOrder();
+            model.SaleOn = DateTime.Now;
+            return View("Edit", model);
+        }
+        #endregion
+
+        #region 修改销售单
         /// <summary>
-        /// 新增销售单
+        /// 修改销售单
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Edit(Guid id)
+        {
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
+
+            var model = SaleOrderService.GetById(id);
+            return View("Edit", model);
+        }
+        #endregion
+
+        #region 保存销售单
+        /// <summary>
+        /// 保存销售单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Add(SaleOrder model)
+        public ActionResult Save(SaleOrder model)
         {
-            return new BetterJsonResult(null, true);
+            try
+            {
+                SaleOrderService.SaveOrUpdate(model);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 销售单出库
+        /// <summary>
+        /// 销售单出库
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        public ActionResult Outbound(IList<Guid> idList)
+        {
+            try
+            {
+                SaleOrderService.Outbound(idList);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
+
+        #region 结算销售单
+        /// <summary>
+        /// 结算销售单
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult Settlement(SaleSettlementModel model)
+        {
+            try
+            {
+                SaleOrderService.Settlement(model);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
         }
         #endregion
     }

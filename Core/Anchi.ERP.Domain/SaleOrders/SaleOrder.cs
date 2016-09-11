@@ -1,4 +1,8 @@
-﻿using Anchi.ERP.Domain.Employees;
+﻿using Anchi.ERP.Common;
+using Anchi.ERP.Domain.Customers;
+using Anchi.ERP.Domain.Employees;
+using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.Domain.SaleOrders.Enum;
 using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
@@ -14,6 +18,7 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 销售人ID
         /// </summary>
         [Required]
+        [References(typeof(Employee))]
         public Guid SaleById
         {
             get; set;
@@ -23,10 +28,26 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 销售人信息
         /// </summary>
         [Ignore]
+        [Reference]
         public Employee SaleBy
         {
             get; set;
         }
+
+        /// <summary>
+        /// 客户ID
+        /// </summary>
+        [Ignore]
+        public Guid CustomerId
+        { get; set; }
+
+        /// <summary>
+        /// 客户信息
+        /// </summary>
+        [Ignore]
+        [Reference]
+        public Customer Customer
+        { get; set; }
 
         /// <summary>
         /// 销售时间
@@ -39,40 +60,80 @@ namespace Anchi.ERP.Domain.SaleOrders
         }
 
         /// <summary>
-        /// 创建人Id
+        /// 金额
         /// </summary>
         [Required]
-        public Guid CreatedById
+        public decimal Amount
+        { get; set; }
+
+        /// <summary>
+        /// 销售单状态
+        /// </summary>
+        [Required]
+        public EnumSaleOrderStatus Status
+        { get; set; }
+
+        private DateTime outboundOn;
+        /// <summary>
+        /// 出库时间
+        /// </summary>
+        public DateTime OutboundOn
         {
-            get; set;
+            get
+            {
+                if (outboundOn < SqlDateTime.Min)
+                    outboundOn = SqlDateTime.Min;
+
+                return outboundOn;
+            }
+            set
+            {
+                outboundOn = value;
+            }
         }
 
         /// <summary>
-        /// 发票号
+        /// 结算状态
         /// </summary>
-        [StringLength(100)]
-        public string InvoiceId
-        {
-            get; set;
-        }
+        public EnumSettlementStatus SettlementStatus
+        { get; set; }
 
-        private IList<SaleOrderItem> itemList;
+        /// <summary>
+        /// 结算金额
+        /// </summary>
+        public decimal SettlementAmount
+        { get; set; }
+
+        /// <summary>
+        /// 结算时间
+        /// </summary>
+        public DateTime SettlementOn
+        { get; set; }
+
+        /// <summary>
+        /// 结算备注
+        /// </summary>
+        [StringLength(1000)]
+        public string SettlementRemark
+        { get; set; }
+
+        private IList<SaleProductItem> productList;
         /// <summary>
         /// 销售配件列表
         /// </summary>
         [Ignore]
-        public virtual IList<SaleOrderItem> ItemList
+        public virtual IList<SaleProductItem> ProductList
         {
             get
             {
-                if (itemList == null)
-                    itemList = new List<SaleOrderItem>();
+                if (productList == null)
+                    productList = new List<SaleProductItem>();
 
-                return itemList;
+                return productList;
             }
             set
             {
-                itemList = value;
+                productList = value;
             }
         }
 

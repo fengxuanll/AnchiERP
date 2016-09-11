@@ -82,7 +82,7 @@
     <Compile Include="Repairs\RepairOrderItemRepository.cs" />
     <Compile Include="Repairs\RepairProductItemRepository.cs" />
     <Compile Include="Repairs\RepairOrderRepository.cs" />
-    <Compile Include="SaleOrders\SaleOrderItemRepository.cs" />
+    <Compile Include="SaleOrders\SaleProductItemRepository.cs" />
     <Compile Include="SaleOrders\SaleOrderRepository.cs" />
     <Compile Include="Suppliers\SupplierRepository.cs" />
     <Compile Include="Users\UserRepository.cs" />

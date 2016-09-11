@@ -138,6 +138,7 @@ namespace Anchi.ERP.Data.Purchases
                 {
                     // 修改采购单状态
                     model.Status = EnumPurchaseOrderStatus.Completed;
+                    model.ArrivalOn = DateTime.Now;
                     db.Update(model);
 
                     // 库存入库

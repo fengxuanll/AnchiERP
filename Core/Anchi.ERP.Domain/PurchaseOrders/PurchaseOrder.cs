@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain.Employees;
+﻿using Anchi.ERP.Common;
+using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.Suppliers;
@@ -75,6 +76,25 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         public EnumPurchaseOrderStatus Status
         {
             get; set;
+        }
+
+        private DateTime arrivalOn;
+        /// <summary>
+        /// 到货时间
+        /// </summary>
+        public DateTime ArrivalOn
+        {
+            get
+            {
+                if (arrivalOn < SqlDateTime.Min)
+                    arrivalOn = SqlDateTime.Min;
+
+                return arrivalOn;
+            }
+            set
+            {
+                arrivalOn = value;
+            }
         }
 
         /// <summary>

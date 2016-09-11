@@ -49,6 +49,7 @@
     <Compile Include="Purchases\PurchaseSettlementModel.cs" />
     <Compile Include="Repairs\RepairOrderModel.cs" />
     <Compile Include="Repairs\RepairSettlementModel.cs" />
+    <Compile Include="Sales\SaleSettlementModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">

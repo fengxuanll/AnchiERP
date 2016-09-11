@@ -7,7 +7,7 @@ namespace Anchi.ERP.Domain.SaleOrders
     /// <summary>
     /// 销售配件
     /// </summary>
-    public class SaleOrderItem : BaseDomain
+    public class SaleProductItem : BaseDomain
     {
         /// <summary>
         /// 销售单ID
