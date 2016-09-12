@@ -28,7 +28,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.UI.Web", "UI\Anch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.UI.WinForm", "UI\Anchi.ERP.UI.WinForm\Anchi.ERP.UI.WinForm.csproj", "{35AAB188-D01F-46AC-8800-BCF3E6D2D8BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.ServiceModel", "Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj", "{6B84B34C-889E-4281-8246-BD26273FEF55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.ServiceModel", "Core\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj", "{6B84B34C-889E-4281-8246-BD26273FEF55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
