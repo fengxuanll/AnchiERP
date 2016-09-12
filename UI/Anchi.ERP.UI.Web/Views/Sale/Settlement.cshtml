@@ -1,10 +1,9 @@
-﻿
-@{
-    ViewBag.Title = "结算维修单";
+﻿@{
+    ViewBag.Title = "结算销售单";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="page-container" ms-controller="RepairSettlement">
+<div class="page-container" ms-controller="SaleSettlement">
     <form class="form form-horizontal" id="formSettlement">
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
@@ -48,7 +47,7 @@
     function saveRepairSettlementFn() {
         var postData = $vm.$model;
         $.ajax({
-            url: "/Repair/SettlementOrder",
+            url: "/Sale/SettlementOrder",
             type: "POST",
             data: postData,
             success: function (data) {

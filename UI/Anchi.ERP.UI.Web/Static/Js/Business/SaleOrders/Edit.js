@@ -17,12 +17,27 @@ function saveSaleOrderFn() {
 
 // 设置已出库
 function setOutboundFn() {
-    
+    $.ajax({
+    	url:"/Sale/Outbound",
+    	type:"POST",
+    	data: {
+    		idList:[$vm.Id]
+    	},
+    	success: function() {
+    		$.msg("出库成功。"， “success”);
+    	}
+    });
 }
 
 // 显示结算窗口
 function showSettlementFn() {
-
+	layer.open({
+        type: 2,
+        title: "维修单结算",
+        skin: 'layui-layer-rim',
+        area: ['500px', '400px'],
+        content: '/Sale/Settlement/' + $vm.Id
+    });	
 }
 
 // 显示选择客户窗体

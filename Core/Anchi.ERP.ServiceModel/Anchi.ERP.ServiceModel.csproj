@@ -50,6 +50,7 @@
     <Compile Include="Repairs\RepairOrderModel.cs" />
     <Compile Include="Repairs\RepairSettlementModel.cs" />
     <Compile Include="Sales\SaleSettlementModel.cs" />
+    <Compile Include="Sales\SaleOrderModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anchi.ERP.Common\Anchi.ERP.Common.csproj">

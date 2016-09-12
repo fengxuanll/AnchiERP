@@ -49,7 +49,15 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult List(PagedFilter filter)
         {
             var result = SaleOrderService.Find(filter);
-            return new BetterJsonResult(result, true);
+			var modelList = new List<SaleOrderModel>();
+			var response = new PagedResult<SaleOrderModel>();
+			response.Data = modelList;
+			response.PageIndex = result.PageIndex;
+			response.PageSize = result.PageSize;
+			response.TotalCount = result.TotalCount;
+			response.TotalPage = result.TotalPage;
+
+            return new BetterJsonResult(response, true);
         }
         #endregion
 
@@ -123,15 +131,26 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
-        #endregion
+		#endregion
 
-        #region 结算销售单
+		#region 结算销售单
+		/// <summary>
+		/// 结算销售单
+		/// </summary>
+		/// <param name="id">Identifier.</param>
+		[HttpGet]
+		public ActionResult Settlement(Guid id)
+		{
+			return View();
+		}
+
         /// <summary>
         /// 结算销售单
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ActionResult Settlement(SaleSettlementModel model)
+		[HttpPost]
+        public ActionResult SettlementOrder(SaleSettlementModel model)
         {
             try
             {
