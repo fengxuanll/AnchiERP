@@ -428,10 +428,6 @@
     <Folder Include="Static\Images\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj">
-      <Project>{6b84b34c-889e-4281-8246-bd26273fef55}</Project>
-      <Name>Anchi.ERP.ServiceModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
       <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
       <Name>Anchi.ERP.Common</Name>
@@ -439,6 +435,10 @@
     <ProjectReference Include="..\..\Core\Anchi.ERP.Domain\Anchi.ERP.Domain.csproj">
       <Project>{883b8b78-9c4e-434c-96c4-7db09a0b279f}</Project>
       <Name>Anchi.ERP.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj">
+      <Project>{6b84b34c-889e-4281-8246-bd26273fef55}</Project>
+      <Name>Anchi.ERP.ServiceModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Anchi.ERP.Service\Anchi.ERP.Service.csproj">
       <Project>{81e13cee-e674-43ae-9f38-a65dec4eaa75}</Project>
