@@ -92,6 +92,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
+      <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
+      <Name>Anchi.ERP.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.Domain\Anchi.ERP.Domain.csproj">
       <Project>{883b8b78-9c4e-434c-96c4-7db09a0b279f}</Project>
       <Name>Anchi.ERP.Domain</Name>

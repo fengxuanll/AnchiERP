@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain;
+﻿using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Domain;
 using Anchi.ERP.Domain.Common;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
@@ -147,9 +148,9 @@ namespace Anchi.ERP.Data
         }
         #endregion
 
-        #region 查询列表
+        #region 分页查询列表
         /// <summary>
-        /// 查询列表
+        /// 分页查询列表
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
@@ -163,6 +164,34 @@ namespace Anchi.ERP.Data
 
                 result.Data = db.Select(sqlExpression);
                 result.TotalCount = (int)db.Count<T>();
+            }
+
+            result.PageIndex = filter.PageIndex;
+            result.PageSize = filter.PageSize;
+            result.TotalPage = result.TotalCount / filter.PageSize;
+            if (result.TotalCount % result.PageSize > 0)
+                result.TotalPage++;
+
+            return result;
+        }
+        #endregion
+
+        #region 分页筛选查询列表
+        /// <summary>
+        /// 分页筛选查询列表
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public PagedQueryResult<TModel> FindPaged<TModel>(PagedQueryFilter filter) where TModel : new()
+        {
+            var result = new PagedQueryResult<TModel>();
+            using (var db = DbFactory.Open())
+            {
+                var sql = string.Format("SELECT * FROM ({0}) temp LIMIT {1} OFFSET {2}",
+                                        filter.SQL, filter.PageSize, filter.PageSize * filter.PageIndex);
+                result.Data = db.SqlList<TModel>(sql, filter.ParamDict);
+                result.TotalCount = (int)db.RowCount(filter.SQL, filter.ParamDict);
             }
 
             result.PageIndex = filter.PageIndex;

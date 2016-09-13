@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{08BF546B-FAB8-4086-A0AC-76BD114F46F3}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{F0B6FB24-A88B-425B-9DAF-7A9E22BC0804}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Anchi.ERP.Common</RootNamespace>
-    <AssemblyName>Anchi.ERP.Common</AssemblyName>
+    <RootNamespace>TestConsole</RootNamespace>
+    <AssemblyName>TestConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,6 +25,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,16 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\log4net.2.0.5\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,30 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\EnumExtension.cs" />
-    <Compile Include="Filter\Enum\EnumOrderbySort.cs" />
-    <Compile Include="Filter\QueryFilter.cs" />
-    <Compile Include="Filter\PagedQueryFilter.cs" />
-    <Compile Include="Filter\PagedQueryResult.cs" />
-    <Compile Include="JsonUtils.cs" />
-    <Compile Include="Logging\Log4net\LogManager.cs" />
-    <Compile Include="Logging\LogWriter.cs" />
-    <Compile Include="Net\EnumAuthorizationType.cs" />
-    <Compile Include="Net\EnumHttpVerbs.cs" />
-    <Compile Include="Net\HttpRequest.cs" />
-    <Compile Include="Net\HttpResponse.cs" />
-    <Compile Include="Net\HttpUtils.cs" />
-    <Compile Include="Security\MD5.cs" />
-    <Compile Include="SqlDateTime.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
+      <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
+      <Name>Anchi.ERP.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Anchi.ERP.Domain\Anchi.ERP.Domain.csproj">
+      <Project>{883b8b78-9c4e-434c-96c4-7db09a0b279f}</Project>
+      <Name>Anchi.ERP.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Anchi.ERP.Service\Anchi.ERP.Service.csproj">
+      <Project>{81e13cee-e674-43ae-9f38-a65dec4eaa75}</Project>
+      <Name>Anchi.ERP.Service</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,13 +1,40 @@
-﻿using Anchi.ERP.Domain.Common;
+﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.Users.Enum;
+using System.Text;
 
 namespace Anchi.ERP.Domain.Users.Filter
 {
     /// <summary>
     /// 查找用户信息筛选类
     /// </summary>
-    public class FindUserFilter : PagedFilter
+    public class FindUserFilter : PagedQueryFilter
     {
+        /// <summary>
+        /// 要执行的SQL
+        /// </summary>
+        public override string SQL
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                sb.Append("SELECT * FROM [User] WHERE 1 = 1");
+
+                if (!string.IsNullOrWhiteSpace(this.Tel))
+                {
+                    sb.AppendLine(" AND [Tel] = @Tel");
+                    this.ParamDict.Add("@Tel", this.Tel);
+                }
+
+                if (!string.IsNullOrWhiteSpace(this.Tel))
+                {
+                    sb.AppendLine(" AND [TrueName] = @TrueName");
+                    this.ParamDict.Add("@TrueName", this.TrueName);
+                }
+
+                return sb.ToString();
+            }
+        }
+
         /// <summary>
         /// 电话
         /// </summary>

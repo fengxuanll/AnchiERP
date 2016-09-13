@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Data;
+﻿using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Data;
 using Anchi.ERP.Domain;
 using Anchi.ERP.Domain.Common;
 using System;
@@ -79,6 +80,25 @@ namespace Anchi.ERP.Service
                 return new PagedResult<T>();
 
             return Repository.Find(filter);
+        }
+        #endregion
+
+        #region 分页筛选查询列表
+        /// <summary>
+        /// 分页筛选查询列表
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public PagedQueryResult<TModel> FindPaged<TModel>(PagedQueryFilter filter) where TModel : new()
+        {
+            if (filter == null)
+                return new PagedQueryResult<TModel>();
+
+            if (filter.PageSize == 0)
+                return new PagedQueryResult<TModel>();
+
+            return Repository.FindPaged<TModel>(filter);
         }
         #endregion
     }
