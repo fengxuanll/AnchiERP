@@ -22,13 +22,13 @@ namespace Anchi.ERP.Domain.Users.Filter
                 if (!string.IsNullOrWhiteSpace(this.Tel))
                 {
                     sb.AppendLine(" AND [Tel] = @Tel");
-                    this.ParamDict.Add("@Tel", this.Tel);
+                    this.ParamDict["@Tel"] = this.Tel;
                 }
 
-                if (!string.IsNullOrWhiteSpace(this.Tel))
+                if (!string.IsNullOrWhiteSpace(this.TrueName))
                 {
                     sb.AppendLine(" AND [TrueName] = @TrueName");
-                    this.ParamDict.Add("@TrueName", this.TrueName);
+                    this.ParamDict["@TrueName"] = this.TrueName;
                 }
 
                 return sb.ToString();

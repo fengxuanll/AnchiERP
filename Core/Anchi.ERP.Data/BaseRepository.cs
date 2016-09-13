@@ -188,10 +188,14 @@ namespace Anchi.ERP.Data
             var result = new PagedQueryResult<TModel>();
             using (var db = DbFactory.Open())
             {
-                var sql = string.Format("SELECT * FROM ({0}) temp LIMIT {1} OFFSET {2}",
+                var sql = filter.SQL;
+
+                var pagedSql = string.Format("SELECT * FROM ({0}) temp LIMIT {1} OFFSET {2}",
                                         filter.SQL, filter.PageSize, filter.PageSize * filter.PageIndex);
-                result.Data = db.SqlList<TModel>(sql, filter.ParamDict);
-                result.TotalCount = (int)db.RowCount(filter.SQL, filter.ParamDict);
+                result.Data = db.SqlList<TModel>(pagedSql, filter.ParamDict);
+
+                var countSql = string.Format("SELECT COUNT(1) FROM ({0}) AS temp", sql);
+                result.TotalCount = db.SqlScalar<int>(countSql, filter.ParamDict);
             }
 
             result.PageIndex = filter.PageIndex;

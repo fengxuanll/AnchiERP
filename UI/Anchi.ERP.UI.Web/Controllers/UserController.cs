@@ -1,6 +1,7 @@
 ﻿using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
+using Anchi.ERP.Domain.Users.Filter;
 using Anchi.ERP.Service.Users;
 using Anchi.ERP.UI.Web.Filter;
 using System;
@@ -45,6 +46,17 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult List(PagedFilter filter)
         {
             var result = UserService.Find(filter);
+            return new BetterJsonResult(result, true);
+        }
+
+        /// <summary>
+        /// 查询用户列表
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public ActionResult ListUser(FindUserFilter filter)
+        {
+            var result = UserService.FindPaged<User>(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
