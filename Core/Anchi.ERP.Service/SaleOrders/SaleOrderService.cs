@@ -107,7 +107,7 @@ namespace Anchi.ERP.Service.SaleOrders
                     continue;
 
                 if (order.Status != EnumSaleOrderStatus.Initial)
-                    throw new Exception("只有对待出库的财务单做出库操作。");
+                    throw new Exception("只有对待出库的销售单做出库操作。");
 
                 SaleOrderRepository.Outbound(order);
             }

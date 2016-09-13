@@ -156,7 +156,8 @@ namespace Anchi.ERP.Data.Purchases
                             Quantity = item.Quantity,
                             Type = EnumStockRecordType.Purchase,
                             QuantityBefore = product.Stock,
-                            CreatedOn = model.CreatedOn,
+                            CreatedOn = DateTime.Now,
+                            RecordOn = model.ArrivalOn,
                         };
                         db.Insert(record);
 

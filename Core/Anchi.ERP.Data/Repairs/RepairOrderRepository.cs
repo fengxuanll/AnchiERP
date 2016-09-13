@@ -208,7 +208,8 @@ namespace Anchi.ERP.Data.Repairs
                             Quantity = item.Quantity,
                             Type = EnumStockRecordType.Repair,
                             QuantityBefore = product.Stock,
-                            CreatedOn = model.CreatedOn,
+                            CreatedOn = DateTime.Now,
+                            RecordOn = model.CompleteOn,
                         };
                         db.Insert(record);
 

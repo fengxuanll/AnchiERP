@@ -29,6 +29,13 @@
     function selectSaleOnFn() {
         $vm.SaleOn = $("#txtSaleOn").val();
     }
+
+    $(function () {
+        @if (Model.Id != Guid.Empty)
+        {
+            @:initSaleOrderFn("@Model.Id");
+        }
+    });
 </script>
 
 <nav class="breadcrumb">

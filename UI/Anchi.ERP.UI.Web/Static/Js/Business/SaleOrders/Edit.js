@@ -1,5 +1,4 @@
-﻿/// <reference path="../../Common.js" />
-function saveSaleOrderFn() {
+﻿function saveSaleOrderFn() {
     var postData = $vm.$model;
     $.ajax({
         url: "/Sale/Save",
@@ -24,7 +23,7 @@ function setOutboundFn() {
     		idList:[$vm.Id]
     	},
     	success: function() {
-    		$.msg("出库成功。"， “success”);
+    		$.msg("出库成功。", "success");
     	}
     });
 }
@@ -33,7 +32,7 @@ function setOutboundFn() {
 function showSettlementFn() {
 	layer.open({
         type: 2,
-        title: "维修单结算",
+        title: "销售单结算",
         skin: 'layui-layer-rim',
         area: ['500px', '400px'],
         content: '/Sale/Settlement/' + $vm.Id
@@ -78,5 +77,38 @@ function addRepairProductFn(item) {
         Name: item.Name,
         UnitPrice: item.SalePrice,
         Quantity: 1
+    });
+}
+
+// 初始化销售单信息
+function initSaleOrderFn(Id) {
+    $.ajax({
+        url: "/Sale/GetEditModel",
+        type: "POST",
+        data: {
+            Id: Id
+        },
+        success: function (data) {
+            if (!data)
+                return;
+
+            $vm.Id = data.Id;
+            $vm.Amount = data.Amount;
+            $vm.CustomerId = data.Customer.Id;
+            $vm.CustomerName = data.Customer.Name;
+            $vm.SaleOn = data.SaleOn;
+            $vm.SaleById = data.SaleById;
+            $vm.Remark = data.Remark;
+            $.each(data.ProductList, function (i, item) {
+                $vm.ProductList.push({
+                    Id: item.Id,
+                    ProductId: item.ProductId,
+                    Code: item.Product ? item.Product.Code : "未知",
+                    Name: item.Product ? item.Product.Name : "未知",
+                    UnitPrice: item.UnitPrice,
+                    Quantity: item.Quantity
+                });
+            });
+        }
     });
 }

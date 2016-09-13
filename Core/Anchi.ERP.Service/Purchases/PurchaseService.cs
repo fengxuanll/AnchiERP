@@ -120,6 +120,9 @@ namespace Anchi.ERP.Service.Purchases
                 if (order == null)
                     continue;
 
+                if (order.Status != EnumPurchaseOrderStatus.Purchasing)
+                    throw new Exception("只能将采购中的采购单设置为已到货。");
+
                 PurchaseOrderRepository.SetArrival(order);
             }
         }

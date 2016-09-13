@@ -86,8 +86,22 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
-            var model = SaleOrderService.GetById(id);
+            var model = SaleOrderService.GetModel(id);
             return View("Edit", model);
+        }
+
+        /// <summary>
+        /// 获取销售单详细信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetEditModel(Guid Id)
+        {
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
+
+            var model = SaleOrderService.GetById(Id);
+            return new BetterJsonResult(model, true);
         }
         #endregion
 

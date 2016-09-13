@@ -150,7 +150,7 @@ namespace Anchi.ERP.Data.SaleOrders
                     // 修改状态为已出库
                     model.Status = EnumSaleOrderStatus.Outbound;
                     model.OutboundOn = DateTime.Now;
-                    tran.Commit();
+                    db.Update(model);
 
                     // 扣产品库存
                     foreach (var item in model.ProductList)
@@ -167,7 +167,8 @@ namespace Anchi.ERP.Data.SaleOrders
                             Quantity = item.Quantity,
                             Type = EnumStockRecordType.Sale,
                             QuantityBefore = product.Stock,
-                            CreatedOn = model.CreatedOn,
+                            CreatedOn = DateTime.Now,
+                            RecordOn = model.OutboundOn,
                         };
                         db.Insert(record);
 
@@ -175,6 +176,8 @@ namespace Anchi.ERP.Data.SaleOrders
                         product.Stock = product.Stock - item.Quantity;
                         db.Update(product);
                     }
+
+                    tran.Commit();
                 }
             }
         }

@@ -37,7 +37,8 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 客户ID
         /// </summary>
-        [Ignore]
+        [Required]
+        [References(typeof(Customer))]
         public Guid CustomerId
         { get; set; }
 
