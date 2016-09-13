@@ -1,5 +1,6 @@
 ﻿using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.SaleOrders;
+using Anchi.ERP.Service.Customers;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.SaleOrders;
 using Anchi.ERP.ServiceModel.Sales;
@@ -25,8 +26,14 @@ namespace Anchi.ERP.UI.Web.Controllers
             this.EmployeeService = employeeService;
         }
 
-        SaleOrderService SaleOrderService { get; }
-        EmployeeService EmployeeService { get; }
+        SaleOrderService SaleOrderService
+        {
+            get;
+        }
+        EmployeeService EmployeeService
+        {
+            get;
+        }
         #endregion
 
         #region 销售单管理
@@ -48,16 +55,8 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult List(PagedFilter filter)
         {
-            var result = SaleOrderService.Find(filter);
-			var modelList = new List<SaleOrderModel>();
-			var response = new PagedResult<SaleOrderModel>();
-			response.Data = modelList;
-			response.PageIndex = result.PageIndex;
-			response.PageSize = result.PageSize;
-			response.TotalCount = result.TotalCount;
-			response.TotalPage = result.TotalPage;
-
-            return new BetterJsonResult(response, true);
+            var result = this.SaleOrderService.FindList(filter);
+            return new BetterJsonResult(result, true);
         }
         #endregion
 
@@ -131,18 +130,18 @@ namespace Anchi.ERP.UI.Web.Controllers
                 return new BetterJsonResult(ex.Message);
             }
         }
-		#endregion
+        #endregion
 
-		#region 结算销售单
-		/// <summary>
-		/// 结算销售单
-		/// </summary>
-		/// <param name="id">Identifier.</param>
-		[HttpGet]
-		public ActionResult Settlement(Guid id)
-		{
-			return View();
-		}
+        #region 结算销售单
+        /// <summary>
+        /// 结算销售单
+        /// </summary>
+        /// <param name="id">Identifier.</param>
+        [HttpGet]
+        public ActionResult Settlement(Guid id)
+        {
+            return View();
+        }
 
         /// <summary>
         /// 结算销售单

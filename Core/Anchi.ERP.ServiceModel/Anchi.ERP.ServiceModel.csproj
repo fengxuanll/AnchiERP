@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoginModel.cs" />
+    <Compile Include="Products\ProductStockRecordModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchases\PurchaseOrderModel.cs" />
     <Compile Include="Purchases\PurchaseSettlementModel.cs" />

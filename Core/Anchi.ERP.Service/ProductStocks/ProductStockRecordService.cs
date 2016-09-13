@@ -1,9 +1,10 @@
 ﻿using Anchi.ERP.Data.ProductStocks;
+using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.Products;
+using Anchi.ERP.Service.Products;
+using Anchi.ERP.ServiceModel.Products;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Anchi.ERP.Service.ProductStocks
 {
@@ -13,14 +14,20 @@ namespace Anchi.ERP.Service.ProductStocks
     public class ProductStockRecordService : BaseService<ProductStockRecord>
     {
         #region 构造函数和属性
-        public ProductStockRecordService() : this(new ProductStockRecordRepository()) { }
+        public ProductStockRecordService() : this(new ProductStockRecordRepository(), new ProductService()) { }
 
-        public ProductStockRecordService(ProductStockRecordRepository productStockRecordRepository) : base(productStockRecordRepository)
+        public ProductStockRecordService(ProductStockRecordRepository productStockRecordRepository, ProductService productService) : base(productStockRecordRepository)
         {
             this.ProductStockRecordRepository = productStockRecordRepository;
+            this.ProductService = productService;
         }
 
         ProductStockRecordRepository ProductStockRecordRepository
+        {
+            get;
+        }
+
+        ProductService ProductService
         {
             get;
         }
@@ -38,6 +45,43 @@ namespace Anchi.ERP.Service.ProductStocks
                 return new List<ProductStockRecord>();
 
             return ProductStockRecordRepository.Find(productId);
+        }
+        #endregion
+
+        #region 查找出入库记录列表
+        /// <summary>
+        /// 查找出入库记录列表
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public PagedResult<ProductStockRecordModel> FindList(PagedFilter filter)
+        {
+            var result = Find(filter);
+            var modelList = new List<ProductStockRecordModel>();
+            var response = new PagedResult<ProductStockRecordModel>();
+            foreach (var item in result.Data)
+            {
+                var product = ProductService.GetModel(item.ProductId);
+                var model = new ProductStockRecordModel
+                {
+                    Id = item.Id,
+                    Stock = product == null ? 0 : product.Stock,
+                    ProductCode = product == null ? string.Empty : product.Code,
+                    ProductName = product == null ? string.Empty : product.Name,
+                    Quantity = item.Quantity,
+                    QuantityBefore = item.QuantityBefore,
+                    RecordOn = item.RecordOn,
+                    Type = item.Type,
+                };
+                modelList.Add(model);
+            }
+            response.Data = modelList;
+            response.PageIndex = result.PageIndex;
+            response.PageSize = result.PageSize;
+            response.TotalCount = result.TotalCount;
+            response.TotalPage = result.TotalPage;
+
+            return response;
         }
         #endregion
     }

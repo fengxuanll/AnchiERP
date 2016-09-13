@@ -1,6 +1,7 @@
 ﻿using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Service.Products;
+using Anchi.ERP.Service.ProductStocks;
 using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;
@@ -16,16 +17,20 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class ProductController : BaseController
     {
         #region 构造函数和属性
-        public ProductController() : this(new ProductService())
-        {
-        }
+        public ProductController() : this(new ProductService(), new ProductStockRecordService()) { }
 
-        public ProductController(ProductService productService)
+        public ProductController(ProductService productService, ProductStockRecordService productStockRecordService)
         {
             this.ProductService = productService;
+            this.ProductStockRecordService = productStockRecordService;
         }
 
         ProductService ProductService
+        {
+            get;
+        }
+
+        ProductStockRecordService ProductStockRecordService
         {
             get;
         }
@@ -131,6 +136,29 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult SelectRepairProduct()
         {
             return View();
+        }
+        #endregion
+
+        #region 配件出入库记录
+        /// <summary>
+        /// 配件出入库记录
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Record()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 配件出入库记录
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult RecordList(PagedFilter filter)
+        {
+            var result = ProductStockRecordService.FindList(filter);
+            return new BetterJsonResult(result, true);
         }
         #endregion
     }

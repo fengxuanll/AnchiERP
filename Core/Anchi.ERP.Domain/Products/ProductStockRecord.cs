@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Domain.Employees;
+﻿using Anchi.ERP.Common;
 using Anchi.ERP.Domain.Products.Enum;
 using ServiceStack.DataAnnotations;
 using System;
@@ -11,12 +11,42 @@ namespace Anchi.ERP.Domain.Products
     public class ProductStockRecord : BaseDomain
     {
         /// <summary>
-        /// 产品ID
+        /// 配件ID
         /// </summary>
         [Required]
+        [References(typeof(Product))]
         public Guid ProductId
         {
             get; set;
+        }
+
+        /// <summary>
+        /// 配件信息
+        /// </summary>
+        [Ignore]
+        public Product Product
+        {
+            get; set;
+        }
+
+        private DateTime recordOn;
+        /// <summary>
+        /// 出入库时间
+        /// </summary>
+        [Required]
+        public DateTime RecordOn
+        {
+            get
+            {
+                if (recordOn <= SqlDateTime.Min)
+                    recordOn = SqlDateTime.Min;
+
+                return recordOn;
+            }
+            set
+            {
+                recordOn = value;
+            }
         }
 
         /// <summary>
@@ -41,7 +71,6 @@ namespace Anchi.ERP.Domain.Products
         /// 库存记录类型
         /// </summary>
         [Required]
-        [StringLength(50)]
         public EnumStockRecordType Type
         {
             get; set;

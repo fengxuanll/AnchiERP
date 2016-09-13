@@ -1,7 +1,10 @@
 ﻿using Anchi.ERP.Data.SaleOrders;
+using Anchi.ERP.Domain.Common;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
+using Anchi.ERP.Service.Customers;
+using Anchi.ERP.Service.Employees;
 using Anchi.ERP.ServiceModel.Sales;
 using System;
 using System.Collections.Generic;
@@ -15,14 +18,29 @@ namespace Anchi.ERP.Service.SaleOrders
     public class SaleOrderService : BaseService<SaleOrder>
     {
         #region 构造函数和属性
-        public SaleOrderService() : this(new SaleOrderRepository()) { }
+        public SaleOrderService() : this(new SaleOrderRepository(), new CustomerService(), new EmployeeService()) { }
 
-        public SaleOrderService(SaleOrderRepository saleOrderRepository) : base(saleOrderRepository)
+        public SaleOrderService(SaleOrderRepository saleOrderRepository, CustomerService customerService, EmployeeService employeeService) : base(saleOrderRepository)
         {
             this.SaleOrderRepository = saleOrderRepository;
+            this.CustomerService = customerService;
+            this.EmployeeService = employeeService;
         }
 
-        SaleOrderRepository SaleOrderRepository { get; }
+        SaleOrderRepository SaleOrderRepository
+        {
+            get;
+        }
+
+        CustomerService CustomerService
+        {
+            get;
+        }
+
+        EmployeeService EmployeeService
+        {
+            get;
+        }
         #endregion
 
         #region 保存销售单
@@ -122,6 +140,48 @@ namespace Anchi.ERP.Service.SaleOrders
             order.SettlementRemark = model.SettlementRemark;
 
             SaleOrderRepository.UpdateModel(order);
+        }
+        #endregion
+
+        #region 分页查找销售单列表
+        /// <summary>
+        /// 分页查找销售单列表
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public PagedResult<SaleOrderModel> FindList(PagedFilter filter)
+        {
+            var result = Find(filter);
+            var modelList = new List<SaleOrderModel>();
+            var response = new PagedResult<SaleOrderModel>();
+            foreach (var item in result.Data)
+            {
+                var customer = CustomerService.GetModel(item.CustomerId);
+                var saleBy = EmployeeService.GetModel(item.SaleById);
+
+                var model = new SaleOrderModel
+                {
+                    Id = item.Id,
+                    Amount = item.Amount,
+                    CustomerName = customer == null ? string.Empty : customer.Name,
+                    OutboundOn = item.OutboundOn,
+                    Remark = item.Remark,
+                    SaleByName = saleBy == null ? string.Empty : saleBy.Name,
+                    SaleOn = item.SaleOn,
+                    SettlementAmount = item.SettlementAmount,
+                    SettlementOn = item.SettlementOn,
+                    SettlementStatus = item.SettlementStatus,
+                    Status = item.Status,
+                };
+                modelList.Add(model);
+            }
+            response.Data = modelList;
+            response.PageIndex = result.PageIndex;
+            response.PageSize = result.PageSize;
+            response.TotalCount = result.TotalCount;
+            response.TotalPage = result.TotalPage;
+
+            return response;
         }
         #endregion
     }
