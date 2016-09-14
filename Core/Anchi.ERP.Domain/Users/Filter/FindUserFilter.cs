@@ -19,44 +19,29 @@ namespace Anchi.ERP.Domain.Users.Filter
                 var sb = new StringBuilder();
                 sb.Append("SELECT * FROM [User] WHERE 1 = 1");
 
-                if (!string.IsNullOrWhiteSpace(this.Tel))
-                {
-                    sb.AppendLine(" AND [Tel] = @Tel");
-                    this.ParamDict["@Tel"] = this.Tel;
-                }
-
                 if (!string.IsNullOrWhiteSpace(this.TrueName))
                 {
                     sb.AppendLine(" AND [TrueName] = @TrueName");
                     this.ParamDict["@TrueName"] = this.TrueName;
                 }
+                if (!string.IsNullOrWhiteSpace(this.LoginName))
+                {
+                    sb.AppendLine(" AND [LoginName] = @LoginName");
+                    this.ParamDict["@LoginName"] = this.LoginName;
+                }
+                if (!string.IsNullOrWhiteSpace(this.PassWord))
+                {
+                    sb.AppendLine(" AND [PassWord] = @PassWord");
+                    this.ParamDict["@PassWord"] = this.PassWord;
+                }
+                if (this.Status.HasValue)
+                {
+                    sb.AppendLine(" AND [Status] = @Status");
+                    this.ParamDict["@Status"] = (byte)this.Status.Value;
+                }
 
                 return sb.ToString();
             }
-        }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        public string Tel
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 地址
-        /// </summary>
-        public string Address
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 身份证号
-        /// </summary>
-        public string IDCard
-        {
-            get; set;
         }
 
         /// <summary>
@@ -71,6 +56,14 @@ namespace Anchi.ERP.Domain.Users.Filter
         /// 登录名
         /// </summary>
         public string LoginName
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string PassWord
         {
             get; set;
         }
