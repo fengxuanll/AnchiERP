@@ -21,6 +21,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Domain", "Core\Anchi.ERP.Domain\Anchi.ERP.Domain.csproj", "{883B8B78-9C4E-434C-96C4-7DB09A0B279F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Doc", "2-Doc", "{93F63CB6-56EC-4E3B-A306-8C873DDDACDE}"
+	ProjectSection(SolutionItems) = preProject
+		2-Doc\Create.sql = 2-Doc\Create.sql
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Common", "Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj", "{08BF546B-FAB8-4086-A0AC-76BD114F46F3}"
 EndProject
