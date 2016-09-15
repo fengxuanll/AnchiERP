@@ -1,5 +1,5 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.Customers;
+﻿using Anchi.ERP.Domain.Customers;
+using Anchi.ERP.Domain.Customers.Filter;
 using Anchi.ERP.Service.Customers;
 using Anchi.ERP.UI.Web.Filter;
 using System;
@@ -46,9 +46,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindCustomerFilter filter)
         {
-            var result = CustomerService.Find(filter);
+            var result = CustomerService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
@@ -75,7 +75,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var model = CustomerService.GetById(id);
+            var model = CustomerService.GetModel(id);
             return View(model);
         }
         #endregion

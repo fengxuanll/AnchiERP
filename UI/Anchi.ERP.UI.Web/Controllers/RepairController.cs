@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Domain.Common;
+﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.RepairOrder;
+using Anchi.ERP.Domain.RepairOrders.Filter;
 using Anchi.ERP.Service.Customers;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.Repairs;
@@ -49,13 +50,13 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindRepairOrderFilter filter)
         {
             var modelList = new List<RepairOrderModel>();
-            var result = RepairOrderService.Find(filter);
+            var result = RepairOrderService.FindPaged(filter);
             foreach (var item in result.Data)
             {
-                var customer = CustomerService.GetById(item.CustomerId);
+                var customer = CustomerService.Get(item.CustomerId);
                 modelList.Add(new RepairOrderModel
                 {
                     Id = item.Id,
@@ -71,7 +72,7 @@ namespace Anchi.ERP.UI.Web.Controllers
                 });
             }
 
-            var response = new PagedResult<RepairOrderModel>();
+            var response = new PagedQueryResult<RepairOrderModel>();
             response.Data = modelList;
             response.PageIndex = result.PageIndex;
             response.PageSize = result.PageSize;
@@ -121,7 +122,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult GetEditModel(Guid Id)
         {
-            var model = RepairOrderService.GetById(Id);
+            var model = RepairOrderService.GetModel(Id);
             return new BetterJsonResult(model, true);
         }
         #endregion

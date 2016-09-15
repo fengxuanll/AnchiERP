@@ -1,5 +1,4 @@
 ﻿using Anchi.ERP.Domain.Products;
-using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.PurchaseOrders
@@ -12,7 +11,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 采购单ID
         /// </summary>
-        [Required]
         public Guid PurchaseOrderId
         {
             get; set;
@@ -21,7 +19,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 采购配件信息
         /// </summary>
-        [Reference]
         public virtual Product Product
         {
             get; set;
@@ -30,7 +27,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 配件ID
         /// </summary>
-        [References(typeof(Product))]
         public Guid ProductId
         {
             get; set;
@@ -39,7 +35,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 采购单价
         /// </summary>
-        [Required]
         public decimal UnitPrice
         {
             get; set;
@@ -48,7 +43,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 数量
         /// </summary>
-        [Required]
         public int Quantity
         {
             get; set;

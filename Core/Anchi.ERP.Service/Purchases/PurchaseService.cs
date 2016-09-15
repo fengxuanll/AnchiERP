@@ -1,5 +1,5 @@
 ﻿using Anchi.ERP.Common;
-using Anchi.ERP.Data.Purchases;
+using Anchi.ERP.Data.Repository.Purchases;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.RepairOrder.Enum;
@@ -51,7 +51,7 @@ namespace Anchi.ERP.Service.Purchases
 
             model.Amount = model.ProductList.Sum(item => item.UnitPrice * item.Quantity);
 
-            var temp = GetById(model.Id);
+            var temp = PurchaseOrderRepository.GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
@@ -116,7 +116,7 @@ namespace Anchi.ERP.Service.Purchases
 
             foreach (var Id in IdList)
             {
-                var order = GetById(Id);
+                var order = PurchaseOrderRepository.GetModel(Id);
                 if (order == null)
                     continue;
 

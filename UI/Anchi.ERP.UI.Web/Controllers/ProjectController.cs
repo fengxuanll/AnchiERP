@@ -1,5 +1,5 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.Projects;
+﻿using Anchi.ERP.Domain.Projects;
+using Anchi.ERP.Domain.Projects.Filter;
 using Anchi.ERP.Service.Projects;
 using Anchi.ERP.UI.Web.Filter;
 using System;
@@ -41,9 +41,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindProjectFilter filter)
         {
-            var result = ProjectService.Find(filter);
+            var result = ProjectService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
@@ -69,7 +69,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var model = ProjectService.GetById(id);
+            var model = ProjectService.GetModel(id);
             return View(model);
         }
         #endregion

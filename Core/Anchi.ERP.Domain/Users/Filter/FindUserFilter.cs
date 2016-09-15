@@ -16,9 +16,7 @@ namespace Anchi.ERP.Domain.Users.Filter
         {
             get
             {
-                var sb = new StringBuilder();
-                sb.Append("SELECT * FROM [User] WHERE 1 = 1");
-
+                var sb = new StringBuilder("SELECT * FROM [User] WHERE 1 = 1");
                 if (!string.IsNullOrWhiteSpace(this.TrueName))
                 {
                     sb.AppendLine(" AND [TrueName] = @TrueName");

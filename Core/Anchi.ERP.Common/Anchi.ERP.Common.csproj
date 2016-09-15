@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,12 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\AppSettingReader.cs" />
+    <Compile Include="Configuration\ConnectionStringReader.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Filter\Enum\EnumOrderbySort.cs" />
     <Compile Include="Filter\QueryFilter.cs" />
     <Compile Include="Filter\PagedQueryFilter.cs" />
     <Compile Include="Filter\PagedQueryResult.cs" />
-    <Compile Include="Filter\QueryResult.cs" />
     <Compile Include="JsonUtils.cs" />
     <Compile Include="Logging\Log4net\LogManager.cs" />
     <Compile Include="Logging\LogWriter.cs" />

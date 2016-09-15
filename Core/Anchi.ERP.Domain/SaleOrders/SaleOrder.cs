@@ -3,7 +3,6 @@ using Anchi.ERP.Domain.Customers;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders.Enum;
-using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -17,8 +16,6 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 销售人ID
         /// </summary>
-        [Required]
-        [References(typeof(Employee))]
         public Guid SaleById
         {
             get; set;
@@ -27,8 +24,6 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 销售人信息
         /// </summary>
-        [Ignore]
-        [Reference]
         public Employee SaleBy
         {
             get; set;
@@ -37,24 +32,18 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 客户ID
         /// </summary>
-        [Required]
-        [References(typeof(Customer))]
         public Guid CustomerId
         { get; set; }
 
         /// <summary>
         /// 客户信息
         /// </summary>
-        [Ignore]
-        [Reference]
         public Customer Customer
         { get; set; }
 
         /// <summary>
         /// 销售时间
         /// </summary>
-        [Required]
-        [StringLength(30)]
         public DateTime SaleOn
         {
             get; set;
@@ -63,14 +52,12 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 金额
         /// </summary>
-        [Required]
         public decimal Amount
         { get; set; }
 
         /// <summary>
         /// 销售单状态
         /// </summary>
-        [Required]
         public EnumSaleOrderStatus Status
         { get; set; }
 
@@ -114,21 +101,19 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 结算备注
         /// </summary>
-        [StringLength(1000)]
         public string SettlementRemark
         { get; set; }
 
-        private IList<SaleProductItem> productList;
+        private IList<SaleOrderProduct> productList;
         /// <summary>
         /// 销售配件列表
         /// </summary>
-        [Ignore]
-        public virtual IList<SaleProductItem> ProductList
+        public virtual IList<SaleOrderProduct> ProductList
         {
             get
             {
                 if (productList == null)
-                    productList = new List<SaleProductItem>();
+                    productList = new List<SaleOrderProduct>();
 
                 return productList;
             }
@@ -141,7 +126,6 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(1000)]
         public string Remark
         {
             get; set;

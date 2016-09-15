@@ -1,5 +1,5 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Products;
+using Anchi.ERP.Domain.Products.Filter;
 using Anchi.ERP.Service.Products;
 using Anchi.ERP.Service.ProductStocks;
 using Anchi.ERP.UI.Web.Filter;
@@ -51,9 +51,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindProductFilter filter)
         {
-            var result = ProductService.Find(filter);
+            var result = ProductService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
@@ -80,7 +80,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var model = ProductService.GetById(id);
+            var model = ProductService.GetModel(id);
             return View(model);
         }
         #endregion
@@ -155,7 +155,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult RecordList(PagedFilter filter)
+        public ActionResult RecordList(FindProductStockRecordFilter filter)
         {
             var result = ProductStockRecordService.FindList(filter);
             return new BetterJsonResult(result, true);

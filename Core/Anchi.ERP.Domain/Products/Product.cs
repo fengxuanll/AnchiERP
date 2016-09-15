@@ -1,6 +1,4 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace Anchi.ERP.Domain.Products
+﻿namespace Anchi.ERP.Domain.Products
 {
     /// <summary>
     /// 配件信息
@@ -10,9 +8,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 配件编码
         /// </summary>
-        [Required]
-        [Index(unique: true)]
-        [StringLength(50)]
         public string Code
         {
             get; set;
@@ -21,9 +16,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 配件名称
         /// </summary>
-        [Required]
-        [Index(unique: true)]
-        [StringLength(50)]
         public string Name
         {
             get; set;
@@ -64,7 +56,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(1000)]
         public string Remark
         {
             get; set;

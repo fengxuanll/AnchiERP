@@ -1,6 +1,5 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.SaleOrders;
-using Anchi.ERP.Service.Customers;
+﻿using Anchi.ERP.Domain.SaleOrders;
+using Anchi.ERP.Domain.SaleOrders.Filter;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.SaleOrders;
 using Anchi.ERP.ServiceModel.Sales;
@@ -53,9 +52,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindSaleOrderFilter filter)
         {
-            var result = this.SaleOrderService.FindList(filter);
+            var result = this.SaleOrderService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
@@ -100,7 +99,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
-            var model = SaleOrderService.GetById(Id);
+            var model = SaleOrderService.GetModel(Id);
             return new BetterJsonResult(model, true);
         }
         #endregion

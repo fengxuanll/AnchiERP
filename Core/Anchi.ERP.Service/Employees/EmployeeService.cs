@@ -1,6 +1,8 @@
-﻿using Anchi.ERP.Data.Employees;
+﻿using Anchi.ERP.Data.Repository.Employees;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.Employees.Enum;
+using Anchi.ERP.Domain.Employees.Filter;
+using Anchi.ERP.Domain.Users.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +45,7 @@ namespace Anchi.ERP.Service.Employees
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new Exception("请输入员工姓名。");
 
-            var temp = GetById(model.Id);
+            var temp = GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
@@ -67,7 +69,9 @@ namespace Anchi.ERP.Service.Employees
         /// <returns></returns>
         public IList<Employee> FindNormalList()
         {
-            return EmployeeRepository.GetListByStatus(EnumEmployeeStatus.Normal);
+            var filter = new FindEmployeeFilter();
+            filter.Status = EnumEmployeeStatus.Normal;
+            return EmployeeRepository.Find<Employee>(filter);
         }
         #endregion
 
@@ -83,7 +87,7 @@ namespace Anchi.ERP.Service.Employees
 
             foreach (var id in idList)
             {
-                var model = EmployeeRepository.GetById(id);
+                var model = EmployeeRepository.Get(id);
                 if (model == null)
                     continue;
 
@@ -105,7 +109,7 @@ namespace Anchi.ERP.Service.Employees
 
             foreach (var id in idList)
             {
-                var model = EmployeeRepository.GetById(id);
+                var model = EmployeeRepository.Get(id);
                 if (model == null)
                     continue;
 

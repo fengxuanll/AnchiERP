@@ -1,6 +1,5 @@
 ﻿using Anchi.ERP.Common;
 using Anchi.ERP.Domain.Employees.Enum;
-using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.Employees
@@ -13,9 +12,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 编码
         /// </summary>
-        [Required]
-        [Index(unique: true)]
-        [StringLength(50)]
         public string Code
         {
             get; set;
@@ -24,8 +20,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 姓名
         /// </summary>
-        [Required]
-        [StringLength(50)]
         public string Name
         {
             get; set;
@@ -34,8 +28,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 身份证号
         /// </summary>
-        [Index(unique: true)]
-        [StringLength(18)]
         public string IDCard
         {
             get; set;
@@ -44,7 +36,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 电话
         /// </summary>
-        [StringLength(50)]
         public string Tel
         {
             get; set;
@@ -53,7 +44,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 地址
         /// </summary>
-        [StringLength(100)]
         public string Address
         {
             get; set;
@@ -63,8 +53,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 入职时间
         /// </summary>
-        [Required]
-        [StringLength(30)]
         public DateTime EntryOn
         {
             get
@@ -83,8 +71,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 在职状态
         /// </summary>
-        [Required]
-        [StringLength(30)]
         public EnumEmployeeStatus Status
         {
             get; set;
@@ -93,7 +79,6 @@ namespace Anchi.ERP.Domain.Employees
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(1000)]
         public string Remark
         {
             get; set;

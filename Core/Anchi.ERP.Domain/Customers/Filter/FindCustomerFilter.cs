@@ -1,32 +1,25 @@
-﻿using Anchi.ERP.Domain.Common;
+﻿using System;
+using Anchi.ERP.Common.Filter;
 
 namespace Anchi.ERP.Domain.Customers.Filter
 {
     /// <summary>
     /// 查找客户信息筛选类
     /// </summary>
-    public class FindCustomerFilter : PagedFilter
+    public class FindCustomerFilter : PagedQueryFilter
     {
+        public override string SQL
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// 姓名
         /// </summary>
         public string Name
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 电话
-        /// </summary>
-        public string Tel
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 地址
-        /// </summary>
-        public string Address
         {
             get; set;
         }

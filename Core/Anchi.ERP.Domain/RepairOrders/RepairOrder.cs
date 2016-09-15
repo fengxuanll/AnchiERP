@@ -2,7 +2,6 @@
 using Anchi.ERP.Domain.Customers;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.RepairOrder.Enum;
-using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -16,7 +15,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 应收金额
         /// </summary>
-        [Required]
         public decimal Amount
         {
             get; set;
@@ -26,8 +24,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 开单日期
         /// </summary>
-        [Required]
-        [StringLength(30)]
         public DateTime RepairOn
         {
             get
@@ -47,7 +43,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 完工时间
         /// </summary>
-        [StringLength(30)]
         public DateTime CompleteOn
         {
             get
@@ -67,7 +62,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 结算时间
         /// </summary>
-        [StringLength(30)]
         public DateTime SettlementOn
         {
             get
@@ -92,15 +86,12 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 结算备注
         /// </summary>
-        [StringLength(1000)]
         public string SettlementRemark
         { get; set; }
 
         /// <summary>
         /// 维修单状态
         /// </summary>
-        [Required]
-        [StringLength(50)]
         public EnumRepairOrderStatus Status
         {
             get; set;
@@ -109,8 +100,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 结算状态
         /// </summary>
-        [Required]
-        [StringLength(50)]
         public EnumSettlementStatus SettlementStatus
         {
             get; set;
@@ -119,8 +108,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 客户信息
         /// </summary>
-        [Reference]
-        [Ignore]
         public virtual Customer Customer
         {
             get; set;
@@ -129,8 +116,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 客户ID
         /// </summary>
-        [Required]
-        [References(typeof(Customer))]
         public Guid CustomerId
         {
             get; set;
@@ -139,8 +124,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 接待人ID
         /// </summary>
-        [Required]
-        [References(typeof(Employee))]
         public Guid ReceptionById
         {
             get; set;
@@ -149,7 +132,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 接待人信息
         /// </summary>
-        [Reference]
         public virtual Employee ReceptionBy
         {
             get; set;
@@ -158,43 +140,40 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(1000)]
         public string Remark
         {
             get; set;
         }
 
-        private IList<RepairOrderItem> itemList;
+        private IList<RepairOrderProject> projectList;
         /// <summary>
         /// 维修项目列表
         /// </summary>
-        [Ignore]
-        public virtual IList<RepairOrderItem> ItemList
+        public virtual IList<RepairOrderProject> ProjectList
         {
             get
             {
-                if (itemList == null)
-                    itemList = new List<RepairOrderItem>();
+                if (projectList == null)
+                    projectList = new List<RepairOrderProject>();
 
-                return itemList;
+                return projectList;
             }
             set
             {
-                itemList = value;
+                projectList = value;
             }
         }
 
-        private IList<RepairProductItem> productList;
+        private IList<RepairOrderProduct> productList;
         /// <summary>
         /// 配件明细列表
         /// </summary>
-        [Ignore]
-        public virtual IList<RepairProductItem> ProductList
+        public virtual IList<RepairOrderProduct> ProductList
         {
             get
             {
                 if (productList == null)
-                    productList = new List<RepairProductItem>();
+                    productList = new List<RepairOrderProduct>();
 
                 return productList;
             }

@@ -1,5 +1,4 @@
 ﻿using Anchi.ERP.Common;
-using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain
@@ -13,7 +12,6 @@ namespace Anchi.ERP.Domain
         /// <summary>
         /// Id
         /// </summary>
-        [PrimaryKey]
         public Guid Id
         {
             get; set;
@@ -23,7 +21,6 @@ namespace Anchi.ERP.Domain
         /// <summary>
         /// 创建时间
         /// </summary>
-        [StringLength(30)]
         public DateTime CreatedOn
         {
             get

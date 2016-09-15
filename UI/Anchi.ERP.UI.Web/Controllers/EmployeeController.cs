@@ -1,11 +1,10 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.Employees;
+﻿using Anchi.ERP.Domain.Employees;
+using Anchi.ERP.Domain.Employees.Filter;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Controllers
@@ -49,9 +48,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindEmployeeFilter filter)
         {
-            var result = EmployeeService.Find(filter);
+            var result = EmployeeService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
 
@@ -85,7 +84,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var model = EmployeeService.GetById(id);
+            var model = EmployeeService.GetModel(id);
             return View(model);
         }
 

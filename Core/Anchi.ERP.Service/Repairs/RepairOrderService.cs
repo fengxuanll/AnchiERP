@@ -1,5 +1,5 @@
 ﻿using Anchi.ERP.Common;
-using Anchi.ERP.Data.Repairs;
+using Anchi.ERP.Data.Repository.Repairs;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.ServiceModel.Repairs;
@@ -42,21 +42,21 @@ namespace Anchi.ERP.Service.Repairs
             if (model.ReceptionById == Guid.Empty)
                 throw new Exception("请选择接待人。");
 
-            if (!model.ItemList.Any() && !model.ProductList.Any())
+            if (!model.ProjectList.Any() && !model.ProductList.Any())
                 throw new Exception("请选择维修项目和配件明细。");
 
-            if (model.ItemList.Any(item => item.Quantity == 0))
+            if (model.ProjectList.Any(item => item.Quantity == 0))
                 throw new Exception("请填写维修项目的数量");
 
-            if (model.ItemList.Any(item => item.EmployeeId == Guid.Empty))
+            if (model.ProjectList.Any(item => item.EmployeeId == Guid.Empty))
                 throw new Exception("请选择维修项目的维修人。");
 
             if (model.ProductList.Any(item => item.Quantity == 0))
                 throw new Exception("请填写配件明细的数量");
 
-            model.Amount = model.ItemList.Sum(item => item.UnitPrice * item.Quantity) + model.ProductList.Sum(item => item.UnitPrice * item.Quantity);
+            model.Amount = model.ProjectList.Sum(item => item.UnitPrice * item.Quantity) + model.ProductList.Sum(item => item.UnitPrice * item.Quantity);
 
-            var temp = GetById(model.Id);
+            var temp = GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
@@ -91,7 +91,7 @@ namespace Anchi.ERP.Service.Repairs
 
             foreach (var Id in IdList)
             {
-                var model = GetById(Id);
+                var model = GetModel(Id);
                 if (model == null)
                     return;
 
@@ -116,7 +116,7 @@ namespace Anchi.ERP.Service.Repairs
             if (model.SettlementAmount <= 0)
                 throw new Exception("请输入结算金额。");
 
-            var order = GetById(model.RepairOrderId);
+            var order = Get(model.RepairOrderId);
             if (order == null)
                 throw new Exception("维修单不存在。");
 

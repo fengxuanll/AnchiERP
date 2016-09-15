@@ -69,12 +69,14 @@ CREATE UNIQUE INDEX [uidx_Product_Code] ON [Product] ([Code]);
 -- 配件库存记录表
 Create Table ProductStockRecord(
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
+	[Type] tinyint NOT NULL,
+	[RelationId] uniqueidentifier NOT NULL,
 	[ProductId] uniqueidentifier NOT NULL,
 	[RecordOn] datetime NOT NULL,
 	[QuantityBefore] int NOT NULL,
 	[Quantity] int NOT NULL,
-	[Type] tinyint NOT NULL,
-	[CreatedOn] datetime NOT NULL
+	[CreatedOn] datetime NOT NULL,
+	FOREIGN KEY([ProductId]) REFERENCES [Product]([Id])
 );
 
 -- 维修项目表

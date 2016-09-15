@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Data.Products;
+﻿using Anchi.ERP.Data.Repository.Products;
 using Anchi.ERP.Domain.Products;
 using System;
 
@@ -36,7 +36,7 @@ namespace Anchi.ERP.Service.Products
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new Exception("请输入配件名称。");
 
-            var temp = GetById(model.Id);
+            var temp = GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;

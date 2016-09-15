@@ -1,5 +1,5 @@
-﻿using Anchi.ERP.Data.SaleOrders;
-using Anchi.ERP.Domain.Common;
+﻿using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Data.Repository.SaleOrders;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
@@ -102,7 +102,7 @@ namespace Anchi.ERP.Service.SaleOrders
 
             foreach (var item in IdList)
             {
-                var order = SaleOrderRepository.GetById(item);
+                var order = SaleOrderRepository.GetModel(item);
                 if (order == null)
                     continue;
 
@@ -149,24 +149,24 @@ namespace Anchi.ERP.Service.SaleOrders
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public PagedResult<SaleOrderModel> FindList(PagedFilter filter)
+        public PagedQueryResult<SaleOrderModel> FindList(PagedQueryFilter filter)
         {
-            var result = Find(filter);
+            var result = SaleOrderRepository.FindPaged<SaleOrder>(filter);
             var modelList = new List<SaleOrderModel>();
-            var response = new PagedResult<SaleOrderModel>();
+            var response = new PagedQueryResult<SaleOrderModel>();
             foreach (var item in result.Data)
             {
-                var customer = CustomerService.GetModel(item.CustomerId);
-                var saleBy = EmployeeService.GetModel(item.SaleById);
+                item.Customer = CustomerService.Get(item.CustomerId);
+                item.SaleBy = EmployeeService.Get(item.SaleById);
 
                 var model = new SaleOrderModel
                 {
                     Id = item.Id,
                     Amount = item.Amount,
-                    CustomerName = customer == null ? string.Empty : customer.Name,
+                    CustomerName = item.Customer == null ? string.Empty : item.Customer.Name,
                     OutboundOn = item.OutboundOn,
                     Remark = item.Remark,
-                    SaleByName = saleBy == null ? string.Empty : saleBy.Name,
+                    SaleByName = item.SaleBy == null ? string.Empty : item.SaleBy.Name,
                     SaleOn = item.SaleOn,
                     SettlementAmount = item.SettlementAmount,
                     SettlementOn = item.SettlementOn,

@@ -1,5 +1,5 @@
-﻿using Anchi.ERP.Data.ProductStocks;
-using Anchi.ERP.Domain.Common;
+﻿using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Data.Repository.ProductStocks;
 using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Service.Products;
 using Anchi.ERP.ServiceModel.Products;
@@ -33,32 +33,17 @@ namespace Anchi.ERP.Service.ProductStocks
         }
         #endregion
 
-        #region 根据产品ID获取库存记录
-        /// <summary>
-        /// 根据产品ID获取库存记录
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <returns></returns>
-        public IList<ProductStockRecord> Find(Guid productId)
-        {
-            if (productId == Guid.Empty)
-                return new List<ProductStockRecord>();
-
-            return ProductStockRecordRepository.Find(productId);
-        }
-        #endregion
-
         #region 查找出入库记录列表
         /// <summary>
         /// 查找出入库记录列表
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public PagedResult<ProductStockRecordModel> FindList(PagedFilter filter)
+        public PagedQueryResult<ProductStockRecordModel> FindList(PagedQueryFilter filter)
         {
-            var result = Find(filter);
+            var result = ProductStockRecordRepository.FindPaged<ProductStockRecord>(filter);
             var modelList = new List<ProductStockRecordModel>();
-            var response = new PagedResult<ProductStockRecordModel>();
+            var response = new PagedQueryResult<ProductStockRecordModel>();
             foreach (var item in result.Data)
             {
                 var product = ProductService.GetModel(item.ProductId);

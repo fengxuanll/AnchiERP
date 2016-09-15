@@ -15,19 +15,14 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class LoginController : BaseController
     {
         #region 构造函数和属性
-        public LoginController() : this(new UserService())
-        {
-        }
+        public LoginController() : this(new UserService()) { }
 
         public LoginController(UserService userService)
         {
             this.UserService = userService;
         }
 
-        UserService UserService
-        {
-            get;
-        }
+        UserService UserService { get; }
         #endregion
 
         #region 初始化默认用户
@@ -39,7 +34,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         public ActionResult Init()
         {
             var Id = Guid.Parse("00000000-0000-0000-0000-000000000001");
-            var model = UserService.GetById(Id);
+            var model = UserService.Get(Id);
             if (model != null)
                 return new BetterJsonResult("已存在默认用户。", true);
 

@@ -35,34 +35,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Common, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Common.4.5.0\lib\net45\ServiceStack.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Interfaces.4.5.0\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.OrmLite.4.5.0\lib\net45\ServiceStack.OrmLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite.Sqlite.Windows, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.OrmLite.Sqlite.Windows.4.5.0\lib\net45\ServiceStack.OrmLite.Sqlite.Windows.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ServiceStack.Text.4.5.0\lib\net45\ServiceStack.Text.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net45\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -71,29 +47,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDomain.cs" />
-    <Compile Include="Common\Enum\EnumOrderbySort.cs" />
-    <Compile Include="Common\PagedResult.cs" />
-    <Compile Include="Common\PagedFilter.cs" />
     <Compile Include="Customers\Customer.cs" />
     <Compile Include="Customers\Filter\FindCustomerFilter.cs" />
     <Compile Include="Employees\Employee.cs" />
     <Compile Include="Employees\Enum\EnumEmployeeStatus.cs" />
+    <Compile Include="Employees\Filter\FindEmployeeFilter.cs" />
     <Compile Include="Products\Enum\EnumStockRecordType.cs" />
+    <Compile Include="Products\Filter\FindProductFilter.cs" />
+    <Compile Include="Products\Filter\FindProductStockRecordFilter.cs" />
     <Compile Include="Products\Product.cs" />
     <Compile Include="Products\ProductStockRecord.cs" />
+    <Compile Include="Projects\Filter\FindProjectFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrders\Enum\EnumPurchaseOrderStatus.cs" />
+    <Compile Include="PurchaseOrders\Filter\FindPurchaseOrderFilter.cs" />
+    <Compile Include="PurchaseOrders\Filter\FindPurchaseOrderProductFilter.cs" />
     <Compile Include="PurchaseOrders\PurchaseOrder.cs" />
     <Compile Include="PurchaseOrders\PurchaseOrderProduct.cs" />
     <Compile Include="Projects\Project.cs" />
     <Compile Include="RepairOrders\Enum\EnumRepairOrderStatus.cs" />
     <Compile Include="RepairOrders\Enum\EnumSettlementStatus.cs" />
+    <Compile Include="RepairOrders\Filter\FindRepairOrderFilter.cs" />
+    <Compile Include="RepairOrders\Filter\FindRepairOrderProductFilter.cs" />
+    <Compile Include="RepairOrders\Filter\FindRepairOrderProjectFilter.cs" />
     <Compile Include="RepairOrders\RepairOrder.cs" />
-    <Compile Include="RepairOrders\RepairOrderItem.cs" />
-    <Compile Include="RepairOrders\RepairProductItem.cs" />
+    <Compile Include="RepairOrders\RepairOrderProject.cs" />
+    <Compile Include="RepairOrders\RepairOrderProduct.cs" />
     <Compile Include="SaleOrders\Enum\EnumSaleOrderStatus.cs" />
+    <Compile Include="SaleOrders\Filter\FindSaleOrderFilter.cs" />
+    <Compile Include="SaleOrders\Filter\FindSaleOrderProductFilter.cs" />
     <Compile Include="SaleOrders\SaleOrder.cs" />
-    <Compile Include="SaleOrders\SaleProductItem.cs" />
+    <Compile Include="SaleOrders\SaleOrderProduct.cs" />
+    <Compile Include="Suppliers\Filter\FindSupplierFilter.cs" />
     <Compile Include="Suppliers\Supplier.cs" />
     <Compile Include="Users\Enum\EnumUserStatus.cs" />
     <Compile Include="Users\Filter\FindUserFilter.cs" />
@@ -101,7 +86,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anchi.ERP.Common\Anchi.ERP.Common.csproj">
@@ -110,13 +94,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

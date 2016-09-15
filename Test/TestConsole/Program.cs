@@ -12,13 +12,13 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            var userFilter = new FindUserFilter();
-            userFilter.TrueName = "xx";
-            userFilter.PageIndex = 0;
-            userFilter.PageSize = 10;
+            //var userFilter = new FindUserFilter();
+            //userFilter.TrueName = "xx";
+            //userFilter.PageIndex = 0;
+            //userFilter.PageSize = 10;
 
-            var userService = new UserService();
-            var result = userService.FindPaged<User>(userFilter);
+            //var userService = new UserService();
+            //var result = userService.FindPaged<User>(userFilter);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Anchi.ERP.Data.Users;
+﻿using Anchi.ERP.Data.Repository.Users;
 using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
+using Anchi.ERP.Domain.Users.Filter;
 using System;
+using System.Linq;
 
 namespace Anchi.ERP.Service.Users
 {
@@ -33,7 +35,11 @@ namespace Anchi.ERP.Service.Users
             if (string.IsNullOrWhiteSpace(loginName) || string.IsNullOrWhiteSpace(passWord))
                 return null;
 
-            return UserRepository.GetModel(loginName, passWord);
+            var filter = new FindUserFilter();
+            filter.LoginName = loginName;
+            filter.PassWord = passWord;
+            var userList = UserRepository.Find<User>(filter);
+            return userList.FirstOrDefault();
         }
         #endregion
 
@@ -54,7 +60,7 @@ namespace Anchi.ERP.Service.Users
             if (string.IsNullOrWhiteSpace(model.LoginName))
                 throw new Exception("请输入登录名。");
 
-            var temp = GetById(model.Id);
+            var temp = GetModel(model.Id);
             if (temp == null)
             {
                 if (string.IsNullOrWhiteSpace(model.Password))

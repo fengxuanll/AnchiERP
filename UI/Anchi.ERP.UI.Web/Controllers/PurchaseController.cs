@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Domain.Common;
+﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.PurchaseOrders;
+using Anchi.ERP.Domain.PurchaseOrders.Filter;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.Purchases;
 using Anchi.ERP.Service.Suppliers;
@@ -65,14 +66,14 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <param name="filter"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindPurchaseOrderFilter filter)
         {
             var modelList = new List<PurchaseOrderModel>();
-            var result = PurchaseService.Find(filter);
+            var result = PurchaseService.FindPaged(filter);
             foreach (var item in result.Data)
             {
-                var purchaseBy = EmployeeService.GetById(item.PurchaseById);
-                var supplier = SupplierService.GetById(item.SupplierId);
+                var purchaseBy = EmployeeService.Get(item.PurchaseById);
+                var supplier = SupplierService.Get(item.SupplierId);
                 modelList.Add(new PurchaseOrderModel
                 {
                     Id = item.Id,
@@ -89,7 +90,7 @@ namespace Anchi.ERP.UI.Web.Controllers
                 });
             }
 
-            var response = new PagedResult<PurchaseOrderModel>();
+            var response = new PagedQueryResult<PurchaseOrderModel>();
             response.Data = modelList;
             response.PageIndex = result.PageIndex;
             response.PageSize = result.PageSize;
@@ -122,7 +123,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult GetEditModel(Guid Id)
         {
-            var model = PurchaseService.GetById(Id);
+            var model = PurchaseService.GetModel(Id);
             return new BetterJsonResult(model, true);
         }
         #endregion

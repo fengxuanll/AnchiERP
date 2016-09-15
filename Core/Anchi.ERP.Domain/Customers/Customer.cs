@@ -1,6 +1,4 @@
-﻿using ServiceStack.DataAnnotations;
-
-namespace Anchi.ERP.Domain.Customers
+﻿namespace Anchi.ERP.Domain.Customers
 {
     /// <summary>
     /// 客户信息
@@ -10,8 +8,6 @@ namespace Anchi.ERP.Domain.Customers
         /// <summary>
         /// 姓名
         /// </summary>
-        [Required]
-        [StringLength(50)]
         public string Name
         {
             get; set;
@@ -20,9 +16,6 @@ namespace Anchi.ERP.Domain.Customers
         /// <summary>
         /// 车牌号
         /// </summary>
-        [Required]
-        [Index(unique: true)]
-        [StringLength(20)]
         public string CarNumber
         {
             get; set;
@@ -31,7 +24,6 @@ namespace Anchi.ERP.Domain.Customers
         /// <summary>
         /// 电话
         /// </summary>
-        [StringLength(50)]
         public string Tel
         {
             get; set;
@@ -40,7 +32,6 @@ namespace Anchi.ERP.Domain.Customers
         /// <summary>
         /// 地址
         /// </summary>
-        [StringLength(100)]
         public string Address
         {
             get; set;
@@ -49,7 +40,6 @@ namespace Anchi.ERP.Domain.Customers
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(1000)]
         public string Remark
         {
             get; set;

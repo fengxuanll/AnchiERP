@@ -1,5 +1,4 @@
 ﻿using Anchi.ERP.Domain.Users.Enum;
-using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.Users
@@ -13,8 +12,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 真实姓名
         /// </summary>
-        [Required]
-        [StringLength(10)]
         public string TrueName
         {
             get; set;
@@ -23,9 +20,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 登录名
         /// </summary>
-        [Required]
-        [Index(unique: true)]
-        [StringLength(20)]
         public string LoginName
         {
             get; set;
@@ -34,8 +28,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 密码
         /// </summary>
-        [Required]
-        [StringLength(100)]
         public string Password
         {
             get; set;
@@ -44,8 +36,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 身份证号
         /// </summary>
-        [Index(unique: true)]
-        [StringLength(18)]
         public string IDCard
         {
             get; set;
@@ -54,7 +44,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 电话
         /// </summary>
-        [StringLength(50)]
         public string Tel
         {
             get; set;
@@ -63,7 +52,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 地址
         /// </summary>
-        [StringLength(100)]
         public string Address
         {
             get; set;
@@ -72,8 +60,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 状态
         /// </summary>
-        [Required]
-        [StringLength(10)]
         public EnumUserStatus Status
         {
             get; set;
@@ -82,7 +68,6 @@ namespace Anchi.ERP.Domain.Users
         /// <summary>
         /// 备注
         /// </summary>
-        [StringLength(1000)]
         public string Remark
         {
             get; set;

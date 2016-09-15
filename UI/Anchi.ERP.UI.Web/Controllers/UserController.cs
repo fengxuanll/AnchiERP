@@ -1,5 +1,4 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.Users;
+﻿using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
 using Anchi.ERP.Domain.Users.Filter;
 using Anchi.ERP.Service.Users;
@@ -43,9 +42,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindUserFilter filter)
         {
-            var result = UserService.Find(filter);
+            var result = UserService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
 
@@ -56,7 +55,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <returns></returns>
         public ActionResult ListUser(FindUserFilter filter)
         {
-            var result = UserService.FindPaged<User>(filter);
+            var result = UserService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
@@ -83,7 +82,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var model = UserService.GetById(id);
+            var model = UserService.GetModel(id);
             return View(model);
         }
         #endregion
@@ -141,7 +140,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             foreach (var Id in IdList)
             {
-                var model = UserService.GetById(Id);
+                var model = UserService.Get(Id);
                 if (model == null)
                     continue;
 

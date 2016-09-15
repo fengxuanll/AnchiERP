@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Data.Projects;
+﻿using Anchi.ERP.Data.Repository.Projects;
 using Anchi.ERP.Domain.Projects;
 using System;
 
@@ -40,7 +40,7 @@ namespace Anchi.ERP.Service.Projects
             if (model.UnitPrice <= 0)
                 throw new Exception("请输入正确的项目单价，必须为大于0的数字。");
 
-            var temp = GetById(model.Id);
+            var temp = GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;

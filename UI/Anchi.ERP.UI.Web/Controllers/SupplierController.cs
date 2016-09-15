@@ -1,5 +1,5 @@
-﻿using Anchi.ERP.Domain.Common;
-using Anchi.ERP.Domain.Suppliers;
+﻿using Anchi.ERP.Domain.Suppliers;
+using Anchi.ERP.Domain.Suppliers.Filter;
 using Anchi.ERP.Service.Suppliers;
 using Anchi.ERP.UI.Web.Filter;
 using System;
@@ -41,9 +41,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult List(PagedFilter filter)
+        public ActionResult List(FindSupplierFilter filter)
         {
-            var result = SupplierService.Find(filter);
+            var result = SupplierService.FindPaged(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion
@@ -70,7 +70,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var model = SupplierService.GetById(id);
+            var model = SupplierService.GetModel(id);
             return View(model);
         }
         #endregion

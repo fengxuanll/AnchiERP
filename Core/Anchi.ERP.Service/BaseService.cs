@@ -1,7 +1,6 @@
 ﻿using Anchi.ERP.Common.Filter;
-using Anchi.ERP.Data;
+using Anchi.ERP.Data.IRespository;
 using Anchi.ERP.Domain;
-using Anchi.ERP.Domain.Common;
 using System;
 
 namespace Anchi.ERP.Service
@@ -13,11 +12,11 @@ namespace Anchi.ERP.Service
     public class BaseService<T> where T : BaseDomain, new()
     {
         #region 构造函数和属性
-        public BaseService(BaseRepository<T> repository)
+        public BaseService(IBaseRespository<T> repository)
         {
             this.Repository = repository;
         }
-        BaseRepository<T> Repository
+        IBaseRespository<T> Repository
         {
             get;
         }
@@ -25,20 +24,20 @@ namespace Anchi.ERP.Service
 
         #region 根据ID获取
         /// <summary>
-        /// 根据ID获取，关联其它对象
+        /// 根据ID获取，不关联其它对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public T GetById(Guid Id)
+        public T Get(Guid Id)
         {
             if (Id == Guid.Empty)
                 return null;
 
-            return Repository.GetById(Id);
+            return Repository.Get(Id);
         }
 
         /// <summary>
-        /// 根据ID获取对象，不关联其它对象
+        /// 根据ID获取对象，关联其它对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -61,25 +60,7 @@ namespace Anchi.ERP.Service
             if (Ids.Length == 0)
                 return;
 
-            Repository.DeleteList(Ids);
-        }
-        #endregion
-
-        #region 查询维修项目列表
-        /// <summary>
-        /// 查询维修项目列表
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
-        public virtual PagedResult<T> Find(PagedFilter filter)
-        {
-            if (filter == null)
-                return new PagedResult<T>();
-
-            if (filter.PageSize == 0)
-                return new PagedResult<T>();
-
-            return Repository.Find(filter);
+            Repository.Delete(Ids);
         }
         #endregion
 
@@ -87,18 +68,17 @@ namespace Anchi.ERP.Service
         /// <summary>
         /// 分页筛选查询列表
         /// </summary>
-        /// <typeparam name="TModel"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public PagedQueryResult<TModel> FindPaged<TModel>(PagedQueryFilter filter) where TModel : new()
+        public virtual PagedQueryResult<T> FindPaged(PagedQueryFilter filter)
         {
             if (filter == null)
-                return new PagedQueryResult<TModel>();
+                return new PagedQueryResult<T>();
 
             if (filter.PageSize == 0)
-                return new PagedQueryResult<TModel>();
+                return new PagedQueryResult<T>();
 
-            return Repository.FindPaged<TModel>(filter);
+            return Repository.FindPaged<T>(filter);
         }
         #endregion
     }

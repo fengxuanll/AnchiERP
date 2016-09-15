@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Data.Customers;
+﻿using Anchi.ERP.Data.Repository.Customers;
 using Anchi.ERP.Domain.Customers;
 using System;
 
@@ -34,7 +34,7 @@ namespace Anchi.ERP.Service.Customers
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new Exception("请输入客户姓名。");
 
-            var temp = GetById(model.Id);
+            var temp = GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;

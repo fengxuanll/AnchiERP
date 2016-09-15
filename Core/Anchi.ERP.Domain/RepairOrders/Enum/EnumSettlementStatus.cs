@@ -1,12 +1,10 @@
-﻿using ServiceStack.DataAnnotations;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Anchi.ERP.Domain.RepairOrder.Enum
 {
     /// <summary>
     /// 结算状态
     /// </summary>
-    [EnumAsInt]
     public enum EnumSettlementStatus : byte
     {
         /// <summary>

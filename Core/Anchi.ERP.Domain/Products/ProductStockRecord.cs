@@ -1,6 +1,5 @@
 ﻿using Anchi.ERP.Common;
 using Anchi.ERP.Domain.Products.Enum;
-using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.Products
@@ -11,10 +10,14 @@ namespace Anchi.ERP.Domain.Products
     public class ProductStockRecord : BaseDomain
     {
         /// <summary>
+        /// 关联对象ID
+        /// </summary>
+        public Guid RelationId
+        { get; set; }
+
+        /// <summary>
         /// 配件ID
         /// </summary>
-        [Required]
-        [References(typeof(Product))]
         public Guid ProductId
         {
             get; set;
@@ -23,7 +26,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 配件信息
         /// </summary>
-        [Ignore]
         public Product Product
         {
             get; set;
@@ -33,7 +35,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 出入库时间
         /// </summary>
-        [Required]
         public DateTime RecordOn
         {
             get
@@ -52,7 +53,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 操作之前的数量
         /// </summary>
-        [Required]
         public int QuantityBefore
         {
             get; set;
@@ -61,7 +61,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 本次操作的出入库数量
         /// </summary>
-        [Required]
         public int Quantity
         {
             get; set;
@@ -70,7 +69,6 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 库存记录类型
         /// </summary>
-        [Required]
         public EnumStockRecordType Type
         {
             get; set;
