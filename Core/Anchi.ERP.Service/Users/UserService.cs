@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Data.Repository.Users;
+﻿using Anchi.ERP.Common.Security;
+using Anchi.ERP.Data.Repository.Users;
 using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
 using Anchi.ERP.Domain.Users.Filter;
@@ -37,7 +38,7 @@ namespace Anchi.ERP.Service.Users
 
             var filter = new FindUserFilter();
             filter.LoginName = loginName;
-            filter.PassWord = passWord;
+            filter.PassWord = MD5.GetMd5Value(passWord);
             var userList = UserRepository.Find<User>(filter);
             return userList.FirstOrDefault();
         }
@@ -66,6 +67,7 @@ namespace Anchi.ERP.Service.Users
                 if (string.IsNullOrWhiteSpace(model.Password))
                     throw new Exception("请输入密码。");
 
+                model.Password = MD5.GetMd5Value(model.Password);
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
                 model.Status = EnumUserStatus.Normal;
@@ -73,7 +75,7 @@ namespace Anchi.ERP.Service.Users
             }
             else
             {
-                model.Password = string.IsNullOrWhiteSpace(model.Password) ? temp.Password : model.Password;
+                model.Password = string.IsNullOrWhiteSpace(model.Password) ? temp.Password : MD5.GetMd5Value(model.Password);
                 model.Status = model.Status == 0 ? temp.Status : model.Status;
                 model.CreatedOn = temp.CreatedOn;
                 UserRepository.Update(model);
