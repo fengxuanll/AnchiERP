@@ -1,5 +1,5 @@
 ﻿function saveSupplierFn() {
-    if ($vm.Name.trim() == "") {
+    if ($vm.CompanyName.trim() == "") {
         parent.$.msg("请输入供应商名称。", "error");
         return false;
     }

@@ -7,8 +7,8 @@
     <ProjectGuid>{6E7B3112-1B88-494D-A8F0-807F1DD13E50}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Anchi.ERP.Data.IRepository</RootNamespace>
-    <AssemblyName>Anchi.ERP.Data.IRepository</AssemblyName>
+    <RootNamespace>Anchi.ERP.IRepository</RootNamespace>
+    <AssemblyName>Anchi.ERP.IRepository</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

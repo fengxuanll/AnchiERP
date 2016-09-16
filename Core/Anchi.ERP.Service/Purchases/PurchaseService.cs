@@ -1,5 +1,5 @@
 ﻿using Anchi.ERP.Common;
-using Anchi.ERP.Data.Repository.Purchases;
+using Anchi.ERP.Repository.Purchases;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.RepairOrder.Enum;

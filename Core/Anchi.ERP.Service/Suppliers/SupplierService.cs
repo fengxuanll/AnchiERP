@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Data.Repository.Suppliers;
+﻿using Anchi.ERP.Repository.Suppliers;
 using Anchi.ERP.Domain.Suppliers;
 using System;
 
@@ -31,7 +31,7 @@ namespace Anchi.ERP.Service.Suppliers
             if (model == null)
                 throw new Exception("提交数据错误。");
 
-            if (string.IsNullOrWhiteSpace(model.Name))
+            if (string.IsNullOrWhiteSpace(model.CompanyName))
                 throw new Exception("请输入供应商名称。");
 
             var temp = GetModel(model.Id);

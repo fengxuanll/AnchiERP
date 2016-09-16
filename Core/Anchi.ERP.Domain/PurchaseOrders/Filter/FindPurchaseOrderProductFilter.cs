@@ -32,6 +32,8 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
         /// 采购单ID
         /// </summary>
         public Guid? PurchaseOrderId
-        { get; set; }
+        {
+            get; set;
+        }
     }
 }

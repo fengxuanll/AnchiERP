@@ -1,5 +1,5 @@
 ﻿using Anchi.ERP.Common.Security;
-using Anchi.ERP.Data.Repository.Users;
+using Anchi.ERP.Repository.Users;
 using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
 using Anchi.ERP.Domain.Users.Filter;

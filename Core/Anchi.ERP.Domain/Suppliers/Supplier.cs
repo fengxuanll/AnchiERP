@@ -8,7 +8,7 @@
         /// <summary>
         /// 供应商名称
         /// </summary>
-        public string Name
+        public string CompanyName
         {
             get; set;
         }

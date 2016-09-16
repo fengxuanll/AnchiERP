@@ -1,8 +1,7 @@
-﻿using Anchi.ERP.Data.Repository.Employees;
-using Anchi.ERP.Domain.Employees;
+﻿using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.Employees.Enum;
 using Anchi.ERP.Domain.Employees.Filter;
-using Anchi.ERP.Domain.Users.Filter;
+using Anchi.ERP.Repository.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;

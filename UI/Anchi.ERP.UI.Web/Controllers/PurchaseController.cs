@@ -86,7 +86,7 @@ namespace Anchi.ERP.UI.Web.Controllers
                     SettlementRemark = item.SettlementRemark,
                     SettlementStatus = item.SettlementStatus,
                     Status = item.Status,
-                    SupplierName = supplier == null ? string.Empty : supplier.Name,
+                    SupplierName = supplier == null ? string.Empty : supplier.CompanyName,
                 });
             }
 

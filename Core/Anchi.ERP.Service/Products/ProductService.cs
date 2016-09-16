@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Data.Repository.Products;
+﻿using Anchi.ERP.Repository.Products;
 using Anchi.ERP.Domain.Products;
 using System;
 

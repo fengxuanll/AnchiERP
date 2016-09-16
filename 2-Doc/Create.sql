@@ -16,7 +16,7 @@ CREATE UNIQUE INDEX [uidx_User_LoginName] ON [User] ([LoginName]);
 -- 供应商表
 CREATE TABLE [Supplier] (
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
-	[Name] nvarchar(50) NOT NULL, 
+	[CompanyName] nvarchar(50) NOT NULL, 
 	[Contact] nvarchar(50) NOT NULL, 
 	[Tel] varchar(50), 
 	[Address] nvarchar(100), 

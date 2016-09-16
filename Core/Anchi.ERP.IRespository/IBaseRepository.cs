@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Anchi.ERP.Data.IRespository
+namespace Anchi.ERP.IRespository
 {
     /// <summary>
     /// 仓储层接口

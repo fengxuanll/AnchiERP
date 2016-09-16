@@ -1,5 +1,5 @@
 ﻿using Anchi.ERP.Common.Filter;
-using Anchi.ERP.Data.Repository.SaleOrders;
+using Anchi.ERP.Repository.SaleOrders;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;

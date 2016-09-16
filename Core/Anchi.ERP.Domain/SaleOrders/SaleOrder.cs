@@ -33,13 +33,17 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 客户ID
         /// </summary>
         public Guid CustomerId
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 客户信息
         /// </summary>
         public Customer Customer
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 销售时间
@@ -53,13 +57,17 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 金额
         /// </summary>
         public decimal Amount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 销售单状态
         /// </summary>
         public EnumSaleOrderStatus Status
-        { get; set; }
+        {
+            get; set;
+        }
 
         private DateTime outboundOn;
         /// <summary>
@@ -84,25 +92,33 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 结算状态
         /// </summary>
         public EnumSettlementStatus SettlementStatus
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算金额
         /// </summary>
         public decimal SettlementAmount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算时间
         /// </summary>
         public DateTime SettlementOn
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算备注
         /// </summary>
         public string SettlementRemark
-        { get; set; }
+        {
+            get; set;
+        }
 
         private IList<SaleOrderProduct> productList;
         /// <summary>

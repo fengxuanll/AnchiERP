@@ -103,7 +103,7 @@ namespace Anchi.ERP.UI.Web.Controllers
 
                 supplierService.SaveOrUpdate(new Domain.Suppliers.Supplier
                 {
-                    Name = "供应商" + (i + 1),
+                    CompanyName = "供应商" + (i + 1),
                     Contact = "供应商" + (i + 1),
                 });
             }

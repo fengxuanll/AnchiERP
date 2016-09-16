@@ -1,5 +1,5 @@
 ﻿using Anchi.ERP.Common;
-using Anchi.ERP.Data.Repository.Repairs;
+using Anchi.ERP.Repository.Repairs;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.ServiceModel.Repairs;

@@ -8,7 +8,7 @@
     var $vm = avalon.define({
         $id: "EditSupplier",
         Id: "@Model.Id",
-        Name: "@Model.Name",
+        CompanyName: "@Model.CompanyName",
         Contact: "@Model.Contact",
         Tel: "@Model.Tel",
         Address: "@Model.Address",
@@ -20,10 +20,10 @@
     <form class="form form-horizontal" id="formSupplier">
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
-                <span class="c-red">*</span>名称：
+                <span class="c-red">*</span>公司名称：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" ms-duplex="##Name" placeholder="名称" />
+                <input type="text" class="input-text" ms-duplex="##CompanyName" placeholder="名称" />
             </div>
         </div>
         <div class="row cl">

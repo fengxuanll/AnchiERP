@@ -1,9 +1,8 @@
 ﻿using Anchi.ERP.Common.Filter;
-using Anchi.ERP.Data.Repository.ProductStocks;
 using Anchi.ERP.Domain.Products;
+using Anchi.ERP.Repository.Products;
 using Anchi.ERP.Service.Products;
 using Anchi.ERP.ServiceModel.Products;
-using System;
 using System.Collections.Generic;
 
 namespace Anchi.ERP.Service.ProductStocks
@@ -22,15 +21,8 @@ namespace Anchi.ERP.Service.ProductStocks
             this.ProductService = productService;
         }
 
-        ProductStockRecordRepository ProductStockRecordRepository
-        {
-            get;
-        }
-
-        ProductService ProductService
-        {
-            get;
-        }
+        ProductStockRecordRepository ProductStockRecordRepository { get; }
+        ProductService ProductService { get; }
         #endregion
 
         #region 查找出入库记录列表

@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain.Users.Enum;
+﻿using Anchi.ERP.Common;
+using Anchi.ERP.Domain.Users.Enum;
 using System;
 
 namespace Anchi.ERP.Domain.Users

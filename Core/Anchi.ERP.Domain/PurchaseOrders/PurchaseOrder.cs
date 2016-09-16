@@ -33,13 +33,17 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// 开单时间
         /// </summary>
         public DateTime PurchaseOn
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 总金额
         /// </summary>
         public decimal Amount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 采购人

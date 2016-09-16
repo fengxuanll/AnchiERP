@@ -1,6 +1,6 @@
 ﻿using Anchi.ERP.Common.Filter;
-using Anchi.ERP.Data.IRespository;
 using Anchi.ERP.Domain;
+using Anchi.ERP.IRespository;
 using System;
 
 namespace Anchi.ERP.Service
@@ -16,10 +16,7 @@ namespace Anchi.ERP.Service
         {
             this.Repository = repository;
         }
-        IBaseRespository<T> Repository
-        {
-            get;
-        }
+        IBaseRespository<T> Repository { get; }
         #endregion
 
         #region 根据ID获取

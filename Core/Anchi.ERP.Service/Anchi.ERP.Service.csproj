@@ -61,17 +61,17 @@
       <Project>{08bf546b-fab8-4086-a0ac-76bd114f46f3}</Project>
       <Name>Anchi.ERP.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Anchi.ERP.Data.IRespository\Anchi.ERP.Data.IRepository.csproj">
-      <Project>{6e7b3112-1b88-494d-a8f0-807f1dd13e50}</Project>
-      <Name>Anchi.ERP.Data.IRepository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Anchi.ERP.Data.Respository\Anchi.ERP.Data.Repository.csproj">
-      <Project>{ffc2dd82-bd2e-4610-a7de-4ca405336392}</Project>
-      <Name>Anchi.ERP.Data.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.Domain\Anchi.ERP.Domain.csproj">
       <Project>{883b8b78-9c4e-434c-96c4-7db09a0b279f}</Project>
       <Name>Anchi.ERP.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Anchi.ERP.IRespository\Anchi.ERP.IRepository.csproj">
+      <Project>{6e7b3112-1b88-494d-a8f0-807f1dd13e50}</Project>
+      <Name>Anchi.ERP.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Anchi.ERP.Repository\Anchi.ERP.Repository.csproj">
+      <Project>{07db5830-bcf5-41ba-84e6-c1bce9bc6675}</Project>
+      <Name>Anchi.ERP.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj">
       <Project>{6b84b34c-889e-4281-8246-bd26273fef55}</Project>
