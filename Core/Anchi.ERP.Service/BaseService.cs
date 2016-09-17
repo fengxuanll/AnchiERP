@@ -12,11 +12,11 @@ namespace Anchi.ERP.Service
     public class BaseService<T> where T : BaseDomain, new()
     {
         #region 构造函数和属性
-        public BaseService(IBaseRespository<T> repository)
+        public BaseService(IBaseRepository<T> repository)
         {
             this.Repository = repository;
         }
-        IBaseRespository<T> Repository { get; }
+        IBaseRepository<T> Repository { get; }
         #endregion
 
         #region 根据ID获取

@@ -12,7 +12,7 @@ namespace Anchi.ERP.Repository
     /// 仓储基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseRepository<T> : IBaseRespository<T> where T : BaseDomain, new()
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseDomain, new()
     {
         #region 根据ID获取数据
         /// <summary>

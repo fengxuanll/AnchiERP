@@ -1,8 +1,9 @@
 ﻿using Anchi.ERP.Common.Security;
-using Anchi.ERP.Repository.Users;
 using Anchi.ERP.Domain.Users;
 using Anchi.ERP.Domain.Users.Enum;
 using Anchi.ERP.Domain.Users.Filter;
+using Anchi.ERP.IRepository.Users;
+using Anchi.ERP.Repository.Users;
 using System;
 using System.Linq;
 
@@ -16,12 +17,12 @@ namespace Anchi.ERP.Service.Users
         #region 构造函数和属性
         public UserService() : this(new UserRepository()) { }
 
-        public UserService(UserRepository userRepository) : base(userRepository)
+        public UserService(IUserRepository userRepository) : base(userRepository)
         {
             this.UserRepository = userRepository;
         }
 
-        UserRepository UserRepository { get; }
+        IUserRepository UserRepository { get; }
         #endregion
 
         #region 根据登录名和密码查询用户

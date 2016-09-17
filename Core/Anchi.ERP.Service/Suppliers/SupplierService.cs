@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Repository.Suppliers;
-using Anchi.ERP.Domain.Suppliers;
+﻿using Anchi.ERP.Domain.Suppliers;
+using Anchi.ERP.IRepository.Suppliers;
+using Anchi.ERP.Repository.Suppliers;
 using System;
 
 namespace Anchi.ERP.Service.Suppliers
@@ -12,12 +13,12 @@ namespace Anchi.ERP.Service.Suppliers
         #region 构造函数和属性
         public SupplierService() : this(new SupplierRepository()) { }
 
-        public SupplierService(SupplierRepository supplierRepository) : base(supplierRepository)
+        public SupplierService(ISupplierRepository supplierRepository) : base(supplierRepository)
         {
             this.SupplierRepository = supplierRepository;
         }
 
-        SupplierRepository SupplierRepository { get; }
+        ISupplierRepository SupplierRepository { get; }
         #endregion
 
         #region 保存供应商

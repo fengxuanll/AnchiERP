@@ -1,6 +1,7 @@
-﻿using Anchi.ERP.Repository.Projects;
-using Anchi.ERP.Domain.RepairOrder;
+﻿using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrders.Filter;
+using Anchi.ERP.IRepository.Repairs;
+using Anchi.ERP.Repository.Projects;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Anchi.ERP.Repository.Repairs
     /// <summary>
     /// 维修单项目仓储层
     /// </summary>
-    public class RepairOrderProjectRepository : BaseRepository<RepairOrderProject>
+    public class RepairOrderProjectRepository : BaseRepository<RepairOrderProject>, IRepairOrderProjectRepository
     {
         #region 构造函数和属性
         public RepairOrderProjectRepository() : this(new ProjectRepository()) { }

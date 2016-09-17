@@ -1,8 +1,9 @@
 ﻿using Anchi.ERP.Common;
-using Anchi.ERP.Repository.Purchases;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.IRepository.Purchases;
+using Anchi.ERP.Repository.Purchases;
 using Anchi.ERP.ServiceModel.Purchases;
 using System;
 using System.Collections.Generic;
@@ -18,15 +19,12 @@ namespace Anchi.ERP.Service.Purchases
         #region 构造函数和属性
         public PurchaseService() : this(new PurchaseOrderRepository()) { }
 
-        public PurchaseService(PurchaseOrderRepository purchaseOrderRepository) : base(purchaseOrderRepository)
+        public PurchaseService(IPurchaseOrderRepository purchaseOrderRepository) : base(purchaseOrderRepository)
         {
             this.PurchaseOrderRepository = purchaseOrderRepository;
         }
 
-        PurchaseOrderRepository PurchaseOrderRepository
-        {
-            get;
-        }
+        IPurchaseOrderRepository PurchaseOrderRepository { get; }
         #endregion
 
         #region 保存采购单

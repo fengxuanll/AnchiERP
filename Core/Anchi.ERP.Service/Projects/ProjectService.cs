@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Repository.Projects;
-using Anchi.ERP.Domain.Projects;
+﻿using Anchi.ERP.Domain.Projects;
+using Anchi.ERP.IRepository.Projects;
+using Anchi.ERP.Repository.Projects;
 using System;
 
 namespace Anchi.ERP.Service.Projects
@@ -12,12 +13,12 @@ namespace Anchi.ERP.Service.Projects
         #region 构造函数和属性
         public ProjectService() : this(new ProjectRepository()) { }
 
-        public ProjectService(ProjectRepository projectRepository) : base(projectRepository)
+        public ProjectService(IProjectRepository projectRepository) : base(projectRepository)
         {
             this.ProjectRepository = projectRepository;
         }
 
-        ProjectRepository ProjectRepository { get; }
+        IProjectRepository ProjectRepository { get; }
         #endregion
 
         #region 保存维修项目

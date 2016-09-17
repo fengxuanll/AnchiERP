@@ -1,8 +1,9 @@
 ﻿using Anchi.ERP.Common.Filter;
-using Anchi.ERP.Repository.SaleOrders;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
+using Anchi.ERP.IRepository.SaleOrders;
+using Anchi.ERP.Repository.SaleOrders;
 using Anchi.ERP.Service.Customers;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.ServiceModel.Sales;
@@ -20,14 +21,14 @@ namespace Anchi.ERP.Service.SaleOrders
         #region 构造函数和属性
         public SaleOrderService() : this(new SaleOrderRepository(), new CustomerService(), new EmployeeService()) { }
 
-        public SaleOrderService(SaleOrderRepository saleOrderRepository, CustomerService customerService, EmployeeService employeeService) : base(saleOrderRepository)
+        public SaleOrderService(ISaleOrderRepository saleOrderRepository, CustomerService customerService, EmployeeService employeeService) : base(saleOrderRepository)
         {
             this.SaleOrderRepository = saleOrderRepository;
             this.CustomerService = customerService;
             this.EmployeeService = employeeService;
         }
 
-        SaleOrderRepository SaleOrderRepository
+        ISaleOrderRepository SaleOrderRepository
         {
             get;
         }

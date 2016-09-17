@@ -3,13 +3,14 @@ using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Filter;
 using System;
 using System.Collections.Generic;
+using Anchi.ERP.IRepository.Purchases;
 
 namespace Anchi.ERP.Repository.Purchases
 {
     /// <summary>
     /// 采购单配件仓储层
     /// </summary>
-    public class PurchaseOrderProductRepository : BaseRepository<PurchaseOrderProduct>
+    public class PurchaseOrderProductRepository : BaseRepository<PurchaseOrderProduct>, IPurchaseOrderProductRepository
     {
         #region 构造函数和属性
         public PurchaseOrderProductRepository() : this(new ProductRepository()) { }
@@ -19,8 +20,7 @@ namespace Anchi.ERP.Repository.Purchases
             this.ProductRepository = productRepository;
         }
 
-        ProductRepository ProductRepository
-        { get; }
+        ProductRepository ProductRepository { get; }
         #endregion
 
         #region 获取采购单配件列表

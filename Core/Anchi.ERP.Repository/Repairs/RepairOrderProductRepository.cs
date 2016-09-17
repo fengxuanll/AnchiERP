@@ -1,6 +1,7 @@
-﻿using Anchi.ERP.Repository.Products;
-using Anchi.ERP.Domain.RepairOrder;
+﻿using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrders.Filter;
+using Anchi.ERP.IRepository.Repairs;
+using Anchi.ERP.Repository.Products;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Anchi.ERP.Repository.Repairs
     /// <summary>
     /// 维修单配件明细仓储层
     /// </summary>
-    public class RepairOrderProductRepository : BaseRepository<RepairOrderProduct>
+    public class RepairOrderProductRepository : BaseRepository<RepairOrderProduct>, IRepairOrderProductRepository
     {
         #region 构造函数和属性
         public RepairOrderProductRepository() : this(new ProductRepository()) { }

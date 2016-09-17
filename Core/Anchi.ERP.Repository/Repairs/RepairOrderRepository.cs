@@ -6,13 +6,14 @@ using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using System;
 using Anchi.ERP.Repository.Products;
+using Anchi.ERP.IRepository.Repairs;
 
 namespace Anchi.ERP.Repository.Repairs
 {
     /// <summary>
     /// 维修单仓储层
     /// </summary>
-    public class RepairOrderRepository : BaseRepository<RepairOrder>
+    public class RepairOrderRepository : BaseRepository<RepairOrder>, IRepairOrderRepository
     {
         #region 构造函数和属性
         public RepairOrderRepository()

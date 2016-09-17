@@ -8,7 +8,7 @@ namespace Anchi.ERP.IRespository
     /// 仓储层接口
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IBaseRespository<T> where T : new()
+    public interface IBaseRepository<T> where T : new()
     {
         /// <summary>
         /// 根据ID获取对象

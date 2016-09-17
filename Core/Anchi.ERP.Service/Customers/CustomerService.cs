@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Repository.Customers;
-using Anchi.ERP.Domain.Customers;
+﻿using Anchi.ERP.Domain.Customers;
+using Anchi.ERP.IRepository.Customers;
+using Anchi.ERP.Repository.Customers;
 using System;
 
 namespace Anchi.ERP.Service.Customers
@@ -12,12 +13,12 @@ namespace Anchi.ERP.Service.Customers
         #region 构造函数和属性
         public CustomerService() : this(new CustomerRepository())  { }
 
-        public CustomerService(CustomerRepository customerRepository) : base(customerRepository)
+        public CustomerService(ICustomerRepository customerRepository) : base(customerRepository)
         {
             this.CustomerRepository = customerRepository;
         }
 
-        CustomerRepository CustomerRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
         #endregion
 
         #region 保存用户

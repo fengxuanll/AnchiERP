@@ -1,19 +1,19 @@
-﻿using Anchi.ERP.Repository.Customers;
-using Anchi.ERP.Repository.Employees;
-using Anchi.ERP.Repository.Products;
-using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
+using Anchi.ERP.IRepository.SaleOrders;
+using Anchi.ERP.Repository.Customers;
+using Anchi.ERP.Repository.Employees;
+using Anchi.ERP.Repository.Products;
 using System;
-using System.Linq;
 
 namespace Anchi.ERP.Repository.SaleOrders
 {
     /// <summary>
     /// 销售单仓储类
     /// </summary>
-    public class SaleOrderRepository : BaseRepository<SaleOrder>
+    public class SaleOrderRepository : BaseRepository<SaleOrder>, ISaleOrderRepository
     {
         #region 构造函数和属性
         public SaleOrderRepository()

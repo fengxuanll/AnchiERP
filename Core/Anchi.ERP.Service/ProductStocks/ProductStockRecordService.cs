@@ -1,5 +1,6 @@
 ﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.Products;
+using Anchi.ERP.IRepository.Products;
 using Anchi.ERP.Repository.Products;
 using Anchi.ERP.Service.Products;
 using Anchi.ERP.ServiceModel.Products;
@@ -15,13 +16,13 @@ namespace Anchi.ERP.Service.ProductStocks
         #region 构造函数和属性
         public ProductStockRecordService() : this(new ProductStockRecordRepository(), new ProductService()) { }
 
-        public ProductStockRecordService(ProductStockRecordRepository productStockRecordRepository, ProductService productService) : base(productStockRecordRepository)
+        public ProductStockRecordService(IProductStockRecordRepository productStockRecordRepository, ProductService productService) : base(productStockRecordRepository)
         {
             this.ProductStockRecordRepository = productStockRecordRepository;
             this.ProductService = productService;
         }
 
-        ProductStockRecordRepository ProductStockRecordRepository { get; }
+        IProductStockRecordRepository ProductStockRecordRepository { get; }
         ProductService ProductService { get; }
         #endregion
 

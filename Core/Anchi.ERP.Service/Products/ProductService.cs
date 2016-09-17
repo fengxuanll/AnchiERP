@@ -1,5 +1,6 @@
-﻿using Anchi.ERP.Repository.Products;
-using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Products;
+using Anchi.ERP.IRepository.Products;
+using Anchi.ERP.Repository.Products;
 using System;
 
 namespace Anchi.ERP.Service.Products
@@ -12,12 +13,12 @@ namespace Anchi.ERP.Service.Products
         #region 构造函数和属性
         public ProductService() : this(new ProductRepository()) { }
 
-        public ProductService(ProductRepository productRepository) : base(productRepository)
+        public ProductService(IProductRepository productRepository) : base(productRepository)
         {
             this.ProductRepository = productRepository;
         }
 
-        ProductRepository ProductRepository { get; }
+        IProductRepository ProductRepository { get; }
         #endregion
 
         #region 保存配件

@@ -1,7 +1,8 @@
 ﻿using Anchi.ERP.Common;
-using Anchi.ERP.Repository.Repairs;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.IRepository.Repairs;
+using Anchi.ERP.Repository.Repairs;
 using Anchi.ERP.ServiceModel.Repairs;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,12 @@ namespace Anchi.ERP.Service.Repairs
         #region 构造函数和属性
         public RepairOrderService() : this(new RepairOrderRepository()) { }
 
-        public RepairOrderService(RepairOrderRepository repairOrderRepository):base(repairOrderRepository)
+        public RepairOrderService(IRepairOrderRepository repairOrderRepository):base(repairOrderRepository)
         {
             this.RepairOrderRepository = repairOrderRepository;
         }
 
-        RepairOrderRepository RepairOrderRepository { get; }
+        IRepairOrderRepository RepairOrderRepository { get; }
         #endregion
 
         #region 保存维修单

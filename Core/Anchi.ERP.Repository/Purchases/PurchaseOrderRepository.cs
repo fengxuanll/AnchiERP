@@ -2,6 +2,7 @@
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
+using Anchi.ERP.IRepository.Purchases;
 using Anchi.ERP.Repository.Employees;
 using Anchi.ERP.Repository.Products;
 using Anchi.ERP.Repository.Suppliers;
@@ -12,7 +13,7 @@ namespace Anchi.ERP.Repository.Purchases
     /// <summary>
     /// 采购仓储类
     /// </summary>
-    public class PurchaseOrderRepository : BaseRepository<PurchaseOrder>
+    public class PurchaseOrderRepository : BaseRepository<PurchaseOrder>, IPurchaseOrderRepository
     {
         #region 构造函数和属性
         public PurchaseOrderRepository()
