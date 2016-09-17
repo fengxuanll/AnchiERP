@@ -6,7 +6,7 @@ using Anchi.ERP.Service.Products;
 using Anchi.ERP.ServiceModel.Products;
 using System.Collections.Generic;
 
-namespace Anchi.ERP.Service.ProductStocks
+namespace Anchi.ERP.Service.Products
 {
     /// <summary>
     /// 产品库存记录服务类

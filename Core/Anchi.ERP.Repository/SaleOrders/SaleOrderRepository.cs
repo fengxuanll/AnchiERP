@@ -162,7 +162,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                             Id = Guid.NewGuid(),
                             RelationId = model.Id,
                             ProductId = item.ProductId,
-                            Quantity = item.Quantity,
+                            Quantity = 0 - item.Quantity,
                             Type = EnumStockRecordType.Sale,
                             QuantityBefore = product.Stock,
                             CreatedOn = DateTime.Now,

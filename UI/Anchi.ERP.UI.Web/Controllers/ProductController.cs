@@ -1,7 +1,6 @@
 ﻿using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Filter;
 using Anchi.ERP.Service.Products;
-using Anchi.ERP.Service.ProductStocks;
 using Anchi.ERP.UI.Web.Filter;
 using System;
 using System.Collections.Generic;

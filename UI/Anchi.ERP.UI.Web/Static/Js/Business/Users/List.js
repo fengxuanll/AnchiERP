@@ -2,7 +2,8 @@
     $id: "UserList",
     List: [],
     Search: {
-        TrueName: ""
+        TrueName: "",
+        LoginName: ""
     },
     editUserFn: function (item) {
         layer.open({

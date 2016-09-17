@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Static\Css\Common.css" />
     <Content Include="Static\hui.admin\css\H-ui.admin.css" />
     <Content Include="Static\hui.admin\css\H-ui.login.css" />
     <Content Include="Static\hui.admin\css\style.css" />
@@ -425,7 +426,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Static\Css\" />
     <Folder Include="Static\h-ui\images\unslider\" />
     <Folder Include="Static\Images\" />
   </ItemGroup>
