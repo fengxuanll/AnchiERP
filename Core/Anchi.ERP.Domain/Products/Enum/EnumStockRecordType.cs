@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Anchi.ERP.Domain.Products.Enum
 {
     /// <summary>
     /// 库存记录类型
     /// </summary>
+    [EnumAsInt]
     public enum EnumStockRecordType : byte
     {
         /// <summary>

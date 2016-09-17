@@ -1,7 +1,8 @@
 ﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain;
 using Anchi.ERP.IRespository;
-using Chloe;
+using ServiceStack.Data;
+using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace Anchi.ERP.Repository
     /// <typeparam name="T"></typeparam>
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseDomain, new()
     {
+        public BaseRepository()
+        {
+            this.DbContext = new AnchiDbContext();
+        }
+
+        protected AnchiDbContext DbContext { get; }
+
         #region 根据ID获取数据
         /// <summary>
         /// 根据ID获取数据
@@ -23,9 +31,9 @@ namespace Anchi.ERP.Repository
         /// <returns></returns>
         public virtual T Get(Guid Id)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                return context.Query<T>().FirstOrDefault(item => item.Id == Id);
+                return context.SingleById<T>(Id);
             }
         }
 
@@ -37,9 +45,9 @@ namespace Anchi.ERP.Repository
         /// <returns></returns>
         public virtual T GetModel(Guid Id)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                return context.Query<T>().FirstOrDefault(item => item.Id == Id);
+                return context.SingleById<T>(Id);
             }
         }
         #endregion
@@ -53,7 +61,7 @@ namespace Anchi.ERP.Repository
         /// <returns></returns>
         public virtual void Update(T model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
                 context.Update(model);
             }
@@ -66,7 +74,7 @@ namespace Anchi.ERP.Repository
         /// <param name="model"></param>
         public virtual void UpdateModel(T model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
                 context.Update(model);
             }
@@ -81,7 +89,7 @@ namespace Anchi.ERP.Repository
         /// <returns></returns>
         public virtual void Create(T model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
                 context.Insert(model);
             }
@@ -95,16 +103,16 @@ namespace Anchi.ERP.Repository
         /// <param name="IdArray"></param>
         public virtual bool Delete(params Guid[] IdArray)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                foreach (var Id in IdArray)
+                using (var tran = context.BeginTransaction())
                 {
-                    context.Delete<T>(item => item.Id == Id);
+                    foreach (var Id in IdArray)
+                    {
+                        context.Delete<T>(item => item.Id == Id);
+                    }
+                    tran.Commit();
                 }
-
-                context.CurrentSession.CommitTransaction();
             }
             return true;
         }
@@ -122,16 +130,14 @@ namespace Anchi.ERP.Repository
             var result = new PagedQueryResult<TModel>();
 
             var sql = filter.SQL;
-            var paramArray = ConvertParamDictToArray(filter.ParamDict);
-
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
                 var pagedSql = string.Format("SELECT * FROM ({0}) temp LIMIT {1} OFFSET {2}",
                                         filter.SQL, filter.PageSize, filter.PageSize * filter.PageIndex);
-                result.Data = context.SqlQuery<TModel>(pagedSql, paramArray).ToList();
+                result.Data = context.SqlList<TModel>(pagedSql, filter.ParamDict);
 
                 var countSql = string.Format("SELECT COUNT(1) FROM ({0}) AS temp", sql);
-                result.TotalCount = context.SqlQuery<int>(countSql, paramArray).FirstOrDefault();
+                result.TotalCount = context.SqlScalar<int>(countSql, filter.ParamDict);
             }
 
             result.PageIndex = filter.PageIndex;
@@ -156,33 +162,13 @@ namespace Anchi.ERP.Repository
             var result = new List<TModel>();
 
             var sql = filter.SQL;
-            var paramArray = ConvertParamDictToArray(filter.ParamDict);
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                result = context.SqlQuery<TModel>(sql, paramArray).ToList();
+                result = context.SqlList<TModel>(sql, filter.ParamDict);
             }
 
             return result;
         }
         #endregion
-
-        #region 公共方法
-        /// <summary>
-        /// 转换参数字典为Chloe参数数组
-        /// </summary>
-        /// <param name="paramDict"></param>
-        /// <returns></returns>
-        private static DbParam[] ConvertParamDictToArray(IDictionary<string, object> paramDict)
-        {
-            var paramList = new List<DbParam>();
-            foreach (var item in paramDict)
-            {
-                var param = DbParam.Create(item.Key, item.Value);
-                paramList.Add(param);
-            }
-
-            return paramList.ToArray();
-        }
-        #endregion 
     }
 }

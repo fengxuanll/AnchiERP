@@ -28,20 +28,11 @@ namespace Anchi.ERP.Service.SaleOrders
             this.EmployeeService = employeeService;
         }
 
-        ISaleOrderRepository SaleOrderRepository
-        {
-            get;
-        }
+        ISaleOrderRepository SaleOrderRepository { get; }
 
-        CustomerService CustomerService
-        {
-            get;
-        }
+        CustomerService CustomerService { get; }
 
-        EmployeeService EmployeeService
-        {
-            get;
-        }
+        EmployeeService EmployeeService { get; }
         #endregion
 
         #region 保存销售单
@@ -80,13 +71,17 @@ namespace Anchi.ERP.Service.SaleOrders
             }
             else
             {
+                if (temp.Status != EnumSaleOrderStatus.Initial)
+                    throw new Exception("只能修改待出库的销售单。");
+
+                temp.Amount = model.Amount;
                 temp.CustomerId = model.CustomerId;
                 temp.SaleById = model.SaleById;
                 temp.SaleOn = model.SaleOn;
                 temp.Remark = model.Remark;
                 temp.ProductList = model.ProductList;
 
-                SaleOrderRepository.Update(temp);
+                SaleOrderRepository.UpdateModel(temp);
             }
         }
         #endregion

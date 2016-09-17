@@ -80,6 +80,12 @@ namespace Anchi.ERP.ServiceModel.Repairs
         }
 
         /// <summary>
+        /// 结算金额
+        /// </summary>
+        public decimal SettlementAmount
+        { get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         public string Remark

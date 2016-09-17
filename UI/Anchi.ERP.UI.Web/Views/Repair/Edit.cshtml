@@ -8,18 +8,18 @@
 <script type="text/javascript">
     var $vm = avalon.define({
         $id: "EditRepairOrder",
-        Id: "",
+        Id: "@Model.Id",
         Amount: 0,
         CustomerId: "",
         CustomerName: "",
         RepairOn: "@Model.RepairOn.ToString("yyyy-MM-dd")",
         ReceptionById: "",
         Remark: "",
-        ItemList: [],
+        ProjectList: [],
         ProductList: [],
         TotalProjectAmount: function () {
             var total = 0;
-            $.each($vm.ItemList, function (i, item) {
+            $.each($vm.ProjectList, function (i, item) {
                 total += (item.UnitPrice * item.Quantity);
             });
             return total;
@@ -136,7 +136,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ms-for="($index, item) in ##ItemList">
+                        <tr ms-for="($index, item) in ##ProjectList">
                             <td>{{ $index + 1 }}</td>
                             <td>{{ item.Code }}</td>
                             <td>{{ item.Name }}</td>
@@ -156,7 +156,7 @@
                                 </select>
                             </td>
                             <td>
-                                <a href="javascript:void(0);" ms-click="##ItemList.remove(item);">删除</a>
+                                <a href="javascript:void(0);" ms-click="##ProjectList.remove(item);">删除</a>
                             </td>
                         </tr>
                     </tbody>

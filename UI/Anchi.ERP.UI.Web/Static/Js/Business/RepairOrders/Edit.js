@@ -14,7 +14,7 @@ function showSelectProjectFn() {
 }
 
 function addRepairProjectFn(item) {
-    $vm.ItemList.push({
+    $vm.ProjectList.push({
         ProjectId: item.Id,
         EmployeeId: "",
         Code: item.Code,
@@ -70,7 +70,7 @@ function saveRepairOrderFn() {
         success: function (data) {
             if ($vm.Id == GuidEmpty) {
                 $("#EditRepairOrder")[0].reset();
-                $vm.ItemList.removeAll();
+                $vm.ProjectList.removeAll();
                 $vm.ProductList.removeAll();
             }
             $.msg('保存成功。', "success");
@@ -96,8 +96,8 @@ function initRepairOrderFn(Id) {
             $vm.RepairOn = data.RepairOn;
             $vm.ReceptionById = data.ReceptionById;
             $vm.Remark = data.Remark;
-            $.each(data.ItemList, function (i, item) {
-                $vm.ItemList.push({
+            $.each(data.ProjectList, function (i, item) {
+                $vm.ProjectList.push({
                     Id: item.Id,
                     ProjectId: item.ProjectId,
                     EmployeeId: item.EmployeeId,

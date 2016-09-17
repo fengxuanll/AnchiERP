@@ -31,7 +31,7 @@ function showSelectSupplierFn() {
 
 function selectSupplierFn(item) {
     $vm.SupplierId = item.Id;
-    $vm.SupplierName = item.Name;
+    $vm.SupplierName = item.CompanyName;
 }
 
 function showSelectProductFn() {
@@ -64,7 +64,7 @@ function initPurchaseOrderFn(Id) {
         },
         success: function (data) {
             $vm.SupplierId = data.SupplierId;
-            $vm.SupplierName = data.Supplier ? data.Supplier.Name : "";
+            $vm.SupplierName = data.Supplier ? data.Supplier.CompanyName : "";
             $vm.PurchaseOn = data.PurchaseOn;
             $vm.PurchaseById = data.PurchaseById;
             $vm.Amount = data.Amount;

@@ -1,20 +1,19 @@
 ﻿using Anchi.ERP.Common.Configuration;
-using Chloe.Infrastructure;
-using Chloe.SQLite;
+using ServiceStack.OrmLite;
+using System.Data;
 
 namespace Anchi.ERP.Repository
 {
     /// <summary>
     /// 安驰数据库上下文
     /// </summary>
-    public class AnchiDbContext : SQLiteContext
+    public class AnchiDbContext : OrmLiteConnectionFactory
     {
         public AnchiDbContext() : this(ConnectionStringReader.GetConnectionString("AnchiERP")) { }
 
-        public AnchiDbContext(string connectionString) : this(new AnchiDbFactory(connectionString))
-        { }
-
-        public AnchiDbContext(IDbConnectionFactory dbFactory) : base(dbFactory)
-        { }
+        public AnchiDbContext(string connectionString) : base(connectionString, SqliteDialect.Provider)
+        {
+            
+        }
     }
 }

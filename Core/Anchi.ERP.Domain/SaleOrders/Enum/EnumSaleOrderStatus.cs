@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Anchi.ERP.Domain.SaleOrders.Enum
 {
     /// <summary>
     /// 销售订单状态
     /// </summary>
+    [EnumAsInt]
     public enum EnumSaleOrderStatus : byte
     {
         /// <summary>

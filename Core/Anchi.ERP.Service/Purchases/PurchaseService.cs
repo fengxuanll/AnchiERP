@@ -60,10 +60,17 @@ namespace Anchi.ERP.Service.Purchases
             }
             else
             {
-                model.CreatedOn = model.CreatedOn > SqlDateTime.Min ? model.CreatedOn : temp.CreatedOn;
-                model.Status = model.Status == 0 ? temp.Status : model.Status;
-                model.SettlementStatus = model.SettlementStatus == 0 ? temp.SettlementStatus : model.SettlementStatus;
-                PurchaseOrderRepository.Update(model);
+                if (temp.Status != EnumPurchaseOrderStatus.Purchasing)
+                    throw new Exception("只能修改采购中的采购单。");
+
+                temp.SupplierId = model.SupplierId;
+                temp.PurchaseById = model.PurchaseById;
+                temp.Amount = model.Amount;
+                temp.PurchaseOn = model.PurchaseOn;
+                temp.Remark = model.Remark;
+                temp.ProductList = model.ProductList;
+
+                PurchaseOrderRepository.UpdateModel(temp);
             }
 
             return model;

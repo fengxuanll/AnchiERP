@@ -9,7 +9,6 @@
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
-
 <div class="cl pd-5 mt-10">
     <span class="l">
         <a href="/Sale/Add" class="btn">
@@ -29,10 +28,10 @@
             <th width="30">序号</th>
             <th width="90">开单时间</th>
             <th width="90">客户</th>
-			<th width="90">销售人</th>
-			<th width="90">销售单状态</th>
+            <th width="90">销售人</th>
+            <th width="90">销售单状态</th>
             <th width="90">应收金额</th>
-			<th width="90">结算金额</th>
+            <th width="90">结算金额</th>
             <th width="90">出库时间</th>
             <th width="90">结算状态</th>
             <th width="90">结算时间</th>
@@ -49,11 +48,19 @@
             <td>{{ item.SaleOn | showTimeDateFilter }}</td>
             <td>{{ item.CustomerName }}</td>
             <td>{{ item.SaleByName }}</td>
-            <td>{{ item.StatusName }}</td>
-            <td>{{ item.Amount }}</td>
-            <td>{{ item.SettlementAmount }}</td>
+            <td>
+                <span class="label label-success radius">
+                    {{ item.StatusName }}
+                </span>
+            </td>
+            <td>￥{{ item.Amount }}</td>
+            <td>￥{{ item.SettlementAmount }}</td>
             <td>{{ item.OutboundOn | showTimeDateFilter }}</td>
-            <td>{{ item.SettlementStatusName }}</td>
+            <td>
+                <span class="label label-success radius">
+                    {{ item.SettlementStatusName }}
+                </span>
+            </td>
             <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
             <td>{{ item.Remark }}</td>
             <td class="td-manage">
@@ -71,7 +78,6 @@
         </tr>
     </tfoot>
 </table>
-
 @section foot{
     <script type="text/javascript" src="/Static/Js/Business/SaleOrders/List.js"></script>
     <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>

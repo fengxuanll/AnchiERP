@@ -7,6 +7,7 @@ using Anchi.ERP.Repository.Customers;
 using Anchi.ERP.Repository.Employees;
 using Anchi.ERP.Repository.Products;
 using System;
+using ServiceStack.OrmLite;
 
 namespace Anchi.ERP.Repository.SaleOrders
 {
@@ -52,25 +53,26 @@ namespace Anchi.ERP.Repository.SaleOrders
         /// <param name="model"></param>
         public override void Create(SaleOrder model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                // 插入销售单
-                model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
-                model.CreatedOn = DateTime.Now;
-                context.Insert(model);
-
-                // 插入销售配件
-                foreach (var item in model.ProductList)
+                using (var tran = context.BeginTransaction())
                 {
-                    item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
-                    item.SaleOrderId = model.Id;
-                    item.CreatedOn = model.CreatedOn;
-                    context.Insert(item);
-                }
+                    // 插入销售单
+                    model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                    model.CreatedOn = DateTime.Now;
+                    context.Insert(model);
 
-                context.CurrentSession.CommitTransaction();
+                    // 插入销售配件
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.SaleOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        context.Insert(item);
+                    }
+
+                    tran.Commit();
+                }
             }
         }
         #endregion
@@ -83,26 +85,27 @@ namespace Anchi.ERP.Repository.SaleOrders
         /// <returns></returns>
         public override void UpdateModel(SaleOrder model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                // 更新销售单
-                context.Update(model);
-
-                // 删除历史销售配件
-                context.Delete<SaleOrderProduct>(item => item.SaleOrderId == model.Id);
-
-                // 插入新的销售配件
-                foreach (var item in model.ProductList)
+                using (var tran = context.BeginTransaction())
                 {
-                    item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
-                    item.SaleOrderId = model.Id;
-                    item.CreatedOn = model.CreatedOn;
-                    context.Insert(item);
-                }
+                    // 更新销售单
+                    context.Update(model);
 
-                context.CurrentSession.CommitTransaction();
+                    // 删除历史销售配件
+                    context.Delete<SaleOrderProduct>(item => item.SaleOrderId == model.Id);
+
+                    // 插入新的销售配件
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.SaleOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        context.Insert(item);
+                    }
+
+                    tran.Commit();
+                }
             }
         }
         #endregion
@@ -115,9 +118,9 @@ namespace Anchi.ERP.Repository.SaleOrders
         /// <returns></returns>
         public override SaleOrder GetModel(Guid Id)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                var model = context.Query<SaleOrder>().FirstOrDefault(item => item.Id == Id);
+                var model = context.SingleById<SaleOrder>(Id);
                 if (model == null)
                     return null;
 
@@ -137,42 +140,43 @@ namespace Anchi.ERP.Repository.SaleOrders
         /// <param name="model"></param>
         public void Outbound(SaleOrder model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                // 修改状态为已出库
-                model.Status = EnumSaleOrderStatus.Outbound;
-                model.OutboundOn = DateTime.Now;
-                context.Update(model);
-
-                // 扣产品库存
-                foreach (var item in model.ProductList)
+                using (var tran = context.BeginTransaction())
                 {
-                    var product = context.Query<Product>().FirstOrDefault(p => p.Id == item.ProductId);
-                    if (product == null)
-                        throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+                    // 修改状态为已出库
+                    model.Status = EnumSaleOrderStatus.Outbound;
+                    model.OutboundOn = DateTime.Now;
+                    context.Update(model);
 
-                    // 插入配件出库记录
-                    var record = new ProductStockRecord
+                    // 扣产品库存
+                    foreach (var item in model.ProductList)
                     {
-                        Id = Guid.NewGuid(),
-                        RelationId = model.Id,
-                        ProductId = item.ProductId,
-                        Quantity = item.Quantity,
-                        Type = EnumStockRecordType.Sale,
-                        QuantityBefore = product.Stock,
-                        CreatedOn = DateTime.Now,
-                        RecordOn = model.OutboundOn,
-                    };
-                    context.Insert(record);
+                        var product = context.SingleById<Product>(item.ProductId);
+                        if (product == null)
+                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
 
-                    // 修改配件的已有库存
-                    product.Stock = product.Stock - item.Quantity;
-                    context.Update(product);
+                        // 插入配件出库记录
+                        var record = new ProductStockRecord
+                        {
+                            Id = Guid.NewGuid(),
+                            RelationId = model.Id,
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity,
+                            Type = EnumStockRecordType.Sale,
+                            QuantityBefore = product.Stock,
+                            CreatedOn = DateTime.Now,
+                            RecordOn = model.OutboundOn,
+                        };
+                        context.Insert(record);
+
+                        // 修改配件的已有库存
+                        product.Stock = product.Stock - item.Quantity;
+                        context.Update(product);
+                    }
+
+                    tran.Commit();
                 }
-
-                context.CurrentSession.CommitTransaction();
             }
         }
         #endregion

@@ -2,6 +2,7 @@
 using Anchi.ERP.Domain.Customers;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.RepairOrder.Enum;
+using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -81,13 +82,17 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// 结算金额
         /// </summary>
         public decimal SettlementAmount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算备注
         /// </summary>
         public string SettlementRemark
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 维修单状态
@@ -108,6 +113,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 客户信息
         /// </summary>
+        [Ignore]
         public virtual Customer Customer
         {
             get; set;
@@ -132,6 +138,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 接待人信息
         /// </summary>
+        [Ignore]
         public virtual Employee ReceptionBy
         {
             get; set;
@@ -145,10 +152,19 @@ namespace Anchi.ERP.Domain.RepairOrder
             get; set;
         }
 
+        /// <summary>
+        /// 创建人ID
+        /// </summary>
+        public Guid CreatedById
+        {
+            get; set;
+        }
+
         private IList<RepairOrderProject> projectList;
         /// <summary>
         /// 维修项目列表
         /// </summary>
+        [Ignore]
         public virtual IList<RepairOrderProject> ProjectList
         {
             get
@@ -168,6 +184,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 配件明细列表
         /// </summary>
+        [Ignore]
         public virtual IList<RepairOrderProduct> ProductList
         {
             get

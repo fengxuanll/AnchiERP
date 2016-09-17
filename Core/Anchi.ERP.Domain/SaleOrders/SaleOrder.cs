@@ -3,6 +3,7 @@ using Anchi.ERP.Domain.Customers;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders.Enum;
+using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -24,6 +25,7 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 销售人信息
         /// </summary>
+        [Ignore]
         public Employee SaleBy
         {
             get; set;
@@ -40,6 +42,7 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// <summary>
         /// 客户信息
         /// </summary>
+        [Ignore]
         public Customer Customer
         {
             get; set;
@@ -120,10 +123,27 @@ namespace Anchi.ERP.Domain.SaleOrders
             get; set;
         }
 
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 创建人ID
+        /// </summary>
+        public Guid CreatedById
+        {
+            get; set;
+        }
+
         private IList<SaleOrderProduct> productList;
         /// <summary>
         /// 销售配件列表
         /// </summary>
+        [Ignore]
         public virtual IList<SaleOrderProduct> ProductList
         {
             get
@@ -137,14 +157,6 @@ namespace Anchi.ERP.Domain.SaleOrders
             {
                 productList = value;
             }
-        }
-
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string Remark
-        {
-            get; set;
         }
     }
 }

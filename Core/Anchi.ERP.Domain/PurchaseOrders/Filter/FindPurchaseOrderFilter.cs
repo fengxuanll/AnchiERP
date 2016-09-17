@@ -26,7 +26,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
                     sb.Append(" AND [SupplierId] = @SupplierId");
                     this.ParamDict["@SupplierId"] = this.SupplierId.Value;
                 }
-                if (!this.PurchaseOn.HasValue)
+                if (this.PurchaseOn.HasValue)
                 {   // TODO...... 时间类型，待测试
                     sb.Append(" AND [PurchaseOn] = @PurchaseOn");
                     this.ParamDict["@PurchaseOn"] = this.PurchaseOn.Value;
@@ -36,22 +36,22 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
                     sb.Append(" AND [PurchaseById] = @PurchaseById");
                     this.ParamDict["@PurchaseById"] = this.PurchaseById.Value;
                 }
-                if (!this.Status.HasValue)
+                if (this.Status.HasValue)
                 {
                     sb.Append(" AND [Status] = @Status");
                     this.ParamDict["@Status"] = (byte)this.Status.Value;
                 }
-                if (!this.ArrivalOn.HasValue)
+                if (this.ArrivalOn.HasValue)
                 {   // TODO...... 时间类型，待测试
                     sb.Append(" AND [ArrivalOn] = @ArrivalOn");
                     this.ParamDict["@ArrivalOn"] = this.ArrivalOn.Value;
                 }
-                if (!this.SettlementOn.HasValue)
+                if (this.SettlementOn.HasValue)
                 {   // TODO...... 时间类型，待测试
                     sb.Append(" AND [SettlementOn] = @SettlementOn");
                     this.ParamDict["@SettlementOn"] = this.SettlementOn.Value;
                 }
-                if (!this.SettlementStatus.HasValue)
+                if (this.SettlementStatus.HasValue)
                 {
                     sb.Append(" AND [SettlementStatus] = @SettlementStatus");
                     this.ParamDict["@SettlementStatus"] = (byte)this.SettlementStatus.Value;

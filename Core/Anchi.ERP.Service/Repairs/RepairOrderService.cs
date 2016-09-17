@@ -69,12 +69,17 @@ namespace Anchi.ERP.Service.Repairs
             }
             else
             {
-                model.CreatedOn = temp.CreatedOn;
-                model.Status = model.Status == 0 ? temp.Status : model.Status;
-                model.SettlementStatus = model.SettlementStatus == 0 ? temp.SettlementStatus : model.SettlementStatus;
-                model.SettlementOn = model.SettlementOn < SqlDateTime.Min ? temp.SettlementOn : model.SettlementOn;
-                model.CompleteOn = model.CompleteOn < SqlDateTime.Min ? temp.CompleteOn : model.CompleteOn;
-                RepairOrderRepository.Update(model);
+                if (temp.Status != EnumRepairOrderStatus.Repairing)
+                    throw new Exception("只能修改维修中的维修单。");
+
+                temp.Amount = model.Amount;
+                temp.RepairOn = model.RepairOn;
+                temp.ReceptionById = model.ReceptionById;
+                temp.CustomerId = model.CustomerId;
+                temp.ProductList = model.ProductList;
+                temp.ProjectList = model.ProjectList;
+
+                RepairOrderRepository.UpdateModel(temp);
             }
             return model;
         }

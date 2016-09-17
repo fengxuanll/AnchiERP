@@ -17,8 +17,8 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
         {
             get
             {
-                var sb = new StringBuilder("SELECT * FROM [FindPurchaseOrderProduct] WHERE 1 = 1");
-                if (PurchaseOrderId.HasValue)
+                var sb = new StringBuilder("SELECT * FROM [PurchaseOrderProduct] WHERE 1 = 1");
+                if (this.PurchaseOrderId.HasValue)
                 {
                     sb.Append(" AND PurchaseOrderId = @PurchaseOrderId");
                     this.ParamDict["@PurchaseOrderId"] = this.PurchaseOrderId.Value;

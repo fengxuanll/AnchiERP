@@ -125,7 +125,7 @@ Create Table RepairOrderProduct(
 );
 
 -- 维修单项目表
-Create Table RepariOrderProject(
+Create Table RepairOrderProject(
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[RepairOrderId] uniqueidentifier NOT NULL,
 	[ProjectId] uniqueidentifier NOT NULL,

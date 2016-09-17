@@ -1,4 +1,5 @@
 ﻿using Anchi.ERP.Domain.Products;
+using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.PurchaseOrders
@@ -19,6 +20,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 采购配件信息
         /// </summary>
+        [Ignore]
         public virtual Product Product
         {
             get; set;

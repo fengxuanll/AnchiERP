@@ -1,4 +1,5 @@
 ﻿using Anchi.ERP.Domain.Products;
+using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.RepairOrder
@@ -43,6 +44,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 使用配件
         /// </summary>
+        [Ignore]
         public virtual Product Product
         {
             get; set;

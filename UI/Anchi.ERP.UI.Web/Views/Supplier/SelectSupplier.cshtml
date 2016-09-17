@@ -7,7 +7,7 @@
     <thead>
         <tr class="text-c">
             <th width="30">序号</th>
-            <th width="150">姓名</th>
+            <th width="150">供应商名称</th>
             <th width="150">联系人</th>
             <th width="150">联系电话</th>
             <th width="40">操作</th>
@@ -16,7 +16,7 @@
     <tbody>
         <tr class="text-c" ms-for="($index, item) in ##List">
             <td>{{ $index + 1 }}</td>
-            <td>{{ item.Name }}</td>
+            <td>{{ item.CompanyName }}</td>
             <td>{{ item.Contact }}</td>
             <td>{{ item.Tel }}</td>
             <td>

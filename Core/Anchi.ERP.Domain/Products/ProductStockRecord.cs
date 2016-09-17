@@ -1,5 +1,6 @@
 ﻿using Anchi.ERP.Common;
 using Anchi.ERP.Domain.Products.Enum;
+using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.Products
@@ -26,6 +27,7 @@ namespace Anchi.ERP.Domain.Products
         /// <summary>
         /// 配件信息
         /// </summary>
+        [Ignore]
         public Product Product
         {
             get; set;

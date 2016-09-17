@@ -1,5 +1,6 @@
 ﻿using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.Projects;
+using ServiceStack.DataAnnotations;
 using System;
 
 namespace Anchi.ERP.Domain.RepairOrder
@@ -28,6 +29,7 @@ namespace Anchi.ERP.Domain.RepairOrder
         /// <summary>
         /// 维修项目
         /// </summary>
+        [Ignore]
         public virtual Project Project
         {
             get; set;
@@ -50,17 +52,18 @@ namespace Anchi.ERP.Domain.RepairOrder
         }
 
         /// <summary>
-        /// 维修工
+        /// 维修工ID
         /// </summary>
-        public virtual Employee Employee
+        public Guid EmployeeId
         {
             get; set;
         }
 
         /// <summary>
-        /// 维修工ID
+        /// 维修工
         /// </summary>
-        public Guid EmployeeId
+        [Ignore]
+        public virtual Employee Employee
         {
             get; set;
         }

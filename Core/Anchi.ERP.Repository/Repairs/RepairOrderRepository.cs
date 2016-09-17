@@ -1,12 +1,13 @@
-﻿using Anchi.ERP.Repository.Customers;
-using Anchi.ERP.Repository.Employees;
-using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
-using System;
-using Anchi.ERP.Repository.Products;
 using Anchi.ERP.IRepository.Repairs;
+using Anchi.ERP.Repository.Customers;
+using Anchi.ERP.Repository.Employees;
+using Anchi.ERP.Repository.Products;
+using ServiceStack.OrmLite;
+using System;
 
 namespace Anchi.ERP.Repository.Repairs
 {
@@ -51,34 +52,34 @@ namespace Anchi.ERP.Repository.Repairs
         /// <param name="model"></param>
         public override void Create(RepairOrder model)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                // 插入维修单
-                model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
-                model.CreatedOn = DateTime.Now;
-                context.Insert(model);
-
-                // 插入维修项目
-                foreach (var item in model.ProjectList)
+                using (var tran = context.BeginTransaction())
                 {
-                    item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
-                    item.RepairOrderId = model.Id;
-                    item.CreatedOn = model.CreatedOn;
-                    context.Insert(item);
-                }
+                    // 插入维修单
+                    model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                    model.CreatedOn = DateTime.Now;
+                    context.Insert(model);
 
-                // 插入使用配件
-                foreach (var item in model.ProductList)
-                {
-                    item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
-                    item.RepairOrderId = model.Id;
-                    item.CreatedOn = model.CreatedOn;
-                    context.Insert(item);
-                }
+                    // 插入维修项目
+                    foreach (var item in model.ProjectList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.RepairOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        context.Insert(item);
+                    }
 
-                context.CurrentSession.CommitTransaction();
+                    // 插入使用配件
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.RepairOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        context.Insert(item);
+                    }
+                    tran.Commit();
+                }
             }
         }
         #endregion
@@ -91,9 +92,9 @@ namespace Anchi.ERP.Repository.Repairs
         /// <returns></returns>
         public override RepairOrder GetModel(Guid Id)
         {
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                var model = context.Query<RepairOrder>().FirstOrDefault(item => item.Id == Id);
+                var model = context.SingleById<RepairOrder>(Id);
                 if (model == null)
                     return null;
 
@@ -118,35 +119,37 @@ namespace Anchi.ERP.Repository.Repairs
             if (model == null || model.Id == Guid.Empty)
                 return;
 
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                context.Update(model);
-
-                // 删除历史维修项目
-                context.Delete<RepairOrderProject>(item => item.RepairOrderId == model.Id);
-                // 删除历史配件明细
-                context.Delete<RepairOrderProduct>(item => item.RepairOrderId == model.Id);
-
-                // 插入新的维修项目
-                foreach (var item in model.ProjectList)
+                using (var tran = context.BeginTransaction())
                 {
-                    item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
-                    item.RepairOrderId = model.Id;
-                    item.CreatedOn = model.CreatedOn;
-                    context.Insert(item);
-                }
-                // 插入新的配件明细
-                foreach (var item in model.ProductList)
-                {
-                    item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
-                    item.RepairOrderId = model.Id;
-                    item.CreatedOn = model.CreatedOn;
-                    context.Insert(item);
-                }
+                    // 修改维修单
+                    context.Update(model);
 
-                context.CurrentSession.CommitTransaction();
+                    // 删除历史维修项目
+                    context.Delete<RepairOrderProject>(item => item.RepairOrderId == model.Id);
+                    // 删除历史配件明细
+                    context.Delete<RepairOrderProduct>(item => item.RepairOrderId == model.Id);
+
+                    // 插入新的维修项目
+                    foreach (var item in model.ProjectList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.RepairOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        context.Insert(item);
+                    }
+                    // 插入新的配件明细
+                    foreach (var item in model.ProductList)
+                    {
+                        item.Id = item.Id == Guid.Empty ? Guid.NewGuid() : item.Id;
+                        item.RepairOrderId = model.Id;
+                        item.CreatedOn = model.CreatedOn;
+                        context.Insert(item);
+                    }
+
+                    tran.Commit();
+                }
             }
         }
         #endregion
@@ -161,42 +164,43 @@ namespace Anchi.ERP.Repository.Repairs
             if (model == null || model.Id == Guid.Empty)
                 return;
 
-            using (var context = new AnchiDbContext())
+            using (var context = DbContext.Open())
             {
-                context.CurrentSession.BeginTransaction();
-
-                // 修改维修单状态
-                model.Status = EnumRepairOrderStatus.Completed;
-                model.CompleteOn = DateTime.Now;
-                context.Update(model);
-
-                // 扣配件库存，并增加出库记录
-                foreach (var item in model.ProductList)
+                using (var tran = context.BeginTransaction())
                 {
-                    var product = context.Query<Product>().FirstOrDefault(p => p.Id == item.ProductId);
-                    if (product == null)
-                        throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+                    // 修改维修单状态
+                    model.Status = EnumRepairOrderStatus.Completed;
+                    model.CompleteOn = DateTime.Now;
+                    context.Update(model);
 
-                    // 插入配件出库记录
-                    var record = new ProductStockRecord
+                    // 扣配件库存，并增加出库记录
+                    foreach (var item in model.ProductList)
                     {
-                        Id = Guid.NewGuid(),
-                        RelationId = model.Id,
-                        ProductId = item.ProductId,
-                        Quantity = item.Quantity,
-                        Type = EnumStockRecordType.Repair,
-                        QuantityBefore = product.Stock,
-                        CreatedOn = DateTime.Now,
-                        RecordOn = model.CompleteOn,
-                    };
-                    context.Insert(record);
+                        var product = context.SingleById<Product>(item.ProductId);
+                        if (product == null)
+                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
 
-                    // 扣该配件的库存
-                    product.Stock = product.Stock - item.Quantity;
-                    context.Update(product);
+                        // 插入配件出库记录
+                        var record = new ProductStockRecord
+                        {
+                            Id = Guid.NewGuid(),
+                            RelationId = model.Id,
+                            ProductId = item.ProductId,
+                            Quantity = item.Quantity,
+                            Type = EnumStockRecordType.Repair,
+                            QuantityBefore = product.Stock,
+                            CreatedOn = DateTime.Now,
+                            RecordOn = model.CompleteOn,
+                        };
+                        context.Insert(record);
+
+                        // 扣该配件的库存
+                        product.Stock = product.Stock - item.Quantity;
+                        context.Update(product);
+                    }
+
+                    tran.Commit();
                 }
-
-                context.CurrentSession.CommitTransaction();
             }
         }
         #endregion

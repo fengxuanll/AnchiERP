@@ -68,6 +68,11 @@ namespace Anchi.ERP.UI.Web.Controllers
             var projectService = new Service.Projects.ProjectService();
             var customerService = new Service.Customers.CustomerService();
             var supplierService = new Service.Suppliers.SupplierService();
+            var productStockRecordService = new Service.ProductStocks.ProductStockRecordService();
+            var purchaseService = new Service.Purchases.PurchaseService();
+            var repairOrderService = new Service.Repairs.RepairOrderService();
+            var saleOrderService = new Service.SaleOrders.SaleOrderService();
+
             for (int i = 0; i < 100; i++)
             {
                 employeeService.SaveOrUpdate(new Domain.Employees.Employee

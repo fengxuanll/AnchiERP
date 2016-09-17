@@ -111,7 +111,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
-            var model = PurchaseService.GetModel(id);
+            var model = PurchaseService.Get(id);
             return View("Edit", model);
         }
 
@@ -138,6 +138,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             try
             {
+                if (model.Id == Guid.Empty)
+                    model.CreatedById = base.CurrentUser.Id;
+
                 PurchaseService.SaveOrUpdate(model);
                 return new BetterJsonResult();
             }

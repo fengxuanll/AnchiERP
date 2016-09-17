@@ -66,6 +66,7 @@ namespace Anchi.ERP.UI.Web.Controllers
                     RepairOn = item.RepairOn,
                     SettlementOn = item.SettlementOn,
                     SettlementStatus = item.SettlementStatus,
+                    SettlementAmount = item.SettlementAmount,
                     Status = item.Status,
                     CarNumber = customer == null ? string.Empty : customer.CarNumber,
                     CustomerName = customer == null ? string.Empty : customer.Name,
@@ -110,7 +111,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             ViewBag.EmployeeList = EmployeeService.FindNormalList();
 
-            var model = RepairOrderService.GetModel(id);
+            var model = RepairOrderService.Get(id);
             return View(model);
         }
 
@@ -138,6 +139,9 @@ namespace Anchi.ERP.UI.Web.Controllers
         {
             try
             {
+                if (model.Id == Guid.Empty)
+                    model.CreatedById = base.CurrentUser.Id;
+
                 RepairOrderService.SaveOrUpdate(model);
                 return new BetterJsonResult();
             }

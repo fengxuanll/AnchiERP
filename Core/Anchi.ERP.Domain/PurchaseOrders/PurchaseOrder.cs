@@ -3,6 +3,7 @@ using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.Suppliers;
+using ServiceStack.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 供应商
         /// </summary>
+        [Ignore]
         public Supplier Supplier
         {
             get; set;
@@ -48,6 +50,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// <summary>
         /// 采购人
         /// </summary>
+        [Ignore]
         public Employee PurchaseBy
         {
             get; set;
@@ -100,19 +103,25 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         /// 结算时间
         /// </summary>
         public DateTime SettlementOn
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算金额
         /// </summary>
         public decimal SettlementAmount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算备注
         /// </summary>
         public string SettlementRemark
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 备注
@@ -122,10 +131,19 @@ namespace Anchi.ERP.Domain.PurchaseOrders
             get; set;
         }
 
+        /// <summary>
+        /// 创建人ID
+        /// </summary>
+        public Guid CreatedById
+        {
+            get; set;
+        }
+
         private IList<PurchaseOrderProduct> productList;
         /// <summary>
         /// 采购产品
         /// </summary>
+        [Ignore]
         public virtual IList<PurchaseOrderProduct> ProductList
         {
             get

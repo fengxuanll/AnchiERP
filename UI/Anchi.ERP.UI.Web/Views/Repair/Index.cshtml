@@ -32,6 +32,7 @@
             <th width="90">客户</th>
             <th width="90">车牌号</th>
             <th width="90">应收金额</th>
+            <th width="90">结算金额</th>
             <th width="90">完工时间</th>
             <th width="90">结算时间</th>
             <th width="90">维修状态</th>
@@ -50,6 +51,7 @@
             <td>{{ item.CustomerName }}</td>
             <td>{{ item.CarNumber }}</td>
             <td>￥{{ item.Amount }}</td>
+            <td>￥{{ item.SettlementAmount }}</td>
             <td>{{ item.CompleteOn | showTimeDateFilter }}</td>
             <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
             <td>
