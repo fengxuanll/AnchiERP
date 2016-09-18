@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "销售单管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,76 +8,113 @@
         <i class="Hui-iconfont">&#xe68f;</i>
     </a>
 </nav>
-<div class="cl pd-5 mt-10">
-    <span class="l">
-        <a href="/Sale/Add" class="btn">
-            <i class="Hui-iconfont">&#xe6e2;</i>新建
-        </a>
-        <a href="javascript:;" class="btn" onclick="setOutboundFn();">
-            <i class="Hui-iconfont">&#xe6e2;</i>已出库
-        </a>
-    </span>
+
+<div class="page-container" ms-controller="SaleOrderList">
+    <div class="pd-5 search-bar">
+        <form>
+            销售单状态：
+            <select class="select-default" ms-duplex="##Search.Status">
+                <option value="">请选择...</option>
+                <option value="1">未出库</option>
+                <option value="2">已出库</option>
+            </select>
+            结算状态：
+            <select class="select-default ml-5" ms-duplex="##Search.SettlementStatus">
+                <option value="">请选择...</option>
+                <option value="1">未结算</option>
+                <option value="2">已结算</option>
+            </select>
+            销售人：
+            <select class="select-default ml-5" ms-duplex="##Search.SaleById">
+                <option value="">请选择...</option>
+                @foreach (var item in ViewBag.EmployeeList)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <input type="text" id="txtSearchSaleOn" ms-duplex="##Search.SaleOn" class="input-text ml-5" placeholder="开单时间" onclick="WdatePicker({ onpicked: selectSearchSaleOnFn, oncleared: selectSearchSaleOnFn });" />
+            <input type="text" id="txtSearchOutboundOn" ms-duplex="##Search.OutboundOn" class="input-text ml-5" placeholder="出库时间" onclick="WdatePicker({ onpicked: selectSearchOutboundOnFn, oncleared: selectSearchOutboundOnFn });" />
+            <input type="text" id="txtSearchSettlementOn" ms-duplex="##Search.SettlementOn" class="input-text ml-5" placeholder="结算时间" onclick="WdatePicker({ onpicked: selectSearchSettlementOnFn, oncleared: selectSearchSettlementOnFn });" />
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+        </form>
+    </div>
+
+    <div class="cl pd-5">
+        <span class="l">
+            <a href="/Sale/Add" class="btn">
+                <i class="Hui-iconfont">&#xe6e2;</i>新建
+            </a>
+            <a href="javascript:;" class="btn" onclick="setOutboundFn();">
+                <i class="Hui-iconfont">&#xe6e2;</i>已出库
+            </a>
+        </span>
+    </div>
+
+    <div class="cl pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="25">
+                        <input type="checkbox" name="checkAll">
+                    </th>
+                    <th width="30">序号</th>
+                    <th width="90">开单时间</th>
+                    <th width="90">客户</th>
+                    <th width="90">销售人</th>
+                    <th width="90">销售单状态</th>
+                    <th width="90">应收金额</th>
+                    <th width="90">结算金额</th>
+                    <th width="90">出库时间</th>
+                    <th width="90">结算状态</th>
+                    <th width="90">结算时间</th>
+                    <th>备注</th>
+                    <th width="100">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>
+                        <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
+                    </td>
+                    <td>{{ $index + 1}}</td>
+                    <td>{{ item.SaleOn | showTimeDateFilter }}</td>
+                    <td>{{ item.CustomerName }}</td>
+                    <td>{{ item.SaleByName }}</td>
+                    <td>
+                        <span class="label label-success radius">
+                            {{ item.StatusName }}
+                        </span>
+                    </td>
+                    <td>￥{{ item.Amount }}</td>
+                    <td>￥{{ item.SettlementAmount }}</td>
+                    <td>{{ item.OutboundOn | showTimeDateFilter }}</td>
+                    <td>
+                        <span class="label label-success radius">
+                            {{ item.SettlementStatusName }}
+                        </span>
+                    </td>
+                    <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
+                    <td>{{ item.Remark }}</td>
+                    <td class="td-manage">
+                        <a ms-attr="{href:'/Sale/Edit/' + item.Id}" title="修改">
+                            <i class="Hui-iconfont">&#xe6df;</i>修改
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="13">
+                        <div id="divPager"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
-<table class="table table-border table-bordered table-bg" ms-controller="SaleOrderList">
-    <thead>
-        <tr class="text-c">
-            <th width="25">
-                <input type="checkbox" name="checkAll">
-            </th>
-            <th width="30">序号</th>
-            <th width="90">开单时间</th>
-            <th width="90">客户</th>
-            <th width="90">销售人</th>
-            <th width="90">销售单状态</th>
-            <th width="90">应收金额</th>
-            <th width="90">结算金额</th>
-            <th width="90">出库时间</th>
-            <th width="90">结算状态</th>
-            <th width="90">结算时间</th>
-            <th>备注</th>
-            <th width="100">操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="text-c" ms-for="($index, item) in ##List">
-            <td>
-                <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
-            </td>
-            <td>{{ $index + 1}}</td>
-            <td>{{ item.SaleOn | showTimeDateFilter }}</td>
-            <td>{{ item.CustomerName }}</td>
-            <td>{{ item.SaleByName }}</td>
-            <td>
-                <span class="label label-success radius">
-                    {{ item.StatusName }}
-                </span>
-            </td>
-            <td>￥{{ item.Amount }}</td>
-            <td>￥{{ item.SettlementAmount }}</td>
-            <td>{{ item.OutboundOn | showTimeDateFilter }}</td>
-            <td>
-                <span class="label label-success radius">
-                    {{ item.SettlementStatusName }}
-                </span>
-            </td>
-            <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
-            <td>{{ item.Remark }}</td>
-            <td class="td-manage">
-                <a ms-attr="{href:'/Sale/Edit/' + item.Id}" title="修改">
-                    <i class="Hui-iconfont">&#xe6df;</i>修改
-                </a>
-            </td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="13">
-                <div id="divPager"></div>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+
 @section foot{
     <script type="text/javascript" src="/Static/Js/Business/SaleOrders/List.js"></script>
     <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>
+    <script type="text/javascript" src="~/Static/Js/My97DatePicker/WdatePicker.js"></script>
 }

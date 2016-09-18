@@ -26,11 +26,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
                     sb.Append(" AND [SupplierId] = @SupplierId");
                     this.ParamDict["@SupplierId"] = this.SupplierId.Value;
                 }
-                if (this.PurchaseOn.HasValue)
-                {   // TODO...... 时间类型，待测试
-                    sb.Append(" AND [PurchaseOn] = @PurchaseOn");
-                    this.ParamDict["@PurchaseOn"] = this.PurchaseOn.Value;
-                }
                 if (this.PurchaseById.HasValue)
                 {
                     sb.Append(" AND [PurchaseById] = @PurchaseById");
@@ -41,20 +36,28 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
                     sb.Append(" AND [Status] = @Status");
                     this.ParamDict["@Status"] = (byte)this.Status.Value;
                 }
-                if (this.ArrivalOn.HasValue)
-                {   // TODO...... 时间类型，待测试
-                    sb.Append(" AND [ArrivalOn] = @ArrivalOn");
-                    this.ParamDict["@ArrivalOn"] = this.ArrivalOn.Value;
-                }
-                if (this.SettlementOn.HasValue)
-                {   // TODO...... 时间类型，待测试
-                    sb.Append(" AND [SettlementOn] = @SettlementOn");
-                    this.ParamDict["@SettlementOn"] = this.SettlementOn.Value;
-                }
                 if (this.SettlementStatus.HasValue)
                 {
                     sb.Append(" AND [SettlementStatus] = @SettlementStatus");
                     this.ParamDict["@SettlementStatus"] = (byte)this.SettlementStatus.Value;
+                }
+                if (this.ArrivalOn.HasValue)
+                {
+                    sb.Append(" AND [ArrivalOn] >= @ArrivalOnStart AND [ArrivalOn] < @ArrivalOnEnd");
+                    this.ParamDict["@ArrivalOnStart"] = this.ArrivalOn.Value.Date;
+                    this.ParamDict["@ArrivalOnEnd"] = this.ArrivalOn.Value.Date.AddDays(1);
+                }
+                if (this.SettlementOn.HasValue)
+                {
+                    sb.Append(" AND [SettlementOn] >= @SettlementOnStart AND [SettlementOn] < @SettlementOnEnd");
+                    this.ParamDict["@SettlementOnStart"] = this.SettlementOn.Value.Date;
+                    this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.Value.Date.AddDays(1);
+                }
+                if (this.PurchaseOn.HasValue)
+                {
+                    sb.Append(" AND [PurchaseOn] >= @PurchaseOnStart AND [PurchaseOn] < @PurchaseOnEnd");
+                    this.ParamDict["@PurchaseOnStart"] = this.PurchaseOn.Value.Date;
+                    this.ParamDict["@PurchaseOnEnd"] = this.PurchaseOn.Value.Date.AddDays(1);
                 }
 
                 return sb.ToString();

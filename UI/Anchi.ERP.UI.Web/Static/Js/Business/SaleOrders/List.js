@@ -1,19 +1,39 @@
 ﻿var $vm = avalon.define({
     $id: "SaleOrderList",
-    List: []
+    List: [],
+    Search: {
+        SaleById: "",
+        Status: "",
+        SettlementStatus: "",
+        SaleOn: "",
+        OutboundOn: "",
+        SettlementOn: ""
+    }
 });
+
+function selectSearchSaleOnFn() {
+    $vm.Search.SaleOn = $("#txtSearchSaleOn").val();
+}
+
+function selectSearchOutboundOnFn() {
+    $vm.Search.OutboundOn = $("#txtSearchOutboundOn").val();
+}
+
+function selectSearchSettlementOnFn() {
+    $vm.Search.SettlementOn = $("#txtSearchSettlementOn").val();
+}
 
 $(function () {
     refreshListFn();
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Sale/List",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({

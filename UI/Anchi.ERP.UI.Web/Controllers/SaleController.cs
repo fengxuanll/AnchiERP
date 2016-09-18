@@ -26,14 +26,8 @@ namespace Anchi.ERP.UI.Web.Controllers
             this.EmployeeService = employeeService;
         }
 
-        SaleOrderService SaleOrderService
-        {
-            get;
-        }
-        EmployeeService EmployeeService
-        {
-            get;
-        }
+        SaleOrderService SaleOrderService { get; }
+        EmployeeService EmployeeService { get; }
         #endregion
 
         #region 销售单管理
@@ -44,6 +38,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult List()
         {
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
             return View("Index");
         }
 

@@ -35,9 +35,10 @@ namespace Anchi.ERP.Domain.Employees.Filter
                     this.ParamDict["@Status"] = (int)this.Status.Value;
                 }
                 if (this.EntryOn.HasValue)
-                {   // TODO....... 时间类型，待测试
-                    sb.Append(" AND [EntryOn] = @EntryOn");
-                    this.ParamDict["@EntryOn"] = this.EntryOn.Value;
+                {
+                    sb.Append(" AND [EntryOn] >= @EntryOnStart AND [EntryOn] < @EntryOnEnd");
+                    this.ParamDict["@EntryOnStart"] = this.EntryOn.Value.Date;
+                    this.ParamDict["@EntryOnEnd"] = this.EntryOn.Value.Date.AddDays(1);
                 }
 
                 return sb.ToString();

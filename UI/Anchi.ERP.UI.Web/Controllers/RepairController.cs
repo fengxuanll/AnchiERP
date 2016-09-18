@@ -41,6 +41,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpGet]
         public ActionResult List()
         {
+            ViewBag.EmployeeList = EmployeeService.FindNormalList();
             return View("Index");
         }
 

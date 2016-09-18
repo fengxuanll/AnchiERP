@@ -1,6 +1,12 @@
 ﻿var $vm = avalon.define({
     $id: "ProductRecordList",
-    List: []
+    List: [],
+    Search: {
+        Type: "",
+        Code: "",
+        Name: "",
+        RecordOn: ""
+    }
 });
 
 $(function () {
@@ -8,12 +14,12 @@ $(function () {
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Product/RecordList",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({

@@ -3,7 +3,8 @@
     List: [],
     Search: {
         TrueName: "",
-        LoginName: ""
+        LoginName: "",
+        Status: ""
     },
     editUserFn: function (item) {
         layer.open({
@@ -11,7 +12,7 @@
             maxmin: true,
             title: "修改用户信息",
             skin: 'layui-layer-rim',
-            area: ['500px', '600px'],
+            area: ['500px', '550px'],
             content: '/User/Edit/' + item.Id
         });
     },
@@ -61,7 +62,7 @@ function addUserFn() {
         maxmin: true,
         title: "新增用户",
         skin: 'layui-layer-rim', //加上边框
-        area: ['500px', '600px'], //宽高
+        area: ['500px', '550px'], //宽高
         content: '/User/Add'
     });
 }

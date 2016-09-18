@@ -4,4 +4,12 @@
 
     .search-bar input[type=text] {
         width: 150px;
+        vertical-align: middle;
+    }
+
+    .search-bar select {
+        height: 31px;
+        min-width: 100px;
+        display: inline;
+        vertical-align: middle;
     }

@@ -120,6 +120,10 @@ namespace Anchi.ERP.UI.Web.Controllers
             try
             {
                 UserService.DeleteList(Ids.ToArray());
+
+                if (Ids.Contains(this.CurrentUser.Id))
+                    this.CurrentUser = null;
+
                 return new BetterJsonResult(null, true);
             }
             catch (Exception ex)
@@ -146,6 +150,11 @@ namespace Anchi.ERP.UI.Web.Controllers
 
                 model.Status = Status;
                 UserService.SaveOrUpdate(model);
+
+                if (model.Id == this.CurrentUser.Id)
+                {
+                    this.CurrentUser = model;
+                }
             }
             return new BetterJsonResult(null, true);
         }

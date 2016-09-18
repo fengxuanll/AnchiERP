@@ -1,6 +1,12 @@
 ﻿var $vm = avalon.define({
     $id: "EmployeeList",
     List: [],
+    Search: {
+        Status: "",
+        Code: "",
+        Name: "",
+        EntryOn: ""
+    },
     editEmployeeFn: function (item) {
         layer.open({
             type: 2,
@@ -21,12 +27,12 @@ $(function () {
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Employee/List",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({

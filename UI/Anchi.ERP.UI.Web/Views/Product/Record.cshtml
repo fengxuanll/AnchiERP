@@ -2,51 +2,74 @@
     ViewBag.Title = "配件出入库记录";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script type="text/javascript">
+    function selectSearchRecordOnFn() {
+        $vm.Search.RecordOn = $("#txtSearchRecordOn").val();
+    }
+</script>
 
-<div ms-controller="ProductRecordList">
-    <nav class="breadcrumb">
-        <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>配件出入库记录
-        <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
-    </nav>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>配件出入库记录
+    <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
 
-    <table class="table table-border table-bordered table-bg">
-        <thead>
-            <tr class="text-c">
-                <th width="25">序号</th>
-                <th width="100">编码</th>
-                <th width="100">名称</th>
-                <th width="90">出入库类型</th>
-                <th width="90">出入库时间</th>
-                <th width="90">当前库存</th>
-                <th width="150">出入库前库存数量</th>
-                <th width="90">出入库数量</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-c" ms-for="($index, item) in ##List">
-                <td>{{ $index + 1}}</td>
-                <td>{{ item.ProductCode }}</td>
-                <td>{{ item.ProductName }}</td>
-                <td>{{ item.TypeName }}</td>
-                <td>{{ item.RecordOn }}</td>
-                <td>{{ item.Stock }}</td>
-                <td>{{ item.QuantityBefore }}</td>
-                <td>{{ item.Quantity }}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="10">
-                    <div id="divPager"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+<div class="page-container" ms-controller="ProductRecordList">
+    <div class="pd-5 search-bar">
+        <form>
+            <select ms-duplex="##Search.Type">
+                <option value="">请选择...</option>
+                <option value="10">维修出库</option>
+                <option value="11">销售出库</option>
+                <option value="20">采购入库</option>
+            </select>
+            <input type="text" ms-duplex="##Search.Code" class="input-text ml-5" placeholder="配件编码" />
+            <input type="text" ms-duplex="##Search.Name" class="input-text ml-5" placeholder="配件名称" />
+            <input type="text" id="txtSearchRecordOn" ms-duplex="##Search.RecordOn" class="input-text ml-5" placeholder="出入库时间" onclick="WdatePicker({ onpicked: selectSearchRecordOnFn, oncleared: selectSearchRecordOnFn });" />
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+        </form>
+    </div>
+
+    <div class="pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="25">序号</th>
+                    <th width="100">编码</th>
+                    <th width="100">名称</th>
+                    <th width="90">出入库类型</th>
+                    <th width="90">出入库时间</th>
+                    <th width="90">当前库存</th>
+                    <th width="150">出入库前库存数量</th>
+                    <th width="90">出入库数量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>{{ $index + 1}}</td>
+                    <td>{{ item.ProductCode }}</td>
+                    <td>{{ item.ProductName }}</td>
+                    <td>{{ item.TypeName }}</td>
+                    <td>{{ item.RecordOn | showDateTimeFilter }}</td>
+                    <td>{{ item.Stock }}</td>
+                    <td>{{ item.QuantityBefore }}</td>
+                    <td>{{ item.Quantity }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <div id="divPager"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
 
 @section foot{
     <script type="text/javascript" src="/Static/Js/Business/Products/Record.js"></script>
     <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>
+    <script type="text/javascript" src="~/Static/Js/My97DatePicker/WdatePicker.js"></script>
 }

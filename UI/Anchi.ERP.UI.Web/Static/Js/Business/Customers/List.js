@@ -1,13 +1,17 @@
 ﻿var $vm = avalon.define({
     $id: "CustomerList",
     List: [],
+    Search: {
+        Name: "",
+        CarNumber: ""
+    },
     editCustomerFn: function (item) {
         layer.open({
             type: 2,
             maxmin: true,
             title: "修改客户信息",
             skin: 'layui-layer-rim',
-            area: ['500px', '600px'],
+            area: ['500px', '440px'],
             content: '/Customer/Edit/' + item.Id
         });
     },
@@ -21,12 +25,12 @@ $(function () {
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Customer/List",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({
@@ -51,7 +55,7 @@ function addCustomerFn() {
         maxmin: true,
         title: "新增客户",
         skin: 'layui-layer-rim', //加上边框
-        area: ['500px', '600px'], //宽高
+        area: ['500px', '440px'],
         content: '/Customer/Add'
     });
 }

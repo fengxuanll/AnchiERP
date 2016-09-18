@@ -1,13 +1,17 @@
 ﻿var $vm = avalon.define({
     $id: "ProjectList",
     List: [],
+    Search: {
+        Code: "",
+        Name: ""
+    },
     editProjectFn: function (item) {
         layer.open({
             type: 2,
             maxmin: true,
             title: "修改维修项目",
             skin: 'layui-layer-rim',
-            area: ['500px', '400px'],
+            area: ['500px', '390px'],
             content: '/Project/Edit/' + item.Id
         });
     },
@@ -21,12 +25,12 @@ $(function () {
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Project/List",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({
@@ -51,7 +55,7 @@ function addProjectFn() {
         maxmin: true,
         title: "新增维修项目",
         skin: 'layui-layer-rim', //加上边框
-        area: ['500px', '400px'], //宽高
+        area: ['500px', '390px'], //宽高
         content: '/Project/Add'
     });
 }

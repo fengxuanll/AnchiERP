@@ -1,13 +1,17 @@
 ﻿var $vm = avalon.define({
     $id: "ProductList",
     List: [],
+    Search: {
+        Code: "",
+        Name: ""
+    },
     editProductFn: function (item) {
         layer.open({
             type: 2,
             maxmin: true,
             title: "修改配件信息",
             skin: 'layui-layer-rim',
-            area: ['500px', '600px'],
+            area: ['500px', '530px'],
             content: '/Product/Edit/' + item.Id
         });
     },
@@ -21,12 +25,12 @@ $(function () {
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Product/List",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({
@@ -51,7 +55,7 @@ function addProductFn() {
         maxmin: true,
         title: "新增配件",
         skin: 'layui-layer-rim', //加上边框
-        area: ['500px', '600px'], //宽高
+        area: ['500px', '530px'], //宽高
         content: '/Product/Add'
     });
 }

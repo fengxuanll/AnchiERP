@@ -1,6 +1,7 @@
 ﻿using Anchi.ERP.Domain.Users;
 using System.Web.Mvc;
 using System.Web;
+using Anchi.ERP.Domain.Users.Enum;
 
 namespace Anchi.ERP.UI.Web.Filter
 {
@@ -12,7 +13,7 @@ namespace Anchi.ERP.UI.Web.Filter
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var currentUser = (User)httpContext.Session["CurrentUser"];
-            return currentUser != null;
+            return currentUser != null && currentUser.Status == EnumUserStatus.Normal;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

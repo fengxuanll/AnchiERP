@@ -1,13 +1,17 @@
 ﻿var $vm = avalon.define({
     $id: "SupplierList",
     List: [],
+    Search: {
+        CompanyName: "",
+        Contact: ""
+    },
     editSupplierFn: function (item) {
         layer.open({
             type: 2,
             maxmin: true,
             title: "修改配件信息",
             skin: 'layui-layer-rim',
-            area: ['500px', '500px'],
+            area: ['500px', '430px'],
             content: '/Supplier/Edit/' + item.Id
         });
     },
@@ -21,12 +25,12 @@ $(function () {
 });
 
 function refreshListFn(pageIndex) {
+    var postData = $vm.Search.$model;
+    postData.PageIndex = pageIndex || 0;
     $.ajax({
         url: "/Supplier/List",
         type: "POST",
-        data: {
-            PageIndex: pageIndex || 0
-        },
+        data: postData,
         success: function (data) {
             $vm.List = data.Data;
             laypage({
@@ -51,7 +55,7 @@ function addSupplierFn() {
         maxmin: true,
         title: "新增供应商",
         skin: 'layui-layer-rim', //加上边框
-        area: ['500px', '500px'], //宽高
+        area: ['500px', '430px'], //宽高
         content: '/Supplier/Add'
     });
 }

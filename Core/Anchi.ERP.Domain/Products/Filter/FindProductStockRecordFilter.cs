@@ -17,7 +17,6 @@ namespace Anchi.ERP.Domain.Products.Filter
         {
             get
             {
-                // TODO...... 关联查询，待测试
                 var sb = new StringBuilder("SELECT psr.* FROM [ProductStockRecord] psr JOIN [Product] p ON psr.ProductId = p.Id WHERE 1 = 1");
 
                 if (!string.IsNullOrWhiteSpace(this.Code))
@@ -32,8 +31,9 @@ namespace Anchi.ERP.Domain.Products.Filter
                 }
                 if (this.RecordOn.HasValue)
                 {
-                    sb.Append(" AND psr.[RecordOn] = @RecordOn");
-                    this.ParamDict["@RecordOn"] = this.RecordOn.Value;
+                    sb.Append(" AND psr.[RecordOn] >= @RecordOnStart AND psr.[RecordOn] < @RecordOnEnd");
+                    this.ParamDict["@RecordOnStart"] = this.RecordOn.Value.Date;
+                    this.ParamDict["@RecordOnEnd"] = this.RecordOn.Value.Date.AddDays(1);
                 }
                 if (this.Type.HasValue)
                 {
