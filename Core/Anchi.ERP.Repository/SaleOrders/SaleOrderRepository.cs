@@ -181,9 +181,9 @@ namespace Anchi.ERP.Repository.SaleOrders
         }
         #endregion
 
-        #region 反结算销售单
+        #region 取消销售单
         /// <summary>
-        /// 反结算销售单
+        /// 取消销售单
         /// </summary>
         /// <param name="model"></param>
         public void Cancel(SaleOrder model)
@@ -194,23 +194,37 @@ namespace Anchi.ERP.Repository.SaleOrders
                 {
                     foreach (var item in model.ProductList)
                     {
-                        var product = context.SingleById<Product>(item.ProductId);
+                        var product = item.Product;
                         if (product == null)
-                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+                            continue;
 
-                        // 加回配件库存
-                        product.Stock = product.Stock + item.Quantity;
-                        context.Update(product);
+                        if (model.Status == EnumSaleOrderStatus.Outbound)
+                        {   // 如果是已出库的销售单，需要回滚配件库存
+                            // 插入配件出入库记录
+                            var record = new ProductStockRecord
+                            {
+                                Id = Guid.NewGuid(),
+                                CreatedOn = DateTime.Now,
+                                ProductId = product.Id,
+                                Quantity = item.Quantity,
+                                QuantityBefore = product.Stock,
+                                RecordOn = DateTime.Now,
+                                RelationId = model.Id,
+                                Type = EnumStockRecordType.CancelSale,
+                            };
+                            context.Insert(record);
 
-                        // 删除销售单配件
-                        context.Delete<SaleOrderProduct>(rop => rop.SaleOrderId == model.Id);
-
-                        // 删除配件库存明细
-                        context.Delete<ProductStockRecord>(psr => psr.RelationId == model.Id);
-
-                        // 删除采购单
-                        context.Delete<SaleOrder>(ro => ro.Id == model.Id);
+                            // 加回配件库存
+                            product.Stock = product.Stock + item.Quantity;
+                            context.Update(product);
+                        }
                     }
+
+                    // 删除销售单配件
+                    context.Delete<SaleOrderProduct>(rop => rop.SaleOrderId == model.Id);
+
+                    // 删除采购单
+                    context.Delete<SaleOrder>(ro => ro.Id == model.Id);
 
                     tran.Commit();
                 }

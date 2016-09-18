@@ -84,15 +84,15 @@ function getSelectedIdListFn() {
     return idArray;
 }
 
-// 反结算采购单
+// 取消采购单
 function cancelOrderFn() {
     var idList = getSelectedIdListFn();
     if (idList.length == 0) {
-        $.msg("请选择需要反结算的采购单。", "error");
+        $.msg("请选择需要取消的采购单。", "error");
         return false;
     }
 
-    layer.confirm("是否确定需要反结算？<div class='c-red'>反结算会清除采购单，退回配件。</div>", function () {
+    layer.confirm("是否确定需要取消选择的<span class='c-red'>" + idList.length + "</span>条采购单？", function () {
         $.ajax({
             url: "/Purchase/Cancel",
             type: "POST",
@@ -100,7 +100,7 @@ function cancelOrderFn() {
                 idList: idList
             },
             success: function () {
-                $.msg("反结算完成。", "success");
+                $.msg("取消完成。", "success");
                 refreshListFn();
             }
         });

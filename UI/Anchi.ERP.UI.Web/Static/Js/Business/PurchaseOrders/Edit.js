@@ -108,3 +108,19 @@ function showSettlementFn() {
         content: '/Purchase/Settlement/' + $vm.Id
     });
 }
+
+// 取消采购单
+function cancelOrderFn() {
+    layer.confirm("是否确定需要取消该采购单？", function () {
+        $.ajax({
+            url: "/Purchase/Cancel",
+            type: "POST",
+            data: {
+                idList: [$vm.Id]
+            },
+            success: function () {
+                $.msg("取消成功。", "success");
+            }
+        });
+    });
+}

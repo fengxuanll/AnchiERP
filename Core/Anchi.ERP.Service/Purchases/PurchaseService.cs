@@ -133,9 +133,9 @@ namespace Anchi.ERP.Service.Purchases
         }
         #endregion
 
-        #region 反结算采购单
+        #region 取消采购单
         /// <summary>
-        /// 反结算采购单
+        /// 取消采购单
         /// </summary>
         /// <param name="idList"></param>
         public void CancelOrder(IList<Guid> idList)

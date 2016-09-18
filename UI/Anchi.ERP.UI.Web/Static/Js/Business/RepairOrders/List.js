@@ -85,15 +85,15 @@ function getSelectedIdListFn() {
     return idArray;
 }
 
-// 反结算维修单
+// 取消维修单
 function cancelOrderFn() {
     var idList = getSelectedIdListFn();
     if (idList.length == 0) {
-        $.msg("请选择需要反结算的维修单。", "error");
+        $.msg("请选择需要取消的维修单。", "error");
         return false;
     }
 
-    layer.confirm("是否确定需要反结算？<div class='c-red'>反结算会清除维修单，退回配件。</div>", function () {
+    layer.confirm("是否确定需要取消选择的<span class='c-red'>" + idList.length + "</span>条维修单？", function () {
         $.ajax({
             url: "/Repair/Cancel",
             type: "POST",
@@ -101,7 +101,7 @@ function cancelOrderFn() {
                 idList: idList
             },
             success: function () {
-                $.msg("反结算完成。", "success");
+                $.msg("取消完成。", "success");
                 refreshListFn();
             }
         });

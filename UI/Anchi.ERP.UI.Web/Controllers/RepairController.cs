@@ -53,35 +53,8 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult List(FindRepairOrderFilter filter)
         {
-            var modelList = new List<RepairOrderModel>();
-            var result = RepairOrderService.FindPaged(filter);
-            foreach (var item in result.Data)
-            {
-                var customer = CustomerService.Get(item.CustomerId);
-                modelList.Add(new RepairOrderModel
-                {
-                    Id = item.Id,
-                    Amount = item.Amount,
-                    CompleteOn = item.CompleteOn,
-                    Remark = item.Remark,
-                    RepairOn = item.RepairOn,
-                    SettlementOn = item.SettlementOn,
-                    SettlementStatus = item.SettlementStatus,
-                    SettlementAmount = item.SettlementAmount,
-                    Status = item.Status,
-                    CarNumber = customer == null ? string.Empty : customer.CarNumber,
-                    CustomerName = customer == null ? string.Empty : customer.Name,
-                });
-            }
-
-            var response = new PagedQueryResult<RepairOrderModel>();
-            response.Data = modelList;
-            response.PageIndex = result.PageIndex;
-            response.PageSize = result.PageSize;
-            response.TotalCount = result.TotalCount;
-            response.TotalPage = result.TotalPage;
-
-            return new BetterJsonResult(response, true);
+            var result = RepairOrderService.FindList(filter);
+            return new BetterJsonResult(result, true);
         }
         #endregion
 

@@ -38,5 +38,14 @@ namespace Anchi.ERP.UI.Web.Controllers
             base.OnException(filterContext);
         }
         #endregion
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                ViewBag.CurrentUser = CurrentUser;
+            }
+            base.OnActionExecuted(filterContext);
+        }
     }
 }

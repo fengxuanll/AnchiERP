@@ -34,7 +34,7 @@
         @if (Model.Id != Guid.Empty)
         {
             @:initSaleOrderFn("@Model.Id");
-        }
+                }
     });
 </script>
 
@@ -62,6 +62,12 @@
         {
             <a href="javascript:;" class="btn" onclick="showSettlementFn();">
                 <i class="Hui-iconfont">&#xe6e2;</i>结算
+            </a>
+        }
+        @if (Model.Id != Guid.Empty)
+        {
+            <a href="javascript:;" class="btn" onclick="cancelOrderFn();">
+                <i class="Hui-iconfont">&#xe6e2;</i>取消
             </a>
         }
     </span>

@@ -146,3 +146,19 @@ function showSettlementFn() {
         content: '/Repair/Settlement/' + $vm.Id
     });
 }
+
+// 取消维修单
+function cancelOrderFn() {
+    layer.confirm("是否确定需要取消该维修单？", function () {
+        $.ajax({
+            url: "/Repair/Cancel",
+            type: "POST",
+            data: {
+                idList: [$vm.Id]
+            },
+            success: function () {
+                $.msg("取消成功。", "success");
+            }
+        });
+    });
+}

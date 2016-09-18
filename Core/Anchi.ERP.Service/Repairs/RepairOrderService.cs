@@ -1,8 +1,12 @@
 ﻿using Anchi.ERP.Common;
+using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.Domain.RepairOrders.Filter;
 using Anchi.ERP.IRepository.Repairs;
 using Anchi.ERP.Repository.Repairs;
+using Anchi.ERP.Service.Customers;
+using Anchi.ERP.Service.Employees;
 using Anchi.ERP.ServiceModel.Repairs;
 using System;
 using System.Collections.Generic;
@@ -16,14 +20,19 @@ namespace Anchi.ERP.Service.Repairs
     public class RepairOrderService : BaseService<RepairOrder>
     {
         #region 构造函数和属性
-        public RepairOrderService() : this(new RepairOrderRepository()) { }
+        public RepairOrderService() : this(new RepairOrderRepository(), new CustomerService(), new EmployeeService()) { }
 
-        public RepairOrderService(IRepairOrderRepository repairOrderRepository) : base(repairOrderRepository)
+        public RepairOrderService(IRepairOrderRepository repairOrderRepository, CustomerService customerService, EmployeeService employeeService) : base(repairOrderRepository)
         {
             this.RepairOrderRepository = repairOrderRepository;
+            this.CustomerService = customerService;
+            this.EmployeeService = employeeService;
         }
 
         IRepairOrderRepository RepairOrderRepository { get; }
+
+        CustomerService CustomerService { get; }
+        EmployeeService EmployeeService { get; }
         #endregion
 
         #region 保存维修单
@@ -141,9 +150,9 @@ namespace Anchi.ERP.Service.Repairs
         }
         #endregion
 
-        #region 反结算维修单
+        #region 取消维修单
         /// <summary>
-        /// 反结算维修单
+        /// 取消维修单
         /// </summary>
         /// <param name="idList"></param>
         public void CancelOrder(IList<Guid> idList)
@@ -159,6 +168,49 @@ namespace Anchi.ERP.Service.Repairs
 
                 RepairOrderRepository.Cancel(model);
             }
+        }
+        #endregion
+
+        #region 分页查找维修单列表
+        /// <summary>
+        /// 分页查找维修单列表
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public PagedQueryResult<RepairOrderModel> FindList(FindRepairOrderFilter filter)
+        {
+            var modelList = new List<RepairOrderModel>();
+
+            var result = FindPaged(filter);
+            foreach (var item in result.Data)
+            {
+                var customer = CustomerService.Get(item.CustomerId);
+                var receptionBy = EmployeeService.Get(item.ReceptionById);
+                modelList.Add(new RepairOrderModel
+                {
+                    Id = item.Id,
+                    Amount = item.Amount,
+                    CompleteOn = item.CompleteOn,
+                    Remark = item.Remark,
+                    RepairOn = item.RepairOn,
+                    SettlementOn = item.SettlementOn,
+                    SettlementStatus = item.SettlementStatus,
+                    SettlementAmount = item.SettlementAmount,
+                    Status = item.Status,
+                    CarNumber = customer == null ? string.Empty : customer.CarNumber,
+                    CustomerName = customer == null ? string.Empty : customer.Name,
+                    ReceptionByName = receptionBy == null ? string.Empty : receptionBy.Name,
+                });
+            }
+
+            var response = new PagedQueryResult<RepairOrderModel>();
+            response.Data = modelList;
+            response.PageIndex = result.PageIndex;
+            response.PageSize = result.PageSize;
+            response.TotalCount = result.TotalCount;
+            response.TotalPage = result.TotalPage;
+
+            return response;
         }
         #endregion
     }

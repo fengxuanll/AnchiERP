@@ -140,7 +140,7 @@ namespace Anchi.ERP.Repository.Purchases
             using (var context = DbContext.Open())
             {
                 using (var tran = context.BeginTransaction())
-                { 
+                {
                     // 修改采购单状态
                     model.Status = EnumPurchaseOrderStatus.Completed;
                     model.ArrivalOn = DateTime.Now;
@@ -178,9 +178,9 @@ namespace Anchi.ERP.Repository.Purchases
         }
         #endregion
 
-        #region 反结算采购单
+        #region 取消采购单
         /// <summary>
-        /// 反结算采购单
+        /// 取消采购单
         /// </summary>
         /// <param name="model"></param>
         public void Cancel(PurchaseOrder model)
@@ -191,23 +191,37 @@ namespace Anchi.ERP.Repository.Purchases
                 {
                     foreach (var item in model.ProductList)
                     {
-                        var product = context.SingleById<Product>(item.ProductId);
+                        var product = item.Product;
                         if (product == null)
-                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+                            continue;
 
-                        // 退回配件库存
-                        product.Stock = product.Stock - item.Quantity;
-                        context.Update(product);
+                        if (model.Status == EnumPurchaseOrderStatus.Completed)
+                        {   // 如果是已到货的采购单，需要回滚配件库存
+                            // 插入配件出入库记录
+                            var record = new ProductStockRecord
+                            {
+                                Id = Guid.NewGuid(),
+                                CreatedOn = DateTime.Now,
+                                ProductId = product.Id,
+                                Quantity = 0 - item.Quantity,
+                                QuantityBefore = product.Stock,
+                                RecordOn = DateTime.Now,
+                                RelationId = model.Id,
+                                Type = EnumStockRecordType.CancelPurchase,
+                            };
+                            context.Insert(record);
 
-                        // 删除采购单配件
-                        context.Delete<PurchaseOrderProduct>(rop => rop.PurchaseOrderId == model.Id);
-
-                        // 删除配件库存明细
-                        context.Delete<ProductStockRecord>(psr => psr.RelationId == model.Id);
-
-                        // 删除采购单
-                        context.Delete<PurchaseOrder>(ro => ro.Id == model.Id);
+                            // 减去配件库存
+                            product.Stock = product.Stock - item.Quantity;
+                            context.Update(product);
+                        }
                     }
+
+                    // 删除采购单配件
+                    context.Delete<PurchaseOrderProduct>(rop => rop.PurchaseOrderId == model.Id);
+
+                    // 删除采购单
+                    context.Delete<PurchaseOrder>(ro => ro.Id == model.Id);
 
                     tran.Commit();
                 }

@@ -90,7 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Static\Css\Common.css" />
     <Content Include="Static\hui.admin\css\H-ui.admin.css" />
     <Content Include="Static\hui.admin\css\H-ui.login.css" />
     <Content Include="Static\hui.admin\css\style.css" />
@@ -379,12 +378,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Static\hui.admin\skin\blue\Thumbs.db" />
-    <Content Include="Static\hui.admin\skin\default\Thumbs.db" />
-    <Content Include="Static\hui.admin\skin\green\Thumbs.db" />
-    <Content Include="Static\hui.admin\skin\orange\Thumbs.db" />
-    <Content Include="Static\hui.admin\skin\red\Thumbs.db" />
-    <Content Include="Static\hui.admin\skin\yellow\Thumbs.db" />
     <Content Include="Static\Hui-iconfont\1.0.7\iconfont.eot" />
     <Content Include="Static\Hui-iconfont\1.0.7\iconfont.ttf" />
     <Content Include="Static\Hui-iconfont\1.0.7\iconfont.woff" />
@@ -427,7 +420,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Static\h-ui\images\unslider\" />
-    <Folder Include="Static\Images\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Anchi.ERP.Common\Anchi.ERP.Common.csproj">

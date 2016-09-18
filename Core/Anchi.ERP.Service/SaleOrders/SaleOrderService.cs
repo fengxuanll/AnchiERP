@@ -181,9 +181,9 @@ namespace Anchi.ERP.Service.SaleOrders
         }
         #endregion
 
-        #region 反结算销售单
+        #region 取消销售单
         /// <summary>
-        /// 反结算销售单
+        /// 取消销售单
         /// </summary>
         /// <param name="idList"></param>
         public void CancelOrder(IList<Guid> idList)

@@ -112,3 +112,19 @@ function initSaleOrderFn(Id) {
         }
     });
 }
+
+// 取消销售单
+function cancelOrderFn() {
+    layer.confirm("是否确定需要取消该销售单？", function () {
+        $.ajax({
+            url: "/Sale/Cancel",
+            type: "POST",
+            data: {
+                idList: [$vm.Id]
+            },
+            success: function () {
+                $.msg("取消成功。", "success");
+            }
+        });
+    });
+}

@@ -218,23 +218,37 @@ namespace Anchi.ERP.Repository.Repairs
                 {
                     foreach (var item in model.ProductList)
                     {
-                        var product = context.SingleById<Product>(item.ProductId);
+                        var product = item.Product;
                         if (product == null)
-                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+                            continue;
 
-                        // 加回配件库存
-                        product.Stock = product.Stock + item.Quantity;
-                        context.Update(product);
+                        if (model.Status == EnumRepairOrderStatus.Completed)
+                        {   // 如果是已完工的维修单，需要回滚配件库存
+                            // 插入配件出入库记录
+                            var record = new ProductStockRecord
+                            {
+                                Id = Guid.NewGuid(),
+                                CreatedOn = DateTime.Now,
+                                ProductId = product.Id,
+                                Quantity = item.Quantity,
+                                QuantityBefore = product.Stock,
+                                RecordOn = DateTime.Now,
+                                RelationId = model.Id,
+                                Type = EnumStockRecordType.CancelRepair,
+                            };
+                            context.Insert(record);
 
-                        // 删除维修单配件
-                        context.Delete<RepairOrderProduct>(rop => rop.RepairOrderId == model.Id);
-
-                        // 删除配件库存明细
-                        context.Delete<ProductStockRecord>(psr => psr.RelationId == model.Id);
-
-                        // 删除维修单
-                        context.Delete<RepairOrder>(ro => ro.Id == model.Id);
+                            // 加回配件库存
+                            product.Stock = product.Stock + item.Quantity;
+                            context.Update(product);
+                        }
                     }
+
+                    // 删除维修单配件
+                    context.Delete<RepairOrderProduct>(rop => rop.RepairOrderId == model.Id);
+
+                    // 删除维修单
+                    context.Delete<RepairOrder>(ro => ro.Id == model.Id);
 
                     tran.Commit();
                 }
