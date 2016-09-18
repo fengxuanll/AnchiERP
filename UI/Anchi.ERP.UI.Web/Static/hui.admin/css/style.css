@@ -16,3 +16,8 @@
     display: inline;
     vertical-align: middle;
 }
+
+.order-edit-form th {
+    width: 120px;
+    text-align: right;
+}
