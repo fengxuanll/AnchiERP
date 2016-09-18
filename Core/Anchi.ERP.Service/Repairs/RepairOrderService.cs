@@ -18,7 +18,7 @@ namespace Anchi.ERP.Service.Repairs
         #region 构造函数和属性
         public RepairOrderService() : this(new RepairOrderRepository()) { }
 
-        public RepairOrderService(IRepairOrderRepository repairOrderRepository):base(repairOrderRepository)
+        public RepairOrderService(IRepairOrderRepository repairOrderRepository) : base(repairOrderRepository)
         {
             this.RepairOrderRepository = repairOrderRepository;
         }
@@ -138,6 +138,27 @@ namespace Anchi.ERP.Service.Repairs
             order.SettlementOn = DateTime.Now;
 
             RepairOrderRepository.Update(order);
+        }
+        #endregion
+
+        #region 反结算维修单
+        /// <summary>
+        /// 反结算维修单
+        /// </summary>
+        /// <param name="idList"></param>
+        public void CancelOrder(IList<Guid> idList)
+        {
+            if (idList == null || !idList.Any())
+                return;
+
+            foreach (var Id in idList)
+            {
+                var model = GetModel(Id);
+                if (model == null)
+                    continue;
+
+                RepairOrderRepository.Cancel(model);
+            }
         }
         #endregion
     }

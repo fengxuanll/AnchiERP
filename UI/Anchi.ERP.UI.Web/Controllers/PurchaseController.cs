@@ -202,5 +202,26 @@ namespace Anchi.ERP.UI.Web.Controllers
             }
         }
         #endregion
+
+        #region 取消采购单
+        /// <summary>
+        /// 取消采购单
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Cancel(IList<Guid> idList)
+        {
+            try
+            {
+                PurchaseService.CancelOrder(idList);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
+        }
+        #endregion
     }
 }

@@ -13,5 +13,10 @@ namespace Anchi.ERP.IRepository.Purchases
         /// </summary>
         /// <param name="model"></param>
         void SetArrival(PurchaseOrder model);
+        /// <summary>
+        /// 反结算采购单
+        /// </summary>
+        /// <param name="model"></param>
+        void Cancel(PurchaseOrder model);
     }
 }

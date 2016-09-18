@@ -204,5 +204,42 @@ namespace Anchi.ERP.Repository.Repairs
             }
         }
         #endregion
+
+        #region 反结算维修单
+        /// <summary>
+        /// 反结算维修单
+        /// </summary>
+        /// <param name="model"></param>
+        public void Cancel(RepairOrder model)
+        {
+            using (var context = DbContext.Open())
+            {
+                using (var tran = context.BeginTransaction())
+                {
+                    foreach (var item in model.ProductList)
+                    {
+                        var product = context.SingleById<Product>(item.ProductId);
+                        if (product == null)
+                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+
+                        // 加回配件库存
+                        product.Stock = product.Stock + item.Quantity;
+                        context.Update(product);
+
+                        // 删除维修单配件
+                        context.Delete<RepairOrderProduct>(rop => rop.RepairOrderId == model.Id);
+
+                        // 删除配件库存明细
+                        context.Delete<ProductStockRecord>(psr => psr.RelationId == model.Id);
+
+                        // 删除维修单
+                        context.Delete<RepairOrder>(ro => ro.Id == model.Id);
+                    }
+
+                    tran.Commit();
+                }
+            }
+        }
+        #endregion
     }
 }

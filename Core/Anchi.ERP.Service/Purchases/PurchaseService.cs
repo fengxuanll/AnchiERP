@@ -132,5 +132,26 @@ namespace Anchi.ERP.Service.Purchases
             }
         }
         #endregion
+
+        #region 反结算采购单
+        /// <summary>
+        /// 反结算采购单
+        /// </summary>
+        /// <param name="idList"></param>
+        public void CancelOrder(IList<Guid> idList)
+        {
+            if (idList == null || !idList.Any())
+                return;
+
+            foreach (var Id in idList)
+            {
+                var model = GetModel(Id);
+                if (model == null)
+                    continue;
+
+                PurchaseOrderRepository.Cancel(model);
+            }
+        }
+        #endregion
     }
 }

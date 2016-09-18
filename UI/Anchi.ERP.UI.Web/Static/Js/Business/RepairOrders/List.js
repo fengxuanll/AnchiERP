@@ -84,3 +84,26 @@ function getSelectedIdListFn() {
 
     return idArray;
 }
+
+// 反结算维修单
+function cancelOrderFn() {
+    var idList = getSelectedIdListFn();
+    if (idList.length == 0) {
+        $.msg("请选择需要反结算的维修单。", "error");
+        return false;
+    }
+
+    layer.confirm("是否确定需要反结算？<div class='c-red'>反结算会清除维修单，退回配件。</div>", function () {
+        $.ajax({
+            url: "/Repair/Cancel",
+            type: "POST",
+            data: {
+                idList: idList
+            },
+            success: function () {
+                $.msg("反结算完成。", "success");
+                refreshListFn();
+            }
+        });
+    });
+}

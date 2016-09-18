@@ -6,8 +6,8 @@ using Anchi.ERP.IRepository.SaleOrders;
 using Anchi.ERP.Repository.Customers;
 using Anchi.ERP.Repository.Employees;
 using Anchi.ERP.Repository.Products;
-using System;
 using ServiceStack.OrmLite;
+using System;
 
 namespace Anchi.ERP.Repository.SaleOrders
 {
@@ -173,6 +173,43 @@ namespace Anchi.ERP.Repository.SaleOrders
                         // 修改配件的已有库存
                         product.Stock = product.Stock - item.Quantity;
                         context.Update(product);
+                    }
+
+                    tran.Commit();
+                }
+            }
+        }
+        #endregion
+
+        #region 反结算销售单
+        /// <summary>
+        /// 反结算销售单
+        /// </summary>
+        /// <param name="model"></param>
+        public void Cancel(SaleOrder model)
+        {
+            using (var context = DbContext.Open())
+            {
+                using (var tran = context.BeginTransaction())
+                {
+                    foreach (var item in model.ProductList)
+                    {
+                        var product = context.SingleById<Product>(item.ProductId);
+                        if (product == null)
+                            throw new Exception(string.Format("获取配件信息失败，配件ID：{0}", item.ProductId));
+
+                        // 加回配件库存
+                        product.Stock = product.Stock + item.Quantity;
+                        context.Update(product);
+
+                        // 删除销售单配件
+                        context.Delete<SaleOrderProduct>(rop => rop.SaleOrderId == model.Id);
+
+                        // 删除配件库存明细
+                        context.Delete<ProductStockRecord>(psr => psr.RelationId == model.Id);
+
+                        // 删除采购单
+                        context.Delete<SaleOrder>(ro => ro.Id == model.Id);
                     }
 
                     tran.Commit();

@@ -162,7 +162,15 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult Cancel(IList<Guid> idList)
         {
-            return new BetterJsonResult(null, true);
+            try
+            {
+                RepairOrderService.CancelOrder(idList);
+                return new BetterJsonResult();
+            }
+            catch (Exception ex)
+            {
+                return new BetterJsonResult(ex.Message);
+            }
         }
         #endregion
 

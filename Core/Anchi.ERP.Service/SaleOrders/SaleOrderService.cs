@@ -180,5 +180,26 @@ namespace Anchi.ERP.Service.SaleOrders
             return response;
         }
         #endregion
+
+        #region 反结算销售单
+        /// <summary>
+        /// 反结算销售单
+        /// </summary>
+        /// <param name="idList"></param>
+        public void CancelOrder(IList<Guid> idList)
+        {
+            if (idList == null || !idList.Any())
+                return;
+
+            foreach (var Id in idList)
+            {
+                var model = GetModel(Id);
+                if (model == null)
+                    continue;
+
+                SaleOrderRepository.Cancel(model);
+            }
+        }
+        #endregion
     }
 }
