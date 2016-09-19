@@ -58,6 +58,7 @@
     <Compile Include="Products\Enum\EnumStockRecordType.cs" />
     <Compile Include="Products\Filter\FindProductFilter.cs" />
     <Compile Include="Products\Filter\FindProductStockRecordFilter.cs" />
+    <Compile Include="Products\Filter\FindWarningStockProductFilter.cs" />
     <Compile Include="Products\Product.cs" />
     <Compile Include="Products\ProductStockRecord.cs" />
     <Compile Include="Projects\Filter\FindProjectFilter.cs" />

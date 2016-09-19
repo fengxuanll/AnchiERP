@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "配件库存预警";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>配件库存预警
+    <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="page-container" ms-controller="ProductList">
+    <div class="cl pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="30">序号</th>
+                    <th width="90">编码</th>
+                    <th width="90">名称</th>
+                    <th width="150">当前库存</th>
+                    <th width="150">安全库存</th>
+                    <th width="90">销售单价</th>
+                    <th width="90">成本价</th>
+                    <th>备注</th>
+                    <th width="100">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>{{ $index + 1}}</td>
+                    <td>{{ item.Code }}</td>
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.Stock }}</td>
+                    <td>{{ item.SafeStock }}</td>
+                    <td>{{ item.SalePrice }}</td>
+                    <td>{{ item.CostPrice }}</td>
+                    <td>{{ item.Remark }}</td>
+                    <td class="td-manage">
+                        <a href="javascript:;" title="修改" ms-click="##editProductFn(item);">
+                            <i class="Hui-iconfont">&#xe6df;</i>修改
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <div id="divPager"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Products/WarningStock.js"></script>
+    <script type="text/javascript" src="~/Static/Js/laypage1.2/laypage.js"></script>
+}

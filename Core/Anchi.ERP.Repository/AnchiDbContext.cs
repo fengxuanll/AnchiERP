@@ -1,6 +1,5 @@
 ﻿using Anchi.ERP.Common.Configuration;
 using ServiceStack.OrmLite;
-using System.Data;
 
 namespace Anchi.ERP.Repository
 {
@@ -13,7 +12,6 @@ namespace Anchi.ERP.Repository
 
         public AnchiDbContext(string connectionString) : base(connectionString, SqliteDialect.Provider)
         {
-            
         }
     }
 }

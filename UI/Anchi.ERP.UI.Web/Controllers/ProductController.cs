@@ -160,5 +160,27 @@ namespace Anchi.ERP.UI.Web.Controllers
             return new BetterJsonResult(result, true);
         }
         #endregion
+
+        #region 库存预警配件
+        /// <summary>
+        /// 库存预警配件
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult WarningStock()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 库存预警配件列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult WarningList()
+        {
+            var filter = new FindWarningStockProductFilter();
+            var result = ProductService.FindPaged(filter);
+            return new BetterJsonResult(result, true);
+        }
+        #endregion
     }
 }
