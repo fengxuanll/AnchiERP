@@ -25,6 +25,11 @@ namespace Anchi.ERP.Domain.Products.Enum
         [Display(Name = "取消采购")]
         CancelPurchase = 12,
         /// <summary>
+        /// 库存盘损(出库)
+        /// </summary>
+        [Display(Name = "库存盘损")]
+        ModifyStockOut = 13,
+        /// <summary>
         /// 采购入库(入库)
         /// </summary>
         [Display(Name = "采购入库")]
@@ -39,5 +44,10 @@ namespace Anchi.ERP.Domain.Products.Enum
         /// </summary>
         [Display(Name = "取消销售")]
         CancelSale = 22,
+        /// <summary>
+        /// 库存盘赢(入库)
+        /// </summary>
+        [Display(Name = "库存盘赢")]
+        ModifyStockIn = 23,
     }
 }

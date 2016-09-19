@@ -37,7 +37,7 @@ namespace Anchi.ERP.Service.Products
             if (string.IsNullOrWhiteSpace(model.Name))
                 throw new Exception("请输入配件名称。");
 
-            var temp = GetModel(model.Id);
+            var temp = Get(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
