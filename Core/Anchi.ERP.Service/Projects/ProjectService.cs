@@ -46,7 +46,7 @@ namespace Anchi.ERP.Service.Projects
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
-                ProjectRepository.Create(model);
+                this.ProjectRepository.Create(model);
             }
             else
             {
@@ -54,7 +54,8 @@ namespace Anchi.ERP.Service.Projects
                 temp.Name = model.Name;
                 temp.Remark = model.Remark;
                 temp.UnitPrice = model.UnitPrice;
-                ProjectRepository.Update(temp);
+
+                this.ProjectRepository.Update(temp);
             }
             return model;
         }

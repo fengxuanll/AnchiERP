@@ -34,12 +34,12 @@ namespace Anchi.ERP.Service.Products
         /// <returns></returns>
         public PagedQueryResult<ProductStockRecordModel> FindList(PagedQueryFilter filter)
         {
-            var result = ProductStockRecordRepository.FindPaged<ProductStockRecord>(filter);
+            var result = this.ProductStockRecordRepository.FindPaged<ProductStockRecord>(filter);
             var modelList = new List<ProductStockRecordModel>();
             var response = new PagedQueryResult<ProductStockRecordModel>();
             foreach (var item in result.Data)
             {
-                var product = ProductService.GetModel(item.ProductId);
+                var product = this.ProductService.GetModel(item.ProductId);
                 var model = new ProductStockRecordModel
                 {
                     Id = item.Id,

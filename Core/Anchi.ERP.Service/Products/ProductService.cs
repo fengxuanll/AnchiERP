@@ -42,7 +42,7 @@ namespace Anchi.ERP.Service.Products
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
-                ProductRepository.Create(model);
+                this.ProductRepository.Create(model);
             }
             else
             {
@@ -53,7 +53,8 @@ namespace Anchi.ERP.Service.Products
                 temp.CostPrice = model.CostPrice;
                 temp.SalePrice = model.SalePrice;
                 temp.Stock = model.Stock;
-                ProductRepository.Update(temp);
+
+                this.ProductRepository.UpdateModel(temp);
             }
             return model;
         }

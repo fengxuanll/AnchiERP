@@ -40,11 +40,17 @@ namespace Anchi.ERP.Service.Customers
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
-                CustomerRepository.Create(model);
+                this.CustomerRepository.Create(model);
             }
             else
             {
-                CustomerRepository.Update(model);
+                temp.Address = model.Address;
+                temp.CarNumber = model.CarNumber;
+                temp.Name = model.Name;
+                temp.Remark = model.Remark;
+                temp.Tel = model.Tel;
+
+                this.CustomerRepository.Update(temp);
             }
             return model;
         }

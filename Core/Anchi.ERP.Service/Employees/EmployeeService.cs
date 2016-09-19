@@ -22,10 +22,7 @@ namespace Anchi.ERP.Service.Employees
             this.EmployeeRepository = employeeRepository;
         }
 
-        IEmployeeRepository EmployeeRepository
-        {
-            get;
-        }
+        IEmployeeRepository EmployeeRepository { get; }
         #endregion
 
         #region 保存员工
@@ -51,12 +48,19 @@ namespace Anchi.ERP.Service.Employees
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
                 model.Status = EnumEmployeeStatus.Normal;
-                EmployeeRepository.Create(model);
+                this.EmployeeRepository.Create(model);
             }
             else
             {
-                model.Status = model.Status == 0 ? temp.Status : model.Status;
-                EmployeeRepository.Update(model);
+                temp.Code = model.Code;
+                temp.Name = model.Name;
+                temp.EntryOn = model.EntryOn;
+                temp.IDCard = model.IDCard;
+                temp.Tel = model.Tel;
+                temp.Address = model.Address;
+                temp.Remark = model.Remark;
+
+                this.EmployeeRepository.Update(temp);
             }
             return model;
         }
@@ -71,7 +75,7 @@ namespace Anchi.ERP.Service.Employees
         {
             var filter = new FindEmployeeFilter();
             filter.Status = EnumEmployeeStatus.Normal;
-            return EmployeeRepository.Find<Employee>(filter);
+            return this.EmployeeRepository.Find<Employee>(filter);
         }
         #endregion
 
@@ -92,7 +96,7 @@ namespace Anchi.ERP.Service.Employees
                     continue;
 
                 model.Status = EnumEmployeeStatus.Normal;
-                EmployeeRepository.Update(model);
+                this.EmployeeRepository.Update(model);
             }
         }
         #endregion
@@ -114,7 +118,7 @@ namespace Anchi.ERP.Service.Employees
                     continue;
 
                 model.Status = EnumEmployeeStatus.Disable;
-                EmployeeRepository.Update(model);
+                this.EmployeeRepository.Update(model);
             }
         }
         #endregion

@@ -21,3 +21,8 @@
     width: 120px;
     text-align: right;
 }
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}

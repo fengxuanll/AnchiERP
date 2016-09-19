@@ -56,7 +56,7 @@ namespace Anchi.ERP.Service.Purchases
                 model.CreatedOn = DateTime.Now;
                 model.Status = EnumPurchaseOrderStatus.Purchasing;
                 model.SettlementStatus = EnumSettlementStatus.Waiting;
-                PurchaseOrderRepository.Create(model);
+                this.PurchaseOrderRepository.Create(model);
             }
             else
             {
@@ -70,7 +70,7 @@ namespace Anchi.ERP.Service.Purchases
                 temp.Remark = model.Remark;
                 temp.ProductList = model.ProductList;
 
-                PurchaseOrderRepository.UpdateModel(temp);
+                this.PurchaseOrderRepository.UpdateModel(temp);
             }
 
             return model;
@@ -105,7 +105,7 @@ namespace Anchi.ERP.Service.Purchases
             order.SettlementAmount = model.SettlementAmount;
             order.SettlementRemark = model.SettlementRemark;
 
-            PurchaseOrderRepository.UpdateModel(order);
+            this.PurchaseOrderRepository.UpdateModel(order);
         }
         #endregion
 
@@ -128,7 +128,7 @@ namespace Anchi.ERP.Service.Purchases
                 if (order.Status != EnumPurchaseOrderStatus.Purchasing)
                     throw new Exception("只能将采购中的采购单设置为已到货。");
 
-                PurchaseOrderRepository.SetArrival(order);
+                this.PurchaseOrderRepository.SetArrival(order);
             }
         }
         #endregion
@@ -149,7 +149,7 @@ namespace Anchi.ERP.Service.Purchases
                 if (model == null)
                     continue;
 
-                PurchaseOrderRepository.Cancel(model);
+                this.PurchaseOrderRepository.Cancel(model);
             }
         }
         #endregion

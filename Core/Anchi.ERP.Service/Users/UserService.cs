@@ -76,9 +76,17 @@ namespace Anchi.ERP.Service.Users
             }
             else
             {
-                model.Password = string.IsNullOrWhiteSpace(model.Password) ? temp.Password : MD5.GetMd5Value(model.Password);
-                model.Status = model.Status == 0 ? temp.Status : model.Status;
-                model.CreatedOn = temp.CreatedOn;
+                temp.TrueName = model.TrueName;
+                temp.LoginName = model.LoginName;
+
+                if (!string.IsNullOrWhiteSpace(model.Password))
+                    temp.Password = MD5.GetMd5Value(model.Password);
+
+                temp.IDCard = model.IDCard;
+                temp.Tel = model.Tel;
+                temp.Address = model.Address;
+                temp.Remark = model.Remark;
+
                 UserRepository.Update(model);
             }
             return model;

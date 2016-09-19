@@ -16,7 +16,7 @@ namespace Anchi.ERP.Repository.Products
         /// 修改配件
         /// </summary>
         /// <param name="model"></param>
-        public override void Update(Product model)
+        public override void UpdateModel(Product model)
         {
             using (var context = DbContext.Open())
             {

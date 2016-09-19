@@ -3,35 +3,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-border table-bordered table-bg" ms-controller="ProductList">
-    <thead>
-        <tr class="text-c">
-            <th width="30">序号</th>
-            <th>编码</th>
-            <th>名称</th>
-            <th>单价</th>
-            <th width="40">操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="text-c" ms-for="($index, item) in ##List">
-            <td>{{ $index + 1 }}</td>
-            <td>{{ item.Code }}</td>
-            <td>{{ item.Name }}</td>
-            <td>{{ item.SalePrice }}</td>
-            <td>
-                <a href="javascript:void(0);" ms-click="##selectRepairProductFn(item);">选择</a>
-            </td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="5">
-                <div id="divPager"></div>
-            </td>
-        </tr>
-    </tfoot>
-</table>
+<div class="page-container">
+    <table class="table table-border table-bordered table-bg" ms-controller="ProductList">
+        <thead>
+            <tr class="text-c">
+                <th width="30">序号</th>
+                <th>编码</th>
+                <th>名称</th>
+                <th>单价</th>
+                <th width="40">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-c" ms-for="($index, item) in ##List">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ item.Code }}</td>
+                <td>{{ item.Name }}</td>
+                <td>{{ item.SalePrice }}</td>
+                <td>
+                    <a href="javascript:void(0);" ms-click="##selectRepairProductFn(item);">选择</a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div id="divPager"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 @section foot{
     <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>

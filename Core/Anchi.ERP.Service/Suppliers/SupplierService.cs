@@ -44,6 +44,12 @@ namespace Anchi.ERP.Service.Suppliers
             }
             else
             {
+                temp.CompanyName = model.CompanyName;
+                temp.Contact = model.Contact;
+                temp.Tel = model.Tel;
+                temp.Address = model.Address;
+                temp.Remark = model.Remark;
+
                 SupplierRepository.Update(model);
             }
             return model;

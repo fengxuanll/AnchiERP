@@ -13,7 +13,7 @@
             maxmin: true,
             title: "修改员工信息",
             skin: 'layui-layer-rim',
-            area: ['500px', '520px'],
+            area: ['500px', '530px'],
             content: '/Employee/Edit/' + item.Id
         });
     },
@@ -57,7 +57,7 @@ function addEmployeeFn() {
         maxmin: true,
         title: "新增员工",
         skin: 'layui-layer-rim', //加上边框
-        area: ['500px', '520px'], //宽高
+        area: ['500px', '530px'], //宽高
         content: '/Employee/Add'
     });
 }

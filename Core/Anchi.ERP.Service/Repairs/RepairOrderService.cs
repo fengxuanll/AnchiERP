@@ -30,7 +30,6 @@ namespace Anchi.ERP.Service.Repairs
         }
 
         IRepairOrderRepository RepairOrderRepository { get; }
-
         CustomerService CustomerService { get; }
         EmployeeService EmployeeService { get; }
         #endregion
@@ -74,7 +73,7 @@ namespace Anchi.ERP.Service.Repairs
                 model.SettlementStatus = EnumSettlementStatus.Waiting;
                 model.CreatedOn = DateTime.Now;
 
-                RepairOrderRepository.Create(model);
+                this.RepairOrderRepository.Create(model);
             }
             else
             {
@@ -88,7 +87,7 @@ namespace Anchi.ERP.Service.Repairs
                 temp.ProductList = model.ProductList;
                 temp.ProjectList = model.ProjectList;
 
-                RepairOrderRepository.UpdateModel(temp);
+                this.RepairOrderRepository.UpdateModel(temp);
             }
             return model;
         }
@@ -113,7 +112,7 @@ namespace Anchi.ERP.Service.Repairs
                 if (model.Status != EnumRepairOrderStatus.Repairing)
                     throw new Exception("只能将维修中的维修单设置为已完工。");
 
-                RepairOrderRepository.Complete(model);
+                this.RepairOrderRepository.Complete(model);
             }
         }
         #endregion
@@ -146,7 +145,7 @@ namespace Anchi.ERP.Service.Repairs
             order.SettlementStatus = EnumSettlementStatus.Completed;
             order.SettlementOn = DateTime.Now;
 
-            RepairOrderRepository.Update(order);
+            this.RepairOrderRepository.Update(order);
         }
         #endregion
 
@@ -166,7 +165,7 @@ namespace Anchi.ERP.Service.Repairs
                 if (model == null)
                     continue;
 
-                RepairOrderRepository.Cancel(model);
+                this.RepairOrderRepository.Cancel(model);
             }
         }
         #endregion
@@ -181,11 +180,11 @@ namespace Anchi.ERP.Service.Repairs
         {
             var modelList = new List<RepairOrderModel>();
 
-            var result = FindPaged(filter);
+            var result = this.FindPaged(filter);
             foreach (var item in result.Data)
             {
-                var customer = CustomerService.Get(item.CustomerId);
-                var receptionBy = EmployeeService.Get(item.ReceptionById);
+                var customer = this.CustomerService.Get(item.CustomerId);
+                var receptionBy = this.EmployeeService.Get(item.ReceptionById);
                 modelList.Add(new RepairOrderModel
                 {
                     Id = item.Id,
