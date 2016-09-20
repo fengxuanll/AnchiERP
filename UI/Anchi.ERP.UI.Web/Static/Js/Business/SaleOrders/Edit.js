@@ -124,7 +124,8 @@ function cancelOrderFn() {
                 idList: [$vm.Id]
             },
             success: function () {
-                $.msg("取消成功。", "success");
+                parent.$.msg("取消成功。", "success");
+                removeIframe();
             }
         });
     });

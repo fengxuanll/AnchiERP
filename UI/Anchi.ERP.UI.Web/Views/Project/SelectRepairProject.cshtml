@@ -25,14 +25,8 @@
                 </td>
             </tr>
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">
-                    <div id="divPager"></div>
-                </td>
-            </tr>
-        </tfoot>
     </table>
+    <div id="divPager" class="mt-10"></div>
 </div>
 
 @section foot{
@@ -45,7 +39,7 @@
         List: [],
         selectRepairProjectFn: function (item) {
             parent.addRepairProjectFn(item);
-            parent.layer.close(parent.layer.getFrameIndex(window.name));
+            layer_close();
         }
     });
 

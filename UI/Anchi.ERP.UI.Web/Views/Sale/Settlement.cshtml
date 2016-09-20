@@ -60,7 +60,7 @@
             success: function (data) {
                 parent.$.msg("结算成功。", "success");
                 parent.location.reload();
-                parent.layer.close(parent.layer.getFrameIndex(window.name));
+                layer_close();
             }
         });
         return false;

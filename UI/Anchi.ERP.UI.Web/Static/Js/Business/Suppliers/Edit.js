@@ -19,7 +19,7 @@
         success: function () {
             parent.$.msg('保存成功。', "success");
             parent.refreshListFn();
-            parent.layer.close(parent.layer.getFrameIndex(window.name));
+            layer_close();
         }
     });
     return false;
