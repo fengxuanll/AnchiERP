@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anchi.ERP.Domain.RepairOrder.Enum;
+using System;
 
 namespace Anchi.ERP.ServiceModel.Repairs
 {
@@ -11,18 +12,32 @@ namespace Anchi.ERP.ServiceModel.Repairs
         /// 维修单ID
         /// </summary>
         public Guid RepairOrderId
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算金额
         /// </summary>
         public decimal SettlementAmount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算备注
         /// </summary>
         public string SettlementRemark
-        { get; set; }
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 结算状态
+        /// </summary>
+        public EnumSettlementStatus SettlementStatus
+        {
+            get; set;
+        }
     }
 }

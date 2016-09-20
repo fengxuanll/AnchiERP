@@ -24,7 +24,10 @@ namespace Anchi.ERP.Service.Purchases
             this.PurchaseOrderRepository = purchaseOrderRepository;
         }
 
-        IPurchaseOrderRepository PurchaseOrderRepository { get; }
+        IPurchaseOrderRepository PurchaseOrderRepository
+        {
+            get;
+        }
         #endregion
 
         #region 保存采购单
@@ -100,10 +103,10 @@ namespace Anchi.ERP.Service.Purchases
             if (order.SettlementStatus != EnumSettlementStatus.Waiting && order.SettlementStatus != EnumSettlementStatus.PartCompleted)
                 throw new Exception("只能结算待结算的采购单。");
 
-            order.SettlementOn = DateTime.Now;
-            order.SettlementStatus = EnumSettlementStatus.Completed;
-            order.SettlementAmount = model.SettlementAmount;
+            order.SettlementStatus = model.SettlementStatus;
+            order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
             order.SettlementRemark = model.SettlementRemark;
+            order.SettlementOn = DateTime.Now;
 
             this.PurchaseOrderRepository.UpdateModel(order);
         }

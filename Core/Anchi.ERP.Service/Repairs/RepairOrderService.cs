@@ -29,9 +29,18 @@ namespace Anchi.ERP.Service.Repairs
             this.EmployeeService = employeeService;
         }
 
-        IRepairOrderRepository RepairOrderRepository { get; }
-        CustomerService CustomerService { get; }
-        EmployeeService EmployeeService { get; }
+        IRepairOrderRepository RepairOrderRepository
+        {
+            get;
+        }
+        CustomerService CustomerService
+        {
+            get;
+        }
+        EmployeeService EmployeeService
+        {
+            get;
+        }
         #endregion
 
         #region 保存维修单
@@ -140,9 +149,9 @@ namespace Anchi.ERP.Service.Repairs
             if (order.SettlementStatus == EnumSettlementStatus.Completed)
                 throw new Exception("只能结算未结算的维修单。");
 
-            order.SettlementAmount = model.SettlementAmount;
+            order.SettlementStatus = model.SettlementStatus;
+            order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
             order.SettlementRemark = model.SettlementRemark;
-            order.SettlementStatus = EnumSettlementStatus.Completed;
             order.SettlementOn = DateTime.Now;
 
             this.RepairOrderRepository.Update(order);

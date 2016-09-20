@@ -14,7 +14,13 @@
         </div>
         <div class="row cl">
             <label class="form-label col-xs-3 col-sm-3">
-                <span class="c-red">*</span>结算金额：
+                已结算金额：
+            </label>
+            <div class="formControls col-xs-9 col-sm-9">￥{{ ##SettlementedAmount }}</div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3">
+                <span class="c-red">*</span>本次结算金额：
             </label>
             <div class="formControls col-xs-9 col-sm-9">
                 <input type="text" class="input-text" ms-duplex="##SettlementAmount" placeholder="结算金额" />
@@ -30,7 +36,8 @@
         </div>
         <div class="row cl">
             <div class="formControls col-xs-9 col-xs-offset-3">
-                <input type="submit" onclick="return saveRepairSettlementFn();" class="btn" value="保存">
+                <input type="submit" onclick="return saveRepairSettlementFn(3);" class="btn" value="部分结算" />
+                <input type="submit" onclick="return saveRepairSettlementFn(2);" class="btn" value="全部结算" />
             </div>
         </div>
     </form>
@@ -41,12 +48,15 @@
         $id: "RepairSettlement",
         RepairOrderId: parent.$vm.Id,
         Amount: parent.$vm.Amount,
-        SettlementAmount: parent.$vm.Amount,
+        SettlementedAmount: parent.$vm.SettlementAmount,
+        SettlementAmount: parent.$vm.Amount - parent.$vm.SettlementAmount,
         SettlementRemark: ""
     });
 
-    function saveRepairSettlementFn() {
+    function saveRepairSettlementFn(settlementStatus) {
         var postData = $vm.$model;
+        delete postData.SettlementedAmount;
+        postData.SettlementStatus = settlementStatus;
         $.ajax({
             url: "/Repair/SettlementOrder",
             type: "POST",

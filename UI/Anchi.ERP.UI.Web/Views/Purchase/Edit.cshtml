@@ -13,6 +13,7 @@
         SupplierId: "",
         SupplierName: "",
         PurchaseOn: "@Model.PurchaseOn",
+        SettlementAmount:"@Model.SettlementAmount",
         PurchaseById: "",
         Remark: "",
         Amount: "",
@@ -29,7 +30,7 @@
     $(function () {
         @if (Model.Id != Guid.Empty) {
             @:initPurchaseOrderFn("@Model.Id");
-                                        }
+        }
     });
 </script>
 

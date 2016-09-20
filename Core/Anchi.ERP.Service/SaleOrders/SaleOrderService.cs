@@ -28,11 +28,20 @@ namespace Anchi.ERP.Service.SaleOrders
             this.EmployeeService = employeeService;
         }
 
-        ISaleOrderRepository SaleOrderRepository { get; }
+        ISaleOrderRepository SaleOrderRepository
+        {
+            get;
+        }
 
-        CustomerService CustomerService { get; }
+        CustomerService CustomerService
+        {
+            get;
+        }
 
-        EmployeeService EmployeeService { get; }
+        EmployeeService EmployeeService
+        {
+            get;
+        }
         #endregion
 
         #region 保存销售单
@@ -131,8 +140,8 @@ namespace Anchi.ERP.Service.SaleOrders
                 throw new Exception("只能结算未结算的销售单。");
 
             order.SettlementOn = DateTime.Now;
-            order.SettlementStatus = EnumSettlementStatus.Completed;
-            order.SettlementAmount = model.SettlementAmount;
+            order.SettlementStatus = model.SettlementStatus;
+            order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
             order.SettlementRemark = model.SettlementRemark;
 
             SaleOrderRepository.UpdateModel(order);
