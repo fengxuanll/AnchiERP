@@ -17,14 +17,15 @@
 // 设置已出库
 function setOutboundFn() {
     $.ajax({
-    	url:"/Sale/Outbound",
-    	type:"POST",
-    	data: {
-    		idList:[$vm.Id]
-    	},
-    	success: function() {
-    		$.msg("出库成功。", "success");
-    	}
+        url: "/Sale/Outbound",
+        type: "POST",
+        data: {
+            idList: [$vm.Id]
+        },
+        success: function () {
+            $.msg("出库成功。", "success");
+            location.reload();
+        }
     });
 }
 

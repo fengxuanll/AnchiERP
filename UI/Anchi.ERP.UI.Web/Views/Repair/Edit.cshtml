@@ -9,11 +9,11 @@
     var $vm = avalon.define({
         $id: "EditRepairOrder",
         Id: "@Model.Id",
-        Amount: 0,
+        Amount: @Model.Amount,
         CustomerId: "",
         CustomerName: "",
         RepairOn: "@Model.RepairOn.ToString("yyyy-MM-dd")",
-        SettlementAmount: "@Model.SettlementAmount",
+        SettlementAmount: @Model.SettlementAmount,
         ReceptionById: "",
         Remark: "",
         ProjectList: [],
@@ -38,7 +38,7 @@
         @if (Model.Id != Guid.Empty)
         {
             @:initRepairOrderFn("@Model.Id");
-                                            }
+        }
     });
 </script>
 
@@ -64,7 +64,7 @@
                     <i class="Hui-iconfont">&#xe6e2;</i>完工
                 </a>
             }
-            @if (Model.Status == EnumRepairOrderStatus.Completed && Model.SettlementStatus == EnumSettlementStatus.Waiting)
+            @if (Model.Status == EnumRepairOrderStatus.Completed && Model.SettlementStatus != EnumSettlementStatus.Completed)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="showSettlementFn();">
                     <i class="Hui-iconfont">&#xe6e2;</i>结算

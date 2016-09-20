@@ -13,10 +13,10 @@
         SupplierId: "",
         SupplierName: "",
         PurchaseOn: "@Model.PurchaseOn",
-        SettlementAmount:"@Model.SettlementAmount",
+        SettlementAmount: @Model.SettlementAmount,
         PurchaseById: "",
         Remark: "",
-        Amount: "",
+        Amount: @Model.Amount,
         ProductList: [],
         TotalProductAmount: function () {
             var total = 0;
@@ -56,7 +56,7 @@
                     <i class="Hui-iconfont">&#xe6e2;</i>全部到货
                 </a>
             }
-            @if (Model.Status == EnumPurchaseOrderStatus.Completed && Model.SettlementStatus == EnumSettlementStatus.Waiting)
+            @if (Model.Status == EnumPurchaseOrderStatus.Completed && Model.SettlementStatus != EnumSettlementStatus.Completed)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="showSettlementFn();">
                     <i class="Hui-iconfont">&#xe6e2;</i>结算

@@ -6,40 +6,37 @@
 
 <div class="page-container" ms-controller="RepairSettlement">
     <form class="form form-horizontal" id="formSettlement">
-        <div class="row cl">
-            <label class="form-label col-xs-3 col-sm-3">
-                应收金额：
-            </label>
-            <div class="formControls col-xs-9 col-sm-9">￥{{ ##Amount }}</div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-3 col-sm-3">
-                已结算金额：
-            </label>
-            <div class="formControls col-xs-9 col-sm-9">￥{{ ##SettlementedAmount }}</div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-3 col-sm-3">
-                <span class="c-red">*</span>本次结算金额：
-            </label>
-            <div class="formControls col-xs-9 col-sm-9">
-                <input type="text" class="input-text" ms-duplex="##SettlementAmount" placeholder="结算金额" />
-            </div>
-        </div>
-        <div class="row cl">
-            <label class="form-label col-xs-3 col-sm-3">
-                结算备注：
-            </label>
-            <div class="formControls col-xs-9 col-sm-9">
-                <textarea class="textarea" ms-duplex="##SettlementRemark" placeholder="结算备注"></textarea>
-            </div>
-        </div>
-        <div class="row cl">
-            <div class="formControls col-xs-9 col-xs-offset-3">
-                <input type="submit" onclick="return saveRepairSettlementFn(3);" class="btn" value="部分结算" />
-                <input type="submit" onclick="return saveRepairSettlementFn(2);" class="btn" value="全部结算" />
-            </div>
-        </div>
+        <table class="order-edit-form">
+            <tr>
+                <th>应收金额：</th>
+                <td class="pd-5">￥{{ ##Amount }}</td>
+            </tr>
+            <tr>
+                <th>已结算金额：</th>
+                <td class="pd-5">￥{{ ##SettlementedAmount }}</td>
+            </tr>
+            <tr>
+                <th>
+                    <span class="c-red">*</span>本次结算金额：
+                </th>
+                <td class="pd-5">
+                    <input type="text" class="input-text" ms-duplex="##SettlementAmount" placeholder="结算金额" />
+                </td>
+            </tr>
+            <tr>
+                <th>结算备注：</th>
+                <td class="pd-5">
+                    <textarea class="textarea" ms-duplex="##SettlementRemark" placeholder="结算备注"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="pd-5">
+                    <input type="submit" onclick="return saveRepairSettlementFn(3);" class="btn btn-secondary" value="部分结算" />
+                    <input type="submit" onclick="return saveRepairSettlementFn(2);" class="btn btn-primary" value="全部结算" />
+                </td>
+            </tr>
+        </table>
     </form>
 </div>
 
@@ -63,6 +60,7 @@
             data: postData,
             success: function (data) {
                 parent.$.msg("结算成功。", "success");
+                parent.location.reload();
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
             }
         });

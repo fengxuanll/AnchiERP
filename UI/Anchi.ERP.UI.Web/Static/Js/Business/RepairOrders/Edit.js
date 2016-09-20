@@ -131,6 +131,7 @@ function setCompletedFn() {
         },
         success: function () {
             $.msg("设置已完工成功。", "success");
+            location.reload();
         }
     });
 }
