@@ -55,6 +55,9 @@
     <Compile Include="Employees\Employee.cs" />
     <Compile Include="Employees\Enum\EnumEmployeeStatus.cs" />
     <Compile Include="Employees\Filter\FindEmployeeFilter.cs" />
+    <Compile Include="Finances\Enum\EnumFinanceOrderType.cs" />
+    <Compile Include="Finances\Filter\FindFinanceOrderFilter.cs" />
+    <Compile Include="Finances\FinanceOrder.cs" />
     <Compile Include="Products\Enum\EnumStockRecordType.cs" />
     <Compile Include="Products\Filter\FindProductFilter.cs" />
     <Compile Include="Products\Filter\FindProductStockRecordFilter.cs" />
@@ -97,6 +100,7 @@
       <Name>Anchi.ERP.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -83,6 +83,7 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="Customers\CustomerRepository.cs" />
     <Compile Include="Employees\EmployeeRepository.cs" />
+    <Compile Include="Finances\FinanceOrderRepository.cs" />
     <Compile Include="Products\ProductStockRecordRepository.cs" />
     <Compile Include="Products\ProductRepository.cs" />
     <Compile Include="Projects\ProjectRepository.cs" />

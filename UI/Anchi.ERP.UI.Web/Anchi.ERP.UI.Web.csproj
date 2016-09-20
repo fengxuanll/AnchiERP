@@ -287,6 +287,7 @@
     <Content Include="Static\Js\Business\Customers\List.js" />
     <Content Include="Static\Js\Business\Employees\Edit.js" />
     <Content Include="Static\Js\Business\Employees\List.js" />
+    <Content Include="Static\Js\Business\Finances\List.js" />
     <Content Include="Static\Js\Business\Products\Edit.js" />
     <Content Include="Static\Js\Business\Products\List.js" />
     <Content Include="Static\Js\Business\Products\Record.js" />
@@ -354,6 +355,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\FinanceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -412,6 +414,7 @@
     <Content Include="Views\Sale\Settlement.cshtml" />
     <Content Include="Views\Product\Record.cshtml" />
     <Content Include="Views\Product\WarningStock.cshtml" />
+    <Content Include="Views\Finance\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

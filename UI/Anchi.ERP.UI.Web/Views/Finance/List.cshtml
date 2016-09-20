@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "财务报表";
+}
+
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>财务报表
+    <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+
+<div class="page-container" ms-controller="FinanceOrderList">
+    <div class="pd-5 search-bar">
+        <form>
+            采购状态：
+            <select class="select-default" ms-duplex="##Search.Status">
+                <option value="">请选择...</option>
+                <option value="1">采购中</option>
+                <option value="2">已到货</option>
+            </select>
+            采购人：
+            <select class="select-default ml-5" ms-duplex="##Search.PurchaseById">
+                <option value="">请选择...</option>
+                @foreach (var item in ViewBag.EmployeeList)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <input type="text" id="txtSearchPurchaseOn" ms-duplex="##Search.PurchaseOn" class="input-text ml-5" placeholder="开单时间" onclick="WdatePicker({ onpicked: selectSearchPurchaseOnFn, oncleared: selectSearchPurchaseOnFn });" />
+            <input type="text" id="txtSearchArrivalOn" ms-duplex="##Search.ArrivalOn" class="input-text ml-5" placeholder="到货时间" onclick="WdatePicker({ onpicked: selectSearchArrivalOnFn, oncleared: selectSearchPurchaseOnFn });" />
+            <input type="text" id="txtSearchSettlementOn" ms-duplex="##Search.SettlementOn" class="input-text ml-5" placeholder="结算时间" onclick="WdatePicker({ onpicked: selectSearchSettlementOnFn, oncleared: selectSearchPurchaseOnFn });" />
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+        </form>
+    </div>
+
+    <div class="cl pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="25">
+                        <input type="checkbox" name="checkAll">
+                    </th>
+                    <th width="30">序号</th>
+                    <th width="90">关联单据</th>
+                    <th width="90">收付款时间</th>
+                    <th width="90">收付款用户</th>
+                    <th width="90">采购状态</th>
+                    <th width="90">应付金额</th>
+                    <th width="90">结算金额</th>
+                    <th width="90">结算状态</th>
+                    <th width="90">结算时间</th>
+                    <th>备注</th>
+                    <th width="100">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>
+                        <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
+                    </td>
+                    <td>{{ $index + 1}}</td>
+                    <td>{{ item.PurchaseOn | showTimeDateFilter }}</td>
+                    <td>{{ item.SupplierName }}</td>
+                    <td>{{ item.PurchaseByName }}</td>
+                    <td>
+                        <span class="label label-success radius">{{ item.StatusName }}</span>
+                    </td>
+                    <td>￥{{ item.Amount }}</td>
+                    <td>￥{{ item.SettlementAmount }}</td>
+                    <td>
+                        <span class="label label-success radius">{{ item.SettlementStatusName }}</span>
+                    </td>
+                    <td>{{ item.SettlementOn | showTimeDateFilter }}</td>
+                    <td>{{ item.Remark }}</td>
+                    <td class="td-manage">
+                        <a ms-attr="{href:'/Purchase/Edit/' + item.Id}" title="修改">
+                            <i class="Hui-iconfont">&#xe6df;</i>修改
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="divPager" class="mt-10"></div>
+    </div>
+</div>
+
+@section foot{
+    <script type="text/javascript" src="/Static/Js/Business/Finances/List.js"></script>
+    <script type="text/javascript" src="/Static/Js/laypage1.2/laypage.js"></script>
+    <script type="text/javascript" src="~/Static/Js/My97DatePicker/WdatePicker.js"></script>
+}
