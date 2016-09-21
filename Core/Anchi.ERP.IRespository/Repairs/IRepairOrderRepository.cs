@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain.RepairOrder;
+﻿using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.IRespository;
 
 namespace Anchi.ERP.IRepository.Repairs
@@ -18,5 +19,11 @@ namespace Anchi.ERP.IRepository.Repairs
         /// </summary>
         /// <param name="model"></param>
         void Cancel(RepairOrder model);
+        /// <summary>
+        /// 结算维修单
+        /// </summary>
+        /// <param name="model">维修单</param>
+        /// <param name="order">财务单</param>
+        void Settlement(RepairOrder model, FinanceOrder order);
     }
 }

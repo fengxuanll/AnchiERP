@@ -1,5 +1,6 @@
 ﻿using Anchi.ERP.Common;
 using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Domain.Finances;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.RepairOrders.Filter;
@@ -151,10 +152,12 @@ namespace Anchi.ERP.Service.Repairs
 
             order.SettlementStatus = model.SettlementStatus;
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
-            order.SettlementRemark = model.SettlementRemark;
-            order.SettlementOn = DateTime.Now;
 
-            this.RepairOrderRepository.Update(order);
+            var financeOrder = new FinanceOrder();
+            financeOrder.Amount = model.SettlementAmount;
+            financeOrder.Remark = model.SettlementRemark;
+
+            this.RepairOrderRepository.Settlement(order, financeOrder);
         }
         #endregion
 

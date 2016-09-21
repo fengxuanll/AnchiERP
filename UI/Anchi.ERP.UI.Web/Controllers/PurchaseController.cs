@@ -69,35 +69,8 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult List(FindPurchaseOrderFilter filter)
         {
-            var modelList = new List<PurchaseOrderModel>();
-            var result = PurchaseService.FindPaged(filter);
-            foreach (var item in result.Data)
-            {
-                var purchaseBy = EmployeeService.Get(item.PurchaseById);
-                var supplier = SupplierService.Get(item.SupplierId);
-                modelList.Add(new PurchaseOrderModel
-                {
-                    Id = item.Id,
-                    Amount = item.Amount,
-                    PurchaseByName = purchaseBy == null ? string.Empty : purchaseBy.Name,
-                    PurchaseOn = item.PurchaseOn,
-                    Remark = item.Remark,
-                    SettlementAmount = item.SettlementAmount,
-                    SettlementOn = item.SettlementOn,
-                    SettlementRemark = item.SettlementRemark,
-                    SettlementStatus = item.SettlementStatus,
-                    Status = item.Status,
-                    SupplierName = supplier == null ? string.Empty : supplier.CompanyName,
-                });
-            }
-
-            var response = new PagedQueryResult<PurchaseOrderModel>();
-            response.Data = modelList;
-            response.PageIndex = result.PageIndex;
-            response.PageSize = result.PageSize;
-            response.TotalCount = result.TotalCount;
-            response.TotalPage = result.TotalPage;
-            return new BetterJsonResult(response, true);
+            var result = this.PurchaseService.FindList(filter);
+            return new BetterJsonResult(result, true);
         }
         #endregion
 

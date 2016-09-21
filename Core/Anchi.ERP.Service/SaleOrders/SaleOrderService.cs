@@ -1,4 +1,5 @@
 ﻿using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Domain.Finances;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
@@ -139,12 +140,14 @@ namespace Anchi.ERP.Service.SaleOrders
             if (order.SettlementStatus == EnumSettlementStatus.Completed)
                 throw new Exception("只能结算未结算的销售单。");
 
-            order.SettlementOn = DateTime.Now;
             order.SettlementStatus = model.SettlementStatus;
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
-            order.SettlementRemark = model.SettlementRemark;
 
-            SaleOrderRepository.UpdateModel(order);
+            var financeOrder = new FinanceOrder();
+            financeOrder.Amount = model.SettlementAmount;
+            financeOrder.Remark = model.SettlementRemark;
+
+            SaleOrderRepository.Settlement(order, financeOrder);
         }
         #endregion
 

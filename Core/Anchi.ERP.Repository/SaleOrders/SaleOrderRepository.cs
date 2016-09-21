@@ -1,4 +1,6 @@
-﻿using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.Finances.Enum;
+using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
@@ -162,7 +164,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                             Id = Guid.NewGuid(),
                             RelationId = model.Id,
                             ProductId = item.ProductId,
-                            Quantity = 0 - item.Quantity,
+                            Quantity = item.Quantity,
                             Type = EnumStockRecordType.Sale,
                             QuantityBefore = product.Stock,
                             CreatedOn = DateTime.Now,
@@ -170,7 +172,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                         };
                         context.Insert(record);
 
-                        // 修改配件的已有库存
+                        // 扣该配件的库存
                         product.Stock = product.Stock - item.Quantity;
                         context.Update(product);
                     }
@@ -225,6 +227,35 @@ namespace Anchi.ERP.Repository.SaleOrders
 
                     // 删除采购单
                     context.Delete<SaleOrder>(ro => ro.Id == model.Id);
+
+                    tran.Commit();
+                }
+            }
+        }
+        #endregion
+
+        #region 结算销售单
+        /// <summary>
+        /// 结算销售单
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="order"></param>
+        public void Settlement(SaleOrder model, FinanceOrder order)
+        {
+            using (var context = DbContext.Open())
+            {
+                using (var tran = context.OpenTransaction())
+                {
+                    // 修改销售单
+                    model.SettlementOn = DateTime.Now;
+                    context.Update(model);
+
+                    // 新增财务单
+                    order.Id = order.Id == Guid.Empty ? Guid.NewGuid() : order.Id;
+                    order.RelationId = model.Id;
+                    order.CreatedOn = model.SettlementOn;
+                    order.Type = EnumFinanceOrderType.ReceiptSale;
+                    context.Insert(order);
 
                     tran.Commit();
                 }

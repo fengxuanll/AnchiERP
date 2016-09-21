@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain.SaleOrders;
+﻿using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.IRespository;
 
 namespace Anchi.ERP.IRepository.SaleOrders
@@ -18,5 +19,11 @@ namespace Anchi.ERP.IRepository.SaleOrders
         /// </summary>
         /// <param name="model"></param>
         void Cancel(SaleOrder model);
+        /// <summary>
+        /// 结算销售单
+        /// </summary>
+        /// <param name="model">销售单</param>
+        /// <param name="order">财务单</param>
+        void Settlement(SaleOrder model, FinanceOrder order);
     }
 }

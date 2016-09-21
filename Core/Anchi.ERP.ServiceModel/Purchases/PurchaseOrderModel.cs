@@ -93,11 +93,5 @@ namespace Anchi.ERP.ServiceModel.Purchases
         /// </summary>
         public decimal SettlementAmount
         { get; set; }
-
-        /// <summary>
-        /// 结算备注
-        /// </summary>
-        public string SettlementRemark
-        { get; set; }
     }
 }

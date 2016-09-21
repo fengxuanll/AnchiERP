@@ -1,9 +1,13 @@
-﻿using Anchi.ERP.Common;
+﻿using Anchi.ERP.Common.Filter;
+using Anchi.ERP.Domain.Finances;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
+using Anchi.ERP.Domain.PurchaseOrders.Filter;
 using Anchi.ERP.Domain.RepairOrder.Enum;
 using Anchi.ERP.IRepository.Purchases;
 using Anchi.ERP.Repository.Purchases;
+using Anchi.ERP.Service.Employees;
+using Anchi.ERP.Service.Suppliers;
 using Anchi.ERP.ServiceModel.Purchases;
 using System;
 using System.Collections.Generic;
@@ -17,14 +21,26 @@ namespace Anchi.ERP.Service.Purchases
     public class PurchaseService : BaseService<PurchaseOrder>
     {
         #region 构造函数和属性
-        public PurchaseService() : this(new PurchaseOrderRepository()) { }
+        public PurchaseService() : this(new PurchaseOrderRepository(), new EmployeeService(), new SupplierService()) { }
 
-        public PurchaseService(IPurchaseOrderRepository purchaseOrderRepository) : base(purchaseOrderRepository)
+        public PurchaseService(IPurchaseOrderRepository purchaseOrderRepository, EmployeeService employeeService, SupplierService supplierService) : base(purchaseOrderRepository)
         {
             this.PurchaseOrderRepository = purchaseOrderRepository;
+            this.EmployeeService = employeeService;
+            this.SupplierService = supplierService;
         }
 
         IPurchaseOrderRepository PurchaseOrderRepository
+        {
+            get;
+        }
+
+        EmployeeService EmployeeService
+        {
+            get;
+        }
+
+        SupplierService SupplierService
         {
             get;
         }
@@ -105,10 +121,12 @@ namespace Anchi.ERP.Service.Purchases
 
             order.SettlementStatus = model.SettlementStatus;
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
-            order.SettlementRemark = model.SettlementRemark;
-            order.SettlementOn = DateTime.Now;
 
-            this.PurchaseOrderRepository.UpdateModel(order);
+            var financeOrder = new FinanceOrder();
+            financeOrder.Amount = model.SettlementAmount;
+            financeOrder.Remark = model.SettlementRemark;
+
+            this.PurchaseOrderRepository.Settlement(order, financeOrder);
         }
         #endregion
 
@@ -154,6 +172,46 @@ namespace Anchi.ERP.Service.Purchases
 
                 this.PurchaseOrderRepository.Cancel(model);
             }
+        }
+        #endregion
+
+        #region 分页查找采购单列表
+        /// <summary>
+        /// 分页查找采购单列表
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public PagedQueryResult<PurchaseOrderModel> FindList(FindPurchaseOrderFilter filter)
+        {
+            var modelList = new List<PurchaseOrderModel>();
+            var result = this.FindPaged(filter);
+            foreach (var item in result.Data)
+            {
+                var purchaseBy = this.EmployeeService.Get(item.PurchaseById);
+                var supplier = this.SupplierService.Get(item.SupplierId);
+                modelList.Add(new PurchaseOrderModel
+                {
+                    Id = item.Id,
+                    Amount = item.Amount,
+                    PurchaseByName = purchaseBy == null ? string.Empty : purchaseBy.Name,
+                    PurchaseOn = item.PurchaseOn,
+                    Remark = item.Remark,
+                    SettlementAmount = item.SettlementAmount,
+                    SettlementOn = item.SettlementOn,
+                    SettlementStatus = item.SettlementStatus,
+                    Status = item.Status,
+                    SupplierName = supplier == null ? string.Empty : supplier.CompanyName,
+                });
+            }
+
+            var response = new PagedQueryResult<PurchaseOrderModel>();
+            response.Data = modelList;
+            response.PageIndex = result.PageIndex;
+            response.PageSize = result.PageSize;
+            response.TotalCount = result.TotalCount;
+            response.TotalPage = result.TotalPage;
+
+            return response;
         }
         #endregion
     }

@@ -116,14 +116,6 @@ namespace Anchi.ERP.Domain.PurchaseOrders
         }
 
         /// <summary>
-        /// 结算备注
-        /// </summary>
-        public string SettlementRemark
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// 备注
         /// </summary>
         public string Remark

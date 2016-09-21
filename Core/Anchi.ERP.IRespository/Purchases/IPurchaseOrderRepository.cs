@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Domain.PurchaseOrders;
+﻿using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.IRespository;
 
 namespace Anchi.ERP.IRepository.Purchases
@@ -18,5 +19,11 @@ namespace Anchi.ERP.IRepository.Purchases
         /// </summary>
         /// <param name="model"></param>
         void Cancel(PurchaseOrder model);
+        /// <summary>
+        /// 结算采购单
+        /// </summary>
+        /// <param name="model">采购单</param>
+        /// <param name="order">财务单</param>
+        void Settlement(PurchaseOrder model, FinanceOrder order);
     }
 }

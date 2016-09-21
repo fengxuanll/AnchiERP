@@ -100,7 +100,7 @@ namespace Anchi.ERP.Domain.SaleOrders
         }
 
         /// <summary>
-        /// 结算金额
+        /// 已结算金额
         /// </summary>
         public decimal SettlementAmount
         {
@@ -111,14 +111,6 @@ namespace Anchi.ERP.Domain.SaleOrders
         /// 结算时间
         /// </summary>
         public DateTime SettlementOn
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 结算备注
-        /// </summary>
-        public string SettlementRemark
         {
             get; set;
         }

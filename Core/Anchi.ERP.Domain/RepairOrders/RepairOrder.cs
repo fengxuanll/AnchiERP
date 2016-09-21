@@ -87,14 +87,6 @@ namespace Anchi.ERP.Domain.RepairOrder
         }
 
         /// <summary>
-        /// 结算备注
-        /// </summary>
-        public string SettlementRemark
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// 维修单状态
         /// </summary>
         public EnumRepairOrderStatus Status

@@ -102,7 +102,6 @@ Create Table RepairOrder(
 	[SettlementStatus] tinyint NOT NULL,
 	[SettlementOn] datetime NULL,
 	[SettlementAmount] decimal NULL,
-	[SettlementRemark] nvarchar(1000) NULL,
 	[Remark] nvarchar(1000), 
 	[CreatedById] uniqueidentifier NOT NULL,
 	[CreatedOn] datetime NOT NULL,
@@ -151,7 +150,6 @@ Create Table SaleOrder(
 	[SettlementStatus] tinyint NOT NULL,
 	[SettlementOn] datetime NULL,
 	[SettlementAmount] decimal NULL,
-	[SettlementRemark] nvarchar(1000) NULL,
 	[Remark] nvarchar(1000), 
 	[CreatedById] uniqueidentifier NOT NULL,
 	[CreatedOn] datetime NOT NULL,
@@ -184,7 +182,6 @@ Create Table PurchaseOrder(
 	[SettlementStatus] tinyint NOT NULL,
 	[SettlementOn] datetime NULL,
 	[SettlementAmount] decimal NULL,
-	[SettlementRemark] nvarchar(1000) NULL,
 	[Remark] nvarchar(1000), 
 	[CreatedById] uniqueidentifier NOT NULL,
 	[CreatedOn] datetime NOT NULL,
@@ -205,9 +202,19 @@ Create Table PurchaseOrderProduct(
 	FOREIGN KEY([ProductId]) REFERENCES [Product]([Id])
 );
 
+-- 财务单表
+Create Table FinanceOrder(
+	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
+	[RelationId] uniqueidentifier NOT NULL,
+	[Type] tinyint NOT NULL,
+	[Amount] decimal NOT NULL,
+	[Remark] nvarchar(1000) NULL,
+	[CreatedOn] datetime NOT NULL
+);
+
 -- 系统配置表
 Create Table SystemConfig(
 	[Id] integer NOT NULL PRIMARY KEY AUTOINCREMENT,
 	[Key] varchar(254) NOT NULL,
 	[Value] nvarchar(8000) NOT NULL
-)
+);

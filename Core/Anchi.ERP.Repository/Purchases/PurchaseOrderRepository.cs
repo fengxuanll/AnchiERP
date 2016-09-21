@@ -1,4 +1,6 @@
-﻿using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.Finances.Enum;
+using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
@@ -6,8 +8,8 @@ using Anchi.ERP.IRepository.Purchases;
 using Anchi.ERP.Repository.Employees;
 using Anchi.ERP.Repository.Products;
 using Anchi.ERP.Repository.Suppliers;
-using System;
 using ServiceStack.OrmLite;
+using System;
 
 namespace Anchi.ERP.Repository.Purchases
 {
@@ -167,7 +169,7 @@ namespace Anchi.ERP.Repository.Purchases
                         };
                         context.Insert(record);
 
-                        // 修改产品的库存数量
+                        // 加该配件的库存
                         product.Stock = product.Stock + item.Quantity;
                         context.Update(product);
                     }
@@ -222,6 +224,35 @@ namespace Anchi.ERP.Repository.Purchases
 
                     // 删除采购单
                     context.Delete<PurchaseOrder>(ro => ro.Id == model.Id);
+
+                    tran.Commit();
+                }
+            }
+        }
+        #endregion
+
+        #region 结算采购单
+        /// <summary>
+        /// 结算采购单
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="order"></param>
+        public void Settlement(PurchaseOrder model, FinanceOrder order)
+        {
+            using (var context = DbContext.Open())
+            {
+                using (var tran = context.OpenTransaction())
+                {
+                    // 修改采购单
+                    model.SettlementOn = DateTime.Now;
+                    context.Update(model);
+
+                    // 新增财务单
+                    order.Id = order.Id == Guid.Empty ? Guid.NewGuid() : order.Id;
+                    order.RelationId = model.Id;
+                    order.CreatedOn = model.SettlementOn;
+                    order.Type = EnumFinanceOrderType.PaymentPurchase;
+                    context.Insert(order);
 
                     tran.Commit();
                 }

@@ -1,4 +1,6 @@
-﻿using Anchi.ERP.Domain.Products;
+﻿using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.Finances.Enum;
+using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrder.Enum;
@@ -249,6 +251,35 @@ namespace Anchi.ERP.Repository.Repairs
 
                     // 删除维修单
                     context.Delete<RepairOrder>(ro => ro.Id == model.Id);
+
+                    tran.Commit();
+                }
+            }
+        }
+        #endregion
+
+        #region 结算维修单
+        /// <summary>
+        /// 结算维修单
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="order"></param>
+        public void Settlement(RepairOrder model, FinanceOrder order)
+        {
+            using (var context = DbContext.Open())
+            {
+                using (var tran = context.OpenTransaction())
+                {
+                    // 修改维修单
+                    model.SettlementOn = DateTime.Now;
+                    context.Update(model);
+
+                    // 新增财务单
+                    order.Id = order.Id == Guid.Empty ? Guid.NewGuid() : order.Id;
+                    order.RelationId = model.Id;
+                    order.CreatedOn = model.SettlementOn;
+                    order.Type = EnumFinanceOrderType.ReceiptRepair;
+                    context.Insert(order);
 
                     tran.Commit();
                 }
