@@ -1,7 +1,7 @@
 using System;
 using Anchi.ERP.Domain.SaleOrders.Enum;
 using Anchi.ERP.Common.Extensions;
-using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.Domain.RepairOrders.Enum;
 
 namespace Anchi.ERP.ServiceModel.Sales
 {

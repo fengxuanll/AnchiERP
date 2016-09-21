@@ -7,7 +7,7 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Enum
     /// 采购单状态
     /// </summary>
     [EnumAsInt]
-    public enum EnumPurchaseOrderStatus : byte
+    public enum EnumPurchaseOrderStatus
     {
         /// <summary>
         /// 采购中

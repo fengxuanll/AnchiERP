@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Anchi.ERP.Domain.Users.Enum;
+@using Anchi.ERP.Common.Extensions;
+
 <nav class="breadcrumb">
     <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>用户管理
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
@@ -17,8 +20,13 @@
             用户状态：
             <select class="select-default" ms-duplex="##Search.Status">
                 <option value="">请选择...</option>
-                <option value="1">启用</option>
-                <option value="2">停用</option>
+                @{
+                    var enumList = EnumExtension.ToList(typeof(EnumUserStatus));
+                    foreach (var item in enumList)
+                    {
+                        <option value="@item.Value">@item.DisplayName</option>
+                    }
+                }
             </select>
             <input type="text" ms-duplex="##Search.TrueName" class="input-text ml-5" placeholder="姓名" />
             <input type="text" ms-duplex="##Search.LoginName" class="input-text ml-5" placeholder="登录名" />

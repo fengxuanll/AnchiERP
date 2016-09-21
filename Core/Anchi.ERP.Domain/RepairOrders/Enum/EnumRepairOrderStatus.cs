@@ -1,7 +1,7 @@
 ﻿using ServiceStack.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
 
-namespace Anchi.ERP.Domain.RepairOrder.Enum
+namespace Anchi.ERP.Domain.RepairOrders.Enum
 {
     /// <summary>
     /// 维修单状态

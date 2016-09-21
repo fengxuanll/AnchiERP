@@ -3,9 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Anchi.ERP.Domain.Employees.Enum;
+@using Anchi.ERP.Common.Extensions;
+
 <script type="text/javascript">
     function selectSearchRepairOnFn() {
-        $vm.Search.EntryOn = $("#txtSearchEntryOn").val();
+        $vm.Search.EntryOn = $(arguments[0].el).val();
     }
 </script>
 
@@ -22,8 +25,13 @@
             员工状态：
             <select class="select-default" ms-duplex="##Search.Status">
                 <option value="">请选择...</option>
-                <option value="1">启用</option>
-                <option value="2">停用</option>
+                @{
+                    var enumList = EnumExtension.ToList(typeof(EnumEmployeeStatus));
+                    foreach (var item in enumList)
+                    {
+                        <option value="@item.Value">@item.DisplayName</option>
+                    }
+                }
             </select>
             <input type="text" ms-duplex="##Search.Code" class="input-text ml-5" placeholder="编码" />
             <input type="text" ms-duplex="##Search.Name" class="input-text ml-5" placeholder="姓名" />

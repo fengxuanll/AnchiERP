@@ -1,7 +1,7 @@
 ﻿using Anchi.ERP.Common;
 using Anchi.ERP.Domain.Employees;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
-using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.Domain.RepairOrders.Enum;
 using Anchi.ERP.Domain.Suppliers;
 using ServiceStack.DataAnnotations;
 using System;

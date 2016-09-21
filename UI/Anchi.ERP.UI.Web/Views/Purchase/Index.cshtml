@@ -3,6 +3,11 @@
     ViewBag.Title = "采购单管理";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@using Anchi.ERP.Domain.PurchaseOrders.Enum;
+@using Anchi.ERP.Domain.RepairOrders.Enum;
+@using Anchi.ERP.Common.Extensions;
+
 <nav class="breadcrumb">
     <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>采购管理<span class="c-gray en">&gt;</span>采购单管理
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
@@ -16,14 +21,24 @@
             采购状态：
             <select class="select-default" ms-duplex="##Search.Status">
                 <option value="">请选择...</option>
-                <option value="1">采购中</option>
-                <option value="2">已到货</option>
+                @{
+                    var enumList = EnumExtension.ToList(typeof(EnumPurchaseOrderStatus));
+                    foreach (var item in enumList)
+                    {
+                        <option value="@item.Value">@item.DisplayName</option>
+                    }
+                }
             </select>
             结算状态：
             <select class="select-default ml-5" ms-duplex="##Search.SettlementStatus">
                 <option value="">请选择...</option>
-                <option value="1">未结算</option>
-                <option value="2">已结算</option>
+                @{
+                    var settlementEnumList = EnumExtension.ToList(typeof(EnumSettlementStatus));
+                    foreach (var item in settlementEnumList)
+                    {
+                        <option value="@item.Value">@item.DisplayName</option>
+                    }
+                }
             </select>
             采购人：
             <select class="select-default ml-5" ms-duplex="##Search.PurchaseById">

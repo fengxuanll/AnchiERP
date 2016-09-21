@@ -10,18 +10,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Lib", "1-Lib", "{41624BDC-022E-4D70-8D5A-B3EEE1DF6B6E}"
 	ProjectSection(SolutionItems) = preProject
 		1-Lib\CSkin.dll = 1-Lib\CSkin.dll
-		1-Lib\CSkin.XML = 1-Lib\CSkin.XML
 		1-Lib\DMSkin.dll = 1-Lib\DMSkin.dll
 		1-Lib\ServiceStack.Common.dll = 1-Lib\ServiceStack.Common.dll
-		1-Lib\ServiceStack.Common.pdb = 1-Lib\ServiceStack.Common.pdb
 		1-Lib\ServiceStack.Interfaces.dll = 1-Lib\ServiceStack.Interfaces.dll
 		1-Lib\ServiceStack.OrmLite.dll = 1-Lib\ServiceStack.OrmLite.dll
-		1-Lib\ServiceStack.OrmLite.pdb = 1-Lib\ServiceStack.OrmLite.pdb
 		1-Lib\ServiceStack.OrmLite.Sqlite.Windows.dll = 1-Lib\ServiceStack.OrmLite.Sqlite.Windows.dll
-		1-Lib\ServiceStack.OrmLite.Sqlite.Windows.pdb = 1-Lib\ServiceStack.OrmLite.Sqlite.Windows.pdb
 		1-Lib\ServiceStack.Text.dll = 1-Lib\ServiceStack.Text.dll
-		1-Lib\ServiceStack.Text.pdb = 1-Lib\ServiceStack.Text.pdb
-		1-Lib\ServiceStack.Text.xml = 1-Lib\ServiceStack.Text.xml
+		1-Lib\System.Data.SQLite.dll = 1-Lib\System.Data.SQLite.dll
+		1-Lib\System.Data.SQLite.EF6.dll = 1-Lib\System.Data.SQLite.EF6.dll
+		1-Lib\System.Data.SQLite.Linq.dll = 1-Lib\System.Data.SQLite.Linq.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anchi.ERP.Service", "Core\Anchi.ERP.Service\Anchi.ERP.Service.csproj", "{81E13CEE-E674-43AE-9F38-A65DEC4EAA75}"

@@ -1,6 +1,6 @@
 ﻿using Anchi.ERP.Common.Extensions;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
-using Anchi.ERP.Domain.RepairOrder.Enum;
+using Anchi.ERP.Domain.RepairOrders.Enum;
 using System;
 
 namespace Anchi.ERP.ServiceModel.Purchases
