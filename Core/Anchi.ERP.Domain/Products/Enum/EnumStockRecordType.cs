@@ -7,7 +7,7 @@ namespace Anchi.ERP.Domain.Products.Enum
     /// 库存记录类型
     /// </summary>
     [EnumAsInt]
-    public enum EnumStockRecordType : byte
+    public enum EnumStockRecordType
     {
         /// <summary>
         /// 维修出库(出库)

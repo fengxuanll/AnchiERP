@@ -6,7 +6,7 @@ namespace Anchi.ERP.Domain.Employees.Enum
     /// 员工状态
     /// </summary>
     [EnumAsInt]
-    public enum EnumEmployeeStatus : byte
+    public enum EnumEmployeeStatus
     {
         /// <summary>
         ///  正常

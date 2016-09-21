@@ -7,7 +7,7 @@ namespace Anchi.ERP.Domain.SaleOrders.Enum
     /// 销售订单状态
     /// </summary>
     [EnumAsInt]
-    public enum EnumSaleOrderStatus : byte
+    public enum EnumSaleOrderStatus
     {
         /// <summary>
         /// 待出库

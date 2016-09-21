@@ -40,7 +40,7 @@ namespace Anchi.ERP.UI.Web.Controllers
         [HttpPost]
         public ActionResult List(FindFinanceOrderFilter filter)
         {
-            var result = FinanceOrderService.FindPaged(filter);
+            var result = FinanceOrderService.FindList(filter);
             return new BetterJsonResult(result, true);
         }
         #endregion

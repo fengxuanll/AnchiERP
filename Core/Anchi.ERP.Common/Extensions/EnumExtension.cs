@@ -38,23 +38,28 @@ namespace Anchi.ERP.Common.Extensions
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public static IList<EnumKeyValuePair> ConvertToList(this Enum e)
+        public static IList<EnumKeyValuePair> ToList(Type enumType)
         {
             var pairList = new List<EnumKeyValuePair>();
+            if (enumType == null || !enumType.IsEnum)
+                return pairList;
 
-            Type type = e.GetType();
-            var fieldList = type.GetFields();
-            foreach (var enumField in fieldList)
+            var valueList = Enum.GetValues(enumType);
+            foreach (int valueItem in valueList)
             {
                 var pairItem = new EnumKeyValuePair();
-                pairItem.Key = enumField.Name;
-                //pairItem.Value = (int)enumField.;
+                pairItem.Key = Enum.GetName(enumType, valueItem);
+                pairItem.Value = valueItem;
 
-                var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
-                if (displayAttributes != null && displayAttributes.Any())
+                var enumField = enumType.GetField(pairItem.Key);
+                if (enumField != null)
                 {
-                    var displayItem = displayAttributes.First() as DisplayAttribute;
-                    pairItem.DisplayName = displayItem == null ? null : displayItem.Name;
+                    var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
+                    if (displayAttributes != null && displayAttributes.Any())
+                    {
+                        var displayItem = displayAttributes.First() as DisplayAttribute;
+                        pairItem.DisplayName = displayItem == null ? null : displayItem.Name;
+                    }
                 }
 
                 pairList.Add(pairItem);
@@ -81,7 +86,7 @@ namespace Anchi.ERP.Common.Extensions
         /// <summary>
         /// 枚举值
         /// </summary>
-        public byte Value
+        public int Value
         {
             get; set;
         }

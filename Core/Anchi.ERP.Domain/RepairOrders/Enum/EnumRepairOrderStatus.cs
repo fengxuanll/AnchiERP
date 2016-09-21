@@ -7,7 +7,7 @@ namespace Anchi.ERP.Domain.RepairOrder.Enum
     /// 维修单状态
     /// </summary>
     [EnumAsInt]
-    public enum EnumRepairOrderStatus : byte
+    public enum EnumRepairOrderStatus
     {
         /// <summary>
         /// 维修中

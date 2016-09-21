@@ -7,6 +7,18 @@
             BeginTime: "",
             EndTime: ""
         }
+    },
+    GetRelationHrefFn: function (item) {
+        switch (item.Type) {
+            case 10:    // 维修收款
+                return "/Repair/Edit/" + item.RelationId;
+            case 11:    // 销售收款
+                return "/Sale/Edit/" + item.RelationId;
+            case 20:    // 采购付款
+                return "/Purchase/Edit/" + item.RelationId;
+            default:
+                return "javascript;";
+        }
     }
 });
 
@@ -37,4 +49,12 @@ function refreshListFn(pageIndex) {
             });
         }
     });
+}
+
+function selectCreatedOnBeginFn() {
+    $vm.Search.CreatedOn.BeginTime = $(arguments[0].el).val();
+}
+
+function selectCreatedOnEndFn() {
+    $vm.Search.CreatedOn.EndTime = $(arguments[0].el).val();
 }

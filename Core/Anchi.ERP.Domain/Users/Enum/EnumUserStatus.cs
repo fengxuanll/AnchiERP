@@ -7,7 +7,7 @@ namespace Anchi.ERP.Domain.Users.Enum
     /// 用户状态
     /// </summary>
     [EnumAsInt]
-    public enum EnumUserStatus : byte
+    public enum EnumUserStatus
     {
         /// <summary>
         /// 正常

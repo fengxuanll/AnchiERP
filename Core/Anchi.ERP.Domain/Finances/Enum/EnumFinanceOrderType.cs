@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ServiceStack.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Anchi.ERP.Domain.Finances.Enum
 {
     /// <summary>
     /// 财务单状态枚举
     /// </summary>
-    public enum EnumFinanceOrderType : byte
+    [EnumAsInt]
+    public enum EnumFinanceOrderType
     {
         /// <summary>
         /// 维修收款
