@@ -14,6 +14,14 @@ namespace Anchi.ERP.Domain.RepairOrder
     public class RepairOrder : BaseDomain
     {
         /// <summary>
+        /// 维修单编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 应收金额
         /// </summary>
         public decimal Amount

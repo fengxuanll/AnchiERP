@@ -59,7 +59,10 @@ namespace Anchi.ERP.Repository.Purchases
             {
                 using (var tran = context.BeginTransaction())
                 {
+                    // 插入采购单
+                    model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                     model.CreatedOn = DateTime.Now;
+                    model.Code = string.IsNullOrWhiteSpace(model.Code) ? GetSequenceNextCode() : model.Code;
                     context.Insert(model);
 
                     // 插入采购配件
@@ -257,6 +260,17 @@ namespace Anchi.ERP.Repository.Purchases
                     tran.Commit();
                 }
             }
+        }
+        #endregion
+
+        #region 生成采购单编码
+        /// <summary>
+        /// 生成采购单编码
+        /// </summary>
+        /// <returns></returns>
+        public string GetSequenceNextCode()
+        {
+            return null;
         }
         #endregion
     }

@@ -25,5 +25,10 @@ namespace Anchi.ERP.IRepository.SaleOrders
         /// <param name="model">销售单</param>
         /// <param name="order">财务单</param>
         void Settlement(SaleOrder model, FinanceOrder order);
+        /// <summary>
+        /// 生成销售单编码
+        /// </summary>
+        /// <returns></returns>
+        string GetSequenceNextCode();
     }
 }

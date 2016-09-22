@@ -96,6 +96,7 @@
     <Compile Include="SaleOrders\SaleOrderProductRepository.cs" />
     <Compile Include="SaleOrders\SaleOrderRepository.cs" />
     <Compile Include="Suppliers\SupplierRepository.cs" />
+    <Compile Include="Configs\ConfigRepository.cs" />
     <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

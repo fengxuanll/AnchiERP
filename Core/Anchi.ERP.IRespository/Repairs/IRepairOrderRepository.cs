@@ -25,5 +25,10 @@ namespace Anchi.ERP.IRepository.Repairs
         /// <param name="model">维修单</param>
         /// <param name="order">财务单</param>
         void Settlement(RepairOrder model, FinanceOrder order);
+        /// <summary>
+        /// 生成维修单编码
+        /// </summary>
+        /// <returns></returns>
+        string GetSequenceNextCode();
     }
 }

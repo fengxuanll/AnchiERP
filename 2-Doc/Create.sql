@@ -93,6 +93,7 @@ CREATE UNIQUE INDEX [uidx_Project_Code] ON [Project] ([Code]);
 -- 维修单表
 Create Table RepairOrder(
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
+	[Code] varchar(50) NOT NULL, 
 	[CustomerId] uniqueidentifier NOT NULL,
 	[ReceptionById] uniqueidentifier NOT NULL,
 	[Status] tinyint NOT NULL,
@@ -141,6 +142,7 @@ Create Table RepairOrderProject(
 -- 销售单表
 Create Table SaleOrder(
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
+	[Code] varchar(50) NOT NULL, 
 	[SaleById] uniqueidentifier NOT NULL,
 	[CustomerId] uniqueidentifier NOT NULL,
 	[Status] tinyint NOT NULL,
@@ -173,6 +175,7 @@ Create Table SaleOrderProduct(
 -- 采购单表
 Create Table PurchaseOrder(
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
+	[Code] varchar(50) NOT NULL,
 	[PurchaseById] uniqueidentifier NOT NULL,
 	[SupplierId] uniqueidentifier NOT NULL,
 	[Status] tinyint NOT NULL,
@@ -214,7 +217,8 @@ Create Table FinanceOrder(
 
 -- 系统配置表
 Create Table SystemConfig(
-	[Id] integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Key] varchar(254) NOT NULL,
-	[Value] nvarchar(8000) NOT NULL
+	[Value] nvarchar(8000) NOT NULL,
+	[CreatedOn] datetime NOT NULL
 );

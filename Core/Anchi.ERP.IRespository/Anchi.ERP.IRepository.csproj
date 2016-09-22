@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configs\IConfigRepository.cs" />
     <Compile Include="Customers\ICustomerRepository.cs" />
     <Compile Include="Employees\IEmployeeRepository.cs" />
     <Compile Include="Finances\IFinanceOrderRepository.cs" />

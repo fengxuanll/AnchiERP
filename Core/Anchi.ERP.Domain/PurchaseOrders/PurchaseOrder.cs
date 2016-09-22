@@ -15,6 +15,14 @@ namespace Anchi.ERP.Domain.PurchaseOrders
     public class PurchaseOrder : BaseDomain
     {
         /// <summary>
+        /// 采购单编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 供应商
         /// </summary>
         [Ignore]

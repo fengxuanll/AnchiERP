@@ -15,6 +15,14 @@ namespace Anchi.ERP.Domain.SaleOrders
     public class SaleOrder : BaseDomain
     {
         /// <summary>
+        /// 销售单编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 销售人ID
         /// </summary>
         public Guid SaleById

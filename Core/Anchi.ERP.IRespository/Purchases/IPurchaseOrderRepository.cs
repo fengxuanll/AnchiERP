@@ -25,5 +25,10 @@ namespace Anchi.ERP.IRepository.Purchases
         /// <param name="model">采购单</param>
         /// <param name="order">财务单</param>
         void Settlement(PurchaseOrder model, FinanceOrder order);
+        /// <summary>
+        /// 生成采购单编码
+        /// </summary>
+        /// <returns></returns>
+        string GetSequenceNextCode();
     }
 }

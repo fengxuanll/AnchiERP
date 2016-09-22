@@ -60,6 +60,7 @@ namespace Anchi.ERP.Repository.Repairs
                 {
                     // 插入维修单
                     model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                    model.Code = string.IsNullOrWhiteSpace(model.Code) ? GetSequenceNextCode() : model.Code;
                     model.CreatedOn = DateTime.Now;
                     context.Insert(model);
 
@@ -284,6 +285,17 @@ namespace Anchi.ERP.Repository.Repairs
                     tran.Commit();
                 }
             }
+        }
+        #endregion
+
+        #region 生成维修单编码
+        /// <summary>
+        /// 生成维修单编码
+        /// </summary>
+        /// <returns></returns>
+        public string GetSequenceNextCode()
+        {
+            return null;
         }
         #endregion
     }

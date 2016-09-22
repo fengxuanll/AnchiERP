@@ -61,6 +61,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                 {
                     // 插入销售单
                     model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                    model.Code = string.IsNullOrWhiteSpace(model.Code) ? GetSequenceNextCode() : model.Code;
                     model.CreatedOn = DateTime.Now;
                     context.Insert(model);
 
@@ -260,6 +261,17 @@ namespace Anchi.ERP.Repository.SaleOrders
                     tran.Commit();
                 }
             }
+        }
+        #endregion
+
+        #region 生成销售单编码
+        /// <summary>
+        /// 生成销售单编码
+        /// </summary>
+        /// <returns></returns>
+        public string GetSequenceNextCode()
+        {
+            return null;
         }
         #endregion
     }

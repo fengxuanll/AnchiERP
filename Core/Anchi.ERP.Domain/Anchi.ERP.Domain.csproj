@@ -87,6 +87,7 @@
     <Compile Include="SaleOrders\SaleOrderProduct.cs" />
     <Compile Include="Suppliers\Filter\FindSupplierFilter.cs" />
     <Compile Include="Suppliers\Supplier.cs" />
+    <Compile Include="SystemConfigs\SystemConfig.cs" />
     <Compile Include="Users\Enum\EnumUserStatus.cs" />
     <Compile Include="Users\Filter\FindUserFilter.cs" />
     <Compile Include="Users\User.cs" />
