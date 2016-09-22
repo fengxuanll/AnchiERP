@@ -8,5 +8,11 @@ namespace Anchi.ERP.IRepository.Configs
     /// </summary>
     public interface IConfigRepository : IBaseRepository<SystemConfig>
     {
+        /// <summary>
+        /// 根据标识获取配置
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        SystemConfig GetByKey(string key);
     }
 }

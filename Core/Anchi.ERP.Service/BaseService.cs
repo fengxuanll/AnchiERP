@@ -19,9 +19,9 @@ namespace Anchi.ERP.Service
         IBaseRepository<T> Repository { get; }
         #endregion
 
-        #region 根据ID获取
+        #region 根据ID获取对象
         /// <summary>
-        /// 根据ID获取，不关联其它对象
+        /// 根据ID获取对象，不加载关联对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -34,7 +34,7 @@ namespace Anchi.ERP.Service
         }
 
         /// <summary>
-        /// 根据ID获取对象，关联其它对象
+        /// 根据ID获取对象，加载关联对象
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
