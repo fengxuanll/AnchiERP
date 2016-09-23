@@ -4,10 +4,12 @@ using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrders.Enum;
+using Anchi.ERP.Domain.Sequences.Enum;
 using Anchi.ERP.IRepository.Repairs;
 using Anchi.ERP.Repository.Customers;
 using Anchi.ERP.Repository.Employees;
 using Anchi.ERP.Repository.Products;
+using Anchi.ERP.Repository.Sequences;
 using ServiceStack.OrmLite;
 using System;
 
@@ -295,7 +297,7 @@ namespace Anchi.ERP.Repository.Repairs
         /// <returns></returns>
         public string GetSequenceNextCode()
         {
-            return null;
+            return string.Format("RO-{0}{1}", DateTime.Now.ToString("yyyyMMdd"), SequenceRepository.Instance.GetNextValue(EnumSequenceType.Repair).ToString("0000"));
         }
         #endregion
     }

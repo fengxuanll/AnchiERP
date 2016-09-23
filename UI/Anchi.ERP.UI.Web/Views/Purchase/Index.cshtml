@@ -77,6 +77,7 @@
                         <input type="checkbox" name="checkAll">
                     </th>
                     <th width="30">序号</th>
+                    <td width="90">编码</td>
                     <th width="90">开单时间</th>
                     <th width="90">供应商</th>
                     <th width="90">采购人</th>
@@ -95,6 +96,7 @@
                         <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
                     </td>
                     <td>{{ $index + 1}}</td>
+                    <td>{{ item.Code }}</td>
                     <td>{{ item.PurchaseOn | showTimeDateFilter }}</td>
                     <td>{{ item.SupplierName }}</td>
                     <td>{{ item.PurchaseByName }}</td>

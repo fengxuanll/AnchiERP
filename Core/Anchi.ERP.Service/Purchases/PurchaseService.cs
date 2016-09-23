@@ -4,7 +4,9 @@ using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
 using Anchi.ERP.Domain.PurchaseOrders.Filter;
 using Anchi.ERP.Domain.RepairOrders.Enum;
+using Anchi.ERP.IRepository.Finances;
 using Anchi.ERP.IRepository.Purchases;
+using Anchi.ERP.Repository.Finances;
 using Anchi.ERP.Repository.Purchases;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.Suppliers;
@@ -21,16 +23,22 @@ namespace Anchi.ERP.Service.Purchases
     public class PurchaseService : BaseService<PurchaseOrder>
     {
         #region 构造函数和属性
-        public PurchaseService() : this(new PurchaseOrderRepository(), new EmployeeService(), new SupplierService()) { }
+        public PurchaseService() : this(new PurchaseOrderRepository(), new EmployeeService(), new SupplierService(), new FinanceOrderRepository()) { }
 
-        public PurchaseService(IPurchaseOrderRepository purchaseOrderRepository, EmployeeService employeeService, SupplierService supplierService) : base(purchaseOrderRepository)
+        public PurchaseService(IPurchaseOrderRepository purchaseOrderRepository, EmployeeService employeeService, SupplierService supplierService, IFinanceOrderRepository financeOrderRepository) : base(purchaseOrderRepository)
         {
             this.PurchaseOrderRepository = purchaseOrderRepository;
             this.EmployeeService = employeeService;
             this.SupplierService = supplierService;
+            this.FinanceOrderRepository = financeOrderRepository;
         }
 
         IPurchaseOrderRepository PurchaseOrderRepository
+        {
+            get;
+        }
+
+        IFinanceOrderRepository FinanceOrderRepository
         {
             get;
         }
@@ -72,9 +80,11 @@ namespace Anchi.ERP.Service.Purchases
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                model.Code = this.PurchaseOrderRepository.GetSequenceNextCode();
                 model.CreatedOn = DateTime.Now;
                 model.Status = EnumPurchaseOrderStatus.Purchasing;
                 model.SettlementStatus = EnumSettlementStatus.Waiting;
+
                 this.PurchaseOrderRepository.Create(model);
             }
             else
@@ -123,6 +133,7 @@ namespace Anchi.ERP.Service.Purchases
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
 
             var financeOrder = new FinanceOrder();
+            order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
             financeOrder.Amount = model.SettlementAmount;
             financeOrder.Remark = model.SettlementRemark;
 

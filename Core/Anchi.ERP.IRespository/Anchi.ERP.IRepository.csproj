@@ -57,6 +57,7 @@
     <Compile Include="Repairs\IRepairOrderRepository.cs" />
     <Compile Include="SaleOrders\ISaleOrderProductRepository.cs" />
     <Compile Include="SaleOrders\ISaleOrderRepository.cs" />
+    <Compile Include="Sequences\ISequenceRepository.cs" />
     <Compile Include="Suppliers\ISupplierRepository.cs" />
     <Compile Include="Users\IUserRepository.cs" />
   </ItemGroup>

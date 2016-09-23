@@ -1,11 +1,9 @@
 ﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain;
 using Anchi.ERP.IRespository;
-using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Anchi.ERP.Repository
 {

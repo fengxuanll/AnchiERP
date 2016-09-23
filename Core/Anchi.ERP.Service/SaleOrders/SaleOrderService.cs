@@ -3,7 +3,9 @@ using Anchi.ERP.Domain.Finances;
 using Anchi.ERP.Domain.RepairOrders.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
+using Anchi.ERP.IRepository.Finances;
 using Anchi.ERP.IRepository.SaleOrders;
+using Anchi.ERP.Repository.Finances;
 using Anchi.ERP.Repository.SaleOrders;
 using Anchi.ERP.Service.Customers;
 using Anchi.ERP.Service.Employees;
@@ -20,13 +22,14 @@ namespace Anchi.ERP.Service.SaleOrders
     public class SaleOrderService : BaseService<SaleOrder>
     {
         #region 构造函数和属性
-        public SaleOrderService() : this(new SaleOrderRepository(), new CustomerService(), new EmployeeService()) { }
+        public SaleOrderService() : this(new SaleOrderRepository(), new CustomerService(), new EmployeeService(), new FinanceOrderRepository()) { }
 
-        public SaleOrderService(ISaleOrderRepository saleOrderRepository, CustomerService customerService, EmployeeService employeeService) : base(saleOrderRepository)
+        public SaleOrderService(ISaleOrderRepository saleOrderRepository, CustomerService customerService, EmployeeService employeeService, IFinanceOrderRepository financeOrderRepository) : base(saleOrderRepository)
         {
             this.SaleOrderRepository = saleOrderRepository;
             this.CustomerService = customerService;
             this.EmployeeService = employeeService;
+            this.FinanceOrderRepository = financeOrderRepository;
         }
 
         ISaleOrderRepository SaleOrderRepository
@@ -40,6 +43,11 @@ namespace Anchi.ERP.Service.SaleOrders
         }
 
         EmployeeService EmployeeService
+        {
+            get;
+        }
+
+        IFinanceOrderRepository FinanceOrderRepository
         {
             get;
         }
@@ -69,15 +77,16 @@ namespace Anchi.ERP.Service.SaleOrders
 
             model.Amount = model.ProductList.Sum(item => item.UnitPrice * item.Quantity);
 
-            var temp = SaleOrderRepository.GetModel(model.Id);
+            var temp = this.SaleOrderRepository.GetModel(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                model.Code = this.SaleOrderRepository.GetSequenceNextCode();
                 model.Status = EnumSaleOrderStatus.Initial;
                 model.SettlementStatus = EnumSettlementStatus.Waiting;
                 model.CreatedOn = DateTime.Now;
 
-                SaleOrderRepository.Create(model);
+                this.SaleOrderRepository.Create(model);
             }
             else
             {
@@ -91,7 +100,7 @@ namespace Anchi.ERP.Service.SaleOrders
                 temp.Remark = model.Remark;
                 temp.ProductList = model.ProductList;
 
-                SaleOrderRepository.UpdateModel(temp);
+                this.SaleOrderRepository.UpdateModel(temp);
             }
         }
         #endregion
@@ -144,6 +153,7 @@ namespace Anchi.ERP.Service.SaleOrders
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
 
             var financeOrder = new FinanceOrder();
+            order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
             financeOrder.Amount = model.SettlementAmount;
             financeOrder.Remark = model.SettlementRemark;
 

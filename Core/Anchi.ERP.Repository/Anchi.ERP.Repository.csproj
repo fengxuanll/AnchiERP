@@ -95,6 +95,7 @@
     <Compile Include="Repairs\RepairOrderRepository.cs" />
     <Compile Include="SaleOrders\SaleOrderProductRepository.cs" />
     <Compile Include="SaleOrders\SaleOrderRepository.cs" />
+    <Compile Include="Sequences\SequenceRepository.cs" />
     <Compile Include="Suppliers\SupplierRepository.cs" />
     <Compile Include="Configs\ConfigRepository.cs" />
     <Compile Include="Users\UserRepository.cs" />

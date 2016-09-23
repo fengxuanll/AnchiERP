@@ -38,6 +38,7 @@
             <thead>
                 <tr class="text-c">
                     <th width="30">序号</th>
+                    <td width="90">编码</td>
                     <th width="90">关联单据</th>
                     <th width="90">类型</th>
                     <th width="120">时间</th>
@@ -48,9 +49,10 @@
             <tbody>
                 <tr class="text-c" ms-for="($index, item) in ##List">
                     <td>{{ $index + 1}}</td>
+                    <td>{{ item.Code }}</td>
                     <td>
                         <a ms-attr="{ href: ##GetRelationHrefFn(item) }">
-                            {{ item.RelationId }}
+                            {{ item.RelationCode }}
                         </a>
                     </td>
                     <td>{{ item.TypeName }}</td>

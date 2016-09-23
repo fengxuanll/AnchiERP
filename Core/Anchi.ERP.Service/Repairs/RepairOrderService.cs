@@ -4,7 +4,9 @@ using Anchi.ERP.Domain.Finances;
 using Anchi.ERP.Domain.RepairOrder;
 using Anchi.ERP.Domain.RepairOrders.Enum;
 using Anchi.ERP.Domain.RepairOrders.Filter;
+using Anchi.ERP.IRepository.Finances;
 using Anchi.ERP.IRepository.Repairs;
+using Anchi.ERP.Repository.Finances;
 using Anchi.ERP.Repository.Repairs;
 using Anchi.ERP.Service.Customers;
 using Anchi.ERP.Service.Employees;
@@ -21,23 +23,31 @@ namespace Anchi.ERP.Service.Repairs
     public class RepairOrderService : BaseService<RepairOrder>
     {
         #region 构造函数和属性
-        public RepairOrderService() : this(new RepairOrderRepository(), new CustomerService(), new EmployeeService()) { }
+        public RepairOrderService() : this(new RepairOrderRepository(), new CustomerService(), new EmployeeService(),new FinanceOrderRepository()) { }
 
-        public RepairOrderService(IRepairOrderRepository repairOrderRepository, CustomerService customerService, EmployeeService employeeService) : base(repairOrderRepository)
+        public RepairOrderService(IRepairOrderRepository repairOrderRepository, CustomerService customerService, EmployeeService employeeService, IFinanceOrderRepository financeOrderRepository) : base(repairOrderRepository)
         {
             this.RepairOrderRepository = repairOrderRepository;
             this.CustomerService = customerService;
             this.EmployeeService = employeeService;
+            this.FinanceOrderRepository = financeOrderRepository;
         }
 
         IRepairOrderRepository RepairOrderRepository
         {
             get;
         }
+
+        IFinanceOrderRepository FinanceOrderRepository
+        {
+            get;
+        }
+
         CustomerService CustomerService
         {
             get;
         }
+
         EmployeeService EmployeeService
         {
             get;
@@ -79,6 +89,7 @@ namespace Anchi.ERP.Service.Repairs
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
+                model.Code = RepairOrderRepository.GetSequenceNextCode();
                 model.Status = EnumRepairOrderStatus.Repairing;
                 model.SettlementStatus = EnumSettlementStatus.Waiting;
                 model.CreatedOn = DateTime.Now;
@@ -154,6 +165,7 @@ namespace Anchi.ERP.Service.Repairs
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
 
             var financeOrder = new FinanceOrder();
+            order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
             financeOrder.Amount = model.SettlementAmount;
             financeOrder.Remark = model.SettlementRemark;
 

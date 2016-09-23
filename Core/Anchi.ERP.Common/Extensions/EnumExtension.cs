@@ -32,6 +32,28 @@ namespace Anchi.ERP.Common.Extensions
         }
         #endregion
 
+        #region 获取枚举Display特性中的Description属性
+        /// <summary>
+        /// 获取枚举Display特性中的Description属性
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static string GetDisplayDescription(this Enum e)
+        {
+            Type type = e.GetType();
+            var enumField = type.GetField(e.ToString());
+            if (enumField == null)
+                return null;
+
+            var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
+            if (displayAttributes == null || !displayAttributes.Any())
+                return null;
+
+            var displayItem = displayAttributes.First() as DisplayAttribute;
+            return displayItem == null ? null : displayItem.Description;
+        }
+        #endregion
+
         #region 将枚举转换为集合
         /// <summary>
         /// 将枚举转换为集合
@@ -58,7 +80,11 @@ namespace Anchi.ERP.Common.Extensions
                     if (displayAttributes != null && displayAttributes.Any())
                     {
                         var displayItem = displayAttributes.First() as DisplayAttribute;
-                        pairItem.DisplayName = displayItem == null ? null : displayItem.Name;
+                        if (displayItem != null)
+                        {
+                            pairItem.DisplayName = displayItem.Name;
+                            pairItem.DisplayDescription = displayItem.Description;
+                        }
                     }
                 }
 
@@ -95,6 +121,14 @@ namespace Anchi.ERP.Common.Extensions
         /// 枚举显示名称
         /// </summary>
         public string DisplayName
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 枚举描述
+        /// </summary>
+        public string DisplayDescription
         {
             get; set;
         }

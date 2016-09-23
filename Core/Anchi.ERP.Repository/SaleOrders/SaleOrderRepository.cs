@@ -4,10 +4,17 @@ using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.SaleOrders;
 using Anchi.ERP.Domain.SaleOrders.Enum;
+using Anchi.ERP.Domain.Sequences.Enum;
+using Anchi.ERP.IRepository.Customers;
+using Anchi.ERP.IRepository.Employees;
+using Anchi.ERP.IRepository.Finances;
+using Anchi.ERP.IRepository.Products;
 using Anchi.ERP.IRepository.SaleOrders;
 using Anchi.ERP.Repository.Customers;
 using Anchi.ERP.Repository.Employees;
+using Anchi.ERP.Repository.Finances;
 using Anchi.ERP.Repository.Products;
+using Anchi.ERP.Repository.Sequences;
 using ServiceStack.OrmLite;
 using System;
 
@@ -24,28 +31,51 @@ namespace Anchi.ERP.Repository.SaleOrders
                   new EmployeeRepository(),
                   new CustomerRepository(),
                   new ProductStockRecordRepository(),
-                  new ProductRepository())
-        { }
+                  new ProductRepository(),
+                  new FinanceOrderRepository())
+        {
+        }
 
         public SaleOrderRepository(
-            SaleOrderProductRepository saleOrderProductRepository,
-            EmployeeRepository employeeRepository,
-            CustomerRepository customerRepository,
-            ProductStockRecordRepository productStockRecordRepository,
-            ProductRepository productRepository)
+            ISaleOrderProductRepository saleOrderProductRepository,
+            IEmployeeRepository employeeRepository,
+            ICustomerRepository customerRepository,
+            IProductStockRecordRepository productStockRecordRepository,
+            IProductRepository productRepository,
+            IFinanceOrderRepository financeOrderRepository)
         {
             this.SaleOrderProductRepository = saleOrderProductRepository;
             this.EmployeeRepository = employeeRepository;
             this.CustomerRepository = customerRepository;
             this.ProductStockRecordRepository = productStockRecordRepository;
             this.ProductRepository = productRepository;
+            this.FinanceOrderRepository = financeOrderRepository;
         }
 
-        SaleOrderProductRepository SaleOrderProductRepository { get; }
-        EmployeeRepository EmployeeRepository { get; }
-        CustomerRepository CustomerRepository { get; }
-        ProductStockRecordRepository ProductStockRecordRepository { get; }
-        ProductRepository ProductRepository { get; }
+        ISaleOrderProductRepository SaleOrderProductRepository
+        {
+            get;
+        }
+        IEmployeeRepository EmployeeRepository
+        {
+            get;
+        }
+        ICustomerRepository CustomerRepository
+        {
+            get;
+        }
+        IProductStockRecordRepository ProductStockRecordRepository
+        {
+            get;
+        }
+        IProductRepository ProductRepository
+        {
+            get;
+        }
+        IFinanceOrderRepository FinanceOrderRepository
+        {
+            get;
+        }
         #endregion
 
         #region 创建销售单
@@ -271,7 +301,7 @@ namespace Anchi.ERP.Repository.SaleOrders
         /// <returns></returns>
         public string GetSequenceNextCode()
         {
-            return null;
+            return string.Format("SO-{0}{1}", DateTime.Now.ToString("yyyyMMdd"), SequenceRepository.Instance.GetNextValue(EnumSequenceType.Sale).ToString("0000"));
         }
         #endregion
     }

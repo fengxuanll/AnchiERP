@@ -1,10 +1,6 @@
-﻿using Anchi.ERP.Domain.Finances.Enum;
+﻿using Anchi.ERP.Common.Extensions;
+using Anchi.ERP.Domain.Finances.Enum;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Anchi.ERP.Common.Extensions;
 
 namespace Anchi.ERP.ServiceModel.Finances
 {
@@ -22,9 +18,25 @@ namespace Anchi.ERP.ServiceModel.Finances
         }
 
         /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 关联Id
         /// </summary>
         public Guid RelationId
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 关联数据编码
+        /// </summary>
+        public string RelationCode
         {
             get; set;
         }

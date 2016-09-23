@@ -16,7 +16,10 @@ namespace Anchi.ERP.Service
         {
             this.Repository = repository;
         }
-        IBaseRepository<T> Repository { get; }
+        IBaseRepository<T> Repository
+        {
+            get;
+        }
         #endregion
 
         #region 根据ID获取对象
@@ -44,6 +47,20 @@ namespace Anchi.ERP.Service
                 return null;
 
             return Repository.GetModel(Id);
+        }
+        #endregion
+
+        #region 新增数据
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="model"></param>
+        public virtual void Create(T model)
+        {
+            if (model == null)
+                return;
+
+            Repository.Create(model);
         }
         #endregion
 

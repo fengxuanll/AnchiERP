@@ -76,6 +76,7 @@
                         <input type="checkbox" name="checkAll">
                     </th>
                     <th width="30">序号</th>
+                    <th width="90">编码</th>
                     <th width="90">开单时间</th>
                     <th width="90">客户</th>
                     <th width="90">车牌号</th>
@@ -96,6 +97,7 @@
                         <input type="checkbox" class="row-check" ms-attr="{value:item.Id}" />
                     </td>
                     <td>{{ $index + 1}}</td>
+                    <td>{{ item.Code }}</td>
                     <td>{{ item.RepairOn | showTimeDateFilter }}</td>
                     <td>{{ item.CustomerName }}</td>
                     <td>{{ item.CarNumber }}</td>

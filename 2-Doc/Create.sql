@@ -208,12 +208,25 @@ Create Table PurchaseOrderProduct(
 -- 财务单表
 Create Table FinanceOrder(
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
+	[Code] varchar(50) NOT NULL,
 	[RelationId] uniqueidentifier NOT NULL,
 	[Type] tinyint NOT NULL,
 	[Amount] decimal NOT NULL,
 	[Remark] nvarchar(1000) NULL,
 	[CreatedOn] datetime NOT NULL
 );
+
+-- 序列表
+Create Table Sequence(
+	[Type] int NOT NULL PRIMARY KEY,
+	[MinValue] bigint NOT NULL,
+	[MaxValue] bigint NOT NULL,
+	[Increment] bigint NOT NULL,
+	[CurrentValue] bigint NOT NULL,
+	[Cycle] bigint NOT NULL,
+	[ModifiedOn] datetime NOT NULL,
+	[Description] nvarchar(1000) NULL
+)
 
 -- 系统配置表
 Create Table SystemConfig(
@@ -222,3 +235,17 @@ Create Table SystemConfig(
 	[Value] nvarchar(8000) NOT NULL,
 	[CreatedOn] datetime NOT NULL
 );
+
+-- 初始化数据
+-- 初始化用户数据
+INSERT INTO [User] ([Id], [TrueName], [LoginName], [Password], [IDCard], [Tel], [Address], [Status], [Remark], [CreatedOn])
+VALUES ('00000000-0000-0000-0000-000000000001', 'admin', 'admin', '21232F297A57A5A743894A0E4A801FC3', NULL, NULL, NULL, 1, '默认系统管理员', DATETIME(CURRENT_TIMESTAMP, 'LOCALTIME'));
+-- 初始化序列数据
+INSERT INTO [Sequence] ([Type], [MinValue], [MaxValue], [Increment], [CurrentValue], [Cycle], [ModifiedOn], [Description])
+VALUES (1, 0, 9999, 1, 0, 1, '1970-01-01', '维修单编码序列');
+INSERT INTO [Sequence] ([Type], [MinValue], [MaxValue], [Increment], [CurrentValue], [Cycle], [ModifiedOn], [Description])
+VALUES (2, 0, 9999, 1, 0, 1, '1970-01-01', '销售单编码序列');
+INSERT INTO [Sequence] ([Type], [MinValue], [MaxValue], [Increment], [CurrentValue], [Cycle], [ModifiedOn], [Description])
+VALUES (3, 0, 9999, 1, 0, 1, '1970-01-01', '采购单编码序列');
+INSERT INTO [Sequence] ([Type], [MinValue], [MaxValue], [Increment], [CurrentValue], [Cycle], [ModifiedOn], [Description])
+VALUES (4, 0, 9999, 1, 0, 1, '1970-01-01', '财务单编码序列');

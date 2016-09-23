@@ -9,6 +9,14 @@ namespace Anchi.ERP.Domain.Finances
     public class FinanceOrder : BaseDomain
     {
         /// <summary>
+        /// 财务单编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 关联信息ID
         /// </summary>
         public Guid RelationId

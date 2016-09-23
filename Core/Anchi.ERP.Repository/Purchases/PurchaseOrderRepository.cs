@@ -4,9 +4,11 @@ using Anchi.ERP.Domain.Products;
 using Anchi.ERP.Domain.Products.Enum;
 using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Enum;
+using Anchi.ERP.Domain.Sequences.Enum;
 using Anchi.ERP.IRepository.Purchases;
 using Anchi.ERP.Repository.Employees;
 using Anchi.ERP.Repository.Products;
+using Anchi.ERP.Repository.Sequences;
 using Anchi.ERP.Repository.Suppliers;
 using ServiceStack.OrmLite;
 using System;
@@ -270,7 +272,7 @@ namespace Anchi.ERP.Repository.Purchases
         /// <returns></returns>
         public string GetSequenceNextCode()
         {
-            return null;
+            return string.Format("PO-{0}{1}", DateTime.Now.ToString("yyyyMMdd"), SequenceRepository.Instance.GetNextValue(EnumSequenceType.Purchase).ToString("0000"));
         }
         #endregion
     }

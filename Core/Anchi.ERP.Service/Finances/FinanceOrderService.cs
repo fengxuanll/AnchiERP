@@ -1,9 +1,12 @@
 ﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.Finances;
+using Anchi.ERP.Domain.Finances.Enum;
 using Anchi.ERP.IRepository.Finances;
 using Anchi.ERP.Repository.Finances;
+using Anchi.ERP.Service.Purchases;
+using Anchi.ERP.Service.Repairs;
+using Anchi.ERP.Service.SaleOrders;
 using Anchi.ERP.ServiceModel.Finances;
-using System.Collections.Generic;
 
 namespace Anchi.ERP.Service.Finances
 {
@@ -13,16 +16,42 @@ namespace Anchi.ERP.Service.Finances
     public class FinanceOrderService : BaseService<FinanceOrder>
     {
         #region 构造函数和属性
-        public FinanceOrderService() : this(new FinanceOrderRepository())
+        public FinanceOrderService()
+            : this(new FinanceOrderRepository(),
+                  new PurchaseService(),
+                  new RepairOrderService(),
+                  new SaleOrderService())
         {
         }
 
-        public FinanceOrderService(IFinanceOrderRepository financeOrderRepository) : base(financeOrderRepository)
+        public FinanceOrderService(
+            IFinanceOrderRepository financeOrderRepository,
+            PurchaseService purchaseService,
+            RepairOrderService repairOrderService,
+            SaleOrderService saleOrderService) : base(financeOrderRepository)
         {
             this.FinanceOrderRepository = financeOrderRepository;
+            this.PurchaseService = purchaseService;
+            this.RepairOrderService = repairOrderService;
+            this.SaleOrderService = saleOrderService;
         }
 
         IFinanceOrderRepository FinanceOrderRepository
+        {
+            get;
+        }
+
+        PurchaseService PurchaseService
+        {
+            get;
+        }
+
+        RepairOrderService RepairOrderService
+        {
+            get;
+        }
+
+        SaleOrderService SaleOrderService
         {
             get;
         }
@@ -43,11 +72,29 @@ namespace Anchi.ERP.Service.Finances
             {
                 var model = new FinanceOrderModel();
                 model.Id = item.Id;
+                model.Code = item.Code;
                 model.Type = item.Type;
                 model.RelationId = item.RelationId;
                 model.Amount = item.Amount;
                 model.Remark = item.Remark;
                 model.CreatedOn = item.CreatedOn;
+
+                switch (item.Type)
+                {
+                    case EnumFinanceOrderType.PaymentPurchase:
+                        var purchaseOrder = PurchaseService.Get(item.RelationId);
+                        model.RelationCode = purchaseOrder == null ? null : purchaseOrder.Code;
+                        break;
+                    case EnumFinanceOrderType.ReceiptRepair:
+                        var repairOrder = RepairOrderService.Get(item.RelationId);
+                        model.RelationCode = repairOrder == null ? null : repairOrder.Code;
+                        break;
+                    case EnumFinanceOrderType.ReceiptSale:
+                        var saleOrder = SaleOrderService.Get(item.RelationId);
+                        model.RelationCode = saleOrder == null ? null : saleOrder.Code;
+                        break;
+                }
+
                 response.Data.Add(model);
             }
             response.PageIndex = result.PageIndex;
@@ -55,6 +102,18 @@ namespace Anchi.ERP.Service.Finances
             response.TotalCount = result.TotalCount;
             response.TotalPage = result.TotalPage;
             return response;
+        }
+        #endregion
+
+        #region 新建财务单
+        /// <summary>
+        /// 新建财务单
+        /// </summary>
+        /// <param name="model"></param>
+        public override void Create(FinanceOrder model)
+        {
+            model.Code = this.FinanceOrderRepository.GetSequenceNextCode();
+            base.Create(model);
         }
         #endregion
     }
