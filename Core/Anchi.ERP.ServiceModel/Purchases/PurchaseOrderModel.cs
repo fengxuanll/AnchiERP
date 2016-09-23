@@ -17,6 +17,14 @@ namespace Anchi.ERP.ServiceModel.Purchases
         { get; set; }
 
         /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 供应商名称
         /// </summary>
         public string SupplierName

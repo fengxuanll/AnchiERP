@@ -1,4 +1,5 @@
 -- 用户表
+DROP TABLE [User];
 CREATE TABLE [User] (
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
 	[TrueName] varchar(50) NOT NULL, 
@@ -14,6 +15,7 @@ CREATE TABLE [User] (
 CREATE UNIQUE INDEX [uidx_User_LoginName] ON [User] ([LoginName]);
 
 -- 供应商表
+DROP TABLE [Supplier];
 CREATE TABLE [Supplier] (
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
 	[CompanyName] nvarchar(50) NOT NULL, 
@@ -25,6 +27,7 @@ CREATE TABLE [Supplier] (
 );
 
 -- 客户表
+DROP TABLE [Customer];
 CREATE TABLE [Customer] (
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
 	[Name] nvarchar(50) NOT NULL, 
@@ -37,6 +40,7 @@ CREATE TABLE [Customer] (
 CREATE UNIQUE INDEX [uidx_Customer_CarNumber] ON [Customer] ([CarNumber]);
 
 -- 员工表
+DROP TABLE [Employee];
 CREATE TABLE [Employee] (
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
 	[Code] varchar(50) NOT NULL, 
@@ -53,6 +57,7 @@ CREATE UNIQUE INDEX [uidx_Employee_IDCard] ON [Employee] ([IDCard]);
 CREATE UNIQUE INDEX [uidx_Employee_Code] ON [Employee] ([Code]);
 
 -- 配件表
+DROP TABLE [Product];
 Create Table [Product](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
 	[Code] varchar(50) NOT NULL, 
@@ -67,7 +72,8 @@ Create Table [Product](
 CREATE UNIQUE INDEX [uidx_Product_Code] ON [Product] ([Code]);
 
 -- 配件库存记录表
-Create Table ProductStockRecord(
+DROP TABLE [ProductStockRecord];
+Create Table [ProductStockRecord](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY, 
 	[Type] tinyint NOT NULL,
 	[RelationId] uniqueidentifier NOT NULL,
@@ -80,7 +86,8 @@ Create Table ProductStockRecord(
 );
 
 -- 维修项目表
-Create Table Project(
+DROP TABLE [Project];
+Create Table [Project](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Code] varchar(50) NOT NULL, 
 	[Name] nvarchar(50) NOT NULL,
@@ -91,7 +98,8 @@ Create Table Project(
 CREATE UNIQUE INDEX [uidx_Project_Code] ON [Project] ([Code]);
 
 -- 维修单表
-Create Table RepairOrder(
+DROP TABLE [RepairOrder];
+Create Table [RepairOrder](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Code] varchar(50) NOT NULL, 
 	[CustomerId] uniqueidentifier NOT NULL,
@@ -112,7 +120,8 @@ Create Table RepairOrder(
 );
 
 -- 维修单配件表
-Create Table RepairOrderProduct(
+DROP TABLE [RepairOrderProduct];
+Create Table [RepairOrderProduct](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[RepairOrderId] uniqueidentifier NOT NULL,
 	[ProductId] uniqueidentifier NOT NULL,
@@ -125,7 +134,8 @@ Create Table RepairOrderProduct(
 );
 
 -- 维修单项目表
-Create Table RepairOrderProject(
+DROP TABLE [RepairOrderProject];
+Create Table [RepairOrderProject](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[RepairOrderId] uniqueidentifier NOT NULL,
 	[ProjectId] uniqueidentifier NOT NULL,
@@ -140,7 +150,8 @@ Create Table RepairOrderProject(
 );
 
 -- 销售单表
-Create Table SaleOrder(
+DROP TABLE [SaleOrder];
+Create Table [SaleOrder](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Code] varchar(50) NOT NULL, 
 	[SaleById] uniqueidentifier NOT NULL,
@@ -161,7 +172,8 @@ Create Table SaleOrder(
 );
 
 -- 销售单配件表
-Create Table SaleOrderProduct(
+DROP TABLE [SaleOrderProduct];
+Create Table [SaleOrderProduct](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[SaleOrderId] uniqueidentifier NOT NULL,
 	[ProductId] uniqueidentifier NOT NULL,
@@ -173,7 +185,8 @@ Create Table SaleOrderProduct(
 );
 
 -- 采购单表
-Create Table PurchaseOrder(
+DROP TABLE [PurchaseOrder];
+Create Table [PurchaseOrder](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Code] varchar(50) NOT NULL,
 	[PurchaseById] uniqueidentifier NOT NULL,
@@ -194,7 +207,8 @@ Create Table PurchaseOrder(
 );
 
 -- 采购单配件表
-Create Table PurchaseOrderProduct(
+DROP TABLE [PurchaseOrderProduct];
+Create Table [PurchaseOrderProduct](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[PurchaseOrderId] uniqueidentifier NOT NULL,
 	[ProductId] uniqueidentifier NOT NULL,
@@ -206,7 +220,8 @@ Create Table PurchaseOrderProduct(
 );
 
 -- 财务单表
-Create Table FinanceOrder(
+DROP TABLE [FinanceOrder];
+Create Table [FinanceOrder](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Code] varchar(50) NOT NULL,
 	[RelationId] uniqueidentifier NOT NULL,
@@ -217,7 +232,8 @@ Create Table FinanceOrder(
 );
 
 -- 序列表
-Create Table Sequence(
+DROP TABLE [Sequence];
+Create Table [Sequence](
 	[Type] int NOT NULL PRIMARY KEY,
 	[MinValue] bigint NOT NULL,
 	[MaxValue] bigint NOT NULL,
@@ -229,7 +245,8 @@ Create Table Sequence(
 )
 
 -- 系统配置表
-Create Table SystemConfig(
+DROP TABLE [SystemConfig];
+Create Table [SystemConfig](
 	[Id] uniqueidentifier NOT NULL PRIMARY KEY,
 	[Key] varchar(254) NOT NULL,
 	[Value] nvarchar(8000) NOT NULL,

@@ -13,7 +13,17 @@ namespace Anchi.ERP.ServiceModel.Repairs
         /// Id
         /// </summary>
         public Guid Id
-        { get; set; }
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        public string Code
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 开单时间

@@ -20,23 +20,44 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
             get
             {
                 var sb = new StringBuilder("SELECT * FROM [SaleOrder] WHERE 1 = 1");
-                if (this.SaleOn.HasValue)
+                if (this.SaleOn != null)
                 {
-                    sb.Append(" AND SaleOn >= @SaleOnStart AND SaleOn < @SaleOnEnd");
-                    this.ParamDict["@SaleOnStart"] = this.SaleOn.Value.Date;
-                    this.ParamDict["@SaleOnEnd"] = this.SaleOn.Value.Date.AddDays(1);
+                    if (this.SaleOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [SaleOn] >= @SaleOnStart");
+                        this.ParamDict["@SaleOnStart"] = this.SaleOn.BeginTime.Value;
+                    }
+                    if (this.SaleOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [SaleOn] < @SaleOnEnd");
+                        this.ParamDict["@SaleOnEnd"] = this.SaleOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
-                if (this.OutboundOn.HasValue)
+                if (this.OutboundOn != null)
                 {
-                    sb.Append(" AND OutboundOn >= @OutboundOnStart AND OutboundOn < @OutboundOnEnd");
-                    this.ParamDict["@OutboundOnStart"] = this.OutboundOn.Value.Date;
-                    this.ParamDict["@OutboundOnEnd"] = this.OutboundOn.Value.Date.AddDays(1);
+                    if (this.OutboundOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [OutboundOn] >= @OutboundOnStart");
+                        this.ParamDict["@OutboundOnStart"] = this.OutboundOn.BeginTime.Value;
+                    }
+                    if (this.OutboundOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [OutboundOn] < @OutboundOnEnd");
+                        this.ParamDict["@OutboundOnEnd"] = this.OutboundOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
-                if (this.SettlementOn.HasValue)
+                if (this.SettlementOn != null)
                 {
-                    sb.Append(" AND SettlementOn >= @SettlementOnStart AND SettlementOn < @SettlementOnEnd");
-                    this.ParamDict["@SettlementOnStart"] = this.SettlementOn.Value.Date;
-                    this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.Value.Date.AddDays(1);
+                    if (this.SettlementOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [SettlementOn] >= @SettlementOnStart");
+                        this.ParamDict["@SettlementOnStart"] = this.SettlementOn.BeginTime.Value;
+                    }
+                    if (this.SettlementOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [SettlementOn] < @SettlementOnEnd");
+                        this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
                 if (this.Status.HasValue)
                 {
@@ -83,7 +104,7 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
         /// <summary>
         /// 销售时间
         /// </summary>
-        public DateTime? SaleOn
+        public DateTimeFilter SaleOn
         {
             get; set;
         }
@@ -99,7 +120,7 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
         /// <summary>
         /// 出库时间
         /// </summary>
-        public DateTime? OutboundOn
+        public DateTimeFilter OutboundOn
         {
             get; set;
         }
@@ -115,7 +136,7 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
         /// <summary>
         /// 结算时间
         /// </summary>
-        public DateTime? SettlementOn
+        public DateTimeFilter SettlementOn
         {
             get; set;
         }

@@ -48,9 +48,14 @@
                     <option value="@item.Id">@item.Name</option>
                 }
             </select>
-            <input type="text" id="txtSearchPurchaseOn" ms-duplex="##Search.PurchaseOn" class="input-text ml-5" placeholder="开单时间" onclick="WdatePicker({ onpicked: selectSearchPurchaseOnFn, oncleared: selectSearchPurchaseOnFn });" />
-            <input type="text" id="txtSearchArrivalOn" ms-duplex="##Search.ArrivalOn" class="input-text ml-5" placeholder="到货时间" onclick="WdatePicker({ onpicked: selectSearchArrivalOnFn, oncleared: selectSearchPurchaseOnFn });" />
-            <input type="text" id="txtSearchSettlementOn" ms-duplex="##Search.SettlementOn" class="input-text ml-5" placeholder="结算时间" onclick="WdatePicker({ onpicked: selectSearchSettlementOnFn, oncleared: selectSearchPurchaseOnFn });" />
+            <select class="select-default ml-5" ms-duplex="##Search.TimeType">
+                <option value="">请选择...</option>
+                <option value="PurchaseOn">开单时间</option>
+                <option value="ArrivalOn">到货时间</option>
+                <option value="SettlementOn">结算时间</option>
+            </select>
+            <input type="text" ms-duplex="##Search.BeginTime" class="input-text ml-5" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
+            <input type="text" ms-duplex="##Search.EndTime" class="input-text ml-5" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
             <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
         </form>
     </div>
@@ -77,7 +82,7 @@
                         <input type="checkbox" name="checkAll">
                     </th>
                     <th width="30">序号</th>
-                    <td width="90">编码</td>
+                    <th width="120">编码</th>
                     <th width="90">开单时间</th>
                     <th width="90">供应商</th>
                     <th width="90">采购人</th>

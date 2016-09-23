@@ -11,7 +11,7 @@ namespace Anchi.ERP.Repository.Sequences
     /// <summary>
     /// 序列仓储层实现
     /// </summary>
-    public class SequenceRepository : ISequenceRepository
+    internal class SequenceRepository : ISequenceRepository
     {
         #region 构造函数和属性
         private SequenceRepository()
@@ -82,16 +82,16 @@ namespace Anchi.ERP.Repository.Sequences
         }
         #endregion
 
-        #region 异步将变更保存到数据库
+        #region 将序列保存到数据库
         /// <summary>
-        /// 异步将变更保存到数据库
+        /// 将序列保存到数据库
         /// </summary>
         /// <param name="model"></param>
         private void SaveSequence(Sequence model)
         {
             using (var context = DbContext.Open())
             {
-                context.Update(model);
+                context.UpdateOnly(model, item => new { item.CurrentValue, item.ModifiedOn }, item => item.Type == model.Type);
             }
         }
         #endregion

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Anchi.ERP.Common
 {
@@ -7,19 +8,43 @@ namespace Anchi.ERP.Common
     /// </summary>
     public class JsonUtils
     {
+        const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+
+        #region 序列化对象
         /// <summary>
         /// 序列化对象
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string SerializeObject(object value)
+        public static string Serialize(object value)
         {
             if (value == null)
                 return null;
 
-            return JsonConvert.SerializeObject(value);
+            var timeFormat = new IsoDateTimeConverter();
+            timeFormat.DateTimeFormat = DateTimeFormat;
+            return JsonConvert.SerializeObject(value, timeFormat);
         }
+        #endregion
 
+        #region 序列化对象
+        /// <summary>
+        /// 序列化对象，并待缩进格式化
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string SerializeIndented(object value)
+        {
+            if (value == null)
+                return null;
+
+            var timeFormat = new IsoDateTimeConverter();
+            timeFormat.DateTimeFormat = DateTimeFormat;
+            return JsonConvert.SerializeObject(value, Formatting.Indented, timeFormat);
+        }
+        #endregion
+
+        #region 反序列化对象
         /// <summary>
         /// 反序列化对象
         /// </summary>
@@ -47,5 +72,6 @@ namespace Anchi.ERP.Common
                 return false;
             }
         }
+        #endregion
     }
 }

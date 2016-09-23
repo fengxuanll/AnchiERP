@@ -19,23 +19,44 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
             get
             {
                 var sb = new StringBuilder("SELECT * FROM [RepairOrder] WHERE 1 = 1");
-                if (this.RepairOn.HasValue)
+                if (this.RepairOn != null)
                 {
-                    sb.Append(" AND RepairOn >= @RepairOnStart AND RepairOn < @RepairOnEnd");
-                    this.ParamDict["@RepairOnStart"] = this.RepairOn.Value.Date;
-                    this.ParamDict["@RepairOnEnd"] = this.RepairOn.Value.Date.AddDays(1);
+                    if (this.RepairOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [RepairOn] >= @RepairOnStart");
+                        this.ParamDict["@RepairOnStart"] = this.RepairOn.BeginTime.Value;
+                    }
+                    if (this.RepairOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [RepairOn] < @RepairOnEnd");
+                        this.ParamDict["@RepairOnEnd"] = this.RepairOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
-                if (this.CompleteOn.HasValue)
+                if (this.CompleteOn != null)
                 {
-                    sb.Append(" AND CompleteOn >= @CompleteOnStart AND CompleteOn < @CompleteOnEnd");
-                    this.ParamDict["@CompleteOnStart"] = this.CompleteOn.Value.Date;
-                    this.ParamDict["@CompleteOnEnd"] = this.CompleteOn.Value.Date.AddDays(1);
+                    if (this.CompleteOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [CompleteOn] >= @CompleteOnStart");
+                        this.ParamDict["@CompleteOnStart"] = this.CompleteOn.BeginTime.Value;
+                    }
+                    if (this.CompleteOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [CompleteOn] < @CompleteOnEnd");
+                        this.ParamDict["@CompleteOnEnd"] = this.CompleteOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
-                if (this.SettlementOn.HasValue)
+                if (this.SettlementOn != null)
                 {
-                    sb.Append(" AND SettlementOn >= @SettlementOnStart AND SettlementOn < @SettlementOnEnd");
-                    this.ParamDict["@SettlementOnStart"] = this.SettlementOn.Value.Date;
-                    this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.Value.Date.AddDays(1);
+                    if (this.SettlementOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [SettlementOn] >= @SettlementOnStart");
+                        this.ParamDict["@SettlementOnStart"] = this.SettlementOn.BeginTime.Value;
+                    }
+                    if (this.SettlementOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [SettlementOn] < @SettlementOnEnd");
+                        this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
                 if (this.Status.HasValue)
                 {
@@ -66,7 +87,7 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
         /// <summary>
         /// 开单时间
         /// </summary>
-        public DateTime? RepairOn
+        public DateTimeFilter RepairOn
         {
             get; set;
         }
@@ -74,7 +95,7 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
         /// <summary>
         /// 完工时间
         /// </summary>
-        public DateTime? CompleteOn
+        public DateTimeFilter CompleteOn
         {
             get; set;
         }
@@ -82,7 +103,7 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
         /// <summary>
         /// 结算时间
         /// </summary>
-        public DateTime? SettlementOn
+        public DateTimeFilter SettlementOn
         {
             get; set;
         }

@@ -17,8 +17,7 @@ namespace Anchi.ERP.Domain.Finances.Filter
         {
             get
             {
-                var sb = new StringBuilder("SELECT * FROM [FinanceOrder] fo");
-                sb.AppendLine(" WHERE 1 = 1");
+                var sb = new StringBuilder("SELECT * FROM [FinanceOrder] fo WHERE 1 = 1");
                 if (this.Type.HasValue)
                 {
                     sb.Append(" AND fo.[Type] = @Type");
@@ -26,9 +25,16 @@ namespace Anchi.ERP.Domain.Finances.Filter
                 }
                 if (this.CreatedOn != null)
                 {
-                    sb.Append(" AND fo.[CreatedOn] >= @CreatedOnStart AND fo.[CreatedOn] < @CreatedOnEnd");
-                    this.ParamDict["@CreatedOnStart"] = this.CreatedOn.BeginTime;
-                    this.ParamDict["@CreatedOnEnd"] = this.CreatedOn.EndTime;
+                    if (this.CreatedOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND fo.[CreatedOn] >= @CreatedOnStart");
+                        this.ParamDict["@CreatedOnStart"] = this.CreatedOn.BeginTime.Value;
+                    }
+                    if (this.CreatedOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND fo.[CreatedOn] < @CreatedOnEnd");
+                        this.ParamDict["@CreatedOnEnd"] = this.CreatedOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
                 return sb.ToString();
             }

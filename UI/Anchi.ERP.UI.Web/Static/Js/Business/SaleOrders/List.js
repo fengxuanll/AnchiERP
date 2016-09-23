@@ -5,22 +5,18 @@
         SaleById: "",
         Status: "",
         SettlementStatus: "",
-        SaleOn: "",
-        OutboundOn: "",
-        SettlementOn: ""
+        TimeType: "",
+        BeginTime: "",
+        EndTime: ""
     }
 });
 
-function selectSearchSaleOnFn() {
-    $vm.Search.SaleOn = $("#txtSearchSaleOn").val();
+function selectSearchBeginTimeFn() {
+    $vm.Search.BeginTime = $(arguments[0].el).val();
 }
 
-function selectSearchOutboundOnFn() {
-    $vm.Search.OutboundOn = $("#txtSearchOutboundOn").val();
-}
-
-function selectSearchSettlementOnFn() {
-    $vm.Search.SettlementOn = $("#txtSearchSettlementOn").val();
+function selectSearchEndTimeFn() {
+    $vm.Search.EndTime = $(arguments[0].el).val();
 }
 
 $(function () {
@@ -30,6 +26,9 @@ $(function () {
 function refreshListFn(pageIndex) {
     var postData = $vm.Search.$model;
     postData.PageIndex = pageIndex || 0;
+    postData[postData.TimeType] = {};
+    postData[postData.TimeType].BeginTime = $vm.Search.BeginTime;
+    postData[postData.TimeType].EndTime = $vm.Search.EndTime;
     $.ajax({
         url: "/Sale/List",
         type: "POST",

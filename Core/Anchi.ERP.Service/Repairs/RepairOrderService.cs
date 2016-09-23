@@ -23,7 +23,7 @@ namespace Anchi.ERP.Service.Repairs
     public class RepairOrderService : BaseService<RepairOrder>
     {
         #region 构造函数和属性
-        public RepairOrderService() : this(new RepairOrderRepository(), new CustomerService(), new EmployeeService(),new FinanceOrderRepository()) { }
+        public RepairOrderService() : this(new RepairOrderRepository(), new CustomerService(), new EmployeeService(), new FinanceOrderRepository()) { }
 
         public RepairOrderService(IRepairOrderRepository repairOrderRepository, CustomerService customerService, EmployeeService employeeService, IFinanceOrderRepository financeOrderRepository) : base(repairOrderRepository)
         {
@@ -164,8 +164,11 @@ namespace Anchi.ERP.Service.Repairs
             order.SettlementStatus = model.SettlementStatus;
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
 
+            if (order.SettlementAmount >= order.Amount && order.SettlementStatus == EnumSettlementStatus.PartCompleted)
+                throw new Exception("结算金额已超过维修单总金额，不允许部分结算。");
+
             var financeOrder = new FinanceOrder();
-            order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
+            financeOrder.Code = this.FinanceOrderRepository.GetSequenceNextCode();
             financeOrder.Amount = model.SettlementAmount;
             financeOrder.Remark = model.SettlementRemark;
 
@@ -212,6 +215,7 @@ namespace Anchi.ERP.Service.Repairs
                 modelList.Add(new RepairOrderModel
                 {
                     Id = item.Id,
+                    Code = item.Code,
                     Amount = item.Amount,
                     CompleteOn = item.CompleteOn,
                     Remark = item.Remark,

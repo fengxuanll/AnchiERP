@@ -5,22 +5,18 @@
         PurchaseById: "",
         Status: "",
         SettlementStatus: "",
-        PurchaseOn: "",
-        ArrivalOn: "",
-        SettlementOn: ""
+        TimeType:"",
+        BeginTime: "",
+        EndTime: ""
     }
 });
 
-function selectSearchPurchaseOnFn() {
-    $vm.Search.PurchaseOn = $("#txtSearchPurchaseOn").val();
+function selectSearchBeginTimeFn() {
+    $vm.Search.BeginTime = $(arguments[0].el).val();
 }
 
-function selectSearchArrivalOnFn() {
-    $vm.Search.ArrivalOn = $("#txtSearchArrivalOn").val();
-}
-
-function selectSearchSettlementOnFn() {
-    $vm.Search.SettlementOn = $("#txtSearchSettlementOn").val();
+function selectSearchEndTimeFn() {
+    $vm.Search.EndTime = $(arguments[0].el).val();
 }
 
 $(function () {
@@ -30,6 +26,9 @@ $(function () {
 function refreshListFn(pageIndex) {
     var postData = $vm.Search.$model;
     postData.PageIndex = pageIndex || 0;
+    postData[postData.TimeType] = {};
+    postData[postData.TimeType].BeginTime = $vm.Search.BeginTime;
+    postData[postData.TimeType].EndTime = $vm.Search.EndTime;
     $.ajax({
         url: "/Purchase/List",
         type: "POST",

@@ -132,8 +132,11 @@ namespace Anchi.ERP.Service.Purchases
             order.SettlementStatus = model.SettlementStatus;
             order.SettlementAmount = order.SettlementAmount + model.SettlementAmount;
 
+            if (order.SettlementAmount >= order.Amount && order.SettlementStatus == EnumSettlementStatus.PartCompleted)
+                throw new Exception("结算金额已超过采购单总金额，不允许部分结算。");
+
             var financeOrder = new FinanceOrder();
-            order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
+            financeOrder.Code = this.FinanceOrderRepository.GetSequenceNextCode();
             financeOrder.Amount = model.SettlementAmount;
             financeOrder.Remark = model.SettlementRemark;
 
@@ -203,6 +206,7 @@ namespace Anchi.ERP.Service.Purchases
                 modelList.Add(new PurchaseOrderModel
                 {
                     Id = item.Id,
+                    Code = item.Code,
                     Amount = item.Amount,
                     PurchaseByName = purchaseBy == null ? string.Empty : purchaseBy.Name,
                     PurchaseOn = item.PurchaseOn,

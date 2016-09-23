@@ -5,22 +5,18 @@
         ReceptionById: "",
         Status: "",
         SettlementStatus: "",
-        RepairOn: "",
-        CompleteOn: "",
-        SettlementOn: ""
+        TimeType: "",
+        BeginTime: "",
+        EndTime: ""
     }
 });
 
-function selectSearchRepairOnFn() {
-    $vm.Search.RepairOn = $("#txtSearchRepairOn").val();
+function selectSearchBeginTimeFn() {
+    $vm.Search.BeginTime = $(arguments[0].el).val();
 }
 
-function selectSearchCompleteOnFn() {
-    $vm.Search.CompleteOn = $("#txtSearchCompleteOn").val();
-}
-
-function selectSearchSettlementOnFn() {
-    $vm.Search.SettlementOn = $("#txtSearchSettlementOn").val();
+function selectSearchEndTimeFn() {
+    $vm.Search.EndTime = $(arguments[0].el).val();
 }
 
 $(function () {
@@ -30,6 +26,9 @@ $(function () {
 function refreshListFn(pageIndex) {
     var postData = $vm.Search.$model;
     postData.PageIndex = pageIndex || 0;
+    postData[postData.TimeType] = {};
+    postData[postData.TimeType].BeginTime = $vm.Search.BeginTime;
+    postData[postData.TimeType].EndTime = $vm.Search.EndTime;
     $.ajax({
         url: "/Repair/List",
         type: "POST",

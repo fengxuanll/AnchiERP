@@ -47,9 +47,14 @@
                     <option value="@item.Id">@item.Name</option>
                 }
             </select>
-            <input type="text" id="txtSearchSaleOn" ms-duplex="##Search.SaleOn" class="input-text ml-5" placeholder="开单时间" onclick="WdatePicker({ onpicked: selectSearchSaleOnFn, oncleared: selectSearchSaleOnFn });" />
-            <input type="text" id="txtSearchOutboundOn" ms-duplex="##Search.OutboundOn" class="input-text ml-5" placeholder="出库时间" onclick="WdatePicker({ onpicked: selectSearchOutboundOnFn, oncleared: selectSearchOutboundOnFn });" />
-            <input type="text" id="txtSearchSettlementOn" ms-duplex="##Search.SettlementOn" class="input-text ml-5" placeholder="结算时间" onclick="WdatePicker({ onpicked: selectSearchSettlementOnFn, oncleared: selectSearchSettlementOnFn });" />
+            <select class="select-default ml-5" ms-duplex="##Search.TimeType">
+                <option value="">请选择...</option>
+                <option value="SaleOn">开单时间</option>
+                <option value="OutboundOn">出库时间</option>
+                <option value="SettlementOn">结算时间</option>
+            </select>
+            <input type="text" ms-duplex="##Search.BeginTime" class="input-text ml-5" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
+            <input type="text" ms-duplex="##Search.EndTime" class="input-text ml-5" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
             <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
         </form>
     </div>
@@ -76,7 +81,7 @@
                         <input type="checkbox" name="checkAll">
                     </th>
                     <th width="30">序号</th>
-                    <th width="90">编码</th>
+                    <th width="120">编码</th>
                     <th width="90">开单时间</th>
                     <th width="90">客户</th>
                     <th width="90">销售人</th>

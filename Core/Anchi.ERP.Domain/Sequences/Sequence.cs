@@ -88,11 +88,11 @@ namespace Anchi.ERP.Domain.Sequences
         {
             lock (_locker)
             {
-                if (this.CurrentValue >= this.MaxValue || (this.Cycle == 1 && this.ModifiedOn.Date != DateTime.Now.Date))
+                if (this.CurrentValue >= this.MaxValue || this.CurrentValue <= this.MinValue || (this.Cycle == 1 && this.ModifiedOn.Date != DateTime.Now.Date))
                     this.CurrentValue = this.MinValue;
 
                 this.ModifiedOn = DateTime.Now;
-                ++this.CurrentValue;
+                this.CurrentValue = this.CurrentValue + this.Increment;
             }
             return this.CurrentValue;
         }

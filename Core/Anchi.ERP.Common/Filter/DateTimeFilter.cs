@@ -7,42 +7,20 @@ namespace Anchi.ERP.Common.Filter
     /// </summary>
     public class DateTimeFilter
     {
-        private DateTime beginTime;
         /// <summary>
         /// 开始时间
         /// </summary>
-        public DateTime BeginTime
+        public DateTime? BeginTime
         {
-            get
-            {
-                if (beginTime < SqlDateTime.Min)
-                    beginTime = SqlDateTime.Min;
-
-                return beginTime;
-            }
-            set
-            {
-                beginTime = value;
-            }
+            get; set;
         }
 
-        private DateTime endTime;
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime EndTime
+        public DateTime? EndTime
         {
-            get
-            {
-                if (endTime < SqlDateTime.Min)
-                    endTime = DateTime.Now;
-
-                return endTime;
-            }
-            set
-            {
-                endTime = value;
-            }
+            get; set;
         }
     }
 }
