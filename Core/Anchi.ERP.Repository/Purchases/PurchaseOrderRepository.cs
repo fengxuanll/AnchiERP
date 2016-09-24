@@ -27,7 +27,8 @@ namespace Anchi.ERP.Repository.Purchases
                   new SupplierRepository(),
                   new ProductStockRecordRepository(),
                   new ProductRepository())
-        { }
+        {
+        }
 
         public PurchaseOrderRepository(
             PurchaseOrderProductRepository purchaseOrderProductRepository,
@@ -43,11 +44,26 @@ namespace Anchi.ERP.Repository.Purchases
             this.ProductRepository = productRepository;
         }
 
-        ProductRepository ProductRepository { get; }
-        PurchaseOrderProductRepository PurchaseOrderProductRepository { get; }
-        EmployeeRepository EmployeeRepository { get; }
-        SupplierRepository SupplierRepository { get; }
-        ProductStockRecordRepository ProductStockRecordRepository { get; }
+        ProductRepository ProductRepository
+        {
+            get;
+        }
+        PurchaseOrderProductRepository PurchaseOrderProductRepository
+        {
+            get;
+        }
+        EmployeeRepository EmployeeRepository
+        {
+            get;
+        }
+        SupplierRepository SupplierRepository
+        {
+            get;
+        }
+        ProductStockRecordRepository ProductStockRecordRepository
+        {
+            get;
+        }
         #endregion
 
         #region 创建采购单
@@ -190,12 +206,14 @@ namespace Anchi.ERP.Repository.Purchases
         /// 取消采购单
         /// </summary>
         /// <param name="model"></param>
-        public void Cancel(PurchaseOrder model)
+        /// <param name="order"></param>
+        public void Cancel(PurchaseOrder model, FinanceOrder order)
         {
             using (var context = DbContext.Open())
             {
                 using (var tran = context.BeginTransaction())
                 {
+                    #region 调整库存
                     foreach (var item in model.ProductList)
                     {
                         var product = item.Product;
@@ -223,6 +241,21 @@ namespace Anchi.ERP.Repository.Purchases
                             context.Update(product);
                         }
                     }
+                    #endregion
+
+                    #region 增加财务单
+                    if (model.SettlementAmount > 0)
+                    {
+                        // 如果已经结算过，增加取消采购单的财务单
+                        order.Id = Guid.NewGuid();
+                        order.Amount = model.SettlementAmount;
+                        order.Type = EnumFinanceOrderType.ReceiptCancelPurchase;
+                        order.CreatedOn = DateTime.Now;
+                        order.RelationId = model.Id;
+                        order.Remark = order.Remark ?? string.Format("取消采购单：{0}", model.Code);
+                        context.Insert(order);
+                    }
+                    #endregion
 
                     // 删除采购单配件
                     context.Delete<PurchaseOrderProduct>(rop => rop.PurchaseOrderId == model.Id);

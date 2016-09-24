@@ -27,7 +27,8 @@ namespace Anchi.ERP.Repository.Repairs
                   new CustomerRepository(),
                   new EmployeeRepository(),
                   new ProductStockRecordRepository())
-        { }
+        {
+        }
 
         public RepairOrderRepository(RepairOrderProjectRepository repairOrderProjectRepository,
                                     RepairOrderProductRepository repairOrderProductRepository,
@@ -42,11 +43,26 @@ namespace Anchi.ERP.Repository.Repairs
             this.ProductStockRecordRepository = productStockRecordRepository;
         }
 
-        RepairOrderProjectRepository RepairOrderProjectRepository { get; }
-        RepairOrderProductRepository RepairOrderProductRepository { get; }
-        CustomerRepository CustomerRepository { get; }
-        EmployeeRepository EmployeeRepository { get; }
-        ProductStockRecordRepository ProductStockRecordRepository { get; }
+        RepairOrderProjectRepository RepairOrderProjectRepository
+        {
+            get;
+        }
+        RepairOrderProductRepository RepairOrderProductRepository
+        {
+            get;
+        }
+        CustomerRepository CustomerRepository
+        {
+            get;
+        }
+        EmployeeRepository EmployeeRepository
+        {
+            get;
+        }
+        ProductStockRecordRepository ProductStockRecordRepository
+        {
+            get;
+        }
         #endregion
 
         #region 创建维修单
@@ -210,17 +226,19 @@ namespace Anchi.ERP.Repository.Repairs
         }
         #endregion
 
-        #region 反结算维修单
+        #region 取消维修单
         /// <summary>
-        /// 反结算维修单
+        /// 取消算维修单
         /// </summary>
         /// <param name="model"></param>
-        public void Cancel(RepairOrder model)
+        /// <param name="order"></param>
+        public void Cancel(RepairOrder model, FinanceOrder order)
         {
             using (var context = DbContext.Open())
             {
                 using (var tran = context.BeginTransaction())
                 {
+                    #region 调整库存
                     foreach (var item in model.ProductList)
                     {
                         var product = item.Product;
@@ -248,6 +266,20 @@ namespace Anchi.ERP.Repository.Repairs
                             context.Update(product);
                         }
                     }
+                    #endregion
+
+                    #region 增加财务单
+                    if (model.SettlementAmount > 0)
+                    {   // 如果是结算过的维修单，增加相应的财务单
+                        order.Id = Guid.NewGuid();
+                        order.Amount = model.SettlementAmount;
+                        order.Type = EnumFinanceOrderType.PaymentCancelRepair;
+                        order.CreatedOn = DateTime.Now;
+                        order.RelationId = model.Id;
+                        order.Remark = string.Format("取消维修单：{0}", model.Code);
+                        context.Insert(order);
+                    }
+                    #endregion
 
                     // 删除维修单配件
                     context.Delete<RepairOrderProduct>(rop => rop.RepairOrderId == model.Id);

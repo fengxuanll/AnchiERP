@@ -15,10 +15,11 @@ namespace Anchi.ERP.IRepository.Repairs
         /// <param name="model"></param>
         void Complete(RepairOrder model);
         /// <summary>
-        /// 反结算维修单
+        /// 取消维修单
         /// </summary>
         /// <param name="model"></param>
-        void Cancel(RepairOrder model);
+        /// <param name="order"></param>
+        void Cancel(RepairOrder model, FinanceOrder order);
         /// <summary>
         /// 结算维修单
         /// </summary>

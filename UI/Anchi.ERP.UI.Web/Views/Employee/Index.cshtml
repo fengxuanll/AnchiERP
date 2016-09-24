@@ -7,9 +7,6 @@
 @using Anchi.ERP.Common.Extensions;
 
 <script type="text/javascript">
-    function selectSearchRepairOnFn() {
-        $vm.Search.EntryOn = $(arguments[0].el).val();
-    }
 </script>
 
 <nav class="breadcrumb">
@@ -19,7 +16,7 @@
     </a>
 </nav>
 
-<div class="page-container" ms-controller="EmployeeList">
+<div class="page-container ms-controller" ms-controller="EmployeeList">
     <div class="pd-5 search-bar">
         <form>
             员工状态：
@@ -35,7 +32,10 @@
             </select>
             <input type="text" ms-duplex="##Search.Code" class="input-text ml-5" placeholder="编码" />
             <input type="text" ms-duplex="##Search.Name" class="input-text ml-5" placeholder="姓名" />
-            <input type="text" id="txtSearchEntryOn" ms-duplex="##Search.EntryOn" class="input-text ml-5" placeholder="入职时间" onclick="WdatePicker({ onpicked: selectSearchRepairOnFn, oncleared: selectSearchRepairOnFn });" />
+            入职时间：
+            <input type="text" ms-duplex="##Search.EntryOn.BeginTime" class="input-text" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
+            至
+            <input type="text" ms-duplex="##Search.EntryOn.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
             <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
         </form>
     </div>

@@ -184,7 +184,10 @@ namespace Anchi.ERP.Service.Purchases
                 if (model == null)
                     continue;
 
-                this.PurchaseOrderRepository.Cancel(model);
+                var order = new FinanceOrder();
+                order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
+
+                this.PurchaseOrderRepository.Cancel(model, order);
             }
         }
         #endregion
@@ -208,6 +211,7 @@ namespace Anchi.ERP.Service.Purchases
                     Id = item.Id,
                     Code = item.Code,
                     Amount = item.Amount,
+                    ArrivalOn = item.ArrivalOn,
                     PurchaseByName = purchaseBy == null ? string.Empty : purchaseBy.Name,
                     PurchaseOn = item.PurchaseOn,
                     Remark = item.Remark,

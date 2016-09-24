@@ -1,5 +1,8 @@
 ﻿@charset "utf-8";
 /* 你自己的样式 */
+.ms-controller{
+   visibility: hidden;
+}
 
 .hide {
     display: none;

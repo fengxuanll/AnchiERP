@@ -5,7 +5,10 @@
         Status: "",
         Code: "",
         Name: "",
-        EntryOn: ""
+        EntryOn: {
+            BeginTime: "",
+            EndTime: ""
+        }
     },
     editEmployeeFn: function (item) {
         layer.open({
@@ -49,6 +52,14 @@ function refreshListFn(pageIndex) {
             });
         }
     });
+}
+
+function selectSearchBeginTimeFn() {
+    $vm.Search.EntryOn.BeginTime = $(arguments[0].el).val();
+}
+
+function selectSearchEndTimeFn() {
+    $vm.Search.EntryOn.EndTime = $(arguments[0].el).val();
 }
 
 function addEmployeeFn() {

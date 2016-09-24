@@ -1,6 +1,5 @@
 ﻿using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.Products.Enum;
-using System;
 using System.Text;
 
 namespace Anchi.ERP.Domain.Products.Filter
@@ -10,6 +9,7 @@ namespace Anchi.ERP.Domain.Products.Filter
     /// </summary>
     public class FindProductStockRecordFilter : PagedQueryFilter
     {
+        #region 要执行的SQL
         /// <summary>
         /// 要执行的SQL
         /// </summary>
@@ -29,11 +29,18 @@ namespace Anchi.ERP.Domain.Products.Filter
                     sb.Append(" AND p.[Name] = @Name");
                     this.ParamDict["@Name"] = this.Name;
                 }
-                if (this.RecordOn.HasValue)
+                if (this.RecordOn != null)
                 {
-                    sb.Append(" AND psr.[RecordOn] >= @RecordOnStart AND psr.[RecordOn] < @RecordOnEnd");
-                    this.ParamDict["@RecordOnStart"] = this.RecordOn.Value.Date;
-                    this.ParamDict["@RecordOnEnd"] = this.RecordOn.Value.Date.AddDays(1);
+                    if (this.RecordOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND psr.[RecordOn] >= @RecordOnStart");
+                        this.ParamDict["@RecordOnStart"] = this.RecordOn.BeginTime.Value;
+                    }
+                    if (this.RecordOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND psr.[RecordOn] < @RecordOnEnd");
+                        this.ParamDict["@RecordOnEnd"] = this.RecordOn.EndTime.Value.Date.AddDays(1);
+                    }
                 }
                 if (this.Type.HasValue)
                 {
@@ -44,25 +51,38 @@ namespace Anchi.ERP.Domain.Products.Filter
                 return sb.ToString();
             }
         }
+        #endregion
 
         /// <summary>
         /// 配件编码
         /// </summary>
-        public string Code { get; set; }
+        public string Code
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 配件名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 记录时间
         /// </summary>
-        public DateTime? RecordOn { get; set; }
+        public DateTimeFilter RecordOn
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 库存记录类型
         /// </summary>
-        public EnumStockRecordType? Type { get; set; }
+        public EnumStockRecordType? Type
+        {
+            get; set;
+        }
     }
 }

@@ -1,9 +1,9 @@
-﻿using Anchi.ERP.Repository.Products;
-using Anchi.ERP.Domain.PurchaseOrders;
+﻿using Anchi.ERP.Domain.PurchaseOrders;
 using Anchi.ERP.Domain.PurchaseOrders.Filter;
+using Anchi.ERP.IRepository.Purchases;
+using Anchi.ERP.Repository.Products;
 using System;
 using System.Collections.Generic;
-using Anchi.ERP.IRepository.Purchases;
 
 namespace Anchi.ERP.Repository.Purchases
 {

@@ -15,10 +15,11 @@ namespace Anchi.ERP.IRepository.SaleOrders
         /// <param name="model"></param>
         void Outbound(SaleOrder model);
         /// <summary>
-        /// 反结算销售单
+        /// 取消销售单
         /// </summary>
         /// <param name="model"></param>
-        void Cancel(SaleOrder model);
+        /// <param name="order"></param>
+        void Cancel(SaleOrder model, FinanceOrder order);
         /// <summary>
         /// 结算销售单
         /// </summary>

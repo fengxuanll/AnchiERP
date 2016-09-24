@@ -41,7 +41,7 @@
     </a>
 </nav>
 
-<div class="page-container" ms-controller="EditPurchaseOrder">
+<div class="page-container ms-controller" ms-controller="EditPurchaseOrder">
     <div class="cl pd-5">
         <span class="l">
             @if (Model.Id == Guid.Empty || Model.Status == EnumPurchaseOrderStatus.Purchasing)
@@ -53,7 +53,7 @@
             @if (Model.Status == EnumPurchaseOrderStatus.Purchasing)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="setArrivalFn();">
-                    <i class="Hui-iconfont">&#xe6e2;</i>全部到货
+                    <i class="Hui-iconfont">&#xe6e2;</i>已到货
                 </a>
             }
             @if (Model.Status == EnumPurchaseOrderStatus.Completed && Model.SettlementStatus != EnumSettlementStatus.Completed)

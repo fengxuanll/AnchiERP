@@ -223,7 +223,10 @@ namespace Anchi.ERP.Service.SaleOrders
                 if (model == null)
                     continue;
 
-                SaleOrderRepository.Cancel(model);
+                var order = new FinanceOrder();
+                order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
+
+                SaleOrderRepository.Cancel(model, order);
             }
         }
         #endregion

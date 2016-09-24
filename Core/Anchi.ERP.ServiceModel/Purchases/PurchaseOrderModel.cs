@@ -14,7 +14,9 @@ namespace Anchi.ERP.ServiceModel.Purchases
         /// Id
         /// </summary>
         public Guid Id
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 编码
@@ -28,31 +30,49 @@ namespace Anchi.ERP.ServiceModel.Purchases
         /// 供应商名称
         /// </summary>
         public string SupplierName
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 采购人姓名
         /// </summary>
         public string PurchaseByName
-        { get; set; }
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 到货时间
+        /// </summary>
+        public DateTime ArrivalOn
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 开单时间
         /// </summary>
         public DateTime PurchaseOn
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 总金额
         /// </summary>
         public decimal Amount
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 采购单状态
         /// </summary>
         public EnumPurchaseOrderStatus Status
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 采购单状态名称
@@ -88,18 +108,24 @@ namespace Anchi.ERP.ServiceModel.Purchases
         /// 备注
         /// </summary>
         public string Remark
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算时间
         /// </summary>
         public DateTime SettlementOn
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 结算金额
         /// </summary>
         public decimal SettlementAmount
-        { get; set; }
+        {
+            get; set;
+        }
     }
 }

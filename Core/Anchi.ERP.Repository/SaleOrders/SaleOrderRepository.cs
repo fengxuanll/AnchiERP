@@ -219,12 +219,14 @@ namespace Anchi.ERP.Repository.SaleOrders
         /// 取消销售单
         /// </summary>
         /// <param name="model"></param>
-        public void Cancel(SaleOrder model)
+        /// <param name="order"></param>
+        public void Cancel(SaleOrder model, FinanceOrder order)
         {
             using (var context = DbContext.Open())
             {
                 using (var tran = context.BeginTransaction())
                 {
+                    #region 调整库存
                     foreach (var item in model.ProductList)
                     {
                         var product = item.Product;
@@ -252,6 +254,20 @@ namespace Anchi.ERP.Repository.SaleOrders
                             context.Update(product);
                         }
                     }
+                    #endregion
+
+                    #region 新增财务单
+                    if (model.SettlementAmount > 0)
+                    {   // 如果是结算过的销售单，增加相应的财务单
+                        order.Id = Guid.NewGuid();
+                        order.Type = EnumFinanceOrderType.PaymentCancelSale;
+                        order.RelationId = model.Id;
+                        order.Amount = model.SettlementAmount;
+                        order.CreatedOn = DateTime.Now;
+                        order.Remark = string.Format("取消销售单：{0}", model.Code);
+                        context.Insert(order);
+                    }
+                    #endregion
 
                     // 删除销售单配件
                     context.Delete<SaleOrderProduct>(rop => rop.SaleOrderId == model.Id);

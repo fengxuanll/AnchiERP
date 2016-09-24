@@ -192,7 +192,10 @@ namespace Anchi.ERP.Service.Repairs
                 if (model == null)
                     continue;
 
-                this.RepairOrderRepository.Cancel(model);
+                var order = new FinanceOrder();
+                order.Code = this.FinanceOrderRepository.GetSequenceNextCode();
+
+                this.RepairOrderRepository.Cancel(model, order);
             }
         }
         #endregion

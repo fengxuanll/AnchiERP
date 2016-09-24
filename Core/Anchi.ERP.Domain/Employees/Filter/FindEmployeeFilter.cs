@@ -34,11 +34,18 @@ namespace Anchi.ERP.Domain.Employees.Filter
                     sb.Append(" AND [Status] = @Status");
                     this.ParamDict["@Status"] = (int)this.Status.Value;
                 }
-                if (this.EntryOn.HasValue)
+                if (this.EntryOn != null)
                 {
-                    sb.Append(" AND [EntryOn] >= @EntryOnStart AND [EntryOn] < @EntryOnEnd");
-                    this.ParamDict["@EntryOnStart"] = this.EntryOn.Value.Date;
-                    this.ParamDict["@EntryOnEnd"] = this.EntryOn.Value.Date.AddDays(1);
+                    if (this.EntryOn.BeginTime.HasValue)
+                    {
+                        sb.Append(" AND [EntryOn] >= @EntryOnStart");
+                        this.ParamDict["@EntryOnStart"] = this.EntryOn.BeginTime.Value;
+                    }
+                    if (this.EntryOn.EndTime.HasValue)
+                    {
+                        sb.Append(" AND [EntryOn] < @EntryOnEnd");
+                        this.ParamDict["@EntryOnEnd"] = this.EntryOn.EndTime.Value.AddDays(1);
+                    }
                 }
 
                 return sb.ToString();
@@ -48,21 +55,33 @@ namespace Anchi.ERP.Domain.Employees.Filter
         /// <summary>
         /// 编码
         /// </summary>
-        public string Code { get; set; }
+        public string Code
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 姓名
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 员工状态
         /// </summary>
-        public EnumEmployeeStatus? Status { get; set; }
+        public EnumEmployeeStatus? Status
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 入职时间
         /// </summary>
-        public DateTime? EntryOn { get; set; }
+        public DateTimeFilter EntryOn
+        {
+            get; set;
+        }
     }
 }

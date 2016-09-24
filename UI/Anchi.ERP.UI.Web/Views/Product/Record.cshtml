@@ -6,12 +6,6 @@
 @using Anchi.ERP.Domain.Products.Enum;
 @using Anchi.ERP.Common.Extensions;
 
-<script type="text/javascript">
-    function selectSearchRecordOnFn() {
-        $vm.Search.RecordOn = $(arguments[0].el).val();
-    }
-</script>
-
 <nav class="breadcrumb">
     <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>配件出入库记录
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
@@ -19,7 +13,7 @@
     </a>
 </nav>
 
-<div class="page-container" ms-controller="ProductRecordList">
+<div class="page-container ms-controller" ms-controller="ProductRecordList">
     <div class="pd-5 search-bar">
         <form>
             <select ms-duplex="##Search.Type">
@@ -34,7 +28,10 @@
             </select>
             <input type="text" ms-duplex="##Search.Code" class="input-text ml-5" placeholder="配件编码" />
             <input type="text" ms-duplex="##Search.Name" class="input-text ml-5" placeholder="配件名称" />
-            <input type="text" id="txtSearchRecordOn" ms-duplex="##Search.RecordOn" class="input-text ml-5" placeholder="出入库时间" onclick="WdatePicker({ onpicked: selectSearchRecordOnFn, oncleared: selectSearchRecordOnFn });" />
+            出入库时间：
+            <input type="text" ms-duplex="##Search.RecordOn.BeginTime" class="input-text" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
+            至
+            <input type="text" ms-duplex="##Search.RecordOn.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
             <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
         </form>
     </div>

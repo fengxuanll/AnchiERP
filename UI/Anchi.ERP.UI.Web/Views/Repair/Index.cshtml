@@ -14,7 +14,7 @@
     </a>
 </nav>
 
-<div class="page-container" ms-controller="RepairOrderList">
+<div class="page-container ms-controller" ms-controller="RepairOrderList">
     <div class="pd-5 search-bar">
         <form>
             维修状态：
@@ -29,7 +29,7 @@
                 }
             </select>
             结算状态：
-            <select class="select-default ml-5" ms-duplex="##Search.SettlementStatus">
+            <select class="select-default" ms-duplex="##Search.SettlementStatus">
                 <option value="">请选择...</option>
                 @{
                     var settlementEnumList = EnumExtension.ToList(typeof(EnumSettlementStatus));
@@ -40,7 +40,7 @@
                 }
             </select>
             接待人：
-            <select class="select-default ml-5" ms-duplex="##Search.ReceptionById">
+            <select class="select-default" ms-duplex="##Search.ReceptionById">
                 <option value="">请选择...</option>
                 @foreach (var item in ViewBag.EmployeeList)
                 {
@@ -54,7 +54,8 @@
                 <option value="SettlementOn">结算时间</option>
             </select>
             <input type="text" ms-duplex="##Search.BeginTime" class="input-text ml-5" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
-            <input type="text" ms-duplex="##Search.EndTime" class="input-text ml-5" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
+            至
+            <input type="text" ms-duplex="##Search.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
             <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
         </form>
     </div>
@@ -82,18 +83,18 @@
                     </th>
                     <th width="30">序号</th>
                     <th width="120">编码</th>
-                    <th width="90">开单时间</th>
-                    <th width="90">客户</th>
+                    <th width="70">开单时间</th>
+                    <th width="70">客户</th>
                     <th width="90">车牌号</th>
-                    <th width="90">接待人</th>
-                    <th width="90">结算状态</th>
-                    <th width="90">应收金额</th>
-                    <th width="90">结算金额</th>
-                    <th width="90">完工时间</th>
-                    <th width="90">维修状态</th>
-                    <th width="90">结算时间</th>
+                    <th width="70">接待人</th>
+                    <th width="70">结算状态</th>
+                    <th width="70">应收金额</th>
+                    <th width="70">结算金额</th>
+                    <th width="70">完工时间</th>
+                    <th width="70">维修状态</th>
+                    <th width="70">结算时间</th>
                     <th>备注</th>
-                    <th width="100">操作</th>
+                    <th width="40">操作</th>
                 </tr>
             </thead>
             <tbody>

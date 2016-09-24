@@ -5,7 +5,10 @@
         Type: "",
         Code: "",
         Name: "",
-        RecordOn: ""
+        RecordOn: {
+            BeginTime: "",
+            EndTime: ""
+        }
     }
 });
 
@@ -36,4 +39,12 @@ function refreshListFn(pageIndex) {
             });
         }
     });
+}
+
+function selectSearchBeginTimeFn() {
+    $vm.Search.RecordOn.BeginTime = $(arguments[0].el).val();
+}
+
+function selectSearchEndTimeFn() {
+    $vm.Search.RecordOn.EndTime = $(arguments[0].el).val();
 }
