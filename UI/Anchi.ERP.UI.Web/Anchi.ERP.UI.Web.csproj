@@ -90,6 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Static\FontAwesome3.2.1\css\font-awesome-ie7.css" />
+    <Content Include="Static\FontAwesome3.2.1\css\font-awesome-ie7.min.css" />
+    <Content Include="Static\FontAwesome3.2.1\css\font-awesome.css" />
+    <Content Include="Static\FontAwesome3.2.1\css\font-awesome.min.css" />
+    <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.svg" />
     <Content Include="Static\hui.admin\css\H-ui.admin.css" />
     <Content Include="Static\hui.admin\css\H-ui.login.css" />
     <Content Include="Static\hui.admin\css\style.css" />
@@ -279,9 +284,6 @@
     <Content Include="Static\h-ui\images\verticalTab\tabNav_right.png" />
     <Content Include="Static\h-ui\images\verticalTab\tab_bg.png" />
     <Content Include="Static\h-ui\js\H-ui.js" />
-    <Content Include="Static\Hui-iconfont\1.0.7\demo.html" />
-    <Content Include="Static\Hui-iconfont\1.0.7\iconfont.css" />
-    <Content Include="Static\Hui-iconfont\1.0.7\iconfont.svg" />
     <Content Include="Static\Js\avalon2.1.5\avalon.min.js" />
     <Content Include="Static\Js\Business\Customers\Edit.js" />
     <Content Include="Static\Js\Business\Customers\List.js" />
@@ -383,9 +385,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Static\Hui-iconfont\1.0.7\iconfont.eot" />
-    <Content Include="Static\Hui-iconfont\1.0.7\iconfont.ttf" />
-    <Content Include="Static\Hui-iconfont\1.0.7\iconfont.woff" />
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\Repair\Edit.cshtml" />
     <Content Include="Views\Purchase\Edit.cshtml" />
@@ -417,6 +416,10 @@
     <Content Include="Views\Product\Record.cshtml" />
     <Content Include="Views\Product\WarningStock.cshtml" />
     <Content Include="Views\Finance\List.cshtml" />
+    <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.eot" />
+    <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.ttf" />
+    <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.woff" />
+    <Content Include="Static\FontAwesome3.2.1\font\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

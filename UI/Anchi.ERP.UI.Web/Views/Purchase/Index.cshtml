@@ -9,9 +9,9 @@
 @using Anchi.ERP.Common.Extensions;
 
 <nav class="breadcrumb">
-    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>采购管理<span class="c-gray en">&gt;</span>采购单管理
+    <i class="icon-home"></i>首页<span class="c-gray en">&gt;</span>采购管理<span class="c-gray en">&gt;</span>采购单管理
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i>
+        <i class="icon-refresh"></i>
     </a>
 </nav>
 
@@ -57,20 +57,22 @@
             <input type="text" ms-duplex="##Search.BeginTime" class="input-text ml-5" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
             至
             <input type="text" ms-duplex="##Search.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
-            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">
+                <i class="icon-search"></i>搜索
+            </button>
         </form>
     </div>
 
     <div class="cl pd-5">
         <span class="l">
             <a href="/Purchase/Add" class="btn">
-                <i class="Hui-iconfont">&#xe6e2;</i>新建
+                <i class="icon-plus"></i> 新建
             </a>
             <a href="javascript:;" class="btn" onclick="setArrivalFn();">
-                <i class="Hui-iconfont">&#xe6e2;</i>已到货
+                <i class="icon-ok"></i> 已到货
             </a>
             <a href="javascript:;" class="btn" onclick="cancelOrderFn();">
-                <i class="Hui-iconfont">&#xe6e2;</i>取消采购单
+                <i class="icon-trash"></i> 取消采购单
             </a>
         </span>
     </div>
@@ -120,7 +122,7 @@
                     <td>{{ item.Remark }}</td>
                     <td class="td-manage">
                         <a ms-attr="{href:'/Purchase/Edit/' + item.Id}" title="修改">
-                            <i class="Hui-iconfont">&#xe6df;</i>修改
+                            <i class="icon-edit"></i>修改
                         </a>
                     </td>
                 </tr>

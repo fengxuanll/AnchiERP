@@ -4,9 +4,9 @@
 }
 
 <nav class="breadcrumb">
-    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>供应商管理
+    <i class="icon-home"></i> 首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>供应商管理
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i>
+        <i class="icon-refresh"></i>
     </a>
 </nav>
 
@@ -15,16 +15,18 @@
         <form>
             <input type="text" ms-duplex="##Search.CompanyName" class="input-text" placeholder="公司名称" />
             <input type="text" ms-duplex="##Search.Contact" class="input-text ml-5" placeholder="联系人" />
-            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">
+                <i class="icon-search"></i> 搜索
+            </button>
         </form>
     </div>
     <div class="cl pd-5">
         <span class="l">
             <a href="javascript:;" class="btn" onclick="addSupplierFn();">
-                <i class="Hui-iconfont">&#xe6e2;</i>新增
+                <i class="icon-plus"></i> 新增
             </a>
             <a href="javascript:;" class="btn" onclick="deleteSelectedRowFn();">
-                <i class="Hui-iconfont">&#xe600;</i>删除
+                <i class="icon-trash"></i> 删除
             </a>
         </span>
     </div>
@@ -58,10 +60,10 @@
                     <td>{{ item.Remark }}</td>
                     <td class="td-manage">
                         <a href="javascript:;" title="修改" ms-click="##editSupplierFn(item);">
-                            <i class="Hui-iconfont">&#xe6df;</i>修改
+                            <i class="icon-edit"></i>修改
                         </a>
                         <a href="javascript:;" title="删除" ms-click="##deleteSupplierFn(item);">
-                            <i class="Hui-iconfont">&#xe6e2;</i>删除
+                            <i class="icon-trash"></i>删除
                         </a>
                     </td>
                 </tr>

@@ -10,9 +10,9 @@
 </script>
 
 <nav class="breadcrumb">
-    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>员工管理
+    <i class="icon-home"></i> 首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>员工管理
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i>
+        <i class="icon-refresh"></i>
     </a>
 </nav>
 
@@ -36,23 +36,25 @@
             <input type="text" ms-duplex="##Search.EntryOn.BeginTime" class="input-text" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
             至
             <input type="text" ms-duplex="##Search.EntryOn.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
-            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">
+                <i class="icon-search"></i> 搜索
+            </button>
         </form>
     </div>
 
     <div class="cl pd-5">
         <span class="l">
             <a href="javascript:;" class="btn" onclick="addEmployeeFn();">
-                <i class="Hui-iconfont">&#xe6e2;</i>新增
+                <i class="icon-plus"></i> 新增
             </a>
             <a href="javascript:;" class="btn" onclick="enableEmployeeFn();">
-                <i class="Hui-iconfont">&#xe600;</i>启用
+                <i class="icon-ok-circle"></i>启用
             </a>
             <a href="javascript:;" class="btn" onclick="disableEmployeeFn();">
-                <i class="Hui-iconfont">&#xe600;</i>停用
+                <i class="icon-remove-circle"></i>停用
             </a>
             <a href="javascript:;" class="btn" onclick="deleteSelectedRowFn();">
-                <i class="Hui-iconfont">&#xe600;</i>删除
+                <i class="icon-trash"></i> 删除
             </a>
         </span>
     </div>
@@ -96,10 +98,10 @@
                     <td>{{ item.Remark }}</td>
                     <td class="td-manage">
                         <a href="javascript:;" title="修改" ms-click="##editEmployeeFn(item);">
-                            <i class="Hui-iconfont">&#xe6df;</i>修改
+                            <i class="icon-edit"></i>修改
                         </a>
                         <a href="javascript:;" title="删除" ms-click="##deleteEmployeeFn(item);">
-                            <i class="Hui-iconfont">&#xe6e2;</i>删除
+                            <i class="icon-trash"></i>删除
                         </a>
                     </td>
                 </tr>

@@ -2753,7 +2753,7 @@ H-ui采用Font Awesome 3.2.1的整套图标，因为是图标字体，所以可�
 	Example:
 <nav class="breadcrumb">
   <div class="container">
-    <i class="Hui-iconfont">&#xe67f;</i> <a href="/" class="c-primary">首页</a><span class="c-gray en">&gt;</span><a href="#">组件</a><span class="c-gray en">&gt;</span><span class="c-gray">当前页面</span>
+    <i class="icon-home"></i>  <a href="/" class="c-primary">首页</a><span class="c-gray en">&gt;</span><a href="#">组件</a><span class="c-gray en">&gt;</span><span class="c-gray">当前页面</span>
   </div>
 </nav>
 */

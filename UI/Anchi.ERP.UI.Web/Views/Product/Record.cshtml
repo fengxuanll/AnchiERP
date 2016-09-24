@@ -7,9 +7,9 @@
 @using Anchi.ERP.Common.Extensions;
 
 <nav class="breadcrumb">
-    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>配件出入库记录
+    <i class="icon-home"></i> 首页<span class="c-gray en">&gt;</span>报表<span class="c-gray en">&gt;</span>配件出入库记录
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i>
+        <i class="icon-refresh"></i>
     </a>
 </nav>
 
@@ -32,7 +32,9 @@
             <input type="text" ms-duplex="##Search.RecordOn.BeginTime" class="input-text" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
             至
             <input type="text" ms-duplex="##Search.RecordOn.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
-            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">搜索</button>
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">
+                <i class="icon-search"></i> 搜索
+            </button>
         </form>
     </div>
 

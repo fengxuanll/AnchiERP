@@ -182,7 +182,7 @@ h4 {
     .Hui-aside .menu_dropdown dt .menu_dropdown-arrow {
         position: absolute;
         overflow: hidden;
-        top: 0;
+        top: 11px;
         right: 15px;
         transition-duration: 0.3s;
         transition-property: all;

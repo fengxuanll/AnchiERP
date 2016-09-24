@@ -40,9 +40,9 @@
 </script>
 
 <nav class="breadcrumb">
-    <i class="Hui-iconfont">&#xe67f;</i>首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>编辑销售单
+    <i class="icon-home"></i> 首页<span class="c-gray en">&gt;</span>系统资料<span class="c-gray en">&gt;</span>编辑销售单
     <a class="btn radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="Hui-iconfont">&#xe68f;</i>
+        <i class="icon-refresh"></i>
     </a>
 </nav>
 
@@ -52,25 +52,25 @@
             @if (Model.Id == Guid.Empty || Model.Status == EnumSaleOrderStatus.Initial)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="saveSaleOrderFn();">
-                    <i class="Hui-iconfont">&#xe6e2;</i>保存
+                    <i class="icon-save"></i> 保存
                 </a>
             }
             @if (Model.Status == EnumSaleOrderStatus.Initial)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="setOutboundFn();">
-                    <i class="Hui-iconfont">&#xe6e2;</i>全部出库
+                    <i class="icon-ok"></i> 已出库
                 </a>
             }
             @if (Model.Status == EnumSaleOrderStatus.Outbound && Model.SettlementStatus != EnumSettlementStatus.Completed)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="showSettlementFn();">
-                    <i class="Hui-iconfont">&#xe6e2;</i>结算
+                    <i class="icon-credit-card"></i> 结算
                 </a>
             }
             @if (Model.Id != Guid.Empty)
             {
                 <a href="javascript:;" class="btn btn-primary" onclick="cancelOrderFn();">
-                    <i class="Hui-iconfont">&#xe6e2;</i>取消
+                    <i class="icon-trash"></i> 取消
                 </a>
             }
         </span>
