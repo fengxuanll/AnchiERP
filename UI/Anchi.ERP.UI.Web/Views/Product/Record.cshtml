@@ -46,10 +46,11 @@
                     <th width="100">编码</th>
                     <th width="100">名称</th>
                     <th width="90">出入库类型</th>
-                    <th width="90">出入库时间</th>
+                    <th width="120">出入库时间</th>
                     <th width="90">当前库存</th>
                     <th width="150">出入库前库存数量</th>
                     <th width="90">出入库数量</th>
+                    <th>备注</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +63,7 @@
                     <td>{{ item.Stock }}</td>
                     <td>{{ item.QuantityBefore }}</td>
                     <td>{{ item.Quantity }}</td>
+                    <td>{{ item.Remark }}</td>
                 </tr>
             </tbody>
             <tfoot>

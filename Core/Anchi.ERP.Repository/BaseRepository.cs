@@ -18,7 +18,10 @@ namespace Anchi.ERP.Repository
             this.DbContext = new AnchiDbContext();
         }
 
-        protected AnchiDbContext DbContext { get; }
+        protected AnchiDbContext DbContext
+        {
+            get;
+        }
 
         #region 根据ID获取数据
         /// <summary>
@@ -128,10 +131,18 @@ namespace Anchi.ERP.Repository
             var result = new PagedQueryResult<TModel>();
 
             var sql = filter.SQL;
+
+            // 设置排序
+            var orderBy = " ORDER BY";
+            if (string.IsNullOrWhiteSpace(filter.OrderBy))
+                orderBy += " CreatedOn DESC";
+            else
+                orderBy += string.Format(" {0} {1}", filter.OrderBy, filter.Sort.ToString());
+
             using (var context = DbContext.Open())
             {
-                var pagedSql = string.Format("SELECT * FROM ({0}) temp LIMIT {1} OFFSET {2}",
-                                        filter.SQL, filter.PageSize, filter.PageSize * filter.PageIndex);
+                var pagedSql = string.Format("SELECT * FROM ({0}{1}) temp LIMIT {2} OFFSET {3}",
+                                        filter.SQL, orderBy, filter.PageSize, filter.PageSize * filter.PageIndex);
                 result.Data = context.SqlList<TModel>(pagedSql, filter.ParamDict);
 
                 var countSql = string.Format("SELECT COUNT(1) FROM ({0}) AS temp", sql);
@@ -159,7 +170,14 @@ namespace Anchi.ERP.Repository
         {
             var result = new List<TModel>();
 
-            var sql = filter.SQL;
+            // 设置排序
+            var orderBy = " ORDER BY";
+            if (string.IsNullOrWhiteSpace(filter.OrderBy))
+                orderBy += " CreatedOn DESC";
+            else
+                orderBy += string.Format(" {0} {1}", filter.OrderBy, filter.Sort.ToString());
+
+            var sql = filter.SQL + orderBy;
             using (var context = DbContext.Open())
             {
                 result = context.SqlList<TModel>(sql, filter.ParamDict);

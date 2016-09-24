@@ -200,6 +200,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                             QuantityBefore = product.Stock,
                             CreatedOn = DateTime.Now,
                             RecordOn = model.OutboundOn,
+                            Remark = string.Format("销售单：{0} 出库", model.Code),
                         };
                         context.Insert(record);
 
@@ -246,6 +247,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                                 RecordOn = DateTime.Now,
                                 RelationId = model.Id,
                                 Type = EnumStockRecordType.CancelSale,
+                                Remark = string.Format("取消销售单：{0}", model.Code),
                             };
                             context.Insert(record);
 
@@ -260,7 +262,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                     if (model.SettlementAmount > 0)
                     {   // 如果是结算过的销售单，增加相应的财务单
                         order.Id = Guid.NewGuid();
-                        order.Type = EnumFinanceOrderType.PaymentCancelSale;
+                        order.Type = EnumFinanceOrderType.CancelSale;
                         order.RelationId = model.Id;
                         order.Amount = model.SettlementAmount;
                         order.CreatedOn = DateTime.Now;
@@ -301,7 +303,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                     order.Id = order.Id == Guid.Empty ? Guid.NewGuid() : order.Id;
                     order.RelationId = model.Id;
                     order.CreatedOn = model.SettlementOn;
-                    order.Type = EnumFinanceOrderType.ReceiptSale;
+                    order.Type = EnumFinanceOrderType.Sale;
                     context.Insert(order);
 
                     tran.Commit();

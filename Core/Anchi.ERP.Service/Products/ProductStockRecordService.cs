@@ -1,8 +1,8 @@
-﻿using Anchi.ERP.Common.Filter;
+﻿using Anchi.ERP.Common.Extensions;
+using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.Products;
 using Anchi.ERP.IRepository.Products;
 using Anchi.ERP.Repository.Products;
-using Anchi.ERP.Service.Products;
 using Anchi.ERP.ServiceModel.Products;
 using System.Collections.Generic;
 
@@ -22,8 +22,14 @@ namespace Anchi.ERP.Service.Products
             this.ProductService = productService;
         }
 
-        IProductStockRecordRepository ProductStockRecordRepository { get; }
-        ProductService ProductService { get; }
+        IProductStockRecordRepository ProductStockRecordRepository
+        {
+            get;
+        }
+        ProductService ProductService
+        {
+            get;
+        }
         #endregion
 
         #region 查找出入库记录列表
@@ -46,10 +52,11 @@ namespace Anchi.ERP.Service.Products
                     Stock = product == null ? 0 : product.Stock,
                     ProductCode = product == null ? string.Empty : product.Code,
                     ProductName = product == null ? string.Empty : product.Name,
-                    Quantity = item.Quantity,
+                    Quantity = item.Type.GetDisplayGroupName() == "In" ? item.Quantity : 0 - item.Quantity,
                     QuantityBefore = item.QuantityBefore,
                     RecordOn = item.RecordOn,
                     Type = item.Type,
+                    Remark = item.Remark,
                 };
                 modelList.Add(model);
             }

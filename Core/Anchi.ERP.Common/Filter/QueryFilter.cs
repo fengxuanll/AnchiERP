@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Anchi.ERP.Common.Filter.Enum;
+using System.Collections.Generic;
 
 namespace Anchi.ERP.Common.Filter
 {
@@ -13,6 +14,22 @@ namespace Anchi.ERP.Common.Filter
         public abstract string SQL
         {
             get;
+        }
+
+        /// <summary>
+        /// 排序字段
+        /// </summary>
+        public virtual string OrderBy
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 排序方向  ASC/DESC
+        /// </summary>
+        public EnumOrderbySort Sort
+        {
+            get; set;
         }
 
         private IDictionary<string, object> paramDict;

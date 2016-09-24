@@ -6,6 +6,7 @@ using Anchi.ERP.Repository.Finances;
 using Anchi.ERP.Service.Purchases;
 using Anchi.ERP.Service.Repairs;
 using Anchi.ERP.Service.SaleOrders;
+using Anchi.ERP.Common.Extensions;
 using Anchi.ERP.ServiceModel.Finances;
 
 namespace Anchi.ERP.Service.Finances
@@ -75,21 +76,21 @@ namespace Anchi.ERP.Service.Finances
                 model.Code = item.Code;
                 model.Type = item.Type;
                 model.RelationId = item.RelationId;
-                model.Amount = item.Amount;
+                model.Amount = item.Type.GetDisplayGroupName() == "Receipt" ? item.Amount : 0 - item.Amount;
                 model.Remark = item.Remark;
                 model.CreatedOn = item.CreatedOn;
 
                 switch (item.Type)
                 {
-                    case EnumFinanceOrderType.PaymentPurchase:
+                    case EnumFinanceOrderType.Purchase:
                         var purchaseOrder = PurchaseService.Get(item.RelationId);
                         model.RelationCode = purchaseOrder == null ? null : purchaseOrder.Code;
                         break;
-                    case EnumFinanceOrderType.ReceiptRepair:
+                    case EnumFinanceOrderType.Repair:
                         var repairOrder = RepairOrderService.Get(item.RelationId);
                         model.RelationCode = repairOrder == null ? null : repairOrder.Code;
                         break;
-                    case EnumFinanceOrderType.ReceiptSale:
+                    case EnumFinanceOrderType.Sale:
                         var saleOrder = SaleOrderService.Get(item.RelationId);
                         model.RelationCode = saleOrder == null ? null : saleOrder.Code;
                         break;

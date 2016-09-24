@@ -14,7 +14,9 @@ namespace Anchi.ERP.Domain.Products
         /// 关联对象ID
         /// </summary>
         public Guid RelationId
-        { get; set; }
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 配件ID
@@ -72,6 +74,14 @@ namespace Anchi.ERP.Domain.Products
         /// 库存记录类型
         /// </summary>
         public EnumStockRecordType Type
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark
         {
             get; set;
         }

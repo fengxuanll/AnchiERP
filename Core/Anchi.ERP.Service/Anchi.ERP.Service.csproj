@@ -48,7 +48,7 @@
     <Compile Include="Customers\CustomerService.cs" />
     <Compile Include="Employees\EmployeeService.cs" />
     <Compile Include="Finances\FinanceOrderService.cs" />
-    <Compile Include="Projects\ProductStockRecordService.cs" />
+    <Compile Include="Products\ProductStockRecordService.cs" />
     <Compile Include="Products\ProductService.cs" />
     <Compile Include="Projects\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -82,6 +82,7 @@ Create Table [ProductStockRecord](
 	[QuantityBefore] int NOT NULL,
 	[Quantity] int NOT NULL,
 	[CreatedOn] datetime NOT NULL,
+	[Remark] nvarchar(1000) NULL,
 	FOREIGN KEY([ProductId]) REFERENCES [Product]([Id])
 );
 

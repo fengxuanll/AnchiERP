@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Anchi.ERP.Common.Filter.Enum
+﻿namespace Anchi.ERP.Common.Filter.Enum
 {
     /// <summary>
     /// 排序方向
     /// </summary>
-    public enum EnumOrderbySort : Byte
+    public enum EnumOrderbySort
     {
         /// <summary>
         /// 正序

@@ -212,6 +212,7 @@ namespace Anchi.ERP.Repository.Repairs
                             QuantityBefore = product.Stock,
                             CreatedOn = DateTime.Now,
                             RecordOn = model.CompleteOn,
+                            Remark = string.Format("维修单：{0} 完工", model.Code),
                         };
                         context.Insert(record);
 
@@ -258,6 +259,7 @@ namespace Anchi.ERP.Repository.Repairs
                                 RecordOn = DateTime.Now,
                                 RelationId = model.Id,
                                 Type = EnumStockRecordType.CancelRepair,
+                                Remark = string.Format("取消维修单：{0}", model.Code),
                             };
                             context.Insert(record);
 
@@ -273,7 +275,7 @@ namespace Anchi.ERP.Repository.Repairs
                     {   // 如果是结算过的维修单，增加相应的财务单
                         order.Id = Guid.NewGuid();
                         order.Amount = model.SettlementAmount;
-                        order.Type = EnumFinanceOrderType.PaymentCancelRepair;
+                        order.Type = EnumFinanceOrderType.CancelRepair;
                         order.CreatedOn = DateTime.Now;
                         order.RelationId = model.Id;
                         order.Remark = string.Format("取消维修单：{0}", model.Code);
@@ -313,7 +315,7 @@ namespace Anchi.ERP.Repository.Repairs
                     order.Id = order.Id == Guid.Empty ? Guid.NewGuid() : order.Id;
                     order.RelationId = model.Id;
                     order.CreatedOn = model.SettlementOn;
-                    order.Type = EnumFinanceOrderType.ReceiptRepair;
+                    order.Type = EnumFinanceOrderType.Repair;
                     context.Insert(order);
 
                     tran.Commit();

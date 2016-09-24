@@ -1,6 +1,4 @@
-﻿using Anchi.ERP.Common.Filter.Enum;
-
-namespace Anchi.ERP.Common.Filter
+﻿namespace Anchi.ERP.Common.Filter
 {
     /// <summary>
     /// 分页查询筛选器
@@ -30,22 +28,6 @@ namespace Anchi.ERP.Common.Filter
         /// 当前页索引，从0开始
         /// </summary>
         public int PageIndex
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 排序字段
-        /// </summary>
-        public string OrderBy
-        {
-            get; set;
-        }
-
-        /// <summary>
-        /// 排序方向  ASC/DESC
-        /// </summary>
-        public EnumOrderbySort Sort
         {
             get; set;
         }

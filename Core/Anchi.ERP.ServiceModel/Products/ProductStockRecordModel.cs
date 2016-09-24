@@ -83,5 +83,13 @@ namespace Anchi.ERP.ServiceModel.Products
                 return Type.GetDisplayName();
             }
         }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Remark
+        {
+            get; set;
+        }
     }
 }

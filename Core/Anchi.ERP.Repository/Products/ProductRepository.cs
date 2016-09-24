@@ -29,12 +29,13 @@ namespace Anchi.ERP.Repository.Products
                     {
                         Id = Guid.NewGuid(),
                         ProductId = model.Id,
-                        Quantity = stockDiff,
+                        Quantity = Math.Abs(stockDiff),
                         QuantityBefore = temp.Stock,
                         RelationId = model.Id,
                         Type = stockDiff > 0 ? EnumStockRecordType.ModifyStockIn : EnumStockRecordType.ModifyStockOut,
                         RecordOn = DateTime.Now,
                         CreatedOn = DateTime.Now,
+                        Remark = "修改配件",
                     };
                     context.Insert(record);
                 }

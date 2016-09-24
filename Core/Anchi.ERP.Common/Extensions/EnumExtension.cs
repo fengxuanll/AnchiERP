@@ -54,6 +54,28 @@ namespace Anchi.ERP.Common.Extensions
         }
         #endregion
 
+        #region 获取枚举Display特性中的GroupName属性
+        /// <summary>
+        /// 获取枚举Display特性中的GroupName属性
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public static string GetDisplayGroupName(this Enum e)
+        {
+            Type type = e.GetType();
+            var enumField = type.GetField(e.ToString());
+            if (enumField == null)
+                return null;
+
+            var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
+            if (displayAttributes == null || !displayAttributes.Any())
+                return null;
+
+            var displayItem = displayAttributes.First() as DisplayAttribute;
+            return displayItem == null ? null : displayItem.GroupName;
+        }
+        #endregion
+
         #region 将枚举转换为集合
         /// <summary>
         /// 将枚举转换为集合
@@ -84,6 +106,7 @@ namespace Anchi.ERP.Common.Extensions
                         {
                             pairItem.DisplayName = displayItem.Name;
                             pairItem.DisplayDescription = displayItem.Description;
+                            pairItem.DisplayGroupName = displayItem.GroupName;
                         }
                     }
                 }
@@ -129,6 +152,14 @@ namespace Anchi.ERP.Common.Extensions
         /// 枚举描述
         /// </summary>
         public string DisplayDescription
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// 枚举分组
+        /// </summary>
+        public string DisplayGroupName
         {
             get; set;
         }

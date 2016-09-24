@@ -187,6 +187,7 @@ namespace Anchi.ERP.Repository.Purchases
                             QuantityBefore = product.Stock,
                             CreatedOn = DateTime.Now,
                             RecordOn = model.ArrivalOn,
+                            Remark = string.Format("采购单：{0} 到货", model.Code),
                         };
                         context.Insert(record);
 
@@ -228,11 +229,12 @@ namespace Anchi.ERP.Repository.Purchases
                                 Id = Guid.NewGuid(),
                                 CreatedOn = DateTime.Now,
                                 ProductId = product.Id,
-                                Quantity = 0 - item.Quantity,
+                                Quantity = item.Quantity,
                                 QuantityBefore = product.Stock,
                                 RecordOn = DateTime.Now,
                                 RelationId = model.Id,
                                 Type = EnumStockRecordType.CancelPurchase,
+                                Remark = string.Format("取消采购单：{0}", model.Code),
                             };
                             context.Insert(record);
 
@@ -249,7 +251,7 @@ namespace Anchi.ERP.Repository.Purchases
                         // 如果已经结算过，增加取消采购单的财务单
                         order.Id = Guid.NewGuid();
                         order.Amount = model.SettlementAmount;
-                        order.Type = EnumFinanceOrderType.ReceiptCancelPurchase;
+                        order.Type = EnumFinanceOrderType.CancelPurchase;
                         order.CreatedOn = DateTime.Now;
                         order.RelationId = model.Id;
                         order.Remark = order.Remark ?? string.Format("取消采购单：{0}", model.Code);
@@ -289,7 +291,7 @@ namespace Anchi.ERP.Repository.Purchases
                     order.Id = order.Id == Guid.Empty ? Guid.NewGuid() : order.Id;
                     order.RelationId = model.Id;
                     order.CreatedOn = model.SettlementOn;
-                    order.Type = EnumFinanceOrderType.PaymentPurchase;
+                    order.Type = EnumFinanceOrderType.Purchase;
                     context.Insert(order);
 
                     tran.Commit();
