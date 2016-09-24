@@ -10,6 +10,7 @@ namespace Anchi.ERP.Domain.Employees.Filter
     /// </summary>
     public class FindEmployeeFilter : PagedQueryFilter
     {
+        #region 要执行的SQL
         /// <summary>
         /// 要执行的SQL
         /// </summary>
@@ -21,12 +22,12 @@ namespace Anchi.ERP.Domain.Employees.Filter
 
                 if (!string.IsNullOrWhiteSpace(this.Code))
                 {
-                    sb.Append(" AND [Code] = @Code");
+                    sb.Append(" AND CHARINDEX(@Code, [Code])");
                     this.ParamDict["@Code"] = this.Code;
                 }
                 if (!string.IsNullOrWhiteSpace(this.Name))
                 {
-                    sb.Append(" AND [Name] = @Name");
+                    sb.Append(" AND CHARINDEX(@Name, [Name])");
                     this.ParamDict["@Name"] = this.Name;
                 }
                 if (this.Status.HasValue)
@@ -51,6 +52,7 @@ namespace Anchi.ERP.Domain.Employees.Filter
                 return sb.ToString();
             }
         }
+        #endregion
 
         /// <summary>
         /// 编码

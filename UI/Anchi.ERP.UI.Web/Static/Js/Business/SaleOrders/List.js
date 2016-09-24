@@ -4,6 +4,7 @@
     Search: {
         SaleById: "",
         Status: "",
+        Customer: "",
         SettlementStatus: "",
         TimeType: "",
         BeginTime: "",

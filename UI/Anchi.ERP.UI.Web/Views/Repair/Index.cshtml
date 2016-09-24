@@ -17,9 +17,8 @@
 <div class="page-container ms-controller" ms-controller="RepairOrderList">
     <div class="pd-5 search-bar">
         <form>
-            维修状态：
             <select class="select-default" ms-duplex="##Search.Status">
-                <option value="">请选择...</option>
+                <option value="">维修状态</option>
                 @{
                     var enumList = EnumExtension.ToList(typeof(EnumRepairOrderStatus));
                     foreach (var item in enumList)
@@ -28,9 +27,8 @@
                     }
                 }
             </select>
-            结算状态：
-            <select class="select-default" ms-duplex="##Search.SettlementStatus">
-                <option value="">请选择...</option>
+            <select class="select-default ml-5" ms-duplex="##Search.SettlementStatus">
+                <option value="">结算状态</option>
                 @{
                     var settlementEnumList = EnumExtension.ToList(typeof(EnumSettlementStatus));
                     foreach (var item in settlementEnumList)
@@ -39,23 +37,22 @@
                     }
                 }
             </select>
-            接待人：
-            <select class="select-default" ms-duplex="##Search.ReceptionById">
-                <option value="">请选择...</option>
+            <input type="text" ms-duplex="##Search.Customer" class="input-text ml-5" placeholder="客户姓名、车牌号" />
+            <select class="select-default ml-5" ms-duplex="##Search.ReceptionById">
+                <option value="">接待人</option>
                 @foreach (var item in ViewBag.EmployeeList)
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
             </select>
             <select class="select-default ml-5" ms-duplex="##Search.TimeType">
-                <option value="">请选择...</option>
+                <option value="">时间</option>
                 <option value="RepairOn">开单时间</option>
                 <option value="CompleteOn">完工时间</option>
                 <option value="SettlementOn">结算时间</option>
             </select>
             <input type="text" ms-duplex="##Search.BeginTime" class="input-text ml-5" placeholder="开始时间" onclick="WdatePicker({ onpicked: selectSearchBeginTimeFn, oncleared: selectSearchBeginTimeFn });" />
-            至
-            <input type="text" ms-duplex="##Search.EndTime" class="input-text" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
+            <input type="text" ms-duplex="##Search.EndTime" class="input-text ml-5" placeholder="结束时间" onclick="WdatePicker({ onpicked: selectSearchEndTimeFn, oncleared: selectSearchEndTimeFn });" />
             <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5">
                 <i class="icon-search"></i> 搜索
             </button>

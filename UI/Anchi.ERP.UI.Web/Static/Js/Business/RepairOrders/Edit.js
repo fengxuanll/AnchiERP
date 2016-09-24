@@ -8,7 +8,7 @@ function showSelectProjectFn() {
         maxmin: true,
         title: "选择维修项目",
         skin: 'layui-layer-rim',
-        area: ['600px', '500px'],
+        area: ['600px', '570px'],
         content: '/Project/SelectRepairProject'
     });
 }
@@ -30,7 +30,7 @@ function showSelectProductFn() {
         maxmin: true,
         title: "选择配件",
         skin: 'layui-layer-rim',
-        area: ['600px', '500px'],
+        area: ['600px', '570px'],
         content: '/Product/SelectRepairProduct'
     });
 }
@@ -51,7 +51,7 @@ function showSelectCustomerFn() {
         maxmin: true,
         title: "选择客户",
         skin: 'layui-layer-rim',
-        area: ['600px', '500px'],
+        area: ['600px', '570px'],
         content: '/Customer/SelectCustomer'
     });
 }

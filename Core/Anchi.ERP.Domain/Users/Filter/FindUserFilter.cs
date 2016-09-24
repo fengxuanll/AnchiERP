@@ -9,6 +9,7 @@ namespace Anchi.ERP.Domain.Users.Filter
     /// </summary>
     public class FindUserFilter : PagedQueryFilter
     {
+        #region 要执行的SQL
         /// <summary>
         /// 要执行的SQL
         /// </summary>
@@ -19,12 +20,12 @@ namespace Anchi.ERP.Domain.Users.Filter
                 var sb = new StringBuilder("SELECT * FROM [User] WHERE 1 = 1");
                 if (!string.IsNullOrWhiteSpace(this.TrueName))
                 {
-                    sb.AppendLine(" AND [TrueName] = @TrueName");
+                    sb.Append(" AND CHARINDEX(@TrueName, [TrueName])");
                     this.ParamDict["@TrueName"] = this.TrueName;
                 }
                 if (!string.IsNullOrWhiteSpace(this.LoginName))
                 {
-                    sb.AppendLine(" AND [LoginName] = @LoginName");
+                    sb.Append(" AND CHARINDEX(@LoginName, [LoginName])");
                     this.ParamDict["@LoginName"] = this.LoginName;
                 }
                 if (!string.IsNullOrWhiteSpace(this.PassWord))
@@ -41,6 +42,7 @@ namespace Anchi.ERP.Domain.Users.Filter
                 return sb.ToString();
             }
         }
+        #endregion
 
         /// <summary>
         /// 真实姓名

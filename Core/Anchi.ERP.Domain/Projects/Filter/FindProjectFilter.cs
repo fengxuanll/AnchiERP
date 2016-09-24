@@ -8,6 +8,7 @@ namespace Anchi.ERP.Domain.Projects.Filter
     /// </summary>
     public class FindProjectFilter : PagedQueryFilter
     {
+        #region 要执行的SQL
         /// <summary>
         /// 要执行的SQL
         /// </summary>
@@ -19,18 +20,19 @@ namespace Anchi.ERP.Domain.Projects.Filter
 
                 if (!string.IsNullOrWhiteSpace(this.Code))
                 {
-                    sb.Append(" AND [Code] = @Code");
+                    sb.Append(" AND CHARINDEX(@Code, [Code])");
                     this.ParamDict["@Code"] = this.Code;
                 }
                 if (!string.IsNullOrWhiteSpace(this.Name))
                 {
-                    sb.Append(" AND [Name] = @Name");
+                    sb.Append(" AND CHARINDEX(@Name, [Name])");
                     this.ParamDict["@Name"] = this.Name;
                 }
 
                 return sb.ToString();
             }
         }
+        #endregion
 
         /// <summary>
         /// 项目编码

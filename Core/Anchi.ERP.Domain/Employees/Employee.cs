@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Common;
+﻿using Anchi.ERP.Common.Data;
 using Anchi.ERP.Domain.Employees.Enum;
 using System;
 

@@ -2,31 +2,41 @@
     ViewBag.Title = "选择供应商";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="page-container">
-    <table class="table table-border table-bordered table-bg ms-controller" ms-controller="SupplierList">
-        <thead>
-            <tr class="text-c">
-                <th width="30">序号</th>
-                <th width="150">供应商名称</th>
-                <th width="150">联系人</th>
-                <th width="150">联系电话</th>
-                <th width="40">操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-c" ms-for="($index, item) in ##List">
-                <td>{{ $index + 1 }}</td>
-                <td>{{ item.CompanyName }}</td>
-                <td>{{ item.Contact }}</td>
-                <td>{{ item.Tel }}</td>
-                <td>
-                    <a href="javascript:void(0);" ms-click="##selectSupplierFn(item);">选择</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="divPager" class="mt-10"></div>
+<div class="page-container ms-controller" ms-controller="SupplierList">
+    <div class="pd-5 search-bar">
+        <form>
+            <input type="text" ms-duplex="##Search.CompanyName" class="input-text" placeholder="名称" />
+            <input type="text" ms-duplex="##Search.Contact" class="input-text ml-5" placeholder="联系人" />
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5 btn-reset">
+                <i class="icon-search"></i> 搜索
+            </button>
+        </form>
+    </div>
+    <div class="cl pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="30">序号</th>
+                    <th width="150">供应商名称</th>
+                    <th width="150">联系人</th>
+                    <th width="150">联系电话</th>
+                    <th width="40">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.CompanyName }}</td>
+                    <td>{{ item.Contact }}</td>
+                    <td>{{ item.Tel }}</td>
+                    <td>
+                        <a href="javascript:void(0);" ms-click="##selectSupplierFn(item);">选择</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="divPager" class="mt-10"></div>
+    </div>
 </div>
 
 @section foot{
@@ -36,6 +46,10 @@
 <script type="text/javascript">
     var $vm = avalon.define({
         $id: "SupplierList",
+        Search: {
+            CompanyName: "",
+            Contact: ""
+        },
         List: [],
         selectSupplierFn: function (item) {
             parent.selectSupplierFn(item);
@@ -44,13 +58,13 @@
     });
 
     function refreshListFn(pageIndex) {
+        var postData = $vm.Search.$model;
+        postData.PageIndex = pageIndex || 0;
+        postData.PageSize = 10;
         $.ajax({
             url: "/Supplier/List",
             type: "POST",
-            data: {
-                PageIndex: pageIndex || 0,
-                PageSize: 10
-            },
+            data: postData,
             success: function (data) {
                 $vm.List = data.Data;
                 laypage({

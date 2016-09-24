@@ -19,17 +19,24 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
         {
             get
             {
-                var sb = new StringBuilder("SELECT * FROM [SaleOrder] WHERE 1 = 1");
+                var sb = new StringBuilder("SELECT so.* FROM [SaleOrder] so");
+                if (!string.IsNullOrWhiteSpace(this.Customer))
+                {
+                    sb.Append(" JOIN [Customer] c ON c.Id = so.CustomerId");
+                    sb.Append(" AND (CHARINDEX(@Customer, c.Name) OR CHARINDEX(@Customer, c.CarNumber))");
+                    this.ParamDict["@Customer"] = this.Customer;
+                }
+                sb.Append(" WHERE 1 = 1");
                 if (this.SaleOn != null)
                 {
                     if (this.SaleOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [SaleOn] >= @SaleOnStart");
+                        sb.Append(" AND so.[SaleOn] >= @SaleOnStart");
                         this.ParamDict["@SaleOnStart"] = this.SaleOn.BeginTime.Value;
                     }
                     if (this.SaleOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [SaleOn] < @SaleOnEnd");
+                        sb.Append(" AND so.[SaleOn] < @SaleOnEnd");
                         this.ParamDict["@SaleOnEnd"] = this.SaleOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
@@ -37,12 +44,12 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
                 {
                     if (this.OutboundOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [OutboundOn] >= @OutboundOnStart");
+                        sb.Append(" AND so.[OutboundOn] >= @OutboundOnStart");
                         this.ParamDict["@OutboundOnStart"] = this.OutboundOn.BeginTime.Value;
                     }
                     if (this.OutboundOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [OutboundOn] < @OutboundOnEnd");
+                        sb.Append(" AND so.[OutboundOn] < @OutboundOnEnd");
                         this.ParamDict["@OutboundOnEnd"] = this.OutboundOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
@@ -50,33 +57,33 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
                 {
                     if (this.SettlementOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [SettlementOn] >= @SettlementOnStart");
+                        sb.Append(" AND so.[SettlementOn] >= @SettlementOnStart");
                         this.ParamDict["@SettlementOnStart"] = this.SettlementOn.BeginTime.Value;
                     }
                     if (this.SettlementOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [SettlementOn] < @SettlementOnEnd");
+                        sb.Append(" AND so.[SettlementOn] < @SettlementOnEnd");
                         this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
                 if (this.Status.HasValue)
                 {
-                    sb.Append(" AND Status = @Status");
+                    sb.Append(" AND so.[Status] = @Status");
                     this.ParamDict["@Status"] = (byte)this.Status.Value;
                 }
                 if (this.SettlementStatus.HasValue)
                 {
-                    sb.Append(" AND SettlementStatus = @SettlementStatus");
+                    sb.Append(" AND so.[SettlementStatus] = @SettlementStatus");
                     this.ParamDict["@SettlementStatus"] = (byte)this.SettlementStatus.Value;
                 }
                 if (this.CustomerId.HasValue)
                 {
-                    sb.Append(" AND CustomerId = @CustomerId");
+                    sb.Append(" AND so.[CustomerId] = @CustomerId");
                     this.ParamDict["@CustomerId"] = this.CustomerId.Value;
                 }
                 if (this.SaleById.HasValue)
                 {
-                    sb.Append(" AND SaleById = @SaleById");
+                    sb.Append(" AND so.[SaleById] = @SaleById");
                     this.ParamDict["@SaleById"] = this.SaleById.Value;
                 }
 
@@ -84,6 +91,14 @@ namespace Anchi.ERP.Domain.SaleOrders.Filter
             }
         }
         #endregion
+
+        /// <summary>
+        /// 客户姓名或者车牌号
+        /// </summary>
+        public string Customer
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 销售人ID

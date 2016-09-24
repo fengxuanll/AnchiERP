@@ -4,8 +4,9 @@
     Search: {
         PurchaseById: "",
         Status: "",
+        Supplier: "",
         SettlementStatus: "",
-        TimeType:"",
+        TimeType: "",
         BeginTime: "",
         EndTime: ""
     }

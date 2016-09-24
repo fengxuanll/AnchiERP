@@ -18,17 +18,24 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
         {
             get
             {
-                var sb = new StringBuilder("SELECT * FROM [RepairOrder] WHERE 1 = 1");
+                var sb = new StringBuilder("SELECT ro.* FROM [RepairOrder] ro");
+                if (!string.IsNullOrWhiteSpace(this.Customer))
+                {
+                    sb.Append(" JOIN [Customer] c ON c.Id = ro.CustomerId");
+                    sb.Append(" AND (CHARINDEX(@Customer, c.Name) OR CHARINDEX(@Customer, c.CarNumber))");
+                    this.ParamDict["@Customer"] = this.Customer;
+                }
+                sb.Append(" WHERE 1 = 1");
                 if (this.RepairOn != null)
                 {
                     if (this.RepairOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [RepairOn] >= @RepairOnStart");
+                        sb.Append(" AND ro.[RepairOn] >= @RepairOnStart");
                         this.ParamDict["@RepairOnStart"] = this.RepairOn.BeginTime.Value;
                     }
                     if (this.RepairOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [RepairOn] < @RepairOnEnd");
+                        sb.Append(" AND ro.[RepairOn] < @RepairOnEnd");
                         this.ParamDict["@RepairOnEnd"] = this.RepairOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
@@ -36,12 +43,12 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
                 {
                     if (this.CompleteOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [CompleteOn] >= @CompleteOnStart");
+                        sb.Append(" AND ro.[CompleteOn] >= @CompleteOnStart");
                         this.ParamDict["@CompleteOnStart"] = this.CompleteOn.BeginTime.Value;
                     }
                     if (this.CompleteOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [CompleteOn] < @CompleteOnEnd");
+                        sb.Append(" AND ro.[CompleteOn] < @CompleteOnEnd");
                         this.ParamDict["@CompleteOnEnd"] = this.CompleteOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
@@ -49,33 +56,33 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
                 {
                     if (this.SettlementOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [SettlementOn] >= @SettlementOnStart");
+                        sb.Append(" AND ro.[SettlementOn] >= @SettlementOnStart");
                         this.ParamDict["@SettlementOnStart"] = this.SettlementOn.BeginTime.Value;
                     }
                     if (this.SettlementOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [SettlementOn] < @SettlementOnEnd");
+                        sb.Append(" AND ro.[SettlementOn] < @SettlementOnEnd");
                         this.ParamDict["@SettlementOnEnd"] = this.SettlementOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
                 if (this.Status.HasValue)
                 {
-                    sb.Append(" AND Status = @Status");
+                    sb.Append(" AND ro.[Status] = @Status");
                     this.ParamDict["@Status"] = (byte)this.Status.Value;
                 }
                 if (this.SettlementStatus.HasValue)
                 {
-                    sb.Append(" AND SettlementStatus = @SettlementStatus");
+                    sb.Append(" AND ro.[SettlementStatus] = @SettlementStatus");
                     this.ParamDict["@SettlementStatus"] = (byte)this.SettlementStatus.Value;
                 }
                 if (this.CustomerId.HasValue)
                 {
-                    sb.Append(" AND CustomerId = @CustomerId");
+                    sb.Append(" AND ro.[CustomerId] = @CustomerId");
                     this.ParamDict["@CustomerId"] = this.CustomerId.Value;
                 }
                 if (this.ReceptionById.HasValue)
                 {
-                    sb.Append(" AND ReceptionById = @ReceptionById");
+                    sb.Append(" AND ro.[ReceptionById] = @ReceptionById");
                     this.ParamDict["@ReceptionById"] = this.ReceptionById.Value;
                 }
 
@@ -83,6 +90,14 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
             }
         }
         #endregion
+
+        /// <summary>
+        /// 客户姓名或车牌号
+        /// </summary>
+        public string Customer
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 开单时间

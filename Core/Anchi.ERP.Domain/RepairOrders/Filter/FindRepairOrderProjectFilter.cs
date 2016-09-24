@@ -9,6 +9,7 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
     /// </summary>
     public class FindRepairOrderProjectFilter : QueryFilter
     {
+        #region 要执行的SQL
         /// <summary>
         /// 要执行的SQL
         /// </summary>
@@ -25,6 +26,7 @@ namespace Anchi.ERP.Domain.RepairOrders.Filter
                 return sb.ToString();
             }
         }
+        #endregion
 
         /// <summary>
         /// 维修单ID

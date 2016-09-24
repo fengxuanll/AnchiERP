@@ -24,7 +24,7 @@ function showSelectSupplierFn() {
         maxmin: true,
         title: "选择供应商",
         skin: 'layui-layer-rim',
-        area: ['600px', '500px'],
+        area: ['600px', '570px'],
         content: '/Supplier/SelectSupplier'
     });
 }
@@ -40,7 +40,7 @@ function showSelectProductFn() {
         maxmin: true,
         title: "选择配件",
         skin: 'layui-layer-rim',
-        area: ['600px', '500px'],
+        area: ['600px', '570px'],
         content: '/Product/SelectRepairProduct'
     });
 }

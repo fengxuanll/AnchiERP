@@ -61,7 +61,7 @@
     <Compile Include="Filter\QueryFilter.cs" />
     <Compile Include="Filter\PagedQueryFilter.cs" />
     <Compile Include="Filter\PagedQueryResult.cs" />
-    <Compile Include="JsonUtils.cs" />
+    <Compile Include="Extensions\JsonExtension.cs" />
     <Compile Include="Logging\Log4net\LogManager.cs" />
     <Compile Include="Logging\LogWriter.cs" />
     <Compile Include="Net\EnumAuthorizationType.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Net\HttpResponse.cs" />
     <Compile Include="Net\HttpUtils.cs" />
     <Compile Include="Security\MD5.cs" />
-    <Compile Include="SqlDateTime.cs" />
+    <Compile Include="Data\SqlDateTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

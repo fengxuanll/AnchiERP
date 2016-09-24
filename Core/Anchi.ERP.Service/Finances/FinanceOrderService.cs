@@ -1,4 +1,5 @@
-﻿using Anchi.ERP.Common.Filter;
+﻿using Anchi.ERP.Common.Extensions;
+using Anchi.ERP.Common.Filter;
 using Anchi.ERP.Domain.Finances;
 using Anchi.ERP.Domain.Finances.Enum;
 using Anchi.ERP.IRepository.Finances;
@@ -6,7 +7,6 @@ using Anchi.ERP.Repository.Finances;
 using Anchi.ERP.Service.Purchases;
 using Anchi.ERP.Service.Repairs;
 using Anchi.ERP.Service.SaleOrders;
-using Anchi.ERP.Common.Extensions;
 using Anchi.ERP.ServiceModel.Finances;
 
 namespace Anchi.ERP.Service.Finances

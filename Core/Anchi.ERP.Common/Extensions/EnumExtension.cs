@@ -10,6 +10,12 @@ namespace Anchi.ERP.Common.Extensions
     /// </summary>
     public static class EnumExtension
     {
+        static Dictionary<object, DisplayAttribute> EnmuDisplayAttributeCache = null;
+        static EnumExtension()
+        {
+            EnmuDisplayAttributeCache = new Dictionary<object, DisplayAttribute>();
+        }
+
         #region 获取枚举Display特性中的Name属性
         /// <summary>
         /// 获取枚举Display特性中的Name属性
@@ -18,17 +24,8 @@ namespace Anchi.ERP.Common.Extensions
         /// <returns></returns>
         public static string GetDisplayName(this Enum e)
         {
-            Type type = e.GetType();
-            var enumField = type.GetField(e.ToString());
-            if (enumField == null)
-                return null;
-
-            var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
-            if (displayAttributes == null || !displayAttributes.Any())
-                return null;
-
-            var displayItem = displayAttributes.First() as DisplayAttribute;
-            return displayItem == null ? null : displayItem.Name;
+            var displayAttr = e.GetDisplayAttribute();
+            return displayAttr == null ? null : displayAttr.Name;
         }
         #endregion
 
@@ -40,17 +37,8 @@ namespace Anchi.ERP.Common.Extensions
         /// <returns></returns>
         public static string GetDisplayDescription(this Enum e)
         {
-            Type type = e.GetType();
-            var enumField = type.GetField(e.ToString());
-            if (enumField == null)
-                return null;
-
-            var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
-            if (displayAttributes == null || !displayAttributes.Any())
-                return null;
-
-            var displayItem = displayAttributes.First() as DisplayAttribute;
-            return displayItem == null ? null : displayItem.Description;
+            var displayAttr = e.GetDisplayAttribute();
+            return displayAttr == null ? null : displayAttr.Description;
         }
         #endregion
 
@@ -62,17 +50,42 @@ namespace Anchi.ERP.Common.Extensions
         /// <returns></returns>
         public static string GetDisplayGroupName(this Enum e)
         {
-            Type type = e.GetType();
-            var enumField = type.GetField(e.ToString());
-            if (enumField == null)
-                return null;
+            var displayAttr = e.GetDisplayAttribute();
+            return displayAttr == null ? null : displayAttr.GroupName;
+        }
+        #endregion
 
-            var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
-            if (displayAttributes == null || !displayAttributes.Any())
-                return null;
-
-            var displayItem = displayAttributes.First() as DisplayAttribute;
-            return displayItem == null ? null : displayItem.GroupName;
+        #region 获取枚举的Display特性
+        private static object _locker = new object();
+        /// <summary>
+        /// 获取枚举的Display特性
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private static DisplayAttribute GetDisplayAttribute(this object e)
+        {
+            if (!EnmuDisplayAttributeCache.ContainsKey(e))
+            {
+                Type type = e.GetType();
+                lock (_locker)
+                {
+                    if (!EnmuDisplayAttributeCache.ContainsKey(e))
+                    {
+                        DisplayAttribute displayItem = null;
+                        var enumField = type.GetField(e.ToString());
+                        if (enumField != null)
+                        {
+                            var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
+                            if (displayAttributes != null && displayAttributes.Any())
+                            {
+                                displayItem = displayAttributes.First() as DisplayAttribute;
+                            }
+                        }
+                        EnmuDisplayAttributeCache[e] = displayItem;
+                    }
+                }
+            }
+            return EnmuDisplayAttributeCache[e];
         }
         #endregion
 
@@ -95,20 +108,13 @@ namespace Anchi.ERP.Common.Extensions
                 pairItem.Key = Enum.GetName(enumType, valueItem);
                 pairItem.Value = valueItem;
 
-                var enumField = enumType.GetField(pairItem.Key);
-                if (enumField != null)
+                var tEnum = Enum.Parse(enumType, pairItem.Key);
+                var displayAttr = tEnum.GetDisplayAttribute();
+                if (displayAttr != null)
                 {
-                    var displayAttributes = enumField.GetCustomAttributes(typeof(DisplayAttribute), false);
-                    if (displayAttributes != null && displayAttributes.Any())
-                    {
-                        var displayItem = displayAttributes.First() as DisplayAttribute;
-                        if (displayItem != null)
-                        {
-                            pairItem.DisplayName = displayItem.Name;
-                            pairItem.DisplayDescription = displayItem.Description;
-                            pairItem.DisplayGroupName = displayItem.GroupName;
-                        }
-                    }
+                    pairItem.DisplayName = displayAttr.Name;
+                    pairItem.DisplayDescription = displayAttr.Description;
+                    pairItem.DisplayGroupName = displayAttr.GroupName;
                 }
 
                 pairList.Add(pairItem);

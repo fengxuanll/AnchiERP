@@ -20,12 +20,12 @@ namespace Anchi.ERP.Domain.Suppliers.Filter
                 var sb = new StringBuilder("SELECT * FROM [Supplier] WHERE 1 = 1");
                 if (!string.IsNullOrWhiteSpace(this.CompanyName))
                 {
-                    sb.Append(" AND CompanyName = @CompanyName");
+                    sb.Append(" AND CHARINDEX(@CompanyName, [CompanyName])");
                     this.ParamDict["@CompanyName"] = this.CompanyName;
                 }
                 if (!string.IsNullOrWhiteSpace(this.Contact))
                 {
-                    sb.Append(" AND Contact = @Contact");
+                    sb.Append(" AND CHARINDEX(@Contact, [Contact])");
                     this.ParamDict["@Contact"] = this.Contact;
                 }
                 return sb.ToString();

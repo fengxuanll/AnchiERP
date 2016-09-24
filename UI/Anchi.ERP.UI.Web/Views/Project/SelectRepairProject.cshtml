@@ -2,31 +2,42 @@
     ViewBag.Title = "选择维修项目";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="page-container ms-controller" ms-controller="ProjectList">
+    <div class="pd-5 search-bar">
+        <form>
+            <input type="text" ms-duplex="##Search.Code" class="input-text" placeholder="编码" />
+            <input type="text" ms-duplex="##Search.Name" class="input-text ml-5" placeholder="名称" />
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5 btn-reset">
+                <i class="icon-search"></i> 搜索
+            </button>
+        </form>
+    </div>
 
-<div class="page-container">
-    <table class="table table-border table-bordered table-bg ms-controller" ms-controller="ProjectList">
-        <thead>
-            <tr class="text-c">
-                <th width="30">序号</th>
-                <th>编码</th>
-                <th>名称</th>
-                <th>单价</th>
-                <th width="40">操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-c" ms-for="($index, item) in ##List">
-                <td>{{ $index + 1 }}</td>
-                <td>{{ item.Code }}</td>
-                <td>{{ item.Name }}</td>
-                <td>{{ item.UnitPrice }}</td>
-                <td>
-                    <a href="javascript:void(0);" ms-click="##selectRepairProjectFn(item);">选择</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="divPager" class="mt-10"></div>
+    <div class="cl pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="30">序号</th>
+                    <th>编码</th>
+                    <th>名称</th>
+                    <th>单价</th>
+                    <th width="40">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.Code }}</td>
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.UnitPrice }}</td>
+                    <td>
+                        <a href="javascript:void(0);" ms-click="##selectRepairProjectFn(item);">选择</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="divPager" class="mt-10"></div>
+    </div>
 </div>
 
 @section foot{
@@ -36,6 +47,10 @@
 <script type="text/javascript">
     var $vm = avalon.define({
         $id: "ProjectList",
+        Search: {
+            Code: "",
+            Name: ""
+        },
         List: [],
         selectRepairProjectFn: function (item) {
             parent.addRepairProjectFn(item);
@@ -44,13 +59,13 @@
     });
 
     function refreshListFn(pageIndex) {
+        var postData = $vm.Search.$model;
+        postData.PageIndex = pageIndex || 0;
+        postData.PageSize = 10;
         $.ajax({
             url: "/Project/List",
             type: "POST",
-            data: {
-                PageIndex: pageIndex || 0,
-                PageSize: 10
-            },
+            data: postData,
             success: function (data) {
                 $vm.List = data.Data;
                 laypage({

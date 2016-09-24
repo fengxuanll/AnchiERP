@@ -19,38 +19,44 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
         {
             get
             {
-                var sb = new StringBuilder("SELECT * FROM [PurchaseOrder] WHERE 1 = 1");
-
+                var sb = new StringBuilder("SELECT po.* FROM [PurchaseOrder] po");
+                if (!string.IsNullOrWhiteSpace(this.Supplier))
+                {
+                    sb.Append(" JOIN [Supplier] s ON s.Id = po.SupplierId");
+                    sb.Append(" AND (CHARINDEX(@Supplier, s.CompanyName) OR CHARINDEX(@Supplier, s.Contact))");
+                    this.ParamDict["@Supplier"] = this.Supplier;
+                }
+                sb.Append(" WHERE 1 = 1");
                 if (this.SupplierId.HasValue)
                 {
-                    sb.Append(" AND [SupplierId] = @SupplierId");
+                    sb.Append(" AND po.[SupplierId] = @SupplierId");
                     this.ParamDict["@SupplierId"] = this.SupplierId.Value;
                 }
                 if (this.PurchaseById.HasValue)
                 {
-                    sb.Append(" AND [PurchaseById] = @PurchaseById");
+                    sb.Append(" AND po.[PurchaseById] = @PurchaseById");
                     this.ParamDict["@PurchaseById"] = this.PurchaseById.Value;
                 }
                 if (this.Status.HasValue)
                 {
-                    sb.Append(" AND [Status] = @Status");
+                    sb.Append(" AND po.[Status] = @Status");
                     this.ParamDict["@Status"] = (byte)this.Status.Value;
                 }
                 if (this.SettlementStatus.HasValue)
                 {
-                    sb.Append(" AND [SettlementStatus] = @SettlementStatus");
+                    sb.Append(" AND po.[SettlementStatus] = @SettlementStatus");
                     this.ParamDict["@SettlementStatus"] = (byte)this.SettlementStatus.Value;
                 }
                 if (this.ArrivalOn != null)
                 {
                     if (this.ArrivalOn.BeginTime.HasValue)
                     {
-                        sb.Append(" AND [ArrivalOn] >= @ArrivalOnStart");
+                        sb.Append(" AND po.[ArrivalOn] >= @ArrivalOnStart");
                         this.ParamDict["@ArrivalOnStart"] = this.ArrivalOn.BeginTime.Value;
                     }
                     if (this.ArrivalOn.EndTime.HasValue)
                     {
-                        sb.Append(" AND [ArrivalOn] < @ArrivalOnEnd");
+                        sb.Append(" AND po.[ArrivalOn] < @ArrivalOnEnd");
                         this.ParamDict["@ArrivalOnEnd"] = this.ArrivalOn.EndTime.Value.Date.AddDays(1);
                     }
                 }
@@ -85,6 +91,14 @@ namespace Anchi.ERP.Domain.PurchaseOrders.Filter
             }
         }
         #endregion
+
+        /// <summary>
+        /// 供应商公司名称或联系人
+        /// </summary>
+        public string Supplier
+        {
+            get; set;
+        }
 
         /// <summary>
         /// 供应商ID

@@ -1,4 +1,4 @@
-﻿using Anchi.ERP.Common;
+﻿using Anchi.ERP.Common.Extensions;
 using System.Web.Mvc;
 
 namespace Anchi.ERP.UI.Web.Filter
@@ -33,7 +33,7 @@ namespace Anchi.ERP.UI.Web.Filter
         {
             context.HttpContext.Response.ContentType = "application/json";
 
-            var response = JsonUtils.Serialize(new
+            var response = JsonExtension.Serialize(new
             {
                 Success = this.Success,
                 Message = this.Data,

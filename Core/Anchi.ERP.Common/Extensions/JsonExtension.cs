@@ -1,22 +1,22 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Anchi.ERP.Common
+namespace Anchi.ERP.Common.Extensions
 {
     /// <summary>
     /// Json操作类
     /// </summary>
-    public class JsonUtils
+    public static class JsonExtension
     {
         const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
-        #region 序列化对象
+        #region 将对象序列化成Json字符串
         /// <summary>
-        /// 序列化对象
+        /// 将对象序列化成Json字符串
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string Serialize(object value)
+        public static string Serialize(this object value)
         {
             if (value == null)
                 return null;
@@ -44,15 +44,15 @@ namespace Anchi.ERP.Common
         }
         #endregion
 
-        #region 反序列化对象
+        #region 将Json字符串反序列化成对象
         /// <summary>
-        /// 反序列化对象
+        /// 将Json字符串反序列化成对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static bool TryDeserializeObject<T>(string value, out T t)
+        public static bool TryDeserializeObject<T>(this string value, out T t)
         {
             t = default(T);
             if (string.IsNullOrWhiteSpace(value))

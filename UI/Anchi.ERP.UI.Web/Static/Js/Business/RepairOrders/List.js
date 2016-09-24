@@ -4,6 +4,7 @@
     Search: {
         ReceptionById: "",
         Status: "",
+        Customer: "",
         SettlementStatus: "",
         TimeType: "",
         BeginTime: "",

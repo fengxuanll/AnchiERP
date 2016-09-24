@@ -19,12 +19,12 @@ namespace Anchi.ERP.Domain.Products.Filter
 
                 if (!string.IsNullOrWhiteSpace(this.Code))
                 {
-                    sb.Append(" AND [Code] = @Code");
+                    sb.Append(" AND CHARINDEX(@Code, [Code])");
                     this.ParamDict["@Code"] = this.Code;
                 }
                 if (!string.IsNullOrWhiteSpace(this.Name))
                 {
-                    sb.Append(" AND [Name] = @Name");
+                    sb.Append(" AND CHARINDEX(@Name, [Name])");
                     this.ParamDict["@Name"] = this.Name;
                 }
 

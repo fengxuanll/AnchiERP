@@ -8,6 +8,7 @@ namespace Anchi.ERP.Domain.Customers.Filter
     /// </summary>
     public class FindCustomerFilter : PagedQueryFilter
     {
+        #region 要执行的SQL
         /// <summary>
         /// 要执行的SQL
         /// </summary>
@@ -19,18 +20,19 @@ namespace Anchi.ERP.Domain.Customers.Filter
 
                 if (!string.IsNullOrWhiteSpace(this.Name))
                 {
-                    sb.Append(" AND [Name] = @Name");
+                    sb.Append(" AND CHARINDEX(@Name, [Name])");
                     this.ParamDict["@Name"] = this.Name;
                 }
                 if (!string.IsNullOrWhiteSpace(this.CarNumber))
                 {
-                    sb.Append(" AND [CarNumber] = @CarNumber");
+                    sb.Append(" AND CHARINDEX(@CarNumber, [CarNumber])");
                     this.ParamDict["@CarNumber"] = this.CarNumber;
                 }
 
                 return sb.ToString();
             }
         }
+        #endregion
 
         /// <summary>
         /// 姓名

@@ -16,7 +16,7 @@
 <div class="page-container ms-controller" ms-controller="ProductRecordList">
     <div class="pd-5 search-bar">
         <form>
-            <select ms-duplex="##Search.Type">
+            <select ms-duplex="##Search.Type" class="select-default">
                 <option value="">请选择...</option>
                 @{
                     var enumList = EnumExtension.ToList(typeof(EnumStockRecordType));

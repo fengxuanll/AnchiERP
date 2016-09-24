@@ -2,31 +2,42 @@
     ViewBag.Title = "选择客户";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="page-container ms-controller" ms-controller="CustomerList">
+    <div class="pd-5 search-bar">
+        <form>
+            <input type="text" ms-duplex="##Search.Name" class="input-text" placeholder="姓名" />
+            <input type="text" ms-duplex="##Search.CarNumber" class="input-text ml-5" placeholder="车牌号" />
+            <button type="submit" onclick="refreshListFn(); return false;" class="btn btn_normal ml-5 btn-reset">
+                <i class="icon-search"></i> 搜索
+            </button>
+        </form>
+    </div>
 
-<div class="page-container">
-    <table class="table table-border table-bordered table-bg ms-controller" ms-controller="CustomerList">
-        <thead>
-            <tr class="text-c">
-                <th width="30">序号</th>
-                <th width="150">姓名</th>
-                <th width="150">车牌号</th>
-                <th width="150">联系电话</th>
-                <th width="40">操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="text-c" ms-for="($index, item) in ##List">
-                <td>{{ $index + 1 }}</td>
-                <td>{{ item.Name }}</td>
-                <td>{{ item.CarNumber }}</td>
-                <td>{{ item.Tel }}</td>
-                <td>
-                    <a href="javascript:void(0);" ms-click="##selectCustomerFn(item);">选择</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="divPager" class="mt-10"></div>
+    <div class="cl pd-5">
+        <table class="table table-border table-bordered table-bg">
+            <thead>
+                <tr class="text-c">
+                    <th width="30">序号</th>
+                    <th width="150">姓名</th>
+                    <th width="150">车牌号</th>
+                    <th width="150">联系电话</th>
+                    <th width="40">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c" ms-for="($index, item) in ##List">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.CarNumber }}</td>
+                    <td>{{ item.Tel }}</td>
+                    <td>
+                        <a href="javascript:void(0);" ms-click="##selectCustomerFn(item);">选择</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="divPager" class="mt-10"></div>
+    </div>
 </div>
 
 @section foot{
@@ -36,6 +47,10 @@
 <script type="text/javascript">
     var $vm = avalon.define({
         $id: "CustomerList",
+        Search: {
+            Name: "",
+            CarNumber: ""
+        },
         List: [],
         selectCustomerFn: function (item) {
             parent.selectCustomerFn(item);
@@ -44,13 +59,13 @@
     });
 
     function refreshListFn(pageIndex) {
+        var postData = $vm.Search.$model;
+        postData.PageIndex = pageIndex || 0;
+        postData.PageSize = 10;
         $.ajax({
             url: "/Customer/List",
             type: "POST",
-            data: {
-                PageIndex: pageIndex || 0,
-                PageSize: 10
-            },
+            data: postData,
             success: function (data) {
                 $vm.List = data.Data;
                 laypage({

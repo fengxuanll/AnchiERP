@@ -9,6 +9,7 @@ namespace Anchi.ERP.Common.Extensions
     /// </summary>
     public static class StringExtension
     {
+        #region ToString
         /// <summary>
         /// ToString
         /// </summary>
@@ -22,19 +23,23 @@ namespace Anchi.ERP.Common.Extensions
 
             return obj.ToString();
         }
+        #endregion
 
+        #region 字符串转List
         /// <summary>
         /// 字符串转List
         /// </summary>
         /// <param name="str"></param>
         /// <param name="splitChar"></param>
         /// <returns></returns>
-        public static IList<string> ToList(this string str, string splitChar = ",")
+        public static IList<string> ToList(this string str, string splitChar = ",", bool removeEmpty = true)
         {
             if (string.IsNullOrWhiteSpace(str))
                 return new List<string>();
 
-            return str.Split(new string[] { splitChar }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var options = removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
+            return str.Split(new string[] { splitChar }, options).ToList();
         }
+        #endregion
     }
 }
