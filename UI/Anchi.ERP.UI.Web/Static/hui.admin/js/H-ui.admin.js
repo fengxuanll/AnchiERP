@@ -36,9 +36,10 @@ function tabNavallwidth() {
 /*左侧菜单响应式*/
 function Huiasidedisplay() {
     if ($(window).width() >= 768) {
-        $(".Hui-aside").show()
+        $(".Hui-aside").show();
     }
 }
+
 function getskincookie() {
     var v = getCookie("Huiskin");
     var hrefStr = $("#skin").attr("href");
@@ -50,6 +51,7 @@ function getskincookie() {
         $("#skin").attr("href", hrefRes);
     }
 }
+
 function Hui_admin_tab(obj) {
     if ($(obj).attr('_href')) {
         var bStop = false;
@@ -75,8 +77,8 @@ function Hui_admin_tab(obj) {
             iframe_box.find(".show_iframe").hide().eq(bStopIndex).show().find("iframe").attr("src", _href);
         }
     }
-
 }
+
 function min_titleList() {
     var topWindow = $(window.parent.document);
     var show_nav = topWindow.find("#min_title_list");
@@ -185,11 +187,8 @@ $(function () {
         }
     });
 
-    /*左侧菜单*/
-    $.Huifold(".menu_dropdown dl dt", ".menu_dropdown dl dd", "fast", 1, "click");
-
     /*选项卡导航*/
-    $(".Hui-aside").on("click", ".menu_dropdown a", function () {
+    $("#navMainMenu").on("click", ".dropDown-menu a", function () {
         Hui_admin_tab(this);
     });
 
