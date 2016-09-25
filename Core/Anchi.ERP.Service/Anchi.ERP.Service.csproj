@@ -72,7 +72,7 @@
       <Name>Anchi.ERP.IRepository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.Repository\Anchi.ERP.Repository.csproj">
-      <Project>{07db5830-bcf5-41ba-84e6-c1bce9bc6675}</Project>
+      <Project>{c8f3482d-76b7-444e-a7fd-fe5abfd8dfc0}</Project>
       <Name>Anchi.ERP.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Anchi.ERP.ServiceModel\Anchi.ERP.ServiceModel.csproj">
