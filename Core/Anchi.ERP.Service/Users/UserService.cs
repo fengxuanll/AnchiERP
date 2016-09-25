@@ -62,7 +62,7 @@ namespace Anchi.ERP.Service.Users
             if (string.IsNullOrWhiteSpace(model.LoginName))
                 throw new Exception("请输入登录名。");
 
-            var temp = GetModel(model.Id);
+            var temp = this.Get(model.Id);
             if (temp == null)
             {
                 if (string.IsNullOrWhiteSpace(model.Password))
@@ -72,7 +72,7 @@ namespace Anchi.ERP.Service.Users
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
                 model.Status = EnumUserStatus.Normal;
-                UserRepository.Create(model);
+                this.UserRepository.Create(model);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Anchi.ERP.Service.Users
                 temp.Address = model.Address;
                 temp.Remark = model.Remark;
 
-                UserRepository.Update(model);
+                this.UserRepository.Update(temp);
             }
             return model;
         }

@@ -34,7 +34,7 @@ namespace Anchi.ERP.Service.Configs
             if (string.IsNullOrWhiteSpace(key))
                 return null;
 
-            return ConfigRepository.GetByKey(key);
+            return this.ConfigRepository.GetByKey(key);
         }
         #endregion
     }

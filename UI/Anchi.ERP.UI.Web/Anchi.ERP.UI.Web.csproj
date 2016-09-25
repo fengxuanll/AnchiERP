@@ -420,6 +420,7 @@
     <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.ttf" />
     <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.woff" />
     <Content Include="Static\FontAwesome3.2.1\font\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\WebPublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

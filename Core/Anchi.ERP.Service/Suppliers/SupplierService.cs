@@ -35,12 +35,12 @@ namespace Anchi.ERP.Service.Suppliers
             if (string.IsNullOrWhiteSpace(model.CompanyName))
                 throw new Exception("请输入供应商名称。");
 
-            var temp = GetModel(model.Id);
+            var temp = this.Get(model.Id);
             if (temp == null)
             {
                 model.Id = model.Id == Guid.Empty ? Guid.NewGuid() : model.Id;
                 model.CreatedOn = DateTime.Now;
-                SupplierRepository.Create(model);
+                this.SupplierRepository.Create(model);
             }
             else
             {
@@ -50,7 +50,7 @@ namespace Anchi.ERP.Service.Suppliers
                 temp.Address = model.Address;
                 temp.Remark = model.Remark;
 
-                SupplierRepository.Update(model);
+                this.SupplierRepository.Update(temp);
             }
             return model;
         }
