@@ -5,10 +5,14 @@
         var rawAjax = $.ajax;
         $.ajax = function (options) {
             var rawSuccess = options.success;
+            var rawError = options.error;
             var dxOptions = {
                 success: function (data, status, xhr) {
                     if (!data.Success) {
                         $.alert(data.Message, "error", "错误！");
+                        if (rawError) {
+                            rawError(data.Message);
+                        }
                     }
                     if (data.Success && rawSuccess) {
                         rawSuccess(data.Message);
@@ -56,7 +60,7 @@ jQuery.msg = function (text, type) {
     layer.msg(text, { icon: icon, time: 2000 });
 }
 
-// 只允许输入数字
+// 只允许输入数字或者小数
 function decimal(e, value) {
     var key;
     var keychar;
@@ -78,9 +82,31 @@ function decimal(e, value) {
     }
     else if (keychar == "." && (value == '' || value.indexOf(".") == -1)) {
         return true;
-    } else {
-        return false;
     }
+    return false;
+}
+
+// 只允许输入整数
+function int(e, value) {
+    var key;
+    var keychar;
+    if (window.event) {
+        key = window.event.keyCode;
+    }
+    else if (e) {
+        key = e.which;
+    }
+    else {
+        return true;
+    }
+    keychar = String.fromCharCode(key);
+    if (key == "8" || key == "9") {
+        return true;
+    }
+    else if ((("0123456789").indexOf(keychar) > -1)) {
+        return true;
+    }
+    return false;
 }
 
 // avalon 过滤器：显示时间的日期部分，最小时间不显示。

@@ -10,7 +10,10 @@ function savePurchaseOrderFn() {
         data: postData,
         success: function () {
             if ($vm.Id == GuidEmpty) {
-                $("#fromPurchaseOrder")[0].reset();
+                $vm.SupplierId = "";
+                $vm.SupplierName = "";
+                $vm.PurchaseById = "";
+                $vm.Remark = "";
                 $vm.ProductList.removeAll();
             }
             $.msg("保存成功。", "success");

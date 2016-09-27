@@ -39,6 +39,11 @@ namespace Anchi.ERP.UI.Web.Controllers
         }
         #endregion
 
+        #region 输出固定参数
+        /// <summary>
+        /// 输出固定参数
+        /// </summary>
+        /// <param name="filterContext"></param>
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (!Request.IsAjaxRequest())
@@ -47,5 +52,6 @@ namespace Anchi.ERP.UI.Web.Controllers
             }
             base.OnActionExecuted(filterContext);
         }
+        #endregion
     }
 }

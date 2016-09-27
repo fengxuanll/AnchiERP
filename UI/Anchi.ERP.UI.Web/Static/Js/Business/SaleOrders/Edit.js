@@ -6,7 +6,10 @@
         data: postData,
         success: function () {
             if ($vm.Id == GuidEmpty) {
-                $("#fromSaleOrder")[0].reset();
+                $vm.SaleById = "";
+                $vm.CustomerId = "";
+                $vm.CustomerName = "";
+                $vm.Remark = "";
                 $vm.ProductList.removeAll();
             }
             $.msg("保存成功。", "success");

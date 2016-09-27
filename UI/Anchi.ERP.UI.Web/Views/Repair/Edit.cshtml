@@ -38,7 +38,7 @@
         @if (Model.Id != Guid.Empty)
         {
             @:initRepairOrderFn("@Model.Id");
-        }
+                        }
     });
 </script>
 
@@ -50,175 +50,175 @@
 </nav>
 
 <div class="page-container ms-controller" ms-controller="EditRepairOrder">
-    <div class="cl pd-5">
-        <span class="l">
-            @if (Model.Id == Guid.Empty || Model.Status == EnumRepairOrderStatus.Repairing)
-            {
-                <a href="javascript:;" class="btn btn-primary" onclick="saveRepairOrderFn();">
-                    <i class="icon-save"></i> 保存
-                </a>
-            }
-            @if (Model.Status == EnumRepairOrderStatus.Repairing)
-            {
-                <a href="javascript:;" class="btn btn-primary" onclick="setCompletedFn();">
-                    <i class="icon-ok"></i> 已完工
-                </a>
-            }
-            @if (Model.Status == EnumRepairOrderStatus.Completed && Model.SettlementStatus != EnumSettlementStatus.Completed)
-            {
-                <a href="javascript:;" class="btn btn-primary" onclick="showSettlementFn();">
-                    <i class="icon-credit-card"></i> 结算
-                </a>
-            }
-            @if (Model.Id != Guid.Empty)
-            {
-                <a href="javascript:;" class="btn btn-primary" onclick="cancelOrderFn();">
-                    <i class="icon-trash"></i> 取消
-                </a>
-            }
-        </span>
-    </div>
-
     <form class="form form-horizontal" id="EditRepairOrder">
-        <table class="order-edit-form">
-            <tr>
-                <th>
-                    <span class="c-red">*</span>客户：
-                </th>
-                <td class="pd-5">
-                    <input type="text" class="input-text w-200" ms-duplex="##CustomerName" placeholder="客户" style="width: 200px;" readonly="readonly" />
-                    <a href="javascript:void(0);" class="ml-10 btn btn-secondary-outline" onclick="showSelectCustomerFn();">选择</a>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <span class="c-red">*</span>开单日期：
-                </th>
-                <td class="pd-5">
-                    <input type="text" id="txtRepairOn" class="input-text w-200" ms-duplex="##RepairOn | showTimeDateFilter" placeholder="开单日期" onclick="WdatePicker({ onpicked: selectRepairOnFn, oncleared: selectRepairOnFn });" style="width: 200px;" />
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <span class="c-red">*</span>接待人：
-                </th>
-                <td class="pd-5">
-                    <select class="select-default w-200" ms-duplex="##ReceptionById">
-                        <option value="">请选择...</option>
-                        @foreach (var item in ViewBag.EmployeeList)
+        <div class="pd-5">
+            <table class="order-edit-form">
+                <tr>
+                    <td></td>
+                    <td class="pd-5">
+                        @if (Model.Id == Guid.Empty || Model.Status == EnumRepairOrderStatus.Repairing)
                         {
-                            <option value="@item.Id">@item.Name</option>
+                            <a href="javascript:;" class="btn btn-primary" onclick="saveRepairOrderFn();">
+                                <i class="icon-save"></i> 保存
+                            </a>
                         }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <th>备注：</th>
-                <td class="pd-5">
-                    <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="pd-5">
-                    <table class="table table-border table-bordered table-bg">
-                        <thead>
-                            <tr>
-                                <td colspan="6">维修项目</td>
-                                <td class="text-c" style="width: 50px;">
-                                    <a href="javascript:void(0);" onclick="showSelectProjectFn();" class="btn btn-secondary-outline">选择</a>
-                                </td>
-                            </tr>
-                            <tr class="text-c">
-                                <th style="width: 30px;">序号</th>
-                                <th>编码</th>
-                                <th>项目名称</th>
-                                <th>单价</th>
-                                <th>数量</th>
-                                <th>维修人</th>
-                                <th class="text-c">操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ms-for="($index, item) in ##ProjectList">
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ item.Code }}</td>
-                                <td>{{ item.Name }}</td>
-                                <td class="text-c">
-                                    <input type="text" class="input-text" ms-duplex="item.UnitPrice" style="width: 80px;" />
-                                </td>
-                                <td class="text-c">
-                                    <input type="text" class="input-text" ms-duplex="item.Quantity" style="width: 80px;" />
-                                </td>
-                                <td class="text-c">
-                                    <select class="select-default" ms-duplex="item.EmployeeId">
-                                        <option value="">请选择...</option>
-                                        @foreach (var item in ViewBag.EmployeeList)
-                                        {
-                                            <option value="@item.Id">@item.Name</option>
-                                        }
-                                    </select>
-                                </td>
-                                <td class="text-c">
-                                    <a href="javascript:void(0);" ms-click="##ProjectList.remove(item);">删除</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3">合计：</td>
-                                <td class="text-r">￥{{ ##TotalProjectAmount() }}</td>
-                                <td colspan="3"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="pd-5">
-                    <table class="table table-border table-bordered table-bg">
-                        <thead>
-                            <tr>
-                                <td colspan="5">配件明细</td>
-                                <td class="text-c" style="width: 50px;">
-                                    <a href="javascript:void(0);" onclick="showSelectProductFn();" class="btn btn-secondary-outline">选择</a>
-                                </td>
-                            </tr>
-                            <tr class="text-c">
-                                <th style="width: 30px;">序号</th>
-                                <th>编码</th>
-                                <th>配件名称</th>
-                                <th>单价</th>
-                                <th>数量</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ms-for="($index, item) in ##ProductList">
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ item.Code }}</td>
-                                <td>{{ item.Name }}</td>
-                                <td class="text-c">
-                                    <input type="text" class="input-text" ms-duplex="item.UnitPrice" style="width: 80px;" />
-                                </td>
-                                <td class="text-c">
-                                    <input type="text" class="input-text" ms-duplex="item.Quantity" style="width: 80px;" />
-                                </td>
-                                <td class="text-c">
-                                    <a href="javascript:void(0);" ms-click="##ProductList.remove(item);">删除</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3">合计：</td>
-                                <td class="text-r">￥{{ ##TotalProductAmount() }}</td>
-                                <td colspan="2"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </td>
-            </tr>
-        </table>
+                        @if (Model.Status == EnumRepairOrderStatus.Repairing)
+                        {
+                            <a href="javascript:;" class="btn btn-primary" onclick="setCompletedFn();">
+                                <i class="icon-ok"></i> 已完工
+                            </a>
+                        }
+                        @if (Model.Status == EnumRepairOrderStatus.Completed && Model.SettlementStatus != EnumSettlementStatus.Completed)
+                        {
+                            <a href="javascript:;" class="btn btn-primary" onclick="showSettlementFn();">
+                                <i class="icon-credit-card"></i> 结算
+                            </a>
+                        }
+                        @if (Model.Id != Guid.Empty)
+                        {
+                            <a href="javascript:;" class="btn btn-primary" onclick="cancelOrderFn();">
+                                <i class="icon-trash"></i> 取消
+                            </a>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span class="c-red">*</span>客户：
+                    </th>
+                    <td class="pd-5">
+                        <input type="text" class="input-text w-200" ms-duplex="##CustomerName" placeholder="客户" style="width: 200px;" readonly="readonly" />
+                        <a href="javascript:void(0);" class="ml-10 btn btn-secondary-outline" onclick="showSelectCustomerFn();">选择</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span class="c-red">*</span>开单日期：
+                    </th>
+                    <td class="pd-5">
+                        <input type="text" id="txtRepairOn" class="input-text w-200" ms-duplex="##RepairOn | showTimeDateFilter" placeholder="开单日期" onclick="WdatePicker({ onpicked: selectRepairOnFn, oncleared: selectRepairOnFn });" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span class="c-red">*</span>接待人：
+                    </th>
+                    <td class="pd-5">
+                        <select class="select-default w-200" ms-duplex="##ReceptionById">
+                            <option value="">请选择...</option>
+                            @foreach (var item in ViewBag.EmployeeList)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>备注：</th>
+                    <td class="pd-5">
+                        <textarea class="textarea" ms-duplex="##Remark" placeholder="备注"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="pd-5">
+            <table class="table table-border table-bordered table-bg">
+                <thead>
+                    <tr>
+                        <td colspan="6">维修项目</td>
+                        <td class="text-c">
+                            <a href="javascript:void(0);" onclick="showSelectProjectFn();" class="btn btn-secondary-outline">选择</a>
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th style="width: 30px;">序号</th>
+                        <th>编码</th>
+                        <th>项目名称</th>
+                        <th class="w-200">维修人</th>
+                        <th class="w-150">单价</th>
+                        <th class="w-150">数量</th>
+                        <th class="w-150">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-c" ms-for="($index, item) in ##ProjectList">
+                        <td class="text-c">{{ $index + 1 }}</td>
+                        <td>{{ item.Code }}</td>
+                        <td>{{ item.Name }}</td>
+                        <td class="text-c">
+                            <select class="select-default w-150" ms-duplex="item.EmployeeId" style="display: inline-block;">
+                                <option value="">请选择...</option>
+                                @foreach (var item in ViewBag.EmployeeList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="input-text w-100" ms-duplex="item.UnitPrice" onkeypress="return decimal(event, this.value);" />
+                        </td>
+                        <td>
+                            <input type="text" class="input-text w-100" ms-duplex="item.Quantity" onkeypress="return decimal(event, this.value);" />
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" ms-click="##ProjectList.remove(item);">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">合计：</td>
+                        <td class="text-r">￥{{ ##TotalProjectAmount() }}</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="pd-5">
+            <table class="table table-border table-bordered table-bg">
+                <thead>
+                    <tr>
+                        <td colspan="5">配件明细</td>
+                        <td class="text-c">
+                            <a href="javascript:void(0);" onclick="showSelectProductFn();" class="btn btn-secondary-outline">选择</a>
+                        </td>
+                    </tr>
+                    <tr class="text-c">
+                        <th style="width: 30px;">序号</th>
+                        <th>编码</th>
+                        <th>配件名称</th>
+                        <th class="w-150">单价</th>
+                        <th class="w-150">数量</th>
+                        <th class="w-150">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-c" ms-for="($index, item) in ##ProductList">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ item.Code }}</td>
+                        <td>{{ item.Name }}</td>
+                        <td class="text-c">
+                            <input type="text" class="input-text w-100" ms-duplex="item.UnitPrice" onkeypress="return decimal(event, this.value);" />
+                        </td>
+                        <td class="text-c">
+                            <input type="text" class="input-text w-100" ms-duplex="item.Quantity" onkeypress="return int(event, this.value);" />
+                        </td>
+                        <td class="text-c">
+                            <a href="javascript:void(0);" ms-click="##ProductList.remove(item);">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">合计：</td>
+                        <td class="text-r">￥{{ ##TotalProductAmount() }}</td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </form>
 </div>
 

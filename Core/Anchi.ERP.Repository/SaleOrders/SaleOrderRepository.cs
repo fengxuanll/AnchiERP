@@ -304,6 +304,7 @@ namespace Anchi.ERP.Repository.SaleOrders
                     order.RelationId = model.Id;
                     order.CreatedOn = model.SettlementOn;
                     order.Type = EnumFinanceOrderType.Sale;
+                    order.Remark = string.Format("结算销售单：{0}", model.Code);
                     context.Insert(order);
 
                     tran.Commit();

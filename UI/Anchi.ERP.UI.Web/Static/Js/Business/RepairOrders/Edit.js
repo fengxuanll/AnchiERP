@@ -69,7 +69,10 @@ function saveRepairOrderFn() {
         data: postData,
         success: function (data) {
             if ($vm.Id == GuidEmpty) {
-                $("#EditRepairOrder")[0].reset();
+                $vm.CustomerName = "";
+                $vm.CustomerId = "";
+                $vm.ReceptionById = "";
+                $vm.Remark = "";
                 $vm.ProjectList.removeAll();
                 $vm.ProductList.removeAll();
             }

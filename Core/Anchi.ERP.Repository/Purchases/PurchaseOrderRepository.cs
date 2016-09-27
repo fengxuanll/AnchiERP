@@ -292,6 +292,7 @@ namespace Anchi.ERP.Repository.Purchases
                     order.RelationId = model.Id;
                     order.CreatedOn = model.SettlementOn;
                     order.Type = EnumFinanceOrderType.Purchase;
+                    order.Remark = string.Format("结算采购单：{0}", model.Code);
                     context.Insert(order);
 
                     tran.Commit();

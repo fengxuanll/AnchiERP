@@ -20,9 +20,9 @@ namespace Anchi.ERP.Domain.Finances.Enum
         [Display(Name = "销售收款", GroupName = "Receipt")]
         Sale = 11,
         /// <summary>
-        /// 取消采购收款
+        /// 取消采购
         /// </summary>
-        [Display(Name = "取消采购收款", GroupName = "Receipt")]
+        [Display(Name = "取消采购", GroupName = "Receipt")]
         CancelPurchase = 12,
         /// <summary>
         /// 采购付款
@@ -30,14 +30,14 @@ namespace Anchi.ERP.Domain.Finances.Enum
         [Display(Name = "采购付款", GroupName = "Payment")]
         Purchase = 20,
         /// <summary>
-        /// 取消维修付款
+        /// 取消维修
         /// </summary>
-        [Display(Name = "取消维修付款", GroupName = "Payment")]
+        [Display(Name = "取消维修", GroupName = "Payment")]
         CancelRepair = 21,
         /// <summary>
-        /// 取消销售付款
+        /// 取消销售
         /// </summary>
-        [Display(Name = "取消销售付款", GroupName = "Payment")]
+        [Display(Name = "取消销售", GroupName = "Payment")]
         CancelSale = 22,
     }
 }

@@ -316,6 +316,7 @@ namespace Anchi.ERP.Repository.Repairs
                     order.RelationId = model.Id;
                     order.CreatedOn = model.SettlementOn;
                     order.Type = EnumFinanceOrderType.Repair;
+                    order.Remark = string.Format("结算维修单：{0}", model.Code);
                     context.Insert(order);
 
                     tran.Commit();
