@@ -62,6 +62,7 @@
     <Compile Include="Filter\PagedQueryFilter.cs" />
     <Compile Include="Filter\PagedQueryResult.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
+    <Compile Include="IO\FileUtils.cs" />
     <Compile Include="Logging\Log4net\LogManager.cs" />
     <Compile Include="Logging\LogWriter.cs" />
     <Compile Include="Net\EnumAuthorizationType.cs" />
