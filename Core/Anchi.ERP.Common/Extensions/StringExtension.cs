@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Anchi.ERP.Common.Extensions
 {
@@ -9,7 +10,7 @@ namespace Anchi.ERP.Common.Extensions
     /// </summary>
     public static class StringExtension
     {
-        #region ToString
+        #region ExtToString
         /// <summary>
         /// ToString
         /// </summary>
@@ -39,6 +40,22 @@ namespace Anchi.ERP.Common.Extensions
 
             var options = removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
             return str.Split(new string[] { splitChar }, options).ToList();
+        }
+        #endregion
+
+        #region 替换连续多个空格为一个
+        /// <summary>
+        /// 替换连续多个空格为一个
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ReplaceMultipleSpace(this string str)
+        {
+            if (str == null)
+                return str;
+
+            var spaceRegex = new Regex(@"(\s\s\s*)");
+            return spaceRegex.Replace(str, " ");
         }
         #endregion
     }

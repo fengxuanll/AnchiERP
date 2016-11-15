@@ -24,16 +24,16 @@ namespace TestConsole
             var modelList = new List<AuSuburb>();
             var domainUrl = "http://auspost.com.au";
             var indexUrl = "http://auspost.com.au/postcode/suburb-index/";
-            var charList = "b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".Split(',').ToList();
-
-            var filePath = @"D:\Suburb.txt";
-            var errorFilePath = @"D:\Suburb_error.txt";
-            foreach (var item in charList)
+            var charList = "a,c,c,d,e,f,g,h,k,l,m,n,p,r,s,t,w,y".Split(',').ToList();
+            var singleList = "i,j,o,q,u,v,x,z";
+            var filePath = @"e:\Suburb.txt";
+            var errorFilePath = @"e:\Suburb_error.txt";
+            foreach (var item in singleList)
             {
                 var i = 0;
-                while (true)
+                while (i == 0)
                 {
-                    i++;
+                    ++i;
 
                     CQ dom = null;
                     try
@@ -100,15 +100,23 @@ namespace TestConsole
     public class AuSuburb
     {
         public string SuburbName
-        { get; set; }
+        {
+            get; set;
+        }
 
         public string Postcode
-        { get; set; }
+        {
+            get; set;
+        }
 
         public string Category
-        { get; set; }
+        {
+            get; set;
+        }
 
         public string Suburb
-        { get; set; }
+        {
+            get; set;
+        }
     }
 }
