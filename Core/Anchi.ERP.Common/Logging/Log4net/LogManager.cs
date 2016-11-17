@@ -9,7 +9,7 @@ namespace Anchi.ERP.Common.Logging.Log4net
     /// <summary>
     /// 日志类
     /// </summary>
-    public class LogManager
+    public class LogerManager
     {
         private static Dictionary<string, ILog> LogDict = new Dictionary<string, ILog>();
         /// <summary>
@@ -37,7 +37,7 @@ namespace Anchi.ERP.Common.Logging.Log4net
             private set;
         }
 
-        static LogManager()
+        static LogerManager()
         {
             if (string.IsNullOrWhiteSpace(LogConfigPath))
             {

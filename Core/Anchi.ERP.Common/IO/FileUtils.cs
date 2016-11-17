@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Anchi.ERP.Common.IO
@@ -12,8 +8,9 @@ namespace Anchi.ERP.Common.IO
     /// </summary>
     public class FileUtils
     {
+        #region 追加文本到文件
         /// <summary>
-        /// 写文本到文件
+        /// 追加文本到文件
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="text"></param>
@@ -30,5 +27,22 @@ namespace Anchi.ERP.Common.IO
             text = text + Environment.NewLine;
             File.AppendAllText(filePath, text);
         }
+        #endregion
+
+        #region 将Base64编码过的字符串保存到文件
+        /// <summary>
+        /// 将Base64编码过的字符串保存到文件
+        /// </summary>
+        /// <param name="base64String"></param>
+        /// <param name="filePath">文件的绝对路径</param>
+        public static void SaveBase64File(string base64String, string filePath)
+        {
+            if (!Path.IsPathRooted(filePath))
+                return;
+
+            var fileBytes = Convert.FromBase64String(base64String);
+            File.WriteAllBytes(filePath, fileBytes);
+        }
+        #endregion
     }
 }

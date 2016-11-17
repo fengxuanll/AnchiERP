@@ -14,7 +14,7 @@ namespace Anchi.ERP.Common.Logging
         /// <param name="arg0"></param>
         public static void InfoFormat(string format, params object[] arg0)
         {
-            LogManager.CommonLoger.InfoFormat(format, arg0);
+            LogerManager.CommonLoger.InfoFormat(format, arg0);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Anchi.ERP.Common.Logging
         /// <param name="arg0"></param>
         public static void ErrorFormat(string format, params object[] arg0)
         {
-            LogManager.ErrorLoger.ErrorFormat(format, arg0);
+            LogerManager.ErrorLoger.ErrorFormat(format, arg0);
         }
     }
 }
