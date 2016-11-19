@@ -70,6 +70,8 @@
     <Compile Include="Net\HttpRequest.cs" />
     <Compile Include="Net\HttpResponse.cs" />
     <Compile Include="Net\HttpUtils.cs" />
+    <Compile Include="Text\RegexHelper.cs" />
+    <Compile Include="Security\DESEncrypt.cs" />
     <Compile Include="Security\MD5.cs" />
     <Compile Include="Data\SqlDateTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

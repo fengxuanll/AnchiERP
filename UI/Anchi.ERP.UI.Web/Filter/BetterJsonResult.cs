@@ -33,7 +33,7 @@ namespace Anchi.ERP.UI.Web.Filter
         {
             context.HttpContext.Response.ContentType = "application/json";
 
-            var response = JsonExtension.Serialize(new
+            var response = JsonExtension.SerializeToJson(new
             {
                 Success = this.Success,
                 Message = this.Data,

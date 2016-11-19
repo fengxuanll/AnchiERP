@@ -15,32 +15,18 @@ namespace Anchi.ERP.Common.Extensions
         /// 将对象序列化成Json字符串
         /// </summary>
         /// <param name="value"></param>
+        /// <param name="isIndented"></param>
         /// <returns></returns>
-        public static string Serialize(this object value)
+        public static string SerializeToJson(this object value, bool isIndented = false)
         {
             if (value == null)
                 return null;
 
             var timeFormat = new IsoDateTimeConverter();
             timeFormat.DateTimeFormat = DateTimeFormat;
-            return JsonConvert.SerializeObject(value, timeFormat);
-        }
-        #endregion
-
-        #region 序列化对象
-        /// <summary>
-        /// 序列化对象，并待缩进格式化
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string SerializeIndented(object value)
-        {
-            if (value == null)
-                return null;
-
-            var timeFormat = new IsoDateTimeConverter();
-            timeFormat.DateTimeFormat = DateTimeFormat;
-            return JsonConvert.SerializeObject(value, Formatting.Indented, timeFormat);
+            return isIndented 
+                ? JsonConvert.SerializeObject(value, Formatting.Indented, timeFormat) 
+                : JsonConvert.SerializeObject(value, timeFormat);
         }
         #endregion
 
