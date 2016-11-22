@@ -58,5 +58,34 @@ namespace Anchi.ERP.Common.Extensions
             return spaceRegex.Replace(str, " ");
         }
         #endregion
+
+        #region 单词首字母大写
+        /// <summary>
+        /// 单词首字母大写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string UpperFirstLetter(this string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return str;
+
+            var newList = new List<string>();
+            var itemList = str.Split(' ').ToList();
+            foreach (var item in itemList)
+            {
+                newList.Add(" ");
+                if (string.IsNullOrWhiteSpace(item))
+                    continue;
+
+                var firstLetter = item.Substring(0, 1).ToUpper();
+                newList.Add(firstLetter + item.Remove(0, 1));
+            }
+            if (newList.Any())
+                newList.RemoveAt(0);
+
+            return string.Join("", newList);
+        }
+        #endregion
     }
 }

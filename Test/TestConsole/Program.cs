@@ -21,6 +21,10 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
+            var str = "  For     non-Latin keyboards such as Russian and Hebrew, keystrokes containing modifiers are now resolved with U.S. layout characters for all keys, not just keys with non-Latin keycaps. For example, ctrl-. and ctrl-/ are now typed based on the position of those symbols on a U.S. layout";
+            System.Console.WriteLine(str.UpperFirstLetter());
+            return;
+
             var modelList = new List<AuSuburb>();
             var domainUrl = "http://auspost.com.au";
             var indexUrl = "http://auspost.com.au/postcode/suburb-index/";
