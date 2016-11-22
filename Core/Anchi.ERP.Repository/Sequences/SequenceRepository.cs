@@ -18,9 +18,9 @@ namespace Anchi.ERP.Repository.Sequences
         {
             // 在每次启动的时候从数据库读取出来当作初始值
             this.DbContext = new AnchiDbContext();
-            using (var context = DbContext.Open())
+            using (var context = this.DbContext.Open())
             {
-                SequenceList = context.Select<Sequence>();
+                this.SequenceList = context.Select<Sequence>();
             }
         }
 
@@ -69,14 +69,14 @@ namespace Anchi.ERP.Repository.Sequences
         /// <returns></returns>
         public long GetNextValue(EnumSequenceType sequenceType)
         {
-            var sequence = SequenceList.FirstOrDefault(item => item.Type == sequenceType);
+            var sequence = this.SequenceList.FirstOrDefault(item => item.Type == sequenceType);
             if (sequence == null)
                 throw new Exception(string.Format("暂不支持该类型序列：{0}", sequence));
 
             var sequenceValue = sequence.GetNextValue();
 
             // 保存到数据库
-            SaveSequence(sequence);
+            this.SaveSequence(sequence);
 
             return sequenceValue;
         }
@@ -89,7 +89,7 @@ namespace Anchi.ERP.Repository.Sequences
         /// <param name="model"></param>
         private void SaveSequence(Sequence model)
         {
-            using (var context = DbContext.Open())
+            using (var context = this.DbContext.Open())
             {
                 context.UpdateOnly(model, item => new { item.CurrentValue, item.ModifiedOn }, item => item.Type == model.Type);
             }
