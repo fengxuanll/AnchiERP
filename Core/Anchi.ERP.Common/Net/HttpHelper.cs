@@ -10,7 +10,7 @@ namespace Anchi.ERP.Common.Net
     /// <summary>
     /// Http请求公用类
     /// </summary>
-    public static class HttpUtils
+    public static class HttpHelper
     {
         static Encoding encoding = Encoding.UTF8;
 

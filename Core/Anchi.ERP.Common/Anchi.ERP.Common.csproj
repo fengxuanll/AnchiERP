@@ -45,6 +45,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,14 +63,14 @@
     <Compile Include="Filter\PagedQueryFilter.cs" />
     <Compile Include="Filter\PagedQueryResult.cs" />
     <Compile Include="Extensions\JsonExtension.cs" />
-    <Compile Include="IO\FileUtils.cs" />
+    <Compile Include="IO\FileHelper.cs" />
     <Compile Include="Logging\Log4net\LogManager.cs" />
     <Compile Include="Logging\LogWriter.cs" />
     <Compile Include="Net\EnumAuthorizationType.cs" />
     <Compile Include="Net\EnumHttpVerbs.cs" />
+    <Compile Include="Net\HttpHelper.cs" />
     <Compile Include="Net\HttpRequest.cs" />
     <Compile Include="Net\HttpResponse.cs" />
-    <Compile Include="Net\HttpUtils.cs" />
     <Compile Include="Text\RegexHelper.cs" />
     <Compile Include="Security\DESEncrypt.cs" />
     <Compile Include="Security\MD5.cs" />
