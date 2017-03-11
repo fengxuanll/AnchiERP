@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 namespace Anchi.ERP.Common.Extensions
 {
     /// <summary>
-    /// 字符串扩展类
+    /// 字符串扩展
     /// </summary>
     public static class StringExtension
     {

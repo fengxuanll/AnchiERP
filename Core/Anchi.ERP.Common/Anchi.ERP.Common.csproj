@@ -78,6 +78,7 @@
     <Compile Include="Excel\ColumnValidItem.cs" />
     <Compile Include="Excel\NPOIHelper.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Filter\DateTimeFilter.cs" />
     <Compile Include="Filter\Enum\EnumOrderbySort.cs" />

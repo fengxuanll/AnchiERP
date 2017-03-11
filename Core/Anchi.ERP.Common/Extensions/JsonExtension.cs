@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace Anchi.ERP.Common.Extensions
 {
     /// <summary>
-    /// Json操作类
+    /// Json扩展
     /// </summary>
     public static class JsonExtension
     {
