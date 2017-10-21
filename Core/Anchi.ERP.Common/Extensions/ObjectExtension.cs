@@ -52,7 +52,7 @@ namespace Anchi.ERP.Common.Extensions
                 if (throwException)
                     throw;
 
-                return string.Format("{Exception:'{0}'}", ex.ToString());
+                return string.Format("{{Exception:'{0}'}}", ex.ToString());
             }
         }
         #endregion
