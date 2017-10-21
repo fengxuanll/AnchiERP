@@ -68,7 +68,5 @@ namespace Anchi.ERP.UI.WinForm
         {
             MessageBox.Show(message, "错误", MessageBoxButtons.OK);
         }
-
-
     }
 }

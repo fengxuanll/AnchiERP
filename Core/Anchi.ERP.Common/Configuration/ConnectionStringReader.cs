@@ -7,7 +7,7 @@ namespace Anchi.ERP.Common.Configuration
     /// <summary>
     /// 配置连接字符串读取器
     /// </summary>
-    public class ConnectionStringReader
+    public static class ConnectionStringReader
     {
         private static IDictionary<string, object> Dict;
         static ConnectionStringReader()
@@ -15,6 +15,7 @@ namespace Anchi.ERP.Common.Configuration
             Dict = new Dictionary<string, object>();
         }
 
+        #region 获取数据库连接字符串
         /// <summary>
         /// 获取数据库连接字符串
         /// </summary>
@@ -30,5 +31,6 @@ namespace Anchi.ERP.Common.Configuration
 
             return Dict[connectionName].ExtToString();
         }
+        #endregion
     }
 }

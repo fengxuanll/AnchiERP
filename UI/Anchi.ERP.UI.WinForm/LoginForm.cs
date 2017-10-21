@@ -43,7 +43,7 @@ namespace Anchi.ERP.UI.WinForm
                 ShowErrorMessage("请输入密码。");
                 return;
             }
-            var model = UserService.GetModel(loginName, passWord);
+            var model = this.UserService.GetModel(loginName, passWord);
             if (model == null)
             {
                 ShowErrorMessage("用户名或密码错误。");
@@ -55,7 +55,7 @@ namespace Anchi.ERP.UI.WinForm
                 return;
             }
 
-            base.CurrentUser = model;
+            this.CurrentUser = model;
             this.DialogResult = DialogResult.OK;
         }
         #endregion

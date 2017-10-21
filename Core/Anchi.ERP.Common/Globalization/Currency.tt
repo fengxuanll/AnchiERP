@@ -1,0 +1,96 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".tt.cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Xml" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="EnvDTE" #>
+<# 
+EnvDTE.DTE dte = (EnvDTE.DTE) ((IServiceProvider) this.Host)
+						.GetService(typeof(EnvDTE.DTE));     
+string xmlFile = System.IO.Path.Combine(dte.ActiveDocument.Path, "Currency.Xml");
+XmlDocument xmlDoc = new XmlDocument();
+xmlDoc.Load(xmlFile); 
+Dictionary<int, object[]> currencyBag = new Dictionary<int, object[]>();
+foreach (XmlNode node in xmlDoc.SelectNodes("//Currency"))
+{ 
+	string name = node.Attributes["DisplayName"].Value.Trim();
+	string code = node.Attributes["Code"].Value.Trim().ToUpper();
+	int id = int.Parse(node.Attributes["ID"].Value.Trim());
+	try {
+		currencyBag.Add(id, new string[] {code, name, node.Attributes["Symbol"].Value.Trim()});
+	}catch{ #>
+		duplicate: <#= id #>
+	<#}
+} 
+#>
+//=======================================================================================
+//
+// Copyright (C) Yahee. All Rights Reserved.
+// 
+// All the code, text, graphics, media, design, programs and other works are
+// protected by copyright law. Unauthorized reproduction or redistribution of them, 
+// or any portion of them, are forbidden.
+// 
+//=======================================================================================
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+
+namespace Anchi.ERP.Common.Globalization
+{
+	public partial class Currency
+	{
+		#region well-known
+		<#
+		foreach(int id in currencyBag.Keys) { #>
+
+		/// <summary>
+        /// <#= currencyBag[id] #>
+        /// </summary>
+		public static readonly Currency <#= currencyBag[id][0] #> = new Currency(<#= id #>,CurrencyCode.<#= currencyBag[id][0] #>,"<#= currencyBag[id][1] #>","<#= currencyBag[id][2] #>");
+		<#}#>				
+		#endregion
+
+        static Currency()
+        {           
+            allCurrencies = new Currency[] {													
+			<#foreach(int id in currencyBag.Keys) { #><#= currencyBag[id][0] #>,<#}#>							
+            };
+            allCurrencies = allCurrencies.OrderBy(c => c.Code).ToArray();                       
+        }
+
+	} // end of class Currency
+
+	/// <summary>
+    /// Defines currency codes. The names conform to the 3-letter alphabetic code 
+	/// and the values conform to the numeric code in ISO 4217.
+    /// </summary>
+	[DataContract(Namespace=Constants.NamespaceV140414)]
+	public enum CurrencyCode
+	{
+		/*/// <summary>
+        /// Unknown currency code
+        /// </summary>
+		/// <remark>
+		/// This entry is intended to work around the .NET enum annoying default value. It should never be used in the appliation.
+		/// </remark>
+		[EnumMember]
+		Unknown = 0,*/
+
+		#region well-known
+		<#
+		foreach(int id in currencyBag.Keys) { #>
+
+		/// <summary>
+        /// <#= currencyBag[id][1] #>
+        /// </summary>
+		[EnumMember]
+		<#= currencyBag[id][0] #> = <#= id #>,
+		<#}#>				
+		#endregion       
+
+	} // end of class Currency
+}// end of namespace Yahee.Model

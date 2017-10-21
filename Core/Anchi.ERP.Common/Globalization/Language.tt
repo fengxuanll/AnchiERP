@@ -1,0 +1,53 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".tt.cs" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ Import Namespace="System.Globalization" #>
+<#@ assembly name="EnvDTE" #>
+<# 
+EnvDTE.DTE dte = (EnvDTE.DTE) ((IServiceProvider) this.Host)
+						.GetService(typeof(EnvDTE.DTE));     
+Dictionary<CultureInfo, string> ciBag = new Dictionary<CultureInfo, string>();
+foreach(CultureInfo ci in CultureInfo.GetCultures(CultureTypes.AllCultures)) 
+{
+	if(ci.Name == String.Empty) continue;
+	string name = ci.Name.Replace("-", "_").ToUpper();
+	if(name == "is" || name == "as") name = "@" + name;
+	ciBag.Add(ci, name);
+}
+#>
+//=======================================================================================
+//
+// Copyright (C) Yahee. All Rights Reserved.
+// 
+// All the code, text, graphics, media, design, programs and other works are
+// protected by copyright law. Unauthorized reproduction or redistribution of them, 
+// or any portion of them, are forbidden.
+// 
+//=======================================================================================
+namespace Anchi.ERP.Common.Globalization
+{
+	/// <summary>
+    /// Defines language codes in the format "<languagecode2>-<country/regioncode2>".
+    /// </summary>
+	/// <remark>
+    /// The culture name in the format "<languagecode2>-<country/regioncode2>", where
+    /// <languagecode2> is a lowercase two-letter code derived from ISO 639-1 and
+    /// <country/regioncode2> is an uppercase two-letter code derived from ISO 3166.
+	public static class LanguageCodes
+	{
+		#region well-known
+		<# foreach(CultureInfo ci in ciBag.Keys) { #>
+
+		/// <summary>
+        /// <#= ci.EnglishName #>
+        /// </summary>
+	 	public const string <#= ciBag[ci] #> = "<#= ci.Name #>";
+		<#}#>				
+		#endregion     
+		
+		public static readonly string[] AllCodes = new string[] {													
+			<# foreach(CultureInfo ci in ciBag.Keys) { #> "<#= ci.Name #>",<#}#>							
+        };
+	} // end of class Language
+}

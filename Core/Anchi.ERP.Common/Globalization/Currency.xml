@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+定义常用货币，参考 ISO 4217 http://www.iso.org/iso/support/faqs/faqs_widely_used_standards/widely_used_standards_other/currency_codes/currency_codes_list-1.htm
+-->
+<Currencys>
+  <Currency ID="784" Code="AED" DisplayName="UAE Dirham" Symbol="L" />
+  <Currency ID="971" Code="AFN" DisplayName="Afghani" Symbol="" />
+  <Currency ID="8" Code="ALL" DisplayName="Lek" Symbol="DA" />
+  <Currency ID="51" Code="AMD" DisplayName="Armenian Dram" Symbol="" />
+  <Currency ID="532" Code="ANG" DisplayName="Netherlands Antillean Guilder" Symbol="" />
+  <Currency ID="973" Code="AOA" DisplayName="Kwanza" Symbol="KZ" />
+  <Currency ID="32" Code="ARS" DisplayName="Argentine Peso" Symbol="" />
+  <Currency ID="36" Code="AUD" DisplayName="Australian Dollar" Symbol="$" />
+  <Currency ID="533" Code="AWG" DisplayName="Aruban Guilder" Symbol="" />
+  <Currency ID="944" Code="AZN" DisplayName="Azerbaijanian Manat" Symbol="?" />
+  <Currency ID="977" Code="BAM" DisplayName="Convertible Mark" Symbol="" />
+  <Currency ID="52" Code="BBD" DisplayName="Barbados Dollar" Symbol="" />
+  <Currency ID="50" Code="BDT" DisplayName="Taka" Symbol="" />
+  <Currency ID="975" Code="BGN" DisplayName="Bulgarian Lev" Symbol="" />
+  <Currency ID="48" Code="BHD" DisplayName="Bahraini Dinar" Symbol="" />
+  <Currency ID="108" Code="BIF" DisplayName="Burundi Franc" Symbol="" />
+  <Currency ID="60" Code="BMD" DisplayName="Bermudian Dollar" Symbol="" />
+  <Currency ID="96" Code="BND" DisplayName="Brunei Dollar" Symbol="" />
+  <Currency ID="68" Code="BOB" DisplayName="Boliviano" Symbol="S" />
+  <Currency ID="984" Code="BOV" DisplayName="Mvdol " Symbol="" />
+  <Currency ID="986" Code="BRL" DisplayName="Brazilian Real" Symbol="BF" />
+  <Currency ID="44" Code="BSD" DisplayName="Bahamian Dollar" Symbol="" />
+  <Currency ID="64" Code="BTN" DisplayName="Ngultrum?" Symbol="" />
+  <Currency ID="72" Code="BWP" DisplayName="Pula" Symbol="" />
+  <Currency ID="974" Code="BYR" DisplayName="Belarussian Ruble" Symbol="" />
+  <Currency ID="84" Code="BZD" DisplayName="Belize Dollar" Symbol="" />
+  <Currency ID="124" Code="CAD" DisplayName="Canadian Dollar" Symbol="$" />
+  <Currency ID="976" Code="CDF" DisplayName="Congolese Franc " Symbol="" />
+  <Currency ID="947" Code="CHE" DisplayName="WIR Euro " Symbol="" />
+  <Currency ID="756" Code="CHF" DisplayName="Swiss Franc" Symbol="R$" />
+  <Currency ID="948" Code="CHW" DisplayName="WIR Franc  " Symbol="" />
+  <Currency ID="990" Code="CLF" DisplayName="Unidades de fomento?" Symbol="CFAF" />
+  <Currency ID="152" Code="CLP" DisplayName="Chilean Peso" Symbol="Can $" />
+  <Currency ID="156" Code="CNY" DisplayName="Yuan Renminbi" Symbol="￥" />
+  <Currency ID="170" Code="COP" DisplayName="Colombian Peso" Symbol="" />
+  <Currency ID="970" Code="COU" DisplayName="Unidad de Valor Real " Symbol="" />
+  <Currency ID="188" Code="CRC" DisplayName="Costa Rican Colon" Symbol="" />
+  <Currency ID="931" Code="CUC" DisplayName="Peso Convertible  " Symbol="Ch$" />
+  <Currency ID="192" Code="CUP" DisplayName="Cuban Peso" Symbol="?" />
+  <Currency ID="132" Code="CVE" DisplayName="Cape Verde Escudo" Symbol="" />
+  <Currency ID="203" Code="CZK" DisplayName="Czech Koruna" Symbol="" />
+  <Currency ID="262" Code="DJF" DisplayName="Djibouti Franc" Symbol="" />
+  <Currency ID="208" Code="DKK" DisplayName="Danish Krone" Symbol="" />
+  <Currency ID="214" Code="DOP" DisplayName="Dominican Peso" Symbol="" />
+  <Currency ID="12" Code="DZD" DisplayName="Algerian Dinar" Symbol="HRK" />
+  <Currency ID="818" Code="EGP" DisplayName="Egyptian Pound" Symbol="Cu$" />
+  <Currency ID="232" Code="ERN" DisplayName="Nakfa" Symbol="" />
+  <Currency ID="230" Code="ETB" DisplayName="Ethiopian Birr" Symbol="" />
+  <Currency ID="978" Code="EUR" DisplayName="Euro" Symbol="€" />
+  <Currency ID="242" Code="FJD" DisplayName="Fiji Dollar" Symbol="RlS" />
+  <Currency ID="238" Code="FKP" DisplayName="Falkland Islands Pound" Symbol="" />
+  <Currency ID="826" Code="GBP" DisplayName="Pound Sterling" Symbol="￡" />
+  <Currency ID="981" Code="GEL" DisplayName="Lari" Symbol="" />
+  <Currency ID="9001" Code="GGP" DisplayName="Guernsey Pound" Symbol="" />
+  <Currency ID="936" Code="GHS" DisplayName="Cedi" Symbol="" />
+  <Currency ID="292" Code="GIP" DisplayName="Gibraltar Pound" Symbol="" />
+  <Currency ID="270" Code="GMD" DisplayName="Dalasi" Symbol="" />
+  <Currency ID="324" Code="GNF" DisplayName="Guinea Franc" Symbol="" />
+  <Currency ID="320" Code="GTQ" DisplayName="Quetzal" Symbol="" />
+  <Currency ID="328" Code="GYD" DisplayName="Guyana Dollar" Symbol="" />
+  <Currency ID="344" Code="HKD" DisplayName="Hong Kong Dollar" Symbol="$" />
+  <Currency ID="340" Code="HNL" DisplayName="Lempira" Symbol="ID" />
+  <Currency ID="191" Code="HRK" DisplayName="Croatian Kuna" Symbol="ID" />
+  <Currency ID="332" Code="HTG" DisplayName="Gourde" Symbol="" />
+  <Currency ID="348" Code="HUF" DisplayName="Forint" Symbol="Lit" />
+  <Currency ID="360" Code="IDR" DisplayName="Rupiah" Symbol="J￥" />
+  <Currency ID="376" Code="ILS" DisplayName="New Israeli Sheqel" Symbol="" />
+  <Currency ID="9002" Code="IMP" DisplayName="Isle of Man Pound" Symbol="" />
+  <Currency ID="356" Code="INR" DisplayName="Indian Rupee" Symbol="" />
+  <Currency ID="368" Code="IQD" DisplayName="Iraqi Dinar" Symbol="KD" />
+  <Currency ID="364" Code="IRR" DisplayName="Iranian Rial" Symbol="P" />
+  <Currency ID="352" Code="ISK" DisplayName="Iceland Krona" Symbol="RM" />
+  <Currency ID="9003" Code="JEP" DisplayName="Jersey Pound" Symbol="" />
+  <Currency ID="388" Code="JMD" DisplayName="Jamaican Dollar" Symbol="" />
+  <Currency ID="400" Code="JOD" DisplayName="Jordanian Dinar" Symbol="Lm" />
+  <Currency ID="392" Code="JPY" DisplayName="Yen" Symbol="¥" />
+  <Currency ID="404" Code="KES" DisplayName="Kenyan Shilling" Symbol="" />
+  <Currency ID="417" Code="KGS" DisplayName="Som" Symbol="" />
+  <Currency ID="116" Code="KHR" DisplayName="Riel" Symbol="" />
+  <Currency ID="174" Code="KMF" DisplayName="Comoro Franc" Symbol="" />
+  <Currency ID="408" Code="KPW" DisplayName="North Korean Won" Symbol="" />
+  <Currency ID="410" Code="KRW" DisplayName="Won" Symbol="" />
+  <Currency ID="414" Code="KWD" DisplayName="Kuwaiti Dinar" Symbol="Mex$" />
+  <Currency ID="136" Code="KYD" DisplayName="Cayman Islands Dollar" Symbol="" />
+  <Currency ID="398" Code="KZT" DisplayName="Tenge" Symbol="" />
+  <Currency ID="418" Code="LAK" DisplayName="Kip" Symbol="" />
+  <Currency ID="422" Code="LBP" DisplayName="Lebanese Pound" Symbol="" />
+  <Currency ID="144" Code="LKR" DisplayName="Sri Lanka Rupee" Symbol="" />
+  <Currency ID="430" Code="LRD" DisplayName="Liberian Dollar" Symbol="" />
+  <Currency ID="426" Code="LSL" DisplayName="Loti" Symbol="" />
+  <Currency ID="440" Code="LTL" DisplayName="Lithuanian Litas" Symbol="" />
+  <Currency ID="428" Code="LVL" DisplayName="Latvian Lats" Symbol="" />
+  <Currency ID="434" Code="LYD" DisplayName="Libyan Dinar" Symbol="" />
+  <Currency ID="504" Code="MAD" DisplayName="Moroccan Dirham" Symbol="Tug" />
+  <Currency ID="498" Code="MDL" DisplayName="Moldovan Leu" Symbol="" />
+  <Currency ID="969" Code="MGA" DisplayName="Malagasy Ariary" Symbol="" />
+  <Currency ID="807" Code="MKD" DisplayName="Denar" Symbol="" />
+  <Currency ID="104" Code="MMK" DisplayName="Kyat" Symbol="" />
+  <Currency ID="496" Code="MNT" DisplayName="Tugrik" Symbol="DH" />
+  <Currency ID="446" Code="MOP" DisplayName="Pataca" Symbol="NE$" />
+  <Currency ID="478" Code="MRO" DisplayName="Ouguiya" Symbol="" />
+  <Currency ID="480" Code="MUR" DisplayName="Mauritius Rupee" Symbol="" />
+  <Currency ID="462" Code="MVR" DisplayName="Rufiyaa" Symbol="" />
+  <Currency ID="454" Code="MWK" DisplayName="Kwacha" Symbol="" />
+  <Currency ID="484" Code="MXN" DisplayName="Mexican Peso" Symbol="NKr" />
+  <Currency ID="979" Code="MXV" DisplayName="Mexican Unidad de Inversion (UDI) " Symbol="Rs" />
+  <Currency ID="458" Code="MYR" DisplayName="Malaysian Ringgit" Symbol="Rs" />
+  <Currency ID="943" Code="MZN" DisplayName="Metical" Symbol="" />
+  <Currency ID="516" Code="NAD" DisplayName="Namibia Dollar" Symbol="" />
+  <Currency ID="566" Code="NGN" DisplayName="Naira" Symbol="" />
+  <Currency ID="558" Code="NIO" DisplayName="Cordoba Oro" Symbol="" />
+  <Currency ID="578" Code="NOK" DisplayName="Norwegian Krone" Symbol="" />
+  <Currency ID="524" Code="NPR" DisplayName="Nepalese Rupee" Symbol="" />
+  <Currency ID="554" Code="NZD" DisplayName="New Zealand Dollar" Symbol="$" />
+  <Currency ID="512" Code="OMR" DisplayName="Rial Omani" Symbol="" />
+  <Currency ID="590" Code="PAB" DisplayName="Balboa" Symbol="deshed P " />
+  <Currency ID="9004" Code="PEN" DisplayName="Peruvian Nuevo Sol" Symbol="" />
+  <Currency ID="598" Code="PGK" DisplayName="Kina" Symbol="" />
+  <Currency ID="608" Code="PHP" DisplayName="Philippine Peso" Symbol="L" />
+  <Currency ID="586" Code="PKR" DisplayName="Pakistan Rupee" Symbol="R" />
+  <Currency ID="985" Code="PLN" DisplayName="Zloty" Symbol="RF" />
+  <Currency ID="600" Code="PYG" DisplayName="Guarani" Symbol="" />
+  <Currency ID="634" Code="QAR" DisplayName="Qatari Rial" Symbol="" />
+  <Currency ID="946" Code="RON" DisplayName="Leu  " Symbol="SRlS" />
+  <Currency ID="941" Code="RSD" DisplayName="Serbian Dinar" Symbol="" />
+  <Currency ID="643" Code="RUB" DisplayName="Russian Ruble" Symbol="£" />
+  <Currency ID="646" Code="RWF" DisplayName="Rwanda Franc" Symbol="SlT" />
+  <Currency ID="682" Code="SAR" DisplayName="Saudi Riyal" Symbol="R" />
+  <Currency ID="90" Code="SBD" DisplayName="Solomon Islands Dollar" Symbol="" />
+  <Currency ID="690" Code="SCR" DisplayName="Seychelles Rupee" Symbol="" />
+  <Currency ID="938" Code="SDG" DisplayName="Sudanese Pound " Symbol="" />
+  <Currency ID="752" Code="SEK" DisplayName="Swedish Krona" Symbol="Ptas" />
+  <Currency ID="702" Code="SGD" DisplayName="Singapore Dollar" Symbol="SK" />
+  <Currency ID="654" Code="SHP" DisplayName="Saint Helena Pound" Symbol="" />
+  <Currency ID="694" Code="SLL" DisplayName="Leone" Symbol="" />
+  <Currency ID="706" Code="SOS" DisplayName="Somali Shilling" Symbol="" />
+  <Currency ID="9005" Code="SPL" DisplayName="Seborgan Luigino" Symbol="" />
+  <Currency ID="968" Code="SRD" DisplayName="Surinam Dollar" Symbol="" />
+  <Currency ID="678" Code="STD" DisplayName="Dobra" Symbol="" />
+  <Currency ID="222" Code="SVC" DisplayName="El Salvador Colon" Symbol="" />
+  <Currency ID="760" Code="SYP" DisplayName="Syrian Pound" Symbol="" />
+  <Currency ID="748" Code="SZL" DisplayName="Lilangeni" Symbol="" />
+  <Currency ID="764" Code="THB" DisplayName="Baht" Symbol="SWF" />
+  <Currency ID="972" Code="TJS" DisplayName="Somoni      " Symbol="?" />
+  <Currency ID="934" Code="TMT" DisplayName="New Manat" Symbol="" />
+  <Currency ID="788" Code="TND" DisplayName="Tunisian Dinar" Symbol="NT$" />
+  <Currency ID="776" Code="TOP" DisplayName="Paanga" Symbol="Bht(Bt)" />
+  <Currency ID="949" Code="TRY" DisplayName="Turkish Lira  " Symbol="PT(T$)" />
+  <Currency ID="780" Code="TTD" DisplayName="Trinidad and Tobago Dollar" Symbol="" />
+  <Currency ID="9006" Code="TVD" DisplayName="Tuvaluan Dollar" Symbol="" />
+  <Currency ID="901" Code="TWD" DisplayName="New Taiwan Dollar" Symbol="TD" />
+  <Currency ID="834" Code="TZS" DisplayName="Tanzanian Shilling" Symbol="" />
+  <Currency ID="980" Code="UAH" DisplayName="Hryvnia" Symbol="?" />
+  <Currency ID="800" Code="UGX" DisplayName="Uganda Shilling" Symbol="TL" />
+  <Currency ID="840" Code="USD" DisplayName="US Dollar" Symbol="$" />
+  <Currency ID="997" Code="USN" DisplayName="US Dollar (Next day)?" Symbol="" />
+  <Currency ID="998" Code="USS" DisplayName="US Dollar (Same day)?" Symbol="" />
+  <Currency ID="940" Code="UYI" DisplayName="Uruguay Peso en Unidades Indexadas (URUIURUI)  " Symbol="" />
+  <Currency ID="858" Code="UYU" DisplayName="Peso Uruguayo" Symbol="" />
+  <Currency ID="860" Code="UZS" DisplayName="Uzbekistan Sum" Symbol="?" />
+  <Currency ID="937" Code="VEF" DisplayName="Bolivar Fuerte " Symbol="" />
+  <Currency ID="704" Code="VND" DisplayName="Dong" Symbol="" />
+  <Currency ID="548" Code="VUV" DisplayName="Vatu" Symbol="" />
+  <Currency ID="882" Code="WST" DisplayName="Tala" Symbol="" />
+  <Currency ID="950" Code="XAF" DisplayName="CFA Franc BEAC?" Symbol="" />
+  <Currency ID="9007" Code="XAG" DisplayName="Silver Ounce" Symbol="" />
+  <Currency ID="9008" Code="XAU" DisplayName="Gold Ounce" Symbol="" />
+  <Currency ID="951" Code="XCD" DisplayName="East Caribbean Dollar" Symbol="" />
+  <Currency ID="960" Code="XDR" DisplayName="SDR (Special Drawing Right)" Symbol="" />
+  <Currency ID="952" Code="XOF" DisplayName="CFA Franc BCEAO?" Symbol="" />
+  <Currency ID="9009" Code="XPD" DisplayName="Palladium Ounce" Symbol="" />
+  <Currency ID="953" Code="XPF" DisplayName="CFP Franc" Symbol="" />
+  <Currency ID="9010" Code="XPT" DisplayName="Platinum Ounce" Symbol="" />
+  <Currency ID="994" Code="XSU" DisplayName="Sucre" Symbol="" />
+  <Currency ID="965" Code="XUA" DisplayName="ADB Unit of Account" Symbol="" />
+  <Currency ID="886" Code="YER" DisplayName="Yemeni Rial" Symbol="S" />
+  <Currency ID="710" Code="ZAR" DisplayName="Rand" Symbol="" />
+  <Currency ID="9011" Code="ZMK" DisplayName="Zambian Kwacha" Symbol="" />
+  <Currency ID="9012" Code="ZWD" DisplayName="Zimbabwean Dollar" Symbol="" />
+</Currencys>

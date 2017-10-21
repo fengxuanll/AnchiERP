@@ -7,7 +7,7 @@ namespace Anchi.ERP.Common.Configuration
     /// <summary>
     /// AppSetting配置读取器
     /// </summary>
-    public class AppSettingReader
+    public static class AppSettingReader
     {
         private static IDictionary<string, string> Dict;
         static AppSettingReader()
@@ -26,8 +26,7 @@ namespace Anchi.ERP.Common.Configuration
             if (string.IsNullOrWhiteSpace(key))
                 return string.Empty;
 
-            string value;
-            Dict.TryGetValue(key, out value);
+            Dict.TryGetValue(key, out string value);
 
             if (string.IsNullOrWhiteSpace(value))
             {
@@ -50,8 +49,7 @@ namespace Anchi.ERP.Common.Configuration
         {
             var value = GetString(key);
 
-            int result;
-            if (!int.TryParse(value, out result))
+            if (!int.TryParse(value, out int result))
                 result = defaultValue;
 
             return result;
@@ -69,8 +67,7 @@ namespace Anchi.ERP.Common.Configuration
         {
             var value = GetString(key);
 
-            float result;
-            if (!float.TryParse(value, out result))
+            if (!float.TryParse(value, out float result))
                 result = defaultValue;
 
             return result;
@@ -88,8 +85,7 @@ namespace Anchi.ERP.Common.Configuration
         {
             var value = GetString(key);
 
-            bool result;
-            if (!bool.TryParse(value, out result))
+            if (!bool.TryParse(value, out bool result))
                 result = defaultValue;
 
             return result;

@@ -1,0 +1,104 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".tt.cs" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.OleDb" #>
+<#@ assembly name="System.Data.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="EnvDTE" #>
+<# 
+EnvDTE.DTE dte = (EnvDTE.DTE) ((IServiceProvider) this.Host)
+						.GetService(typeof(EnvDTE.DTE));     
+string xlsPath = System.IO.Path.Combine(dte.ActiveDocument.Path, "Country.xls");
+string connStr = "Provider=Microsoft.Jet.OLEDB.4.0;" +
+			"Extended Properties=Excel 8.0;" +
+			"data source=" + xlsPath;
+//WriteLine(xlsPath);
+string sql = "SELECT * FROM [Sheet1$]";
+OleDbDataAdapter da = new OleDbDataAdapter(sql, connStr);
+DataSet ds = new DataSet();
+da.Fill(ds);
+Dictionary<string, string> countryBag = new Dictionary<string, string>();
+foreach (DataRow dr in ds.Tables[0].Rows)
+{ 
+	string name = dr["Name"].ToString().ToUpper();
+	string code = dr["Code"].ToString().ToUpper();
+	if(code.Length == 2) {
+		countryBag.Add(code, name);
+	}
+} 
+#>
+//=======================================================================================
+//
+// Copyright (C) Yahee. All Rights Reserved.
+// 
+// All the code, text, graphics, media, design, programs and other works are
+// protected by copyright law. Unauthorized reproduction or redistribution of them, 
+// or any portion of them, are forbidden.
+// 
+//=======================================================================================
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+
+namespace Anchi.ERP.Common.Globalization
+{
+	public partial class Country
+	{
+		#region well-known
+		<#
+		foreach(string code in countryBag.Keys) { #>
+
+		/// <summary>
+        /// <#= countryBag[code] #>
+        /// </summary>
+		public static readonly Country <#= code #> = new Country(CountryCode.<#= code #>);
+		<#}#>				
+		#endregion		
+
+        static Country()
+        {            
+            allCountries = new Country[] {													
+			<#foreach(string code in countryBag.Keys) { #><#= code #>,<#}#>							
+            };
+            allCountries = allCountries.OrderBy(c => c.Code).ToArray();                       
+        }
+	} // end of class Country
+
+	
+	/// <summary>
+    /// Defines country/region codes. The names in this enum conform to 2-letter code in ISO 3166.
+    /// </summary>
+	/// <remarks>
+	/// It is intended for simply referencing the country code and programming convenient to define this enum.
+	/// The underlying numeric value of this enum is meaningless in the business, so don't use their numeric values
+	/// in the business operations.
+	/// </remarks>
+	[Serializable]
+	public enum CountryCode
+	{
+		/*/// <summary>
+        /// Unknown country code		
+        /// </summary>
+		/// <remark>
+		/// This entry is intended to work around the .NET enum annoying default value. should never be used in the appliation.
+		/// </remark>
+		//[EnumMember]
+		//Unknown = 0,*/
+
+		#region well-known
+		<#
+		int i=0;
+		foreach(string code in countryBag.Keys) { #>
+
+		/// <summary>
+        /// <#= countryBag[code] #>
+        /// </summary>
+		[EnumMember]
+		<#= code #> = <#= ++i #>,
+		<#}#>				
+		#endregion		
+	
+	}
+}
