@@ -18,8 +18,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class SaleController : BaseController
     {
         #region 构造函数和属性
-        public SaleController() : this(new SaleOrderService(), new EmployeeService()) { }
-
         public SaleController(SaleOrderService saleOrderService, EmployeeService employeeService)
         {
             this.SaleOrderService = saleOrderService;

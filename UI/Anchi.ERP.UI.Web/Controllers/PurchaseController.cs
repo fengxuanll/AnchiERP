@@ -19,8 +19,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class PurchaseController : BaseController
     {
         #region 构造函数和属性
-        public PurchaseController() : this(new PurchaseService(), new EmployeeService(), new SupplierService()) { }
-
         public PurchaseController(PurchaseService purchaseService, EmployeeService employeeService, SupplierService supplierService)
         {
             this.PurchaseService = purchaseService;

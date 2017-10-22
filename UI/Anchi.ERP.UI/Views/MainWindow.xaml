@@ -1,8 +1,10 @@
-﻿<Fluent:RibbonWindow x:Class="Anchi.ERP.UI.MainWindow"
+﻿
+    <views:BaseWindow
+    xmlns:views="clr-namespace:Anchi.ERP.UI.Views" x:Class="Anchi.ERP.UI.Views.MainWindow"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:Fluent="urn:fluent-ribbon"
-                     Title="星科ERP" Icon="statics/logo.png" WindowStartupLocation="CenterScreen"
+                     Title="星科ERP" Icon="../Resources/Images/logo.png" WindowStartupLocation="CenterScreen"
                      Width="800" 
                      Height="550">
     <Grid>
@@ -35,4 +37,4 @@
             <TextBlock>My first window containing a Ribbon and something else.</TextBlock>
         </Grid>
     </Grid>
-</Fluent:RibbonWindow>
+</views:BaseWindow>

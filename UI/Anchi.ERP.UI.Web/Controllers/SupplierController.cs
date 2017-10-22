@@ -16,8 +16,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class SupplierController : BaseController
     {
         #region 构造函数和属性
-        public SupplierController() : this(new SupplierService()) { }
-
         public SupplierController(SupplierService supplierService)
         {
             this.SupplierService = supplierService;

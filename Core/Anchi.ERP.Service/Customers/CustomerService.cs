@@ -11,8 +11,6 @@ namespace Anchi.ERP.Service.Customers
     public class CustomerService : BaseService<Customer>
     {
         #region 构造函数和属性
-        public CustomerService() : this(new CustomerRepository())  { }
-
         public CustomerService(ICustomerRepository customerRepository) : base(customerRepository)
         {
             this.CustomerRepository = customerRepository;

@@ -6,8 +6,6 @@ using Anchi.ERP.Domain.PurchaseOrders.Filter;
 using Anchi.ERP.Domain.RepairOrders.Enum;
 using Anchi.ERP.IRepository.Finances;
 using Anchi.ERP.IRepository.Purchases;
-using Anchi.ERP.Repository.Finances;
-using Anchi.ERP.Repository.Purchases;
 using Anchi.ERP.Service.Employees;
 using Anchi.ERP.Service.Suppliers;
 using Anchi.ERP.ServiceModel.Purchases;
@@ -23,8 +21,6 @@ namespace Anchi.ERP.Service.Purchases
     public class PurchaseService : BaseService<PurchaseOrder>
     {
         #region 构造函数和属性
-        public PurchaseService() : this(new PurchaseOrderRepository(), new EmployeeService(), new SupplierService(), new FinanceOrderRepository()) { }
-
         public PurchaseService(IPurchaseOrderRepository purchaseOrderRepository, EmployeeService employeeService, SupplierService supplierService, IFinanceOrderRepository financeOrderRepository) : base(purchaseOrderRepository)
         {
             this.PurchaseOrderRepository = purchaseOrderRepository;

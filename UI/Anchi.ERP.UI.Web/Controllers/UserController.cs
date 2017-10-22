@@ -17,8 +17,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class UserController : BaseController
     {
         #region 构造函数和属性
-        public UserController() : this(new UserService()) { }
-
         public UserController(UserService userService)
         {
             this.UserService = userService;

@@ -2,7 +2,6 @@
 using Anchi.ERP.Domain.Employees.Enum;
 using Anchi.ERP.Domain.Employees.Filter;
 using Anchi.ERP.IRepository.Employees;
-using Anchi.ERP.Repository.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +14,12 @@ namespace Anchi.ERP.Service.Employees
     public class EmployeeService : BaseService<Employee>
     {
         #region 构造函数和属性
-        public EmployeeService() : this(new EmployeeRepository()) { }
-
         public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
             this.EmployeeRepository = employeeRepository;
         }
 
-        IEmployeeRepository EmployeeRepository { get; }
+        private IEmployeeRepository EmployeeRepository { get; }
         #endregion
 
         #region 保存员工

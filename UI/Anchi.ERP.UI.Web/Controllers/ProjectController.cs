@@ -16,8 +16,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class ProjectController : BaseController
     {
         #region 构造函数和属性
-        public ProjectController() : this(new ProjectService()) { }
-
         public ProjectController(ProjectService projectService)
         {
             this.ProjectService = projectService;

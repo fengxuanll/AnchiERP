@@ -11,8 +11,6 @@ namespace Anchi.ERP.Service.Projects
     public class ProjectService : BaseService<Project>
     {
         #region 构造函数和属性
-        public ProjectService() : this(new ProjectRepository()) { }
-
         public ProjectService(IProjectRepository projectRepository) : base(projectRepository)
         {
             this.ProjectRepository = projectRepository;

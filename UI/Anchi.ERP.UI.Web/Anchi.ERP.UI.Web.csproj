@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -420,6 +421,9 @@
     <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.ttf" />
     <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.woff" />
     <Content Include="Static\FontAwesome3.2.1\font\FontAwesome.otf" />
+    <Content Include="..\..\1-Lib\Config\unity.config">
+      <Link>Config\unity.config</Link>
+    </Content>
     <None Include="Properties\PublishProfiles\WebPublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -11,8 +11,6 @@ namespace Anchi.ERP.Service.Products
     public class ProductService : BaseService<Product>
     {
         #region 构造函数和属性
-        public ProductService() : this(new ProductRepository()) { }
-
         public ProductService(IProductRepository productRepository) : base(productRepository)
         {
             this.ProductRepository = productRepository;

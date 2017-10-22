@@ -16,9 +16,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class RepairController : BaseController
     {
         #region 构造函数和属性
-        public RepairController() : this(new RepairOrderService(), new EmployeeService(), new CustomerService())
-        { }
-
         public RepairController(RepairOrderService repairOrderService, EmployeeService employeeService, CustomerService customerService)
         {
             this.RepairOrderService = repairOrderService;

@@ -16,10 +16,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class CustomerController : BaseController
     {
         #region 构造函数和属性
-        public CustomerController() : this(new CustomerService())
-        {
-        }
-
         public CustomerController(CustomerService customerService)
         {
             this.CustomerService = customerService;

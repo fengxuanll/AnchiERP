@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Anchi.ERP.Common.Extensions;
+using System.ComponentModel;
 
 namespace Anchi.ERP.UI.ViewModels
 {
@@ -16,6 +17,15 @@ namespace Anchi.ERP.UI.ViewModels
         public void RaisePropertyChange(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return this.ToJson();
         }
     }
 }

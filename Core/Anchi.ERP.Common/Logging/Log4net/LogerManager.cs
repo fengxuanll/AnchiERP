@@ -16,16 +16,14 @@ namespace Anchi.ERP.Common.Logging.Log4net
         /// 日志文件路径
         /// </summary>
         public static string LogConfigPath
-        {
-            get; set;
-        }
+        { get; set; }
+
         /// <summary>
         /// 通用日志
         /// </summary>
         public static ILog CommonLoger
         {
-            get;
-            private set;
+            get; private set;
         }
 
         /// <summary>
@@ -33,8 +31,7 @@ namespace Anchi.ERP.Common.Logging.Log4net
         /// </summary>
         public static ILog ErrorLoger
         {
-            get;
-            private set;
+            get; private set;
         }
 
         static LogerManager()
@@ -57,7 +54,7 @@ namespace Anchi.ERP.Common.Logging.Log4net
         }
 
         /// <summary>
-        /// 获取指定名称的日志记录器。
+        /// 获取指定名称的日志记录器
         /// </summary>
         /// <param name="name">日志记录器名称</param>
         /// <returns></returns>

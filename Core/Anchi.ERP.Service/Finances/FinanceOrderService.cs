@@ -17,14 +17,6 @@ namespace Anchi.ERP.Service.Finances
     public class FinanceOrderService : BaseService<FinanceOrder>
     {
         #region 构造函数和属性
-        public FinanceOrderService()
-            : this(new FinanceOrderRepository(),
-                  new PurchaseService(),
-                  new RepairOrderService(),
-                  new SaleOrderService())
-        {
-        }
-
         public FinanceOrderService(
             IFinanceOrderRepository financeOrderRepository,
             PurchaseService purchaseService,

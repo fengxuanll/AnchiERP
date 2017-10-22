@@ -23,8 +23,6 @@ namespace Anchi.ERP.Service.Repairs
     public class RepairOrderService : BaseService<RepairOrder>
     {
         #region 构造函数和属性
-        public RepairOrderService() : this(new RepairOrderRepository(), new CustomerService(), new EmployeeService(), new FinanceOrderRepository()) { }
-
         public RepairOrderService(IRepairOrderRepository repairOrderRepository, CustomerService customerService, EmployeeService employeeService, IFinanceOrderRepository financeOrderRepository) : base(repairOrderRepository)
         {
             this.RepairOrderRepository = repairOrderRepository;

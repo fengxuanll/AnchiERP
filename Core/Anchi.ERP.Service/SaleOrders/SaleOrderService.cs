@@ -22,8 +22,6 @@ namespace Anchi.ERP.Service.SaleOrders
     public class SaleOrderService : BaseService<SaleOrder>
     {
         #region 构造函数和属性
-        public SaleOrderService() : this(new SaleOrderRepository(), new CustomerService(), new EmployeeService(), new FinanceOrderRepository()) { }
-
         public SaleOrderService(ISaleOrderRepository saleOrderRepository, CustomerService customerService, EmployeeService employeeService, IFinanceOrderRepository financeOrderRepository) : base(saleOrderRepository)
         {
             this.SaleOrderRepository = saleOrderRepository;

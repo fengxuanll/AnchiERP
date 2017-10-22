@@ -11,8 +11,6 @@ namespace Anchi.ERP.Service.Suppliers
     public class SupplierService : BaseService<Supplier>
     {
         #region 构造函数和属性
-        public SupplierService() : this(new SupplierRepository()) { }
-
         public SupplierService(ISupplierRepository supplierRepository) : base(supplierRepository)
         {
             this.SupplierRepository = supplierRepository;

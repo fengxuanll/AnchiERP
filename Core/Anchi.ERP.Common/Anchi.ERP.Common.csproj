@@ -66,10 +66,30 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.Abstractions.2.0.1\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration, Version=5.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.Configuration.5.0.0\lib\net45\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.0.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.5.0.0\lib\net45\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception, Version=5.0.0.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.Interception.5.0.1\lib\net45\Unity.Interception.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\AppSettingReader.cs" />
+    <Compile Include="Configuration\ConfigHelper.cs" />
     <Compile Include="Configuration\ConnectionStringReader.cs" />
+    <Compile Include="Configuration\DllConfiguration.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Containers\ApplicationContext.cs" />
+    <Compile Include="Containers\ApplicationContextBase.cs" />
+    <Compile Include="Containers\Container.cs" />
+    <Compile Include="Containers\IApplicationContext.cs" />
+    <Compile Include="Containers\ThreadApplicationContext.cs" />
     <Compile Include="Domain\ValueObject.cs" />
     <Compile Include="Excel\ColumnValidItem.cs" />
     <Compile Include="Excel\NPOIHelper.cs" />
@@ -104,13 +124,18 @@
     <Compile Include="Globalization\LocalString.cs" />
     <Compile Include="GOF\Singleton.cs" />
     <Compile Include="IO\FileHelper.cs" />
-    <Compile Include="Logging\Log4net\LogManager.cs" />
+    <Compile Include="Logging\Log4net\LogerManager.cs" />
     <Compile Include="Logging\LogWriter.cs" />
     <Compile Include="Net\EnumAuthorizationType.cs" />
     <Compile Include="Net\EnumHttpVerbs.cs" />
     <Compile Include="Net\HttpHelper.cs" />
     <Compile Include="Net\HttpRequest.cs" />
     <Compile Include="Net\HttpResponse.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\SequenceTask.cs" />
+    <Compile Include="Tasks\TaskCompletedReason.cs" />
+    <Compile Include="Tasks\TaskContext.cs" />
+    <Compile Include="Tasks\TaskStatus.cs" />
     <Compile Include="Text\RegexHelper.cs" />
     <Compile Include="Security\DESEncrypt.cs" />
     <Compile Include="Security\MD5.cs" />

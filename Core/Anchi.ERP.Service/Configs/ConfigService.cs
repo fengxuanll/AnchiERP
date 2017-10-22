@@ -10,8 +10,6 @@ namespace Anchi.ERP.Service.Configs
     public class ConfigService : BaseService<SystemConfig>
     {
         #region 构造函数和属性
-        public ConfigService() : this(new ConfigRepository()) { }
-
         public ConfigService(IConfigRepository configRepository) : base(configRepository)
         {
             this.ConfigRepository = configRepository;

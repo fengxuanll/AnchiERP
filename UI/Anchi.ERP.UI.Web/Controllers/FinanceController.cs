@@ -11,8 +11,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class FinanceController : Controller
     {
         #region 构造函数和属性
-        public FinanceController() : this(new FinanceOrderService()) { }
-
         public FinanceController(FinanceOrderService financeOrderService)
         {
             this.FinanceOrderService = financeOrderService;

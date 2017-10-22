@@ -15,8 +15,6 @@ namespace Anchi.ERP.Service.Users
     public class UserService : BaseService<User>
     {
         #region 构造函数和属性
-        public UserService() : this(new UserRepository()) { }
-
         public UserService(IUserRepository userRepository) : base(userRepository)
         {
             this.UserRepository = userRepository;

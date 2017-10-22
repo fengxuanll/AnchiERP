@@ -109,5 +109,31 @@ namespace Anchi.ERP.Common.Configuration
             return value.ToList(splitChar, removeEmpty);
         }
         #endregion
+
+        #region 获取配置文件目录
+        /// <summary>
+        /// 获取配置文件目录
+        /// </summary>
+        public static string ConfigDirectory
+        {
+            get
+            {
+                return GetString(Constants.ConfigDirectory) ?? "Config";
+            }
+        }
+        #endregion
+
+        #region 获取当前环境是否是调试模式
+        /// <summary>
+        /// 获取当前环境是否是调试模式
+        /// </summary>
+        public static bool Debug
+        {
+            get
+            {
+                return GetBoolean(Constants.Debug);
+            }
+        }
+        #endregion
     }
 }

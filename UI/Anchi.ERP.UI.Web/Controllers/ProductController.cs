@@ -16,8 +16,6 @@ namespace Anchi.ERP.UI.Web.Controllers
     public class ProductController : BaseController
     {
         #region 构造函数和属性
-        public ProductController() : this(new ProductService(), new ProductStockRecordService()) { }
-
         public ProductController(ProductService productService, ProductStockRecordService productStockRecordService)
         {
             this.ProductService = productService;

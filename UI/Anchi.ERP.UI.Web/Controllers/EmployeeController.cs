@@ -18,13 +18,6 @@ namespace Anchi.ERP.UI.Web.Controllers
         /// <summary>
         /// 构造函数
         /// </summary>
-        public EmployeeController() : this(new EmployeeService())
-        {
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         /// <param name="employeeService"></param>
         public EmployeeController(EmployeeService employeeService)
         {
