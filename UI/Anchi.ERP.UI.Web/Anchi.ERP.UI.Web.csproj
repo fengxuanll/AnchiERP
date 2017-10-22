@@ -421,9 +421,6 @@
     <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.ttf" />
     <Content Include="Static\FontAwesome3.2.1\font\fontawesome-webfont.woff" />
     <Content Include="Static\FontAwesome3.2.1\font\FontAwesome.otf" />
-    <Content Include="..\..\1-Lib\Config\unity.config">
-      <Link>Config\unity.config</Link>
-    </Content>
     <None Include="Properties\PublishProfiles\WebPublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -434,6 +431,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Config\" />
     <Folder Include="Static\h-ui\images\unslider\" />
   </ItemGroup>
   <ItemGroup>

@@ -5,22 +5,20 @@ using Anchi.ERP.UI.Views;
 using System.Security.Principal;
 using System.Threading;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Anchi.ERP.UI.ViewModels
 {
     /// <summary>
     /// 用户登录模型
     /// </summary>
-    public class LoginViewModel : NotifyObject
+    public class LoginViewModel : BaseViewModel
     {
         #region 构造函数
         private UserService UserService { get; set; }
-
-        public DelegateCommand LoginCommand { get; set; }
         public LoginViewModel(UserService userService)
         {
             this.UserService = userService;
-            this.LoginCommand = new DelegateCommand(this.Login);
         }
         #endregion
 
@@ -56,12 +54,23 @@ namespace Anchi.ERP.UI.ViewModels
 
         #region 事件
         /// <summary>
+        /// 登录命令
+        /// </summary>
+        public ICommand LoginCommand
+        {
+            get
+            {
+                return new DelegateCommand<PasswordBox>(this.Login);
+            }
+        }
+
+        /// <summary>
         /// 登录事件
         /// </summary>
         /// <param name="password"></param>
-        private void Login(object passwordBox)
+        private void Login(PasswordBox txtPassword)
         {
-            this.Password = (passwordBox as PasswordBox).Password;
+            this.Password = txtPassword.Password;
 
             if (string.IsNullOrWhiteSpace(this.LoginName))
             {

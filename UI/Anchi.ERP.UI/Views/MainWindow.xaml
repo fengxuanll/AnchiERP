@@ -21,12 +21,12 @@
             </Fluent:Ribbon.Menu>
 
             <!--Tabs-->
-            <Fluent:RibbonTabItem Header="Home">
-                <Fluent:RibbonGroupBox Header="Group">
-                    <Fluent:Button Header="Green"
+            <Fluent:RibbonTabItem Header="业务录入">
+                <Fluent:RibbonGroupBox Header="销  售">
+                    <Fluent:Button Header="销售开单"
                                 Icon="Resource-Path to your small icon for this button"
                                 LargeIcon="Resource-Path to your large icon for this button" />
-                    <Fluent:Button Header="Grey" 
+                    <Fluent:Button Header="销售退款" 
                                 Icon="Resource-Path to your small icon for this button"
                                 LargeIcon="Resource-Path to your large icon for this button" />
                 </Fluent:RibbonGroupBox>

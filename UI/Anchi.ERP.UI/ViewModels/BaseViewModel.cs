@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace Anchi.ERP.UI.ViewModels
 {
     /// <summary>
-    /// 
+    /// ViewModel基类
     /// </summary>
-    public class NotifyObject : INotifyPropertyChanged
+    public class BaseViewModel :  INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

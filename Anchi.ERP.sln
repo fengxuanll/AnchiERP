@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{01C1B850-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Lib", "1-Lib", "{41624BDC-022E-4D70-8D5A-B3EEE1DF6B6E}"
 	ProjectSection(SolutionItems) = preProject
-		1-Lib\CSkin.dll = 1-Lib\CSkin.dll
-		1-Lib\DMSkin.dll = 1-Lib\DMSkin.dll
 		1-Lib\ServiceStack.Common.dll = 1-Lib\ServiceStack.Common.dll
 		1-Lib\ServiceStack.Interfaces.dll = 1-Lib\ServiceStack.Interfaces.dll
 		1-Lib\ServiceStack.OrmLite.dll = 1-Lib\ServiceStack.OrmLite.dll

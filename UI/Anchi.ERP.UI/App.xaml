@@ -4,5 +4,7 @@
              xmlns:local="clr-namespace:Anchi.ERP.UI">
     <Application.Resources>
         <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+        <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Cobalt.xaml" />-->
+        <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/BaseLight.xaml" />-->
     </Application.Resources>
 </Application>
